@@ -11,6 +11,8 @@
     "mocha": "^10.2.0",
     "passport": "^0.6.0",
     "passport-github": "^1.1.0",
+    "pg": "^8.10.0",
+    "sequelize": "^6.29.2",
     "supertest": "^6.3.3",
     "supertest-session": "^4.1.0"
   }
