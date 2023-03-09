@@ -1,11 +1,18 @@
 require('dotenv').config()
-const express = require('express')
+const express = require('express');
 const app = express()
+const route = require('./routes/')
+const sequelize = require('./database')
 
-app.get('/', (req, res) => {
-    return res.json({msje: 'en home'})
-})
+// middlewares
+app.use(express.json())
+sequelize.sync({ force: true })
 
+app.use(route)
+
+// inicio de server
 app.listen(3001, () => {
     console.log('API ACTIVADA')
 })
+
+module.exports = { app };
