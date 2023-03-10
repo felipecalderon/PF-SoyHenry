@@ -1,4 +1,5 @@
 import Card from "./Card"
+import useFetch from "../Hooks/useFetch";
 
 //la info de cards vendrá desde api en el backend
 const cards = [
@@ -10,7 +11,7 @@ const Cards = () => {
     return (
     <div className="flex flex-wrap gap-3 justify-center dark:bg-slate-600 py-6">
       {cards.map((card) => (
-        <Card title={card.title} description={card.description} />
+        <Card key={card.title} title={card.title} description={card.description} />
       ))}
     </div>
     )
