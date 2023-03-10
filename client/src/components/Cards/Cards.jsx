@@ -1,19 +1,26 @@
 import Card from "./Card"
 import useFetch from "../Hooks/useFetch";
+import {getPostList} from '../../redux/slices/postSlices'
+import {useDispatch, useSelector} from "react-redux";
+import { useEffect } from "react";
 
-//la info de cards vendrá desde api en el backend
-const cards = [
-    { title: 'Jr. Javascript Backend Nodejs', description: 'Buscamos un trabajador experto en express y auth token' },
-    { title: 'Trainee Tailwindcss UI UX', description: 'Se necesita un experto en diseño responsive con tailwind' },
-    { title: 'Senior React Tester', description: 'Se busca QA expert en el campo de react con redux toolkit' },
-  ];
-
+const url = 'http://localhost:3001/home?language=javascript'
 const Cards = () => {
+    const dispatch = useDispatch()
+    const { postJobs } = useSelector((state) => state.postSlice) 
+    const {data, isLoading} = useFetch(url)
+
+    useEffect(() => {
+        dispatch(getPostList(data))
+    }, [dispatch, data])
+
     return (
     <div className="flex flex-wrap gap-3 justify-center dark:bg-slate-600 py-6">
-      {cards.map((card) => (
+      { 
+      postJobs?.slice(0,6).map((card) => (
         <Card key={card.title} title={card.title} description={card.description} />
-      ))}
+          ))
+      }
     </div>
     )
 }
