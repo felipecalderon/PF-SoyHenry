@@ -3,9 +3,11 @@ const express = require('express');
 const app = express()
 const route = require('./routes/')
 const sequelize = require('./database')
+const cors = require('cors')
 
 // middlewares
 app.use(express.json())
+app.use(cors())
 sequelize.sync({ force: true })
 
 app.use(route)
