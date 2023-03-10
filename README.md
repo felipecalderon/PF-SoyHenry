@@ -1,6 +1,6 @@
 # PF-SoyHenry
 
-les presento nuestro proyecto: Fusionajobs. Este es un portal de empleos que se presenta como el nexo entre empresas y trabajadores. Nuestra idea es crear una plataforma que facilite la búsqueda de trabajo y la contratación de personal.
+Les presento nuestro proyecto: Fusionajobs. Este es un portal de empleos que se presenta como el nexo entre empresas y trabajadores. Nuestra idea es crear una plataforma que facilite la búsqueda de trabajo y la contratación de personal.
 
 Para ello, nos enfocamos en el desarrollo de ciertos requisitos tecnológicos que consideramos esenciales para el correcto funcionamiento de la plataforma. En primer lugar, el despliegue es un requisito excluyente, para lo cual utilizaremos Railway para la base de datos, y Vercel para el Front y el Back.
 
