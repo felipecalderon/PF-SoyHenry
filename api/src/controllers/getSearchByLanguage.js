@@ -6,7 +6,7 @@ const getSearchByLanguage = async (search) => {
         
         return jobs.data.map(job => {
             return {
-                title: job.attributes. title,
+                title: job.attributes.title,
                 description: job.attributes.description
             } } )
 
