@@ -1,4 +1,4 @@
-import { configureStore} from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import postSlice from './slices/postSlices'
 export default configureStore({
     reducer: {

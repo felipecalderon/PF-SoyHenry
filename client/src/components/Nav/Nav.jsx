@@ -20,9 +20,10 @@ export const Nav = () => {
             <div className={style.botonTrabajos}>
                 <Link>
                     <select name='Trabajos'>
-                        <option value='value1'>Trabajos</option>
-                        <option value='value2'>Value 2</option>
-                        <option value='value3'>Value 3</option>
+                        <option value='trabajos'>Trabajos</option>
+                        <option value='remoto'>Remoto</option>
+                        <option value='presencial'>Presencial</option>
+                        <option value='hibrido'>Híbrido</option>
                     </select>
                 </Link>
             </div>
@@ -35,7 +36,7 @@ export const Nav = () => {
             <div  className={style.botonIngreso}>
                 <Link><button>Ingreso</button></Link>
             </div>
-            <div> // Boton dark mode
+            <div> {/*Boton dark mode*/}
                 <label className={style.switch}>
                     <input type="checkbox"/>
                     <span className={style.slider}/>
