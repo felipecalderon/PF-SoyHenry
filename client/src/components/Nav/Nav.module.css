@@ -1,36 +1,81 @@
 .nav {
-    background-color: black;
-    width: 100vw;
-    height: 4rem;
+  position: relative;
+  background-color: black;
+  width: 100vw;
+  height: 4rem;
 }
 
 img {
-    display: flex;
-    height: 4rem;
-    width: 12rem;
-    margin-left: 2rem;
-    margin-bottom: 0;
+  display: flex;
+  height: 4rem;
+  width: 15rem;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.buttons > * {
+  display: inline-block;
+  color: #fff000;
 }
 
 .botonInicio {
-    display: flex;
-    color: green;
-    position: relative;
-    margin-top: 5rem;
-    padding: 0;
+  position: relative;
+  margin-left: 1rem;
 }
 
+.botonPlanes {
+  margin-left: 1rem;
+}
 
+/* Si necesitas ajustar la posición de los botones */
+.botonEmpleadores {
+  margin-left: 1rem;
+}
+
+.botonTrabajos {
+  position: relative;
+}
+
+.botonTrabajos select {
+  color: yellow;
+  background-color: black;
+  padding: 0.5rem;
+  border: none;
+  appearance: none;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.botonRegistro {
+  margin-left: 12rem;
+}
+
+.botonIngreso {
+  margin-left: 1rem;
+}
 
 /* The switch - the box around the slider */
 .switch {
     font-size: 17px;
     position: relative;
     display: inline-block;
-    width: 3.5em;
-    height: 2em;
-    margin-left: 70rem;
-    margin-bottom: 8rem;
+    width: 3.6rem;
+    height: 2rem;
+    margin-left: 1.5rem;
   }
   
   /* Hide default HTML checkbox */

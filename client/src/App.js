@@ -1,15 +1,14 @@
-import style from './App.css';
 import { Nav } from './components/Nav/Nav'
-import Card from './components/Cards/Card'
+import Cards from './components/Cards/Cards'
 
 function App() {
   return (
     <div>
-      <div className={style.nav}>
+      <div>
         <Nav/>
       </div>
       <div>
-        <Card />  
+        <Cards/>  
       </div>      
     </div>
   );
