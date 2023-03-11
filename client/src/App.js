@@ -1,18 +1,16 @@
-import './App.css';
+import { Nav } from './components/Nav/Nav'
+import Cards from './components/Cards/Cards'
 
 function App() {
   return (
-    <div className="flex bg-black rounded-3xl ">
-        <div className="flex-none w-14 h-14 text-white">
-          01
-        </div>
-        <div className="flex-initial w-64">
-          02
-        </div>
-        <div className="flex-initial w-32">
-          03
-        </div>
+    <div>
+      <div>
+        <Nav/>
       </div>
+      <div>
+        <Cards/>  
+      </div>      
+    </div>
   );
 }
 
