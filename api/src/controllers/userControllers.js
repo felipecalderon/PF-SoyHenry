@@ -1,4 +1,14 @@
-const User = require('../models/userModel')
+const {
+    createUsers,
+    getUsers,
+    getUsersById,
+    getUsersByName,
+    deleteUsers,
+    getUsersInact,
+    getUsersInactById,
+    putState,
+    putUsers
+} = require('../handlers/handlerUserModels') 
 
 const createUsersController = async ( { nombres, apellidos, celular, correo, discapacidad, genero } ) => {
     // Trae los datos del cuepo de la req.

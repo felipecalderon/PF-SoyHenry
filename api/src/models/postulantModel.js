@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('./sequelize');
-const User = require('./user');
+const sequelize = require('../database');
 
 const Postulant = sequelize.define('Postulant', {
   id: {
@@ -10,7 +9,5 @@ const Postulant = sequelize.define('Postulant', {
   },
   // otros campos específicos de Postulant
 });
-
-Postulant.belongsTo(User, { foreignKey: 'roleId' });
 
 module.exports = Postulant;
