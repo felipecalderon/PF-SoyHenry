@@ -10,6 +10,4 @@ const Company = sequelize.define('Company', {
   // otros campos específicos de Company
 });
 
-Company.belongsTo(User, { foreignKey: 'roleId' });
-
 module.exports = Company

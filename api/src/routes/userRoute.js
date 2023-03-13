@@ -10,7 +10,7 @@ const {
 
 const allUsers = async (req, res) => {
     try {
-        const data = await(createUsersController)
+        const data = await(getUsersControllers(req.query))
         res.status(200).json(data)
     } catch (error) {
         res.status(404).json(error)

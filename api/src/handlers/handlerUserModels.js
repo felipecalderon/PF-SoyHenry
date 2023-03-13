@@ -10,10 +10,9 @@ const createUsers = async ( nombres, apellidos, celular, correo, discapacidad, g
     return newUser;
 };
 
-// Gets
 //      Activos
 const getUsers = async () => {
-    const users = await UsersModel.findAll({
+    const users = await User.findAll({
         where: {
             estado: 1
         },
@@ -21,7 +20,7 @@ const getUsers = async () => {
     return users;
 };
 const getUsersByName = async ( name ) => {
-    const users = await Users.findAll({
+    const users = await User.findAll({
         where: {
             nombres: { [Op.iLike]: `%${name}%` },
             estado: 1
@@ -30,7 +29,7 @@ const getUsersByName = async ( name ) => {
     return users;
 };
 const getUsersById = async ( id ) => {
-    const user = await Users.findByPk( id, {
+    const user = await User.findByPk( id, {
         where: {
             estado: 1
         },
@@ -40,7 +39,7 @@ const getUsersById = async ( id ) => {
 
 //      Inactivos
 const getUsersInact = async () => {
-    const usersInact = await Users.findAll({
+    const usersInact = await User.findAll({
         where: {
             estado: 0
         },
@@ -48,7 +47,7 @@ const getUsersInact = async () => {
     return usersInact;
 };
 const getUsersInactById = async ( id ) => {
-    const userInact = await Users.findByPk( id, {
+    const userInact = await User.findByPk( id, {
         where: {
             estado: 0
         },
@@ -59,14 +58,14 @@ const getUsersInactById = async ( id ) => {
 // Puts
 const putUsers = async ( id, nombres, apellidos, celular, correo, discapacidad, genero ) => {
     // Comprueba si existe el usuario
-    const user = await Users.findByPk( id );
+    const user = await User.findByPk( id );
     if( !user ) throw Error( `El usuario con id: ${id} no existe` );
     
     // Comprueba si falta algun dato
     if( !nombres || !apellidos || !celular || !correo || !discapacidad || !genero ) throw Error('Faltan Datos');
 
     // Actualiza los datos
-    await Users.update(
+    await User.update(
         { nombres, apellidos, celular, correo, discapacidad, genero },
         {
             where: { id }
@@ -76,7 +75,7 @@ const putUsers = async ( id, nombres, apellidos, celular, correo, discapacidad, 
 };
 const putState = async ( id, estado ) => {
     // Comprueba si existe el usuario
-    const user = await Users.findByPk( id );
+    const user = await User.findByPk( id );
     if( !user ) throw Error( `El id: ${id} no existe` );
 
     // Actualiza el estado
@@ -91,7 +90,7 @@ const putState = async ( id, estado ) => {
 
 // Delete
 const deleteUsers = async ( id ) => {
-    const deleteUsers = await Users.findByPk( id );
+    const deleteUsers = await User.findByPk( id );
     await deleteUsers.destroy();
     return `${deleteUsers.nombres} ha sido eliminado con éxito de la base de datos.`;
 };
