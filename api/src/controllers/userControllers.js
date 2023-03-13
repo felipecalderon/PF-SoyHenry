@@ -16,6 +16,7 @@ const createUsersController = async ( { nombres, apellidos, celular, correo, dis
         const newUser = await createUsers( nombres, apellidos, celular, correo, discapacidad, genero );
         return newUser
     } catch (error) {
+        console.log(error)
         throw { error: error.message }
     }
 };
@@ -26,6 +27,7 @@ const getUsersControllers = async ( { name } ) => {
         const response = name ? await getUsersByName( name ) : await getUsers();
         return response
     } catch (error) {
+        console.log(error)
         throw { error: error.message }
     }
 };

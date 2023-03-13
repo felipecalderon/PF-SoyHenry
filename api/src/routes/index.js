@@ -5,8 +5,8 @@ const { homeRoute, companiesRoute } = require('./homeRoute')
 
 const route = Router()
 
-route.get('/users', allUsers)
-route.get('/home' , homeRoute)
+route.get('/user/', allUsers)
+route.get('/jobs/' , homeRoute)
 route.get('/company/:id', companiesRoute)
 
 module.exports = route
