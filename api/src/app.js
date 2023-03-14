@@ -7,6 +7,9 @@ const cors = require('cors')
 
 // middlewares
 app.use(express.json())
+app.use(express.urlencoded({
+    extended: true
+}))
 app.use(cors())
 sequelize.sync({ force: true })
 
