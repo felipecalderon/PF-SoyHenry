@@ -1,5 +1,6 @@
 import { Nav } from './components/Nav/Nav'
 import Cards from './components/Cards/Cards'
+import LandingPage from './components/LandingPage/LandingPage';
 
 function App() {
   return (
@@ -8,8 +9,14 @@ function App() {
         <Nav/>
       </div>
       <div>
+        <LandingPage/>
+        </div>
+
+      <div>
         <Cards/>  
-      </div>      
+      </div>     
+      
+       
     </div>
   );
 }
