@@ -7,23 +7,24 @@ const Postulant = sequelize.define('Postulant', {
         autoIncrement: true,
         primaryKey: true,
     },
-    nombres:{
+    names:{
         type: DataTypes.STRING,
         isAlpha:true,
     },
-    apellidos:{
+    lastnames:{
         type: DataTypes.STRING,
         isAlpha:true,
     },
-    celular:{
-        type: DataTypes.INTEGER,
+    phone:{
+        type: DataTypes.STRING,
+        isNumeric: true, 
         unique: true,
     },
-    discapacidad:{
+    disability:{
         type: DataTypes.STRING,
         isAlpha:true,
     },
-    genero:{
+    gender:{
         type: DataTypes.ENUM('Femenino', 'Masculino', 'Prefiero no decirlo'),
     },
 })
