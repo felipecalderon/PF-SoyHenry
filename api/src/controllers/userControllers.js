@@ -10,14 +10,13 @@ const {
     putUsers
 } = require('../handlers/handlerUserModels') 
 
-const createUsersController = async ( { nombres, apellidos, celular, correo, discapacidad, genero } ) => {
-    // Trae los datos del cuepo de la req.
+const createUsersController = async (body) => {
+    // Trae los datos de req.body destructurado en la fn
     try {
-        const newUser = await createUsers( nombres, apellidos, celular, correo, discapacidad, genero );
+        const newUser = await createUsers(body);
         return newUser
     } catch (error) {
-        console.log(error)
-        throw { error: error.message }
+        throw error
     }
 };
 
@@ -96,5 +95,3 @@ module.exports = {
     putStateControllers,
     deleteUsersControllers
 }
-
-module.exports = { getUsers }
