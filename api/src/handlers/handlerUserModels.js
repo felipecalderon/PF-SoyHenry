@@ -3,19 +3,19 @@ const { Op } = require("sequelize");
 const { User, Admin, Postulant } = require("../models/relations.js");
 
 // Post
-const createUsers = async ({ username, email, rol, nombres, apellidos, celular, discapacidad, activo, genero }) => {
+const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, genere }) => {
     try {
         const newUser = await User.create({
-        username, email, rol, activo
+        username, email, rol, active
         });
-
+        
         const newPostulant = await Postulant.create({
-          nombres, apellidos, celular, discapacidad, genero,
-          userId: newUser.id
+            names, lastnames, phone, disability, genere, 
+            userId: newUser.id
         });
         return newPostulant
     } catch(err) {
-      throw err
+        throw err
     }
 }
 
@@ -23,7 +23,7 @@ const createUsers = async ({ username, email, rol, nombres, apellidos, celular, 
 const getUsers = async () => {
     const users = await User.findAll({
         where: {
-            estado: 1
+            active: true
         },
     });
     return users;
