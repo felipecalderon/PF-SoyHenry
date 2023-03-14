@@ -18,12 +18,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "develop": "concurrently \"react-scripts start\" \" nodemon ./src/services/server.js\"",
-    "start": "concurrently \"react-scripts start\" \" node ./src/services/server.js\"",
+    "develop": "concurrently \"react-scripts start\" \" nodemon ./src/index.js\"",
+    "start": "react-scripts start",
     "build": "CI=false react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "seeds": "node ./src/services/seeds/index.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
