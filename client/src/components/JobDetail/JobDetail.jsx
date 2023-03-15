@@ -1,10 +1,11 @@
 import React ,{ useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllJobInfo } from "../../redux/slices/postSlices";
 
 
-const JobDetail = ({jobId}) => {
+const JobDetail = (props) => {
 const dispatch = useDispatch();
+const jobId = useSelector(state => state.getAllJobInfo)
 
 useEffect(()=>{
   const fetchJobInfo= async ()=>{
