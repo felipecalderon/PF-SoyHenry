@@ -1,6 +1,6 @@
-import React ,{ useEffect } from "react";
+import React ,{ useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllJobInfo } from "../../redux/slices/postSlices";
+import { getDataPostulacion, getDataEmpresa } from "../../redux/slices/postSlices";
 import useFetch from '../Hooks/useFetch'
 
 const JobDetail = (props) => {
@@ -8,10 +8,16 @@ const dispatch = useDispatch();
 const {jobId} = useSelector((state) => state.postSlice)
 const url = 'http://localhost:3001/jobs?language=javascrip'
 const {data} = useFetch(url)
+const [empresa, setEmpresa] = useState(null)
+
+
 
 useEffect(() => {
-  if(data) dispatch(getAllJobInfo(data[0]))
-}, [dispatch, data])
+  if(data) dispatch(getDataPostulacion(data[0]))
+  if(jobId) fetch(`http://localhost:3001/company/${jobId.idEmpresa}`)
+  .then(res => res.json())
+  .then(data => setEmpresa(data))
+}, [dispatch, data, jobId])
 
     if(!jobId) return null
     
@@ -20,11 +26,11 @@ useEffect(() => {
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
           <div className="md:flex">
             <div className="md:flex-shrink-0">
-              <img className="h-48 w-full object-cover md:w-48" src="" alt="Job Posting" />
+              <img className="h-48 w-full object-cover md:w-48" src={empresa ? empresa.logo : null} alt="Job Posting" />
             </div>
             <div className="p-8">
-            <span class="material-symbols-outlined">star_rate</span>  {/* como solucionar */}
-              <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">{jobId.idEmpresa}</div>
+            <span className="material-symbols-outlined">star_rate</span>  {/* como solucionar */}
+              <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">{empresa ? empresa.name : null}</div>
               <h2 className="text-2xl font-semibold text-gray-800">{jobId.title}</h2>
               <div>{jobId.modality}</div>
               <p className="mt-2 text-gray-600">{jobId.description}</p>
@@ -32,9 +38,10 @@ useEffect(() => {
               <div className="mt-4">
                 <h3 className="text-lg font-semibold text-gray-800">Requisitos</h3>
                 <ul className="list-disc list-inside mt-2 text-gray-600">
-                  <li>{jobId.perks[0]}</li>
-                  <li>{jobId.perks[1]}</li>
-                  <li>{jobId.perks[2]}</li>
+                {jobId?.perks?.map((requisito) => {
+                  return <li key={requisito}>{requisito}</li>
+                }).slice(0,3)}
+              
                 </ul>
               </div>
               <div>Rango salarial: {jobId.min_salary && jobId.max_salary}</div>
