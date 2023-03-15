@@ -20,7 +20,7 @@ const{allCompany,
     }=require('./companyRoute');
 //
 
-const route = Router()
+const route = Router();
 
 // users
 route.get('/user', allUsers)
