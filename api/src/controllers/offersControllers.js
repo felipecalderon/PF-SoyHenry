@@ -16,22 +16,20 @@ const createOfferController = async (body) => {
 }
 
 // gets
-const getAllOffersController = async ({language}) => {
+const getAllOffersController = async (querys) => {
     try {
         // DataBase
-        const offer_db = await getOffersDb();
+        // const offer_db = await getOffersDb();
         
         // Apis
         //      Api Getonbrd
-        if(!language) throw 'debe agregar un language en query'
-        const jobsGetonbrd = await getOffersApiGetonbrd(language);
-        
+        const { data } = await getOffersApiGetonbrd(querys);
         // concatena las ofertas de las apis y de la DB
-        all_offers = [  ...offer_db, ...jobsGetonbrd ] 
+        // all_offers = [  ...offer_db, ...data ] 
         
-        return all_offers
+        return data
     } catch (error) {
-        return error
+        throw error
     }
 }
 

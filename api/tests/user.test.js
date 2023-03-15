@@ -2,7 +2,18 @@ const { expect } = require('chai');
 const { app } = require('../src/app.js');
 const session = require('supertest-session');
 const agent = session(app);
+const usuarioPostulante = {
+  username: 'pipeee',
+  email: 'felipe@gmail.com',
+  active: true,
+  rol: 'Postulant',
+  names: 'felipe eduardo',
+  lastnames: 'calderon espinoza',
+  phone: '5698989879',
+  disability: false,
+  gender: 'Masculino',
 
+}
 describe('User Routes (Rutas con info de usuarios)', () => {
   it('debería responder status 200 en ruta de todos los usuarios', () =>
     agent.get('/user')
