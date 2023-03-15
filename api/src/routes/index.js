@@ -23,8 +23,6 @@ route.get('/jobs' , allOffers)
 // company
 route.get('/company/:id', companiesRoute)
 
-<<<<<<< HEAD
-=======
 //admin
 route.get('/admin',allAdmin )
 route.post('/admin',createAdmin )
@@ -33,5 +31,4 @@ route.delete('/admin/:id', deleteadmin)
 route.get('/admin/:id',getadminbyid)
 //
 
->>>>>>> a2cbde1651922db0cb2c2d4c2905cd9dd021325d
 module.exports = route;
