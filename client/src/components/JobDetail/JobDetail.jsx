@@ -11,11 +11,13 @@ useEffect(()=>{
   const fetchJobInfo= async ()=>{
   const response = await fetch(`http://localhost:3001/jobs?language=javascrip`);
   const data = await response.json();
-  dispatch(getAllJobInfo(data));
+  dispatch(getAllJobInfo(data[0]));
+ 
 };
+console.log(jobId)
 fetchJobInfo();
-}, [dispatch])
-
+}, [dispatch, jobId])
+if(jobId.length === 0 || !jobId )return null
     return (
       <div className="bg-gray-100 py-8">
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">

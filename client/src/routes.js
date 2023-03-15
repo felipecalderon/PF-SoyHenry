@@ -13,7 +13,7 @@ export const rutas = createBrowserRouter([
       element: <Cards />
     },
     {
-      path:'/detail/:id',
+      path:'/detail',
       element: <JobDetail />
     }
 ])
