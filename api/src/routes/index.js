@@ -23,4 +23,12 @@ route.get('/jobs' , allOffers)
 // company
 route.get('/company/:id', companiesRoute)
 
+//admin
+// route.get('/admin',allAdmin )
+// route.post('/admin',createAdmin )
+// route.put('/admin/:id', putAdmin)
+// route.delete('/admin/:id', deleteadmin)
+// route.get('/admin/:id',getadminbyid)
+//
+
 module.exports = route;

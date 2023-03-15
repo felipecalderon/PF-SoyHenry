@@ -21,13 +21,21 @@ const getOffersDb = async () => {
     const offerts_db = await Offers.findAll();
     return offerts_db;
 }
-const getOffersApiGetonbrd = async (language) => {
+
+const getOffersApiGetonbrd = async ({language = 'junior', page = 1, limit = 10}) => {
     try {
+        if(!language) throw 'debe agregar un language en query'
         let dataAPI = await axios(`https://www.getonbrd.com/api/v0/search/jobs?query=${language}`);
         const offers = cleaningGetonbrd( dataAPI.data );
-        return offers;
+        const startIndex = (page - 1) * limit;
+        const endIndex = Number(startIndex) + Number(limit);
+        const total = offers.length;
+        const data = offers.slice(startIndex, endIndex);
+        return { total, page, data };
+        
     } catch (error) {
-        return error
+        console.log(error)
+        throw error
     }
 }
 

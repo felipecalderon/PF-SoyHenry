@@ -1,12 +1,13 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../database');
 
 const Postulant = sequelize.define('Postulant', {
-    id:{
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false,
         primaryKey: true,
-    },
+      },
     names:{
         type: DataTypes.STRING,
         isAlpha:true,

@@ -1,20 +1,37 @@
 // const{ Users } = require('../database.js')
 const { Op } = require("sequelize");
-const { User, Admin, Postulant } = require("../models/relations.js");
+const { User, Admin, Postulant, Company } = require("../models/relations.js");
 
 // Post
-const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, genere }) => {
+const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, gender, password, name, description, location, website, logo}) => {
     try {
-        const newUser = await User.create({
-        username, email, rol, active
-        });
-        
-        const newPostulant = await Postulant.create({
-            names, lastnames, phone, disability, genere, 
-            userId: newUser.id
-        });
-        return newPostulant
+        const usuario = await User.create({
+            username, email, rol, active, password
+            });
+        switch (rol) {
+            case 'Postulante':
+                const dataPostulante = await Postulant.create({
+                        names, lastnames, phone, disability, gender, 
+                        userId: usuario.id
+                    });
+                return dataPostulante
+            case 'Empresa':                       
+                const dataEmpresa = await Company.create({
+                    name, description, phone, location, gender, website, logo, 
+                        userId: usuario.id
+                    });
+                return dataEmpresa
+            // case 'Admin':
+            //     const dataAdmin = await Admin.create({
+            //             /* Data del admin */
+            //             userId: usuario.id
+            //         });
+            //     return dataAdmin
+            default:
+                throw 'Tipo de usuario no válido'
+        }
     } catch(err) {
+        console.log(err)
         throw err
     }
 }
