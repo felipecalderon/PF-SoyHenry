@@ -1,23 +1,20 @@
 import React ,{ useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllJobInfo } from "../../redux/slices/postSlices";
-
+import useFetch from '../Hooks/useFetch'
 
 const JobDetail = (props) => {
 const dispatch = useDispatch();
-const jobId = useSelector(state => state.getAllJobInfo)
+const {jobId} = useSelector((state) => state.postSlice)
+const url = 'http://localhost:3001/jobs?language=javascrip'
+const {data} = useFetch(url)
 
-useEffect(()=>{
-  const fetchJobInfo= async ()=>{
-  const response = await fetch(`http://localhost:3001/jobs?language=javascrip`);
-  const data = await response.json();
-  dispatch(getAllJobInfo(data[0]));
- 
-};
-console.log(jobId)
-fetchJobInfo();
-}, [dispatch, jobId])
-if(jobId.length === 0 || !jobId )return null
+useEffect(() => {
+  if(data) dispatch(getAllJobInfo(data[0]))
+}, [dispatch, data])
+
+    if(!jobId) return null
+    
     return (
       <div className="bg-gray-100 py-8">
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
@@ -27,20 +24,20 @@ if(jobId.length === 0 || !jobId )return null
             </div>
             <div className="p-8">
             <span class="material-symbols-outlined">star_rate</span>  {/* como solucionar */}
-              <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">{jobId?.idEmpresa}</div>
-              <h2 className="text-2xl font-semibold text-gray-800">{jobId?.title}</h2>
-              <div>{jobId?.modality}</div>
-              <p className="mt-2 text-gray-600">{jobId?.description}</p>
-              <div>{jobId?.benefits}</div>
+              <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">{jobId.idEmpresa}</div>
+              <h2 className="text-2xl font-semibold text-gray-800">{jobId.title}</h2>
+              <div>{jobId.modality}</div>
+              <p className="mt-2 text-gray-600">{jobId.description}</p>
+              <div>{jobId.benefits}</div>
               <div className="mt-4">
                 <h3 className="text-lg font-semibold text-gray-800">Requisitos</h3>
                 <ul className="list-disc list-inside mt-2 text-gray-600">
-                  <li>{jobId?.perks[0]}</li>
-                  <li>{jobId?.perks[1]}</li>
-                  <li>{jobId?.perks[2]}</li>
+                  <li>{jobId.perks[0]}</li>
+                  <li>{jobId.perks[1]}</li>
+                  <li>{jobId.perks[2]}</li>
                 </ul>
               </div>
-              <div>Rango salarial: {jobId?.min_salary && jobId?.max_salary}</div>
+              <div>Rango salarial: {jobId.min_salary && jobId.max_salary}</div>
               <div className="mt-8">
                 <button className="bg-purple-400 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-full">
                   Aplicar 
