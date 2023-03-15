@@ -29,6 +29,6 @@ route.get('/company/:id', companiesRoute)
 // route.put('/admin/:id', putAdmin)
 // route.delete('/admin/:id', deleteadmin)
 // route.get('/admin/:id',getadminbyid)
-
+//
 
 module.exports = route;
