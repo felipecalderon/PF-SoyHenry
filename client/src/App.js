@@ -5,9 +5,7 @@ import LandingPage from './components/LandingPage/LandingPage';
 function App() {
   return (
     <div>
-      <div>
-        <NavLanding/>
-      </div>
+      
       <div>
         <LandingPage/>
         </div>
