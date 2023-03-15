@@ -24,11 +24,11 @@ route.get('/jobs' , allOffers)
 route.get('/company/:id', companiesRoute)
 
 //admin
-route.get('/admin',allAdmin )
-route.post('/admin',createAdmin )
-route.put('/admin/:id', putAdmin)
-route.delete('/admin/:id', deleteadmin)
-route.get('/admin/:id',getadminbyid)
+// route.get('/admin',allAdmin )
+// route.post('/admin',createAdmin )
+// route.put('/admin/:id', putAdmin)
+// route.delete('/admin/:id', deleteadmin)
+// route.get('/admin/:id',getadminbyid)
 //
 
 module.exports = route;
