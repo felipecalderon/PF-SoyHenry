@@ -1,4 +1,4 @@
-import { Nav } from './components/Nav/Nav'
+import { NavLanding } from './components/NavLanding/NavLanding'
 import Cards from './components/Cards/Cards'
 
 
@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <div>
-        <Nav/>
+        <NavLanding/>
       </div>
       <div>
         <Cards/>  
@@ -16,4 +16,11 @@ function App() {
   );
 }
 
+{/* <Switch>
+<Route exact path='/' component={LandingPage}/>
+<Route exact path='/home' component={Cards}/>
+<Route path='' component={Detail}/>
+<Route/>
+</Switch>  */}
 export default App;
+

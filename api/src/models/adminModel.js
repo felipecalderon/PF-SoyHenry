@@ -1,13 +1,21 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../database');
 
 const Admin = sequelize.define('Admin', {
   id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    allowNull: false,
     primaryKey: true,
   },
-  // otros campos específicos de Admin
-});
+  names:{
+    type: DataTypes.STRING,
+    isAlpha:true,
+  },
+  lastnames:{
+      type: DataTypes.STRING,
+      isAlpha:true,
+  },
+}); 
 
 module.exports = Admin
