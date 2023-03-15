@@ -1,38 +1,21 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../database');
 
 const Admin = sequelize.define('Admin', {
   id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    allowNull: false,
     primaryKey: true,
   },
-  aptitudes: {
+  names:{
     type: DataTypes.STRING,
-    allowNull: false,
+    isAlpha:true,
   },
-  usuarios: {
-    type: DataTypes.STRING,
-    allowNull: false,
+  lastnames:{
+      type: DataTypes.STRING,
+      isAlpha:true,
   },
-  empresas: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-
-  publicaciones: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  rol: {
-    type: DataTypes.ENUM("Admin", "Postulante", "Empresa"),
-    allowNull: false,
-  },
-  activo:{
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
-  },
-  // otros campos específicos de Admin
-});
+}); 
 
 module.exports = Admin
