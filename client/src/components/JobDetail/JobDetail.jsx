@@ -6,7 +6,7 @@ import useFetch from '../Hooks/useFetch'
 const JobDetail = (props) => {
 const dispatch = useDispatch();
 const {jobId} = useSelector((state) => state.postSlice)
-const url = 'http://localhost:3001/jobs?language=javascrip'
+const url = 'http://localhost:3001/jobs'
 const {data} = useFetch(url)
 const [empresa, setEmpresa] = useState(null)
 
