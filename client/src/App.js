@@ -1,12 +1,15 @@
 import { NavLanding } from './components/NavLanding/NavLanding'
 import Cards from './components/Cards/Cards'
+import LandingPage from './components/LandingPage/LandingPage';
 
 function App() {
   return (
     <div>
+      
       <div>
-        <NavLanding/>
-      </div>
+        <LandingPage/>
+        </div>
+
       <div>
         <Cards/>
       </div>
