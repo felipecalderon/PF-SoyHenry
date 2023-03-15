@@ -1,5 +1,6 @@
 import { Nav } from './components/Nav/Nav'
 import Cards from './components/Cards/Cards'
+import JobDetail from './components/JobDetail/JobDetail';
 
 function App() {
   return (
@@ -9,7 +10,8 @@ function App() {
       </div>
       <div>
         <Cards/>  
-      </div>      
+      </div>   
+      <div> <JobDetail/></div>  
     </div>
   );
 }

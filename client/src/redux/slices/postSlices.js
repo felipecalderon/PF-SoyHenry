@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     postJobs: [],
-    postData: null
+    postData: null,
+    jobId:[],
 }
 
 export const postSlice = createSlice({
@@ -32,10 +33,19 @@ export const postSlice = createSlice({
         return (nombre1 > nombre2) ? -1 : (nombre1 < nombre2) ? 1 : 0;
       });
     },
+
+    getAllJobInfo: (state, action)=>{
+     state.jobId = action.payload
+    },
   },
 })
 
 
-export const { getPostList, getPostData, orderPostListAZ, orderPostListZA} = postSlice.actions
-export default postSlice.reducer
+
+
+
+
+
+export const { getPostList, getPostData, orderPostListAZ, orderPostListZA, getAllJobInfo} = postSlice.actions
+export default postSlice.reducer;  
 

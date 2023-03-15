@@ -18,7 +18,7 @@ export const Nav = () => {
         <nav className="relative dark:bg-black bg-slate-300 w-screen h-16">
       <div className="container flex justify-start items-center h-full w-full mx-auto px-4">
         <img src={logofusionajob} alt='logo' className="flex h-16 w-60 mr-4" />
-        <div className="flex items-center dark:text-yellow-400 text-gray-900">
+        <div className="flex items-center dark:text-yellow-100 text-gray-900">
           <Link href="#" className="inline-block dark:hover:text-yellow-200 font-medium px-4 py-2">Inicio</Link>
           <Link href="#" className="inline-block dark:hover:text-yellow-200 font-medium px-4 py-2">Empleadores</Link>
           <div className="relative">
@@ -33,7 +33,7 @@ export const Nav = () => {
             <Link href="#" className="inline-block hover:text-yellow-200 font-medium px-4 py-2">Registro</Link>
             <Link href="#" className="inline-block hover:text-yellow-200 font-medium px-4 py-2">Ingreso</Link>
           <div className="ml-6">
-            <button onClick={handleToggle} id="toggleButton" class="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">{isDarkMode ? 'Día' : 'Noche'}</button>
+            <button onClick={handleToggle} id="toggleButton" className="py-2 px-4 bg-purple-400 text-white font-semibold rounded-lg shadow-md hover:bg-purple-900 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">{isDarkMode ? 'Día' : 'Noche'}</button>
           </div>
         </div>
       </div>
