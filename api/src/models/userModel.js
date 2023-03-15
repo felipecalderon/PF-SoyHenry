@@ -1,6 +1,6 @@
 const { DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../database');
-
+const {hashSync, genSaltSync} = require('bcrypt')
 const User = sequelize.define('User', {
   id: {
     type: DataTypes.UUID,
@@ -12,6 +12,10 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   username: {
     type: DataTypes.STRING,
@@ -25,6 +29,11 @@ const User = sequelize.define('User', {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
+});
+
+User.beforeCreate((user) => {
+  const hashedPassword = hashSync(user.password, genSaltSync(10));
+  user.password = hashedPassword;
 });
 
 module.exports = User

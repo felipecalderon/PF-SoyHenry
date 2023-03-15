@@ -1,13 +1,39 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('./sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
+const sequelize = require('../database');
 
 const Company = sequelize.define('Company', {
   id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    allowNull: false,
     primaryKey: true,
   },
-  // otros campos específicos de Company
+  name:{
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description:{
+    type: DataTypes.TEXT,
+  },
+  location:{
+    type: DataTypes.STRING,
+  },
+  phone:{
+    type: DataTypes.STRING,
+  },
+  website:{
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      isUrl: true,
+    },
+  },
+  logo:{
+    type: DataTypes.STRING,
+    validate: {
+      isUrl: true,
+    },
+  }
 });
 
 module.exports = Company
