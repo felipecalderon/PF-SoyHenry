@@ -10,7 +10,7 @@ const {
     createOffer,
 } = require('./offersRoute')
 
-const route = Router()
+const route = Router();
 
 route.get('/users', allUsers)
 route.get('/home' , homeRoute)
