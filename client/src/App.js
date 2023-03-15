@@ -1,6 +1,7 @@
 import { NavLanding } from './components/NavLanding/NavLanding'
 import Cards from './components/Cards/Cards'
 
+
 function App() {
   return (
     <div>
@@ -8,8 +9,8 @@ function App() {
         <NavLanding/>
       </div>
       <div>
-        <Cards/>
-      </div>
+        <Cards/>  
+      </div>      
     </div>
   );
 }

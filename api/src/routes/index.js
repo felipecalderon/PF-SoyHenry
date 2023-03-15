@@ -12,23 +12,7 @@ const {
 
 const route = Router()
 
-// users
-route.get('/user', allUsers)
-route.post('/user', createUser)
-
-// Offers
-route.post('/jobs' , createOffer)
-route.get('/jobs' , allOffers)
-
-// company
-route.get('/company/:id', companiesRoute)
-
-//admin
-route.get('/admin',allAdmin )
-route.post('/admin',createAdmin )
-route.put('/admin/:id', putAdmin)
-route.delete('/admin/:id', deleteadmin)
-route.get('/admin/:id',getadminbyid)
-//
+route.get('/users', allUsers)
+route.get('/home' , homeRoute)
 
 module.exports = route;
