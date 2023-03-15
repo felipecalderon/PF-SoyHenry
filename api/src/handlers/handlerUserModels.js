@@ -1,22 +1,5 @@
 // const{ Users } = require('../database.js')
 const { Op } = require("sequelize");
-<<<<<<< HEAD
-const { User, Admin, Postulant } = require("../models/relations.js");
-
-// Post
-const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, genere }) => {
-    try {
-        const newUser = await User.create({
-        username, email, rol, active
-        });
-        
-        const newPostulant = await Postulant.create({
-            names, lastnames, phone, disability, genere, 
-            userId: newUser.id
-        });
-        return newPostulant
-    } catch(err) {
-=======
 const { User, Admin, Postulant, Company } = require("../models/relations.js");
 
 // Post
@@ -49,7 +32,6 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
         }
     } catch(err) {
         console.log(err)
->>>>>>> a2cbde1651922db0cb2c2d4c2905cd9dd021325d
         throw err
     }
 }
