@@ -1,14 +1,28 @@
 import React, { useEffect, useState } from "react"
-// import { useHistory } from 'react-router-dom'
 import validations from './validations'
 import facebook from '../../assets/facebook.png'
 import googlelogo from '../../assets/googlelogo.png'
 import github from '../../assets/github.png'
+import { useNavigate } from "react-router"
 
 
-export const ModalLogin = ({login, isOpen, setOpen}) => {
+export const ModalLogin = ({isOpen, setOpen}) => {
 
-    // const history = useHistory()
+
+    const email = 'proyecto@henry.com';
+    const contraseña = 'aprobado123';
+    const navigate = useNavigate()
+    const [access, setAccess] = useState(false);
+    const login = (form) => {
+        if(form.email === email && form.contraseña === contraseña){
+            setAccess(true);
+            navigate('/cards')
+        }
+    }
+
+    useEffect(() => {
+        !access && navigate('/')
+    }, [access]);
 
     const [form, setForm] = useState({
         email: '',
@@ -71,7 +85,7 @@ export const ModalLogin = ({login, isOpen, setOpen}) => {
                         <div className='flex ml-14'>
                             <button className='w-8 pt-32 mx-6'><img src={facebook} alt='flogo'/></button>
                             <button className='w-8 pt-32 mx-6'><img src={googlelogo} alt='glogo'/></button>
-                            <button className='w-8 pt-32 mx-6'><img src={github} alt='ghlogo'/></button>
+                            <button className='w-8 pt-32 mx-6 h-auto'><img src={github} alt='ghlogo'/></button>
                         </div>
                         <div className='flex flex-col w-auto'>
                             <button className='hover:text-yellow-200 font-medium mx-auto w-full py-2 bg-indigo-600'>Ingresar</button>
