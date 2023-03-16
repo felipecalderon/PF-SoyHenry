@@ -7,7 +7,6 @@ const cleaningGetonbrd = ( jobsGetonbrd ) => {
             functions:  job.attributes.functions,
             benefits: job.attributes.benefits,
             modality: job.attributes.remote_modality,
-            benefits: job.attributes.benefits,
             perks: job.attributes.perks,
             min_salary: job.attributes.min_salary,
             max_salary: job.attributes.max_salary,
