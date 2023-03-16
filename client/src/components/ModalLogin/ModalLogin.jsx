@@ -54,12 +54,12 @@ export const ModalLogin = ({isOpen, setOpen}) => {
         setForm({
             ...form,
             contraseña: (event.target.value)
-        });
-        setErrors(validations({
+        })
+        validations({
             ...form,
             contraseña: (event.target.value)
-        }));
-    };
+        })
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
