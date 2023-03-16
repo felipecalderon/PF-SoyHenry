@@ -1,16 +1,18 @@
 import React ,{ useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { getAllJobInfo } from "../../redux/slices/postSlices";
 import useFetch from '../Hooks/useFetch'
 
 const JobDetail = (props) => {
 const dispatch = useDispatch();
+const params = useParams()
 const {jobId} = useSelector((state) => state.postSlice)
-const url = 'http://localhost:3001/jobs?language=javascrip'
+const url = `http://localhost:3001/jobsdb/${params}`
 const {data} = useFetch(url)
 
 useEffect(() => {
-  if(data) dispatch(getAllJobInfo(data[0]))
+  if(data) dispatch(getAllJobInfo(data))
 }, [dispatch, data])
 
     if(!jobId) return null
@@ -32,9 +34,11 @@ useEffect(() => {
               <div className="mt-4">
                 <h3 className="text-lg font-semibold text-gray-800">Requisitos</h3>
                 <ul className="list-disc list-inside mt-2 text-gray-600">
-                  <li>{jobId.perks[0]}</li>
-                  <li>{jobId.perks[1]}</li>
-                  <li>{jobId.perks[2]}</li>
+                {
+                jobId?.perks?.map((requisito) => {
+                  return <li key={requisito}>{requisito}</li>
+                }).slice(0,3)
+                }
                 </ul>
               </div>
               <div>Rango salarial: {jobId.min_salary && jobId.max_salary}</div>
