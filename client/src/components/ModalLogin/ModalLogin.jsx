@@ -43,10 +43,10 @@ export const ModalLogin = ({isOpen, setOpen}) => {
             ...form,
             email: (event.target.value)
         })
-        validations({
+        setErrors(validations({
             ...form,
             email: (event.target.value)
-        })
+        }))
     }
 
     const handleContraseña = (event) => {
@@ -54,10 +54,10 @@ export const ModalLogin = ({isOpen, setOpen}) => {
             ...form,
             contraseña: (event.target.value)
         })
-        validations({
+        setErrors(validations({
             ...form,
             contraseña: (event.target.value)
-        })
+        }))
     }
 
     const handleSubmit = (event) => {
