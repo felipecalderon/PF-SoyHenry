@@ -71,18 +71,18 @@ export const ModalLogin = ({isOpen, setOpen}) => {
     if(!isOpen) return null;
     return (
         <div className='relative mt-5'>
-            <article className='flex justify-center' onClick={closeModal}>
-                <div className="bg-yellow-200 w-[30rem] h-[26rem] rounded-3xl" onClick={handleModalContainerClick}>
-                        <h3 className="text-center font-medium text-2xl px-4 py-0 mb-6 mt-2 drop-shadow-md">Ingresar a Fusionajob</h3>
+            <article className='ml-[15rem]' onClick={closeModal}>
+                <div className="bg-yellow-200 w-[28rem] h-[26rem] rounded-3xl" onClick={handleModalContainerClick}>
+                        <h3 className="text-center font-medium text-2xl py-0 mb-6 mt-2 drop-shadow-md">Ingresar a Fusionajob</h3>
                     <form onSubmit={handleSubmit}>
                         <div className='flex justify-center items-center'>
                             <label htmlFor="email" className='absolute mr-64'>Email:</label>
-                            <input type='text' name='email' value={form.email} onChange={handleEmail} className='absolute mb-2 mt-20 border-8 rounded-2xl w-80 h-12 px-2'></input>
+                            <input type='text' name='email' value={form.email} onChange={handleEmail} className='absolute mb-2 mt-20 border-8 rounded-2xl w-80 h-12'></input>
                             {errors.email && <p className='absolute mt-36 text-red-700' >{errors.email}</p>}
                         </div>
                         <div className='flex justify-center items-center'>
                             <label htmlFor="contraseña" className='absolute mt-52 mr-56'>Contraseña:</label>
-                            <input type='password' name='contraseña' value={form.contraseña} onChange={handleContraseña} className='absolute mb-2 mt-72 border-8 rounded-2xl w-80 h-12 px-2'></input>
+                            <input type='password' name='contraseña' value={form.contraseña} onChange={handleContraseña} className='absolute mb-2 mt-72 border-8 rounded-2xl w-80 h-12'></input>
                             {errors.contraseña && <p className='absolute text-red-700 mt-[22rem]' >{errors.contraseña}</p>}
                         </div>
                         <div className='flex ml-14'>
@@ -92,7 +92,7 @@ export const ModalLogin = ({isOpen, setOpen}) => {
                         </div>
                         <div className='flex flex-col w-auto'>
                             <button className='hover:text-yellow-200 font-medium mx-auto w-auto py-2 mt-[16rem]'>Ingresar</button>
-                            <Link to='/'><button className='hover:text-gray-400 font-medium text-sm ml-[11.5rem] w-auto'>No tengo cuenta</button></Link>
+                            <Link to='/'><button className='hover:text-gray-400 font-medium text-sm ml-[11rem] w-auto'>No tengo cuenta</button></Link>
                         </div>
                     </form>
                     <div>
