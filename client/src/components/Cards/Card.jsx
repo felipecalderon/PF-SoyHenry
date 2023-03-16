@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom"
 
-const Card = ({title, description}) => {
+const Card = ({title, description, id}) => {
     return (
     <div className="max-w-sm p-6 text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div className="relative w-1/6 mx-auto">
             <img src="https://cdn-icons-png.flaticon.com/512/9968/9968834.png" alt="Imagen" className="h-auto" />
             <div className="absolute inset-0 bg-yellow-300 mix-blend-difference opacity-100 rounded-full"></div>
         </div>
-        <Link>
+        <Link to={`/detail/${id}`}>
             <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">{title}</h5>
         </Link>
         <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">{description}</p>
