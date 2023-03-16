@@ -50,5 +50,4 @@ route.delete('/admin/:id', deleteadmin)
 route.get('/admin/:id',getadminbyid)*/
 //
 
-
 module.exports = route;
