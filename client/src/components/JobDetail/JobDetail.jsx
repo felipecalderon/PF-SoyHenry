@@ -1,7 +1,7 @@
 import React ,{ useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getAllJobInfo } from "../../redux/slices/postSlices";
+import { getDataPostulacion } from "../../redux/slices/postSlices";
 import useFetch from '../Hooks/useFetch'
 
 const JobDetail = (props) => {
@@ -13,7 +13,7 @@ const {data} = useFetch(url)
 const [empresa, setEmpresa] = useState(null)
 
 useEffect(() => {
-  if(data) dispatch(getAllJobInfo(data))
+  if(data) dispatch(getDataPostulacion(data))
 }, [dispatch, data])
 
     if(!jobId) return null

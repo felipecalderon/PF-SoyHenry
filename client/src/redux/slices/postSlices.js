@@ -49,6 +49,6 @@ export const postSlice = createSlice({
 
 
 
-export const { getPostList, getPostData, orderPostListAZ, orderPostListZA, getDataPostulacion, getDataEmpresa, getAllJobInfo} = postSlice.actions
+export const { getPostList, getPostData, orderPostListAZ, orderPostListZA, getDataPostulacion, getDataEmpresa} = postSlice.actions
 export default postSlice.reducer;  
 
