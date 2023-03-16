@@ -24,7 +24,7 @@ const{allCompany,
     }=require('./companyRoute');
 //
 
-const route = Router()
+const route = Router();
 
 // users
 route.get('/user', allUsers);
@@ -58,6 +58,5 @@ route.put('/admin/:id', putAdmin)
 route.delete('/admin/:id', deleteadmin)
 route.get('/admin/:id',getadminbyid)*/
 //
-
 
 module.exports = route;
