@@ -61,11 +61,17 @@ const getOffersById = async ( id ) => {
 };
 
 // gets and cleaning Api
-const getOffersApiGetonbrd = async ( language ) => {
+const getOffersApiGetonbrd = async ( language, page, limit ) => {
     try {
+        
         let dataAPI = await axios(`https://www.getonbrd.com/api/v0/search/jobs?query=${language}`);
         const offers = cleaningGetonbrd( dataAPI.data );
-        return offers;
+        const startIndex = (page - 1) * limit;
+        const endIndex = Number(startIndex) + Number(limit);
+        const total = offers.length;
+        const data = offers.slice(startIndex, endIndex);
+        return  data;
+        
     } catch (error) {
         throw error;
     }

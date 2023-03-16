@@ -1,5 +1,4 @@
 const {
-    searchCompaniesAPI,
     getOffersApiGetonbrd,
     createOfferHandler,
     getOffersDb,
@@ -23,15 +22,14 @@ const createOfferController = async (body) => {
 }
 
 // gets
-const getAllOffersController = async ({ language, title }) => {
+const getAllOffersController = async ({ language = 'junior', page = 1, limit = 10, title }) => {
     try {
         // DataBase
         const offer_db = title ? await getOffersByTitleDb( title ) : await getOffersDb();
         
         // Apis
         //      Api Getonbrd
-        if(!language) throw 'debe agregar un language en query'
-        const jobsGetonbrd = title ? await getOffersApiGetonbrd( title ) : await getOffersApiGetonbrd( language );
+        const jobsGetonbrd = title ? await getOffersApiGetonbrd( title, page, limit ) : await getOffersApiGetonbrd( language, page, limit );
         
         // concatena las ofertas de las apis y de la DB
         all_offers = [  ...offer_db, ...jobsGetonbrd ] 
@@ -88,30 +86,6 @@ const deleteOffersController = async ( { id } ) => {
     }
 };
 
-
-// esto ira en el controller company
-const getCompanyById = async ({id}) => {
-    try {
-        const companies = await searchCompaniesAPI(id)
-        let social = {
-            facebook: companies.facebook !== '' ? companies.facebook : null,
-            twitter: companies.twitter !== '' ? companies.twitter : null,
-            github: companies.github !== '' ? companies.github : null,
-        }
-
-        return {
-            name: companies.name,
-            description: companies.description,
-            benefits: companies.benefits,
-            web: companies.web,
-            logo: companies.logo,
-            social
-        }
-    } catch (error) {
-        throw error
-    }
-}
-
 module.exports = { 
     createOfferController,
     getAllOffersController, 
@@ -120,6 +94,5 @@ module.exports = {
     putOffertController,
     putOffertLDController,
     deleteOffersController,
-    getCompanyById,
 };
 

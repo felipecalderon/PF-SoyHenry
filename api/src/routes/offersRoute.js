@@ -1,6 +1,5 @@
 const { 
     getAllOffersController,
-    getCompanyById,
     createOfferController,
     putOffertController,
     putOffertLDController,
