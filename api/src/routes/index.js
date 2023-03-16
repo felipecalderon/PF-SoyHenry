@@ -46,7 +46,7 @@ route.delete('/jobdb/:id' , deleteOffer); // Physical deletion
 route.get('/company',allCompany);
 route.post('/company',newCompany);
 route.get('/company/:id',companyById);
-route.put('/company', putCompany);
+route.put('/company/:id', putCompany);
 route.delete('/company/:id',deleteCompany);
 //
 
