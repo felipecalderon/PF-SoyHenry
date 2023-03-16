@@ -1,7 +1,12 @@
 const { 
     getAllOffersController,
     getCompanyById,
-    createOfferController, 
+    createOfferController,
+    putOffertController,
+    putOffertLDController,
+    deleteOffersController,
+    getOfferByIdController,
+    getAllOffersDbController, 
 } = require('../controllers/offersControllers')
 
 // post
@@ -11,7 +16,7 @@ const createOffer = async (req, res) => {
         return res.status(201).json(dataApi)
         
     } catch (error) {
-        res.status(400).json({error:error.message})
+        res.status(400).json({ error: error.message })
     }
 }
 
@@ -22,13 +27,60 @@ const allOffers = async (req, res) => {
         return res.status(200).json( offers )
         
     } catch (error) {
-        res.status(404).json( error )
+        res.status(404).json({ error: error.message })
+    }
+}
+const allOffersDb = async (req, res) => {
+    try {
+        const offers = await getAllOffersDbController(req.query)
+        return res.status(200).json( offers )
+        
+    } catch (error) {
+        res.status(404).json({ error: error.message })
+    }
+}
+const getOffersById = async (req, res) => {
+    try {
+        const offert = await getOfferByIdController(req.params)
+        return res.status(200).json( offert )
+        
+    } catch (error) {
+        res.status(404).json({ error: error.message })
     }
 }
 
 // put
+const putOffers =async (req, res) => {
+    try {
+        const offers = await putOffertController(req.params, req.body)
+        return res.status(200).json( offers )
+        
+    } catch (error) {
+        res.status(404).json({ error: error.message })
+    }
+}
+
+//     Borrado logico (Logical deletion)
+const putLdOffers =async (req, res) => {
+    try {
+        const offers = await putOffertLDController(req.params, req.body)
+        return res.status(200).json( offers )
+        
+    } catch (error) {
+        res.status(404).json({ error: error.message })
+    }
+}
 
 // delete
+const deleteOffer =async (req, res) => {
+    try {
+        const offers = await deleteOffersController(req.params)
+        return res.status(200).json( offers )
+        
+    } catch (error) {
+        res.status(404).json({ error: error.message })
+    }
+}
 
 // esto ira en la ruta company
 const companiesRoute = async (req, res) => {
@@ -41,7 +93,12 @@ const companiesRoute = async (req, res) => {
     }
 }
 module.exports = { 
-    allOffers,
     createOffer,
+    allOffers,
+    allOffersDb,
+    getOffersById,
+    putOffers,
+    putLdOffers,
+    deleteOffer,
     companiesRoute,
 }
