@@ -1,21 +1,20 @@
 import React ,{ useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDataPostulacion, getDataEmpresa } from "../../redux/slices/postSlices";
+import { useParams } from "react-router-dom";
+import { getAllJobInfo } from "../../redux/slices/postSlices";
 import useFetch from '../Hooks/useFetch'
 
 const JobDetail = (props) => {
 const dispatch = useDispatch();
+const params = useParams()
 const {jobId} = useSelector((state) => state.postSlice)
-const url = 'http://localhost:3001/jobs'
+const url = `http://localhost:3001/jobsdb/${params}`
 const {data} = useFetch(url)
 const [empresa, setEmpresa] = useState(null)
 
 useEffect(() => {
-  if(data) dispatch(getDataPostulacion(data[0]))
-  if(jobId) fetch(`http://localhost:3001/company/${jobId.idEmpresa}`)
-  .then(res => res.json())
-  .then(data => setEmpresa(data))
-}, [dispatch, data, jobId])
+  if(data) dispatch(getAllJobInfo(data))
+}, [dispatch, data])
 
     if(!jobId) return null
     
@@ -35,11 +34,12 @@ useEffect(() => {
               <h3 className="text-gray-600 dark:text-gray-300">{jobId.benefits}</h3>
               <div className="mt-4">
                 <h3 className="text-lg font-semibold text-gray-800">Requisitos</h3>
-                <ul className="list-disc list-inside mt-2 text-gray-600 dark:text-gray-300">
-                {jobId?.perks?.map((requisito) => {
+                <ul className="list-disc list-inside mt-2 text-gray-600">
+                {
+                jobId?.perks?.map((requisito) => {
                   return <li key={requisito}>{requisito}</li>
-                }).slice(0,3)}
-              
+                }).slice(0,3)
+                }
                 </ul>
               </div>
               <h4 className="text-gray-600 dark:text-gray-300">Rango salarial: {jobId.min_salary}-{jobId.max_salary}</h4>

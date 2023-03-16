@@ -18,7 +18,7 @@ export const rutas = createBrowserRouter([
       element: <FormCreateOffers />
     },
     {
-      path:'/detail',
+      path:'/detail/:id',
       element: <JobDetail />
     }
 ])
