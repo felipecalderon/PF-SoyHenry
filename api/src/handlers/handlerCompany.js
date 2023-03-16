@@ -52,9 +52,11 @@ const getCompanywithDb = async () => {
     return companyDatB;
 }
 
-const putCompany = async ( id, name,description,location,website,logo) => {
+const putCompany = async ( {id}, {name,description,location,website,logo}) => {
     
-    const company = await Company.findByPk( id );
+
+    try {
+        const company = await Company.findByPk( id );
     if( !company ) throw Error( `la compania con id: ${id} no existe` );
     
     
@@ -65,6 +67,10 @@ const putCompany = async ( id, name,description,location,website,logo) => {
         }
     )
     return `company has been updated`;
+    } catch (error) {
+        throw error
+    }
+    
 };
 
 
