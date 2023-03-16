@@ -5,7 +5,7 @@ import subscripciones from "../../assets/subscripciones.png"
 import Anna from "../../assets/Anna.png"
 import Maria from "../../assets/Maria.png"
 import Juan from "../../assets/Juan.png"
-import soluciones from "../../assets/soluciones.png"
+import Footer from '../Footer/Footer'
 
 
 
@@ -64,17 +64,17 @@ function LandingPage() {
       <section className='testimonios'>
 
         <article>
-          <img src={Anna} width="420px" className='img-testimonio'/>
+          <img src={Anna} width="420px" className='img-testimonio' alt='testimonio-ana'/>
         <h2>Anna</h2>
             <p>Gracias a Fusionajob conseguí mi trabajo soñado. ¡Lo recomiendo totalmente!</p>
         </article>
         <article>
-          <img src={Maria} width="420px" className='img-testimonio'/>
+          <img src={Maria} width="420px" className='img-testimonio' alt='testimonio-Maria'/>
             <h2>María</h2>
             <p>Nunca había sido tan fácil encontrar trabajo hasta que encontré Fusionajob. ¡Gracias por hacerlo posible!</p>
           </article>
         <article>
-          <img src={Juan} width="420px" className='img-testimonio'/>
+          <img src={Juan} width="420px" className='img-testimonio' alt='testimonio-Juan'/>
             <h2>Juan</h2>
             <p>Fusionajob me ayudó a conseguir mi primer trabajo después de graduarme.  ¡Increíble servicio de búsqueda laboral!</p>
         </article>
@@ -86,7 +86,8 @@ function LandingPage() {
       <h2>Subscripciones</h2>
       <img src={subscripciones} alt="" />
       </section>
-    {/* <Tabla/> */}
+      <Footer/>
+
     </div>
   )
 }
