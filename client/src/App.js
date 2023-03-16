@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route exact path='/' component={LandingPage}/>
         <Route exact path='/cards' component={Cards}/>
-        <Route path='/detail/:id' component={JobDetail}/>
+        <Route path='/detail' component={JobDetail}/>
       </Routes>
     </div>
   );
