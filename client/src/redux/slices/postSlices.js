@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
     postJobs: [],
     postData: null,
-    jobId:[],
+    jobId:null,
+    empresa:null,
 }
 
 export const postSlice = createSlice({
@@ -14,9 +15,7 @@ export const postSlice = createSlice({
         state.postJobs = action.payload
     },
 
-    getPostData: (state, action) => {
-        state.postData = action.payload
-    },
+   
 
     orderPostListAZ: (state) => {
       state.postJobs = state.postJobs.sort((a, b) => {
@@ -34,9 +33,13 @@ export const postSlice = createSlice({
       });
     },
 
-    getAllJobInfo: (state, action)=>{
+    getDataPostulacion: (state, action)=>{
      state.jobId = action.payload
     },
+
+    getDataEmpresa:(state, action)=>{
+      state.empresa = action.payload
+    }
   },
 })
 
@@ -46,6 +49,6 @@ export const postSlice = createSlice({
 
 
 
-export const { getPostList, getPostData, orderPostListAZ, orderPostListZA, getAllJobInfo} = postSlice.actions
+export const { getPostList, getPostData, orderPostListAZ, orderPostListZA, getDataPostulacion, getDataEmpresa} = postSlice.actions
 export default postSlice.reducer;  
 

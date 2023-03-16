@@ -5,14 +5,13 @@ import LandingPage from './components/LandingPage/LandingPage';
 import JobDetail from './components/JobDetail/JobDetail';
 
 
-
 function App() {
   return (
     <div className={style.all}>
       <Routes>
         <Route exact path='/' component={LandingPage}/>
         <Route exact path='/cards' component={Cards}/>
-        <Route path='/detail/:id' component={JobDetail}/>
+        <Route path='/detail' component={JobDetail}/>
       </Routes>
       
     </div>
