@@ -1,9 +1,6 @@
 import style from './App.js'
 import { Route, Routes } from 'react-router'
 import Cards from './components/Cards/Cards'
-import LandingPage from './components/LandingPage/LandingPage';
-import JobDetail from './components/JobDetail/JobDetail';
-
 
 function App() {
   return (

@@ -9,7 +9,7 @@ const url = 'http://localhost:3001/jobs?language=javascrip'
 const Cards = () => {
     const dispatch = useDispatch()
     const { postJobs } = useSelector((state) => state.postSlice) 
-    const {data, isLoading} = useFetch(url)
+    const {data, /*isLoading*/} = useFetch(url)
 
     useEffect(() => {
         dispatch(getPostList(data))
