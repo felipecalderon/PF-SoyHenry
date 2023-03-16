@@ -43,19 +43,11 @@ route.delete('/company/:id',deleteCompany);
 
 
 //admin
-<<<<<<< HEAD
-//route.get('/admin',allAdmin )
-//route.post('/admin',createAdmin )
-//route.put('/admin/:id', putAdmin)
-//route.delete('/admin/:id', deleteadmin)
-//route.get('/admin/:id',getadminbyid)
-=======
 /*route.get('/admin',allAdmin )
 route.post('/admin',createAdmin )
 route.put('/admin/:id', putAdmin)
 route.delete('/admin/:id', deleteadmin)
 route.get('/admin/:id',getadminbyid)*/
->>>>>>> 818b3341aac6fc918b506d1ae870d5d0c915b0bc
 //
 
 

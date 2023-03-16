@@ -3,7 +3,7 @@ const {
     getOffersApiGetonbrd,
     createOfferHandler,
     getOffersDb
-} = require('../handlers/offersHandler');
+} = require('../handlers/handlerOffers');
 
 // post
 const createOfferController = async (body) => {
