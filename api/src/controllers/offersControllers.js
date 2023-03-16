@@ -10,6 +10,7 @@ const {
     getOffersById,
     getOffersByIdApi,
 } = require('../handlers/handlerOffers');
+const paginate = require('../handlers/Utils/paginate');
 
 // post
 const createOfferController = async (body) => {
@@ -22,19 +23,22 @@ const createOfferController = async (body) => {
 }
 
 // gets
-const getAllOffersController = async ({ language = 'junior', page = 1, limit = 10, title }) => {
+const getAllOffersController = async ({ language = 'junior', title, page = 1, limit = 10 }) => {
     try {
         // DataBase
         const offer_db = title ? await getOffersByTitleDb( title ) : await getOffersDb();
         
         // Apis
         //      Api Getonbrd
-        const jobsGetonbrd = title ? await getOffersApiGetonbrd( title, page, limit ) : await getOffersApiGetonbrd( language, page, limit );
+        const jobsGetonbrd = title ? await getOffersApiGetonbrd( title ) : await getOffersApiGetonbrd( language );
         
         // concatena las ofertas de las apis y de la DB
         all_offers = [  ...offer_db, ...jobsGetonbrd ] 
         
-        return all_offers
+        // hace el paginado
+        const offers = paginate( all_offers, page, limit )
+        
+        return offers
     } catch (error) {
         throw error
     }
