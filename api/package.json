@@ -1,6 +1,7 @@
 {
   "scripts": {
     "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js",
     "test": "mocha -w ./tests/**/*.js"
   },
   "dependencies": {
@@ -11,6 +12,7 @@
     "express-session": "^1.17.3",
     "passport": "^0.6.0",
     "passport-github": "^1.1.0",
+    "passport-github2": "^0.1.12",
     "pg": "^8.10.0",
     "sequelize": "^6.29.2"
   },
