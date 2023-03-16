@@ -54,13 +54,13 @@ const getCompanyByIdControllers = async ({id}) => {
     }
 }
 
-const putCompanyControllers = async ( { id } ) => {
-    const { name,description,location,website,logo } = req.body;
+const putCompanyControllers = async ( id , body ) => {
+    
     try {
-        const response = await putCompany( id,name,description,location,website,logo);
+        const response = await putCompany( id , body);
         return response;
     } catch (error) {
-        throw { error: error.message }
+        return error
     }
 };
 
