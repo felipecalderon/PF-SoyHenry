@@ -21,7 +21,7 @@ export const NavLanding = () => {
     };
 
     return (
-      <div className="flex bg-slate-300 theme">
+      <div className="flex bg-slate-300 theme fixed">
         <nav className="relative dark:bg-black bg-slate-300 w-screen h-16">
       <div className="container flex justify-start items-center h-full w-full mx-auto px-4">
         <img src={logofusionajob} alt='logo' className="flex h-16 w-60 mr-4" />

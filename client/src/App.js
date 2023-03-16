@@ -9,11 +9,10 @@ function App() {
   return (
     <div className={style.all}>
       <Routes>
-        <Route exact path='/' component={LandingPage}/>
-        <Route exact path='/cards' component={Cards}/>
+        <Route path='/' component={LandingPage}/>
+        <Route path='/cards' component={Cards}/>
         <Route path='/detail' component={JobDetail}/>
       </Routes>
-      
     </div>
   );
 }

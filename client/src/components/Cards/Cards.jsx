@@ -12,7 +12,7 @@ const Cards = () => {
     const {data, /*isLoading*/} = useFetch(url)
 
     useEffect(() => {
-        dispatch(getPostList(data))
+      if (data) dispatch(getPostList(data.data))
     }, [dispatch, data])
 
     return (

@@ -27,7 +27,7 @@ useEffect(() => {
               <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa ? empresa.logo : null} alt="Job Posting" />
             </div>
             <div className="p-8">
-            {/* <span className="material-symbols-outlined">star_rate</span> ver como medir el "valor/renking" de la empresa  */}
+            {/* <span className="material-symbols-outlined">star_rate</span> ver como medir el "valor/ranking" de la empresa  */}
               <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">{empresa ? empresa.name : null}</div>
               <h2 className="text-2xl font-semibold text-gray-800">{jobId.title}</h2>
               <h3 className="text-gray-600 dark:text-gray-300">Modalidad: {jobId.modality}</h3>
@@ -39,7 +39,6 @@ useEffect(() => {
                 {jobId?.perks?.map((requisito) => {
                   return <li key={requisito}>{requisito}</li>
                 }).slice(0,3)}
-              
                 </ul>
               </div>
               <h4 className="text-gray-600 dark:text-gray-300">Rango salarial: {jobId.min_salary}-{jobId.max_salary}</h4>

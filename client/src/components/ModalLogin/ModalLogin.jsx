@@ -70,28 +70,28 @@ export const ModalLogin = ({isOpen, setOpen}) => {
 
     if(!isOpen) return null;
     return (
-        <div className='relative mt-5'>
-            <article className='ml-[15rem]' onClick={closeModal}>
-                <div className="bg-yellow-200 w-[28rem] h-[26rem] rounded-3xl" onClick={handleModalContainerClick}>
-                        <h3 className="text-center font-medium text-2xl py-0 mb-6 mt-2 drop-shadow-md">Ingresar a Fusionajob</h3>
+        <div className='relative mt-5' onClick={closeModal}>
+            <article className='ml-[15rem]'>
+                <div className="bg-yellow-200 w-[28rem] h-[26rem] rounded-3xl drop-shadow-md" onClick={handleModalContainerClick}>
+                        <h3 className="text-center font-medium text-2xl mb-6 mt-2">Ingresar a Fusionajob</h3>
                     <form onSubmit={handleSubmit}>
                         <div className='flex justify-center items-center'>
                             <label htmlFor="email" className='absolute mr-64'>Email:</label>
-                            <input type='text' name='email' value={form.email} onChange={handleEmail} className='absolute mb-2 mt-20 border-8 rounded-2xl w-80 h-12'></input>
-                            {errors.email && <p className='absolute mt-36 text-red-700' >{errors.email}</p>}
+                            <input type='text' name='email' value={form.email} onChange={handleEmail} className='absolute mb-2 mt-20 border-8 rounded-2xl w-80 h-12 px-2'></input>
+                            {errors.email && <p className='absolute mt-36 text-red-500' >{errors.email}</p>}
                         </div>
                         <div className='flex justify-center items-center'>
                             <label htmlFor="contraseña" className='absolute mt-52 mr-56'>Contraseña:</label>
-                            <input type='password' name='contraseña' value={form.contraseña} onChange={handleContraseña} className='absolute mb-2 mt-72 border-8 rounded-2xl w-80 h-12'></input>
-                            {errors.contraseña && <p className='absolute text-red-700 mt-[22rem]' >{errors.contraseña}</p>}
+                            <input type='password' name='contraseña' value={form.contraseña} onChange={handleContraseña} className='absolute mb-2 mt-72 border-8 rounded-2xl w-80 h-12 px-2'></input>
+                            {errors.contraseña && <p className='absolute text-red-500 mt-[22rem]' >{errors.contraseña}</p>}
                         </div>
                         <div className='flex ml-14'>
-                            <Link to='/'><button className='absolute w-8 mt-80 mx-6 ml-[4rem]'><img src={facebook} alt='flogo'/></button></Link>
-                            <Link to='/'><button className='absolute w-8 mt-80 mx-6 ml-[9.5rem]'><img src={googlelogo} alt='glogo'/></button></Link>
+                            <Link to='/'><button className='absolute w-8 mt-80 mx-6 ml-[3rem]'><img src={facebook} alt='flogo'/></button></Link>
+                            <Link to='/'><button className='absolute w-8 mt-80 mx-6 ml-[9rem]'><img src={googlelogo} alt='glogo'/></button></Link>
                             <Link to='/'><button className='absolute w-8 mt-80 mx-6 ml-[15rem]'><img src={github} alt='ghlogo'/></button></Link>
                         </div>
                         <div className='flex flex-col w-auto'>
-                            <button className='hover:text-yellow-200 font-medium mx-auto w-auto py-2 mt-[16rem]'>Ingresar</button>
+                            <button className='hover:text-yellow-200 font-medium mx-auto w-auto py-2 mt-[16rem] ml-[12.5rem]'>Ingresar</button>
                             <Link to='/'><button className='hover:text-gray-400 font-medium text-sm ml-[11rem] w-auto'>No tengo cuenta</button></Link>
                         </div>
                     </form>
