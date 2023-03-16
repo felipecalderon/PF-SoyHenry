@@ -42,6 +42,17 @@ h2{
   font-size: 1.1em;
   font-family: "Rubik", sans-serif;
 }
+
+.call-to-action:hover{
+  color: #6a7181;
+  border: 0.5px solid #6a7181;
+
+}
+.call-to-action:active{
+  color: #9ca19d;
+  border: 0.5px solid #9ca19d;
+
+}
 .section1-landing-page h2 {
   font-size: 3em;
   font-family: "Rubik", sans-serif;
@@ -57,7 +68,7 @@ h2{
 }
 .section2-landing-page .text-container .card {
   margin: 88px 33px;
-  background-color: #c8cab4;
+  background-color:#fafad0;
   color: #29183c;
   padding: 18px;
   border-radius: 17px;
