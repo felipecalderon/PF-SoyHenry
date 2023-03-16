@@ -43,9 +43,9 @@ const getAllOffersController = async ({ language = 'junior', title, page = 1, li
         throw error
     }
 }
-const getAllOffersDbController = async () => {
+const getAllOffersDbController = async ( query ) => {
     try {
-        const offersDb = await getAllOffersDb();
+        const offersDb = await getAllOffersDb( query );
         return offersDb
     } catch (error) {
         throw error

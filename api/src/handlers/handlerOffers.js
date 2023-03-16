@@ -3,6 +3,7 @@ const { Op } = require('sequelize');
 const Offers = require('../models/offersModel');
 // const { Offers } = require('../models/relations.js');
 const { cleaningGetonbrd } = require('./Utils/offersCleaning');
+const paginate = require('./Utils/paginate');
 
 //post
 const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, applications_count, bd_create }) => {
@@ -30,10 +31,15 @@ const getOffersDb = async () => {
         throw error
     }
 };
-const getAllOffersDb = async () => {
+const getAllOffersDb = async ({ page = 1, limit = 10 }) => {
     try {
+        // trae todos las ofertas de la Db
         const offerts_db = await Offers.findAll();
-        return offerts_db;
+        
+        // hace el paginado
+        const offers = paginate( offerts_db, page, limit )
+        
+        return offers;
     } catch (error) {
         throw error
     }
@@ -147,16 +153,6 @@ const deleteOffers = async ( id ) => {
     }
 };
 
-// esto ira en el handler company
-const searchCompaniesAPI = async (id) => {
-    try {
-        let dataAPI = await axios(`https://www.getonbrd.com/api/v0/companies/${id}`)
-        return dataAPI.data.data.attributes
-    } catch (error) {
-        return error
-    }
-};
-
 module.exports = {
     createOfferHandler,
     getOffersDb,
@@ -168,5 +164,4 @@ module.exports = {
     putOffert,
     putOffertLD,
     deleteOffers,
-    searchCompaniesAPI,
 };

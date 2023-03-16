@@ -81,16 +81,6 @@ const deleteOffer =async (req, res) => {
     }
 }
 
-// esto ira en la ruta company
-const companiesRoute = async (req, res) => {
-    try {
-        const dataApi = await getCompanyById(req.params)
-        return res.status(200).json(dataApi)
-        
-    } catch (error) {
-        res.status(404).json(error)
-    }
-}
 module.exports = { 
     createOffer,
     allOffers,
@@ -99,5 +89,4 @@ module.exports = {
     putOffers,
     putLdOffers,
     deleteOffer,
-    companiesRoute,
 }
