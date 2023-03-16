@@ -10,7 +10,10 @@ const Offers = sequelize.define('Offers', {
     title: {
         type: DataTypes.STRING,
     },
-    description: {
+    requeriments:{
+        type: DataTypes.STRING,
+    },
+    functions:{
         type: DataTypes.STRING,
     },
     benefits:{
@@ -32,6 +35,10 @@ const Offers = sequelize.define('Offers', {
         type: DataTypes.INTEGER,
     },
     bd_create:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+    },
+    active:{
         type: DataTypes.BOOLEAN,
         defaultValue: true
     }

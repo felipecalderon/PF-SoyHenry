@@ -5,10 +5,14 @@ const {
     createUser
 } = require('./userRoute')
 const { 
-    companiesRoute, 
     allOffers, 
     createOffer,
-} = require('./offersRoute')
+    allOffersDb,
+    deleteOffer,
+    putOffers,
+    putLdOffers,
+    getOffersById
+} = require('./offersRoute');
 //const{allAdmin,createAdmin,putAdmin,deleteadmin,getadminbyid}=require('./adminRoute')
 
 //
@@ -20,15 +24,20 @@ const{allCompany,
     }=require('./companyRoute');
 //
 
-const route = Router()
+const route = Router();
 
 // users
-route.get('/user', allUsers)
-route.post('/user', createUser)
+route.get('/user', allUsers);
+route.post('/user', createUser);
 
 // Offers
-route.post('/jobs' , createOffer)
-route.get('/jobs' , allOffers)
+route.post('/jobs' , createOffer);
+route.get('/jobs' , allOffers);
+route.get('/jobsdb' , allOffersDb);
+route.get('/jobsdb/:id' , getOffersById);
+route.put('/jobdb/:id' , putOffers);
+route.put('/jobsld/:id' , putLdOffers); // Logical deletion
+route.delete('/jobdb/:id' , deleteOffer); // Physical deletion
 
 // company
 //route.get('/company/:id', companiesRoute)
@@ -37,7 +46,7 @@ route.get('/jobs' , allOffers)
 route.get('/company',allCompany);
 route.post('/company',newCompany);
 route.get('/company/:id',companyById);
-route.put('/company', putCompany);
+route.put('/company/:id', putCompany);
 route.delete('/company/:id',deleteCompany);
 //
 
@@ -49,6 +58,5 @@ route.put('/admin/:id', putAdmin)
 route.delete('/admin/:id', deleteadmin)
 route.get('/admin/:id',getadminbyid)*/
 //
-
 
 module.exports = route;
