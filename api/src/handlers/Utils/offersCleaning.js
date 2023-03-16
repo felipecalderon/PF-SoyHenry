@@ -3,9 +3,10 @@ const cleaningGetonbrd = ( jobsGetonbrd ) => {
         return {
             idEmpresa: job.attributes.company.data.id,
             title: job.attributes.title,
-            description: job.attributes.description,
-            modality: job.attributes.remote_modality,
+            requeriments:  job.attributes.description,
+            functions:  job.attributes.functions,
             benefits: job.attributes.benefits,
+            modality: job.attributes.remote_modality,
             perks: job.attributes.perks,
             min_salary: job.attributes.min_salary,
             max_salary: job.attributes.max_salary,
