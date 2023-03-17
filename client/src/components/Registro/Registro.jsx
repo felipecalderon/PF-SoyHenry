@@ -4,8 +4,12 @@ import { Link } from "react-router-dom";
 import logofusionajob from '../../assets/logofusionajob.png';
 import working1 from '../../assets/working1.png';
 import Footer from "../Footer/Footer";
+import { createNewUser } from "../../redux/actions/postFetchUser";
+import { useDispatch } from "react-redux";
 
 export const Registro = () => {
+
+    const dispatch = useDispatch();
 
     const [form, setForm] = useState({
         nombre: '',
@@ -78,10 +82,11 @@ export const Registro = () => {
         }));
     };
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     login(form);
-    // };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch(createNewUser(form))
+        alert('Usuario creado correctamente');
+    };
 
     return (
         <div className='relative bg-yellow-100'>
@@ -103,7 +108,7 @@ export const Registro = () => {
 
             <div className='flex relative w-[27.5rem] ml-[14rem] mt-[5rem] pt-[.5rem]'>
 
-                <form className='relative'>
+                <form className='relative' onSubmit={handleSubmit}>
 
                     <div className='relative ml-[1.5rem]'>
                         <label>Nombre:</label>

@@ -115,7 +115,7 @@ export const RegistroEmpresa = () => {
         <div className=' bg-slate-300 h-16'>
             <img src={logofusionajob} alt='Fusionalogo' className='flex relative w-[16rem] ml-[32rem]'/>
             <Link to='/'><button className='absolute top-4 left-14 w-auto h-auto bg-blue-300 rounded-[6px] border-black py-[.1rem] px-2'>← Home</button></Link>
-            <Link to='/companyregister'><button className='absolute top-5 right-10 text-red-600 font-bold'>Registrate como postulante</button></Link>
+            <Link to='/registro'><button className='absolute top-5 right-10 text-red-600 font-bold'>Registrate como candidato</button></Link>
         </div>
 
         <div className='flex relative justify-center mt-[2rem] mb-[2rem] text-4xl'>
