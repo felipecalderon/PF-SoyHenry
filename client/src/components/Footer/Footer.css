@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Rubik:wght@600&display=swap");
+footer{
+    text-align: center;
+    background-color: #fafad0;
+    color: #29183c;
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+footer article ul li{
+    font-family: "Poppins", sans-serif;
+    
+
+}
+article{
+    width: 275px;
+}
+.footer-section1{
+    display: flex;
+    justify-content: space-around;
+    height: 80%;
+    align-items: center;
+}
+.footer-section1 article{
+    height: 75%;
+    display: flex;
+   
+}
+
+.footer-section1 article .firts-list,.second-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+}
+.list-redes-sociales{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.footer-section1 article ul li:hover{
+    color: #c8cab4;
+}
+.footer-section1 article ul li:active{
+    color: #9ca19d;
+}
+
+footer ul li{
+    color: #29183c;
+    user-select: none;
+    cursor: pointer;
+}
+hr{
+    color: #c8cab4;
+    border: 1.5px solid;
+}

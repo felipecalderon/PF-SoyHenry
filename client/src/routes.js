@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Cards from './components/Cards/Cards'
+import FormCreateOffers from './components/Form/FormCreateOffers'
 import JobDetail from './components/JobDetail/JobDetail'
 import LandingPage from './components/LandingPage/LandingPage'
 
@@ -13,7 +14,11 @@ export const rutas = createBrowserRouter([
       element: <Cards />
     },
     {
-      path:'/detail',
+      path: '/offersCreate',
+      element: <FormCreateOffers />
+    },
+    {
+      path:'/detail/:id',
       element: <JobDetail />
     }
 ])
