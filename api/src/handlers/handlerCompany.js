@@ -3,7 +3,9 @@ const { Op } = require("sequelize");
 //const Company = require('../models/companyModel');
 const { User, Admin, Postulant, Company } = require("../models/relations.js");
 const { cleaningGetonbrdCompany } = require('./Utils/companiesCleaning');
+const { cloudinary } = require("./Utils/cloudinaryConfig");
 
+//const{imgUploader}=require('./Utils/uploaderimages')
 const getCompanyAPI = async () => {
     try {
         let dataAPI = await axios(`https://www.getonbrd.com/api/v0/companies`)
@@ -26,6 +28,8 @@ const searchCompanyAPI = async (id) => {
 const postCompany = async ({ username,rol,email,active,password,name,description,location,website,logo}) => {
     try {
 
+        const result = await cloudinary.uploader.upload(logo)
+
         const newUser = await User.create({
             username, email, rol, active,password
             });
@@ -35,7 +39,7 @@ const postCompany = async ({ username,rol,email,active,password,name,description
             description,
             location,
             website,
-            logo,
+            logo: result.secure_url,
             userId:newUser.id
         });
         
