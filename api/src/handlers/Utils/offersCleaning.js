@@ -1,13 +1,25 @@
 const cleaningGetonbrd = ( jobsGetonbrd ) => {
     return jobsGetonbrd.data.map((job) => {
+        // opciones para dejar la fecha en el formato → dia-mes-año hora
+        const options = { 
+            day: '2-digit', 
+            month: '2-digit', 
+            year: 'numeric', 
+            hour: 'numeric', 
+            minute: 'numeric', 
+            second: 'numeric', 
+        };
         return {
+            id: job.attributes.title, // El id es el titulo de la oferta. Para tener el detail, en el handler se filtra y mandara solo una oferta que coincida exactamente con este id.
             idEmpresa: job.attributes.company.data.id,
             title: job.attributes.title,
+            date_post: new Date(job.attributes.published_at * 1000).toLocaleDateString('es-ES', options), // la api manda la fecha en formato unix y con este metodo se pasa a formato UTC.
             requeriments:  job.attributes.description,
             functions:  job.attributes.functions,
             benefits: job.attributes.benefits,
             modality: job.attributes.remote_modality,
             perks: job.attributes.perks,
+            experience: null, 
             min_salary: job.attributes.min_salary,
             max_salary: job.attributes.max_salary,
             applications_count: job.attributes.applications_count,
