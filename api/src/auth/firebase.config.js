@@ -1,15 +1,16 @@
-const {initializeApp} = require('firebase/app');
-require('firebase/auth');
+const firebase = require('firebase/compat/app');
+require('firebase/compat/auth');
 
+const { FBAPIKEY, FBID } = process.env
 const firebaseConfig = {
-    apiKey: "AIzaSyAe1AO7AnxgDWHHT31buQdrgk9p4o06IHE",
+    apiKey: FBAPIKEY,
     authDomain: "pf-soyhenry.firebaseapp.com",
     projectId: "pf-soyhenry",
     storageBucket: "pf-soyhenry.appspot.com",
     messagingSenderId: "959054088030",
-    appId: "1:959054088030:web:978b5863ed037d2a5671cf"
+    appId: FBID
   };
 
- const firebase = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
  module.exports = firebase

@@ -21,12 +21,6 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
                         userId: usuario.id
                     });
                 return dataEmpresa
-            // case 'Admin':
-            //     const dataAdmin = await Admin.create({
-            //             /* Data del admin */
-            //             userId: usuario.id
-            //         });
-            //     return dataAdmin
             default:
                 throw 'Tipo de usuario no válido'
         }

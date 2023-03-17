@@ -14,7 +14,9 @@ const {
     getOffersById
 } = require('./offersRoute');
 //const{allAdmin,createAdmin,putAdmin,deleteadmin,getadminbyid}=require('./adminRoute')
-
+const {
+ authUserCreate
+} = require('./authRoute')
 //
 const{allCompany,
     newCompany,
@@ -50,7 +52,7 @@ route.put('/company/:id', putCompany);
 route.delete('/company/:id',deleteCompany);
 //
 
-
+route.post('/auth/register', authUserCreate)
 //admin
 /*route.get('/admin',allAdmin )
 route.post('/admin',createAdmin )
