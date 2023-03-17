@@ -2,12 +2,9 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logofusionajob from '../../assets/logofusionajob.png'
-// import { useModal } from "../Hooks/useModal";
-// import { ModalLogin } from "../ModalLogin/ModalLogin";
 
 export const Nav = () => {
     const [isDarkMode, setIsDarkMode] = useState(false);
-    // const [isOpenModalLogin, openModalLogin, closeModalLogin] = useModal(false);
 
     const handleToggle = () => {
       if (isDarkMode) {
