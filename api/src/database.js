@@ -25,17 +25,6 @@ const sequelize = new Sequelize(DBNAME, DBUSER, DBPASS, {
   logging: false, // para evitar logueos de SQL en la consola
 });
 
-// const sequelize = new Sequelize( DB_DEPLOY, {
-//   dialect: 'postgres',
-//   dialectOptions: {
-//     pool: {
-//         acquire: 30000, // tiempo de espera para adquirir una conexión
-//         idle: 10000 // tiempo de espera para liberar una conexión
-//     },
-//   },
-//   logging: false, // para evitar logueos de SQL en la consola
-// });
-
 sequelize.authenticate()
   .then(() => {
     console.log('Conexión establecida exitosamente con la db PostgreSQL');

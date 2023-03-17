@@ -3,6 +3,8 @@ import Cards from './components/Cards/Cards'
 import FormCreateOffers from './components/Form/FormCreateOffers'
 import JobDetail from './components/JobDetail/JobDetail'
 import LandingPage from './components/LandingPage/LandingPage'
+import { Registro } from './components/Registro/Registro'
+import { RegistroEmpresa } from './components/Registro/RegistroEmpresa'
 
 export const rutas = createBrowserRouter([
     {
@@ -18,7 +20,15 @@ export const rutas = createBrowserRouter([
       element: <FormCreateOffers />
     },
     {
-      path:'/detail',
+      path: '/registro',
+      element: <Registro />
+    },
+    {
+      path: '/companyregister',
+      element: <RegistroEmpresa />
+    },
+    {
+      path:'/detail/:id',
       element: <JobDetail />
     }
 ])

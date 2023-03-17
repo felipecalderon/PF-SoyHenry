@@ -6,10 +6,10 @@ const { cleaningGetonbrd } = require('./Utils/offersCleaning');
 const paginate = require('./Utils/paginate');
 
 //post
-const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, applications_count, bd_create }) => {
+const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create }) => {
     try {
         const newOffer = await Offers.create({
-            title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, applications_count, bd_create
+            title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create
         });
         
         return newOffer
