@@ -11,7 +11,7 @@ export const ModalLogin = ({isOpen, setOpen}) => {
 
 
     const email = 'proyecto@henry.com';
-    const contraseña = 'aprobado123';
+    const contraseña = 'aprobado123'; // el login funciona como tal solamente con estos datos por el momento
     const navigate = useNavigate();
     const [access, setAccess] = useState(false);
     const login = (form) => {
