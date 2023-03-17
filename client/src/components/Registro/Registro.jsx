@@ -1,4 +1,5 @@
 import React from "react";
+import validationsRegister from './validationsRegister'
 import { Link } from "react-router-dom";
 import logofusionajob from '../../assets/logofusionajob.png';
 import working1 from '../../assets/working1.png';
