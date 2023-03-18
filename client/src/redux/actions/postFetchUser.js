@@ -5,7 +5,7 @@ export const createNewUser = createAsyncThunk(
   'user/createNewUser',
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await fetch('http://localhost:3001/user', {
+      const response = await fetch(`http://localhost:3001/user`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

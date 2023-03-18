@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import validationsRegister from './validationsRegister';
 import { Link } from "react-router-dom";
 import logofusionajob from '../../assets/logofusionajob.png';
 import working1 from '../../assets/working1.png';
 import Footer from "../Footer/Footer";
-import { createNewUser } from "../../redux/actions/postFetchUser";
-import { useDispatch } from "react-redux";
+import { getUser } from "../../redux/slices/userRegisterSlice";
+import { useDispatch, useSelector } from "react-redux";
+import usePost from '../Hooks/usePost';
+import {createNewUser} from '../../redux/actions/postFetchUser'
 
 export const Registro = () => {
 
     const dispatch = useDispatch();
+    const {user} = useSelector(state => state.userRegisterSlice);
+    const [action, setAction] = useState(false)
 
     const [form, setForm] = useState({
         nombre: '',
@@ -82,11 +86,20 @@ export const Registro = () => {
         }));
     };
 
+    // useEffect(() => {
+    //     if (data) dispatch(getUser(form))
+    // }, [action])
+    
+    const url = `http://localhost:3001/user`
+    const {data, isLoading, error} = usePost(url, form);
+    
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(createNewUser(form))
         alert('Usuario creado correctamente');
     };
+
+    console.log(error, data);
 
     return (
         <div className='relative bg-yellow-100'>
