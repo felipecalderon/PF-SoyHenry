@@ -33,7 +33,11 @@ const Company = sequelize.define('Company', {
     validate: {
       isUrl: true,
     },
-  }
+  },
+  active:{
+    type: DataTypes.BOOLEAN,
+    defaultValue: true
+}
 });
 
 module.exports = Company
