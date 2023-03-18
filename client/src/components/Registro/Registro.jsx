@@ -1,10 +1,38 @@
-import React from "react";
+import React , { useState } from "react";
 import { Link } from "react-router-dom";
 import logofusionajob from '../../assets/logofusionajob.png';
 import working1 from '../../assets/working1.png';
 import Footer from "../Footer/Footer";
+import { postFechNewUsers } from '../../redux/actions/postFechNewUsers'
+import { useDispatch } from "react-redux";
 
 export const Registro = () => {
+        
+    const dispatch = useDispatch();
+    const [inputs, setInputs] = useState({
+        username: '',
+        apellido: '',
+        email: '',
+        password: '',
+        documento: '',
+        rol: 'Postulante'
+    })
+
+
+
+function handleChange(event) {
+    setInputs({
+        ...inputs,
+        [event.target.name]: event.target.value
+    })
+}
+
+function handleSubmit(event){
+    event.preventDefault();    
+    dispatch(postFechNewUsers(inputs))
+    alert('usuario registrado')
+}
+    
     return (
         <div className='relative bg-yellow-100'>
 
@@ -25,45 +53,45 @@ export const Registro = () => {
 
             <div className='flex relative w-[27.5rem] ml-[14rem] mt-[5rem] pt-[.5rem]'>
 
-                <form className='relative'>
+                <form className='relative' onSubmit={(event) => handleSubmit(event)}>
 
                     <div className='relative ml-[1.5rem]'>
                         <label>Nombre:</label>
                     </div>
                     <div className='relative ml-[1rem] mb-[2rem]'>
-                        <input type='text' className='border-8 rounded-2xl px-2'></input>
+                        <input type='text' className='border-8 rounded-2xl px-2' value={inputs.username} name='username' onChange={(event) => handleChange(event)} ></input>
                     </div>
 
                     <div className='relative ml-[1.5rem]'>
                         <label>Email:</label>
                     </div>
                     <div className='relative ml-[1rem] mb-[2rem]'>
-                        <input type='text' className='border-8 rounded-2xl px-2'></input>
+                        <input type='text' className='border-8 rounded-2xl px-2' value={inputs.email} name='email' onChange={(event) => handleChange(event)}></input>
                     </div>
 
                     <div className='absolute ml-[15.5rem] top-0'>
                         <label>Apellido:</label>
                     </div>
                     <div className='absolute ml-[15rem] mt-[1.5rem] top-0'>
-                        <input type='text' className='border-8 rounded-2xl px-2'></input>
+                        <input type='text' className='border-8 rounded-2xl px-2'value={inputs.apellido} name='apellido' onChange={(event) => handleChange(event)} ></input>
                     </div>
 
                     <div className='absolute ml-[15.5rem] mt-[6rem] top-0'>
                         <label>Contraseña:</label>
                     </div>
                     <div className='absolute ml-[15rem] mt-[7.5rem] top-0'>
-                        <input type='password' className='border-8 rounded-2xl px-2'></input>
+                        <input type='password' className='border-8 rounded-2xl px-2' value={inputs.password} name='password' onChange={(event) => handleChange(event)}></input>
                     </div>
 
                     <div className='relative ml-[1.5rem]'>
                         <label>Documento:</label>
                     </div>
                     <div className='relative ml-[1rem] mb-[1rem]'>
-                        <input type='text' pattern="^[0-9]\d*$" className='border-8 rounded-2xl px-2'></input>
+                        <input type='text' pattern="^[0-9]\d*$" className='border-8 rounded-2xl px-2'  value={inputs.documento} name='documento' onChange={(event) => handleChange(event)}></input>
                     </div>
 
                     <div className='relative mt-[6rem] ml-[20rem] font-bold pb-[3rem]'>
-                        <button className='bg-blue-300 hover:bg-blue-400 w-32 h-8 rounded-lg border-black hover:text-yellow-200'>Crear cuenta</button>
+                        <button type='submit' className='bg-blue-300 hover:bg-blue-400 w-32 h-8 rounded-lg border-black hover:text-yellow-200'>Crear cuenta</button>
                     </div>
 
                 </form>
