@@ -8,7 +8,7 @@ import Juan from "../../assets/Juan.png"
 import Footer from '../Footer/Footer'
 import { useNavigate } from 'react-router-dom'
 import { NavLanding } from '../NavLanding/NavLanding'
-import "./LandingPage.css"
+import styles from"./LandingPage.module.css"
 
 
 
@@ -20,92 +20,111 @@ const navigate=useNavigate()
   return (
     <div>
     <NavLanding/>
-    <section className='section1-landing-page'>
-      <div className='section1-img-container'><img src={work1} alt="" /></div>
-      <div className='text-container'>
-        <h2 className='section1-h2'>Encuentra tu trabajo ideal aquí</h2>
-        <p className='section1-p'>Únete ahora a nuestra plataforma y comienza a encontrar oportunidades de trabajo que se ajusten a tu perfil y habilidades</p>
-        <span className='call-to-action' onClick={()=>navigate("/registro")}>Comienza Ahora!</span>
+    <section className={styles.section1_landing_page}>
+      <div className={styles.section1_img_container}>
+           <img src={work1}  alt="img_working"  className={styles.img_section1_landing_page}/>
+      </div>
+        <div className={styles.section1_text_container}>
+            <h2 className={styles.section1_h2}>Encuentra tu trabajo ideal aquí</h2>
+            <p className={styles.section1_p}>
+              Únete ahora a nuestra plataforma y comienza a encontrar oportunidades de trabajo que se ajusten a tu perfil y habilidades</p>
+            <span
+            className={styles.call_to_action}
+            onClick={()=>navigate("/registro")}>Comienza Ahora!</span>
       </div>
     </section>
-    <section className='section2-landing-page'>
-      <div className='text-container'>
-        <div className='card'>
-        <ul className='section2-ul'>
+    <section className={styles.section2_landing_page}>
+      <div className={styles.section2_landing_text_container}>
+        <div className={styles.section2_lading_card}>
+        <ul className={styles.section2_ul}>
           <li>
-            <h2 className='section2-list-h2'>{checkmark}Ahorra tiempo y esfuerzo</h2>
-            <p className='section2-list-p'>publica o busca trabajos en minutos.</p>
+            <h2 className={styles.section2_list_h2}>{checkmark}Ahorra tiempo y esfuerzo</h2>
+            <p className={styles.section2_list_p}>publica o busca trabajos en minutos.</p>
           </li>
           
           <li>
-            <h2 className='section2-list-h2'>{checkmark}Amplía tu alcance</h2>
-            <p className='section2-list-p'>encuentra o publica trabajos que se ajusten a tus necesidades y habilidades.</p>
+            <h2 className={styles.section2_list_h2}>{checkmark}Amplía tu alcance</h2>
+
+            <p className={styles.section2_list_p}>
+              encuentra o publica trabajos que se ajusten a tus necesidades y habilidades.</p>
           </li>
           
           <li>
             
-            <h2 className='section2-list-h2'>{checkmark}Mejora tus posibilidades</h2>
-             <p className='section2-list-p'>aumenta tus opciones al buscar o seleccionar entre una amplia variedad de trabajos o solicitantes de empleo.</p>
+            <h2 className={styles.section2_list_h2}>{checkmark}
+                Mejora tus posibilidades</h2>
+
+             <p className={styles.section2_list_p}>aumenta tus opciones al buscar o seleccionar entre una amplia variedad de trabajos o solicitantes de empleo.</p>
           </li>
         </ul>
         </div>
+
         </div>
       <img src={work2} alt="" />
 
     </section>
  
-    <section className='section3 soluciones'>
-      <h2 className='section3-h2' id='section3-h2'>FusionaJob: La solución completa para encontrar trabajo o candidatos</h2>
-      <section className='section-soluciones'>
-        <article className='soluciones-article'>
-          <h2 className='section3-h2'>Empresa</h2>
-          <ul  className="section3-ul">
-            <li className='section3-ul-li'>{checkmark}
-              Permite a los empleadores y candidatos interactuar y coordinar entrevistas y otros detalles.</li>
-            
-            <li className='section3-ul-li'>{checkmark}Ayuda a los empleadores a encontrar al candidato adecuado</li>
+    <section className={styles.section3_landing_soluciones}>
+        <h2 className={styles.section3_landing_h2}>
+        FusionaJob: La solución completa para encontrar trabajo o candidatos</h2>
+        <section className={styles.section3_contenedor_soluciones}>
+          <article className={styles.section3_landing_soluciones_article}>
+            <h2 className={styles.section3_h2}>Empresa</h2>
+            <ul  className={styles.section3_landing_soluciones_ul}>
+
+              <li className={styles.section3_ul_li}>{checkmark}
+                Permite a los empleadores y candidatos interactuar y coordinar entrevistas y otros detalles.</li>
+
+                <li className={styles.section3_ul_li}>{checkmark}Ayuda a los empleadores a encontrar al candidato adecuado</li>
           </ul>
-          <h2 className='section3-h2 section3-btn-registro' onClick={()=>navigate("/companyregister")}>Registrate como Empresa</h2>
+
+          <h2 className={styles.section3_btn_registro}
+           onClick={()=>navigate("/companyregister")}>
+            Registrate como Empresa</h2>
 
           </article>
-        <article className='soluciones-article'>
-        <h2 className='section3-h2'>Candidato</h2>
+        <article className={styles.section3_landing_soluciones_article}>
+        <h2 className={styles.section3_h2}>Candidato</h2>
 
-          <ul className="section3-ul">
-            <li className='section3-ul-li'>{checkmark} Simplifica el proceso de búsqueda de trabajo</li>
-              <li  className='section3-ul-li'>{checkmark}Permitirles crear un perfil, subir su currículum y buscar trabajos de manera fácil y eficiente</li>
+          <ul className={styles.section3_landing_soluciones_ul}>
+            <li className={styles.section3_ul_li}>{checkmark} Simplifica el proceso de búsqueda de trabajo</li>
+              <li  className={styles.section3_ul_li}>{checkmark}Permitirles crear un perfil, subir su currículum y buscar trabajos de manera fácil y eficiente</li>
    </ul>
-   <h2 className='section3-h2 section3-btn-registro' onClick={()=>navigate("/registro")}>Registrate como Candidato</h2>
-
+   <h2 
+      className={styles.section3_btn_registro}
+      onClick={()=>navigate("/registro")}>Registrate como Candidato</h2>
         </article>
       </section>
 
-    </section>
-    <section className="section-testimonios">
-        <h2 className='title-testimonios'>Testimonios</h2>
-      <section className='testimonios'>
 
-        <article className='testimonios-article'>
-          <img src={Anna} width="420px" className='img-testimonio' alt='testimonio-ana'/>
-        <h2>Anna</h2>
-            <p>Gracias a Fusionajob conseguí mi trabajo soñado. ¡Lo recomiendo totalmente!</p>
+    </section>
+    <section className={styles.section_testimonios}>
+        <h2 className={styles.title_testimonios}>Testimonios</h2>
+      <section className={styles.testimonios}>
+
+        <article className={styles.testimonios_article}>
+          <img src={Anna} width="420px" 
+          className='img-testimonio' alt='testimonio-ana'/>
+            <h2 className={styles.testimonios_nombres}>Anna</h2>
+            <p className={styles.testimonios_p}>Gracias a Fusionajob conseguí mi trabajo soñado. ¡Lo recomiendo totalmente!</p>
         </article>
-        <article className='testimonios-article'>
+
+        <article className={styles.testimonios_article}>
           <img src={Maria} width="420px" className='img-testimonio' alt='testimonio-Maria'/>
-            <h2>María</h2>
-            <p>Nunca había sido tan fácil encontrar trabajo hasta que encontré Fusionajob. ¡Gracias por hacerlo posible!</p>
+            <h2 className={styles.testimonios_nombres}>María</h2>
+            <p className={styles.testimonios_p}>Nunca había sido tan fácil encontrar trabajo hasta que encontré Fusionajob. ¡Gracias por hacerlo posible!</p>
           </article>
-        <article className='testimonios-article'>
+        <article className={styles.testimonios_article}>
           <img src={Juan} width="420px" className='img-testimonio' alt='testimonio-Juan'/>
-            <h2>Juan</h2>
-            <p>Fusionajob me ayudó a conseguir mi primer trabajo después de graduarme.  ¡Increíble servicio de búsqueda laboral!</p>
+            <h2 className={styles.testimonios_nombres}>Juan</h2>
+            <p className={styles.testimonios_p}>Fusionajob me ayudó a conseguir mi primer trabajo después de graduarme.  ¡Increíble servicio de búsqueda laboral!</p>
         </article>
       </section>
 
 
     </section>
-    <section className='section-subscripciones'>
-      <h2>Subscripciones</h2>
+    <section className={styles.section_subscripciones}>
+      <h2 className={styles.section_subscripciones_title}>Subscripciones</h2>
       <img src={subscripciones} alt="" />
       </section>
       <Footer/>
