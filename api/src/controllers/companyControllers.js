@@ -4,6 +4,7 @@ const{getCompanyAPI,
     searchCompanyAPI,
     putCompany,
     deleteCompany,
+    getCompanywithDbId
 }=require('../handlers/handlerCompany');
 
 const getAllCompanyControllers = async () => {
@@ -31,24 +32,39 @@ const createNewCompanyControllers = async (body) => {
         throw error
     }
 }
-
+// trae id de la api
 const getCompanyByIdControllers = async ({id}) => {
     try {
-        const companies = await searchCompanyAPI(id)
-        let social = {
-            facebook: companies.facebook !== '' ? companies.facebook : null,
-            twitter: companies.twitter !== '' ? companies.twitter : null,
-            github: companies.github !== '' ? companies.github : null,
-        }
-
+        
+        const companies =  await searchCompanyAPI  (id);
+       
+        
         return {
             name: companies.name,
             description: companies.description,
             benefits: companies.benefits,
             web: companies.web,
             logo: companies.logo,
-            social
         }
+  
+
+    } catch (error) {
+        return error
+    }
+}
+//solucion momentanea o nose traigo de la db las id
+const getCompanyByIdDatBasControllers = async ({id}) => {
+    try {
+        
+        const companies =  await getCompanywithDbId  (id); 
+        return {
+            name: companies.name,
+            description: companies.description,
+            benefits: companies.benefits,
+            web: companies.web,
+            logo: companies.logo,
+        }
+
     } catch (error) {
         return error
     }
@@ -83,6 +99,7 @@ module.exports={
     getCompanyByIdControllers,
     putCompanyControllers,
     deleteCompanyControllers,
+    getCompanyByIdDatBasControllers,
 
     
 }
