@@ -1,0 +1,222 @@
+.section1_landing_page {
+  display: flex;
+  background-color: #fafad0;
+  color: #29183c;
+  height: 656px;
+  padding: 40px 0;
+}
+.section1_img_container {
+  width: 56%;
+}
+.img_section1_landing_page {
+  padding: 70px 0;
+}
+.section1_text_container {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.section1_p {
+  font-size: 22px;
+  padding-right: 21px;
+  font-family: "Poppins", sans-serif;
+}
+.call_to_action {
+  align-self: self-start;
+  user-select: none;
+  cursor: pointer;
+  border: 0.5px solid #29183c;
+  border-radius: 15px;
+  padding: 4px 6px;
+  font-size: 1.1em;
+  font-family: "Rubik", sans-serif;
+}
+
+.call_to_action:hover {
+  color: #6a7181;
+  border: 0.5px solid #6a7181;
+}
+.call_to_action:active {
+  color: #9ca19d;
+  border: 0.5px solid #9ca19d;
+}
+.section1_h2 {
+  font-size: 3em;
+  font-family: "Rubik", sans-serif;
+}
+
+.section2_landing_page {
+  display: flex;
+  background-color: #fff;
+  height: 480px;
+}
+.section2_landing_page .section2_landing_text_container {
+  width: 54%;
+}
+
+.section2_list_p {
+  color: #29183c;
+}
+.section2_list_h2 {
+  display: flex;
+}
+.section2_lading_card {
+  background-color: #fff;
+  color: #29183c;
+  padding: 18px;
+  height: 100%;
+}
+.section2_ul {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.section3_landing_h2 {
+  border: 0.5px solid #29183c;
+  border-radius: 15px;
+  padding: 4px 6px;
+  font-size: 1.1em;
+  font-family: "Rubik", sans-serif;
+  width: fit-content;
+  text-align: center;
+  margin: 40px auto;
+}
+
+.section3_landing_soluciones {
+  height: 600px;
+  background-color: #fafad0;
+  display: flex;
+  flex-direction: column;
+}
+.section3_landing_h2 {
+  text-align: center;
+  
+}
+.section3_contenedor_soluciones {
+  display: flex;
+  margin: 53px 53px;
+}
+.section3_landing_soluciones_ul {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.section3_ul_li {
+  display: flex;
+}
+.section3_h2 {
+  color: #fafad0;
+  padding: 4px 6px;
+  font-size: 1.3em;
+
+  padding: 6px 60px;
+}
+.section3_btn_registro {
+  color: #fafad0;
+  border: 0.5px solid #29183c;
+  border-radius: 15px;
+  padding: 4px 6px;
+  font-size: 1.1em;
+  font-family: "Rubik", sans-serif;
+  width: fit-content;
+  text-align: center;
+  margin: 40px auto;
+  user-select: none;
+  cursor: pointer;
+  border: 1px solid;
+  border-radius: 19px;
+  box-shadow: 3px 5px 8px 4px rgba(0, 0, 0, 0.42);
+}
+.section3_btn_registro:hover {
+  box-shadow: 1px 5px 8px 12px rgba(0, 0, 0, 0.34);
+}
+.section3_btn_registro:active {
+  box-shadow: 5px 2px 8px 12px rgba(0, 0, 0, 0.34);
+}
+
+.section3_landing_soluciones_article {
+  border-radius: 17px;
+  background-color: #29183c;
+  width: 870px;
+  height: 365px;
+  margin: 0px 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fafad0;
+
+}
+.section3_landing_soluciones_ul {
+  padding: 10px 40px;
+  text-align: left;
+}
+
+
+.section_testimonios {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  height: 700px;
+  background-color: #29183c;
+}
+
+.testimonios {
+  display: flex;
+}
+.testimonios_nombres {
+  color: #29183c;
+}
+
+.testimonios_article {
+  padding: 0 40px;
+  text-align: center;
+  width: 342px;
+  height: 402px;
+  background-color: #fafad0;
+  margin: 0 30px;
+  border-radius: 22px;
+  box-shadow: 3px 5px 8px 4px rgba(0, 0, 0, 0.42);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.testimonios_nombres{
+  font-size: 1.5em;
+  font-family: "Rubik", sans-serif;
+
+}
+.testimonios_p {
+  padding: 0 4px;
+  font-family: "Poppins", sans-serif;
+
+}
+.title_testimonios {
+  background-color: #fafad0;
+  font-size: 1.5em;
+  border-radius: 7px;
+  padding: 2px 57px;
+  font-family: "Rubik", sans-serif;
+
+  
+}
+.section_subscripciones {
+  background-color: #fafad0;
+}
+.section_subscripciones_title {
+  text-align: center;
+  padding-top: 38px;
+  color: #29183c;
+  background-color: #fafad0;
+  font-size: 1.5em;
+  border-radius: 7px;
+  padding: 2px 57px;
+  font-family: "Rubik", sans-serif;
+}

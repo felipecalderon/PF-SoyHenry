@@ -46,7 +46,7 @@
     margin-bottom: 1rem;
 }
 
-p{
+.p_formulario_error{
     font-size: 12px;
     font-style: italic;
     color: red;
