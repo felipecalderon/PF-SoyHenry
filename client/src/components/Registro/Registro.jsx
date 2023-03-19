@@ -1,44 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import validationsRegister from './validationsRegister';
 import { Link } from "react-router-dom";
 import logofusionajob from '../../assets/logofusionajob.png';
 import working1 from '../../assets/working1.png';
 import Footer from "../Footer/Footer";
-import { getUser } from "../../redux/slices/userRegisterSlice";
-import { useDispatch, useSelector } from "react-redux";
-import usePost from '../Hooks/usePost';
-import {createNewUser} from '../../redux/actions/postFetchUser'
+import { useDispatch } from "react-redux";
+import { postFetchNewUsers } from "../../redux/actions/postFetchNewUser";
 
 export const Registro = () => {
 
     const dispatch = useDispatch();
-    const {user} = useSelector(state => state.userRegisterSlice);
-    const [action, setAction] = useState(false)
 
     const [form, setForm] = useState({
-        nombre: '',
+        username: '',
         apellido: '',
         email: '',
-        contraseña: '',
-        documento: ''
+        password: '',
+        documento: '',
+        rol: 'Postulante'
     });
 
     const [errors, setErrors] = useState({
-        nombre: '',
+        username: '',
         apellido: '',
         email: '',
-        contraseña: '',
+        password: '',
         documento: ''
     });
 
     const handleNombre = (event) => {
         setForm({
             ...form,
-            nombre: (event.target.value)
+            username: (event.target.value)
         });
         setErrors(validationsRegister({
             ...form,
-            nombre: (event.target.value)
+            username: (event.target.value)
         }));
     };
 
@@ -67,11 +64,11 @@ export const Registro = () => {
     const handleContraseña = (event) => {
         setForm({
             ...form,
-            contraseña: (event.target.value)
+            password: (event.target.value)
         });
         setErrors(validationsRegister({
             ...form,
-            contraseña: (event.target.value)
+            password: (event.target.value)
         }));
     };
     
@@ -86,20 +83,12 @@ export const Registro = () => {
         }));
     };
 
-    // useEffect(() => {
-    //     if (data) dispatch(getUser(form))
-    // }, [action])
-    
-    const url = `http://localhost:3001/user`
-    const {data, isLoading, error} = usePost(url, form);
     
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(createNewUser(form))
-        alert('Usuario creado correctamente');
+        dispatch(postFetchNewUsers(form))
+        alert('Usuario registrado');
     };
-
-    console.log(error, data);
 
     return (
         <div className='relative bg-yellow-100'>
@@ -121,14 +110,14 @@ export const Registro = () => {
 
             <div className='flex relative w-[27.5rem] ml-[14rem] mt-[5rem] pt-[.5rem]'>
 
-                <form className='relative' onSubmit={handleSubmit}>
+                <form className='relative' onSubmit={(event) => handleSubmit(event)}>
 
                     <div className='relative ml-[1.5rem]'>
                         <label>Nombre:</label>
                     </div>
                     <div className='relative ml-[1rem] mb-[2rem]'>
-                        <input type='text' name='nombre' value={form.nombre} onChange={handleNombre} className='border-2 rounded-2xl px-2'></input>
-                        {errors.nombre && <p className='absolute text-red-500' >{errors.nombre}</p>}
+                        <input type='text' name='username' value={form.username} onChange={handleNombre} className='border-2 rounded-2xl px-2'></input>
+                        {errors.username && <p className='absolute text-red-500' >{errors.username}</p>}
                     </div>
 
                     <div className='relative ml-[1.5rem]'>
@@ -151,8 +140,8 @@ export const Registro = () => {
                         <label>Contraseña:</label>
                     </div>
                     <div className='absolute ml-[15rem] mt-[6.8rem] top-0'>
-                        <input type='password' name='contraseña' value={form.contraseña} onChange={handleContraseña} className='border-2 rounded-2xl px-2'></input>
-                        {errors.contraseña && <p className='absolute mt-15 text-red-500' >{errors.contraseña}</p>}
+                        <input type='password' name='password' value={form.password} onChange={handleContraseña} className='border-2 rounded-2xl px-2'></input>
+                        {errors.password && <p className='absolute mt-15 text-red-500' >{errors.password}</p>}
                     </div>
 
                     <div className='relative ml-[1.5rem]'>
@@ -164,7 +153,7 @@ export const Registro = () => {
                     </div>
 
                     <div className='relative mt-[6rem] ml-[20rem] font-bold pb-[3rem]'>
-                        <button  type='submit' className='bg-blue-300 hover:bg-blue-400 w-32 h-8 rounded-lg border-black hover:text-yellow-200' disabled = {( Object.keys(errors).length !== 0)}>Crear cuenta</button>
+                        <button  type='submit' className='bg-blue-300 hover:bg-blue-400 w-32 h-8 rounded-lg border-black hover:text-yellow-200'>Crear cuenta</button>
                     </div>
 
                 </form>

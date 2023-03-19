@@ -8,7 +8,7 @@ const JobDetail = (props) => {
 const dispatch = useDispatch();
 const params = useParams()
 const {jobId} = useSelector((state) => state.postSlice)
-const url = `http://localhost:3001/jobsdb/${params}`
+const url = `http://localhost:3001/jobsdb/`
 const {data} = useFetch(url)
 const [empresa, setEmpresa] = useState(null)
 

@@ -1,11 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-// definir la acción asincrónica
-export const createNewUser = createAsyncThunk(
-  'user/createNewUser',
+export const postFechNewCompany = createAsyncThunk(
+  'users/createUser',
   async (userData, { rejectWithValue }) => {
-    try {
-      const response = await fetch(`http://localhost:3001/user`, {
+    try {      
+      const response = await fetch('http://localhost:3001/company', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -2,10 +2,10 @@ const validationsRegister = (form) => {
 
     let errors = {};
 
-    if(!form.nombre) {
-        errors.nombre = 'Se necesita un nombre'
-    } else if (!/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g.test(form.nombre)) {
-        errors.nombre = 'El nombre es inválido.'
+    if(!form.username) {
+        errors.username = 'Se necesita un nombre'
+    } else if (!/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g.test(form.username)) {
+        errors.username = 'El nombre es inválido.'
     }
     if(!form.apellido) {
         errors.apellido = 'Se necesita un apellido'
@@ -30,11 +30,11 @@ const validationsRegister = (form) => {
     } else if (!/^[1-9]\d*$/.test(form.cuit)) {
         errors.cuit = 'El CUIT es inválido'
     } 
-    if(!form.contraseña.match(/\d/)){
-        errors.contraseña = "La contraseña debe contener al menos un número";
+    if(!form.password.match(/\d/)){
+        errors.password = "La contraseña debe contener al menos un número";
     }
-    if(form?.constraseña?.length < 6 || form?.contraseña?.length > 12){
-        errors.contraseña = "La contraseña debe contener entre 6 y 12 caracteres";
+    if(form?.password?.length < 6 || form?.password?.length > 12){
+        errors.password = "La contraseña debe contener entre 6 y 12 caracteres";
     }
     return errors;
 }

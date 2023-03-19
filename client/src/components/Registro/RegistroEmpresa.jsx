@@ -8,7 +8,7 @@ import validationsRegister from "./validationsRegister";
 export const RegistroEmpresa = () => {
 
     const [form, setForm] = useState({
-        nombre: '',
+        name: '',
         apellido: '',
         email: '',
         contraseña: '',
@@ -18,7 +18,7 @@ export const RegistroEmpresa = () => {
     });
 
     const [errors, setErrors] = useState({
-        nombre: '',
+        name: '',
         apellido: '',
         email: '',
         contraseña: '',
@@ -30,11 +30,11 @@ export const RegistroEmpresa = () => {
     const handleNombre = (event) => {
         setForm({
             ...form,
-            nombre: (event.target.value)
+            name: (event.target.value)
         });
         setErrors(validationsRegister({
             ...form,
-            nombre: (event.target.value)
+            name: (event.target.value)
         }));
     };
 
@@ -104,11 +104,6 @@ export const RegistroEmpresa = () => {
         }));
     };
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     login(form);
-    // };
-
     return (
         <div className='relative bg-yellow-100'>
 
@@ -135,8 +130,8 @@ export const RegistroEmpresa = () => {
                     <label>Nombre:</label>
                 </div>
                 <div className='relative ml-[1rem] mb-[2rem]'>
-                    <input type='text' name='nombre' value={form.nombre} onChange={handleNombre} className='border-2 rounded-2xl px-2'></input>
-                    {errors.nombre && <p className='absolute mt-15 text-red-500' >{errors.nombre}</p>}
+                    <input type='text' name='name' value={form.name} onChange={handleNombre} className='border-2 rounded-2xl px-2'></input>
+                    {errors.name && <p className='absolute mt-15 text-red-500' >{errors.name}</p>}
                 </div>
 
                 <div className='relative ml-[1.5rem]'>
