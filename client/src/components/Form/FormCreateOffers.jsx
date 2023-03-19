@@ -85,37 +85,37 @@ export default function OffersCreate () {
             <h1 className={styles.titulo}>Publicacion oferta laboral</h1>
             <form className="" onSubmit={(event) => handleSubmit(event)}>
                 <div className={styles.contenedor_inputs}>
-                    {errors.title && <p>{errors.title} </p> }
+                    {errors.title && <p className={styles.error_message}>{errors.title} </p> }
                     <label >Titulo: </label>
                     <input className={styles.inputs_strings} type='text' onChange={(event) => handleChange(event)} value={inputs.title} name='title'  placeholder="Ingrese un titulo de la oferta"/>                        
                 </div>
 
                 <div className={styles.contenedor_inputs}>
-                    {errors.description && <p>{errors.description} </p> }
+                    {errors.description && <p className={styles.error_message}>{errors.description} </p> }
                     <label >Descripcion: </label>
                     <textarea className={styles.inputs_strings}  type='text' onChange={(event) => handleChange(event)} value={inputs.description} name='description'  placeholder="Describa la oferta laboral"/>                        
                 </div>
                 
                 <div className={styles.contenedor_inputs}>
-                {errors.requeriments && <p>{errors.requeriments} </p>}
+                {errors.requeriments && <p className={styles.error_message}>{errors.requeriments} </p>}
                     <label >Requisitos: </label>
                     <textarea className={styles.inputs_strings}  type='text' onChange={(event) => handleChange(event)} value={inputs.requeriments} name='requeriments'  placeholder="Describa los requesitos necesarios para aplicar"/> 
                 </div>
                 
                 <div className={styles.contenedor_inputs}>
-                    {errors.benefits && <p>{errors.benefits} </p>}
+                    {errors.benefits && <p className={styles.error_message}>{errors.benefits} </p>}
                     <label >Beneficios: </label>
                     <textarea className={styles.inputs_strings}  type='text' onChange={(event) => handleChange(event)} value={inputs.benefits} name='benefits'  placeholder="ingrese los benefecios de pertenecer a la empresa"/>                        
                 </div>
 
                 <div className={styles.contenedor_inputs}>
-                    {errors.functions && <p>{errors.functions} </p>}
+                    {errors.functions && <p className={styles.error_message}>{errors.functions} </p>}
                     <label >Funciones: </label>
                     <textarea className={styles.inputs_strings}  type='text' onChange={(event) => handleChange(event)} value={inputs.functions} name='functions'  placeholder="ingrese las funciones a cumplir"/>                        
                 </div>
 
                 <div className={styles.contenedor_inputs}>
-                    {errors.perks && <p>{errors.perks}</p> }
+                    {errors.perks && <p className={styles.error_message}>{errors.perks}</p> }
                     <label >Perks:</label>
                     <input type="text" name='perks'  id='perks' className={styles.perks_input} placeholder='ingrese perks' />
                     <button className={styles.perks_button} type='button' onClick={(event) => handlePerks(event)}>agregar perks</button>
@@ -134,7 +134,7 @@ export default function OffersCreate () {
                 </div>
 
                 <div className={styles.contenedor_inputs}>
-                    {errors.modality && <p>{errors.modality} </p>}            
+                    {errors.modality && <p className={styles.error_message}>{errors.modality} </p>}            
                     <label >Modalidad: </label>
                     <select name="modality" onChange={(event) => handleChange(event)} >
                         <option value="">Seleccione</option>
@@ -146,7 +146,7 @@ export default function OffersCreate () {
                 </div>
 
                 <div className={styles.contenedor_inputs}>
-                    {errors.experience && <p>{errors.experience} </p>}            
+                    {errors.experience && <p className={styles.error_message}>{errors.experience} </p>}            
                     <label >Experiencia requerida: </label>
                     <select name="experience" onChange={(event) => handleChange(event)} >
                         <option value="">Seleccione</option>
@@ -158,7 +158,7 @@ export default function OffersCreate () {
                 </div>
 
                 <div className={styles.contenedor_inputs}>
-                    {(errors.min_salary || errors.max_salary) && <p>{errors.min_salary} </p>} 
+                    {(errors.min_salary || errors.max_salary) && <p className={styles.error_message}>{errors.min_salary} </p>} 
                     <label >Salario: </label>
                     <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.min_salary} name='min_salary'  placeholder="maximo"/>                        
                     <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.max_salary} name='max_salary'  placeholder="minimo"/>
@@ -166,7 +166,7 @@ export default function OffersCreate () {
                    
                 <div className={styles.contenedor_inputs}>
                     <button className={styles.boton_submit} type='submit' disabled = {( Object.keys(errors).length !== 0 || inputs.title === '' )}> Publicar oferta</button>              
-                    <Link to='/'> <button className={styles.boton_volver}> Volver a home </button></Link>
+                    <Link to='/dashboardempresa'> <button className={styles.boton_volver}> Volver a dashboard</button></Link>
                     
                 </div>   
             </form>

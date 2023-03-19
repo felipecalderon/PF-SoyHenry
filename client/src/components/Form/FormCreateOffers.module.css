@@ -66,7 +66,7 @@
     padding: 3px;    
 }
 
-p{
+.error_message{
     font-size: 12px;
     font-style: italic;
     color: red;

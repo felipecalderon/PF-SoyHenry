@@ -28,7 +28,7 @@ export const NavLanding = () => {
           <div className="relative">
           </div>
             <Link href="#" className="inline-block hover:text-yellow-200 font-medium px-4 py-2">Planes/Tarifas</Link>
-            <Link href="#" className="inline-block hover:text-yellow-200 font-medium px-4 py-2">Sobre nosotros</Link>
+            <Link to='/about' className="inline-block hover:text-yellow-200 font-medium px-4 py-2">Sobre nosotros</Link>
             <Link to='/dashboardempresa' className="inline-block hover:text-yellow-200 font-medium px-4 py-2">Soy empresa</Link>
             <Link href="#" to='/registro' className="inline-block hover:text-yellow-200 font-medium px-4 py-2">Registro</Link>
             <Link href="#" onClick={() => {setOpen(!open)}} className="inline-block hover:text-yellow-200 font-medium px-4 py-2">Ingreso</Link>
