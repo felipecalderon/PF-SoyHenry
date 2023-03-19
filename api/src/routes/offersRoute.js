@@ -23,7 +23,10 @@ const createOffer = async (req, res) => {
 const allOffers = async (req, res) => {
     try {
         const offers = await getAllOffersController(req.query)
-        return res.status(200).json( offers )
+        return res
+        .status(200)
+        // .header('Access-Control-Allow-Origin', 'https://fusionajobs-production.up.railway.app/')
+        .json( offers )
         
     } catch (error) {
         res.status(404).json({ error: error.message })

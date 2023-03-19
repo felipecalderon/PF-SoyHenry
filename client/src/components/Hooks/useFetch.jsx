@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import axios from 'axios'
 function useFetch(url) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -13,10 +13,13 @@ function useFetch(url) {
       try {
         setIsLoading(true);
 
-        const response = await fetch(url, { signal });
-        const result = await response.json();
+        const response = await axios(url, { signal }, {
+          headers: {
+            'Origin': 'https://fusionajobs-production.up.railway.app'
+          }
+        });
 
-        setData(result);
+        setData(response.data);
       } catch (error) {
         setError(error.message);
       } finally {

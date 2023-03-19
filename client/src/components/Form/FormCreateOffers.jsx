@@ -85,13 +85,13 @@ export default function OffersCreate () {
             <h1 className={styles.titulo}>Publicacion oferta laboral</h1>
             <form className="" onSubmit={(event) => handleSubmit(event)}>
                 <div className={styles.contenedor_inputs}>
-                    {errors.title && <p className={styles.error_message}>{errors.title} </p> }
+            {errors.title && <p className={styles.p_formulario_error}>{errors.title} </p> }
                     <label >Titulo: </label>
                     <input className={styles.inputs_strings} type='text' onChange={(event) => handleChange(event)} value={inputs.title} name='title'  placeholder="Ingrese un titulo de la oferta"/>                        
                 </div>
 
                 <div className={styles.contenedor_inputs}>
-                    {errors.description && <p className={styles.error_message}>{errors.description} </p> }
+                    {errors.description && <p className={styles.p_formulario_error}>{errors.description} </p> }
                     <label >Descripcion: </label>
                     <textarea className={styles.inputs_strings}  type='text' onChange={(event) => handleChange(event)} value={inputs.description} name='description'  placeholder="Describa la oferta laboral"/>                        
                 </div>
@@ -103,38 +103,13 @@ export default function OffersCreate () {
                 </div>
                 
                 <div className={styles.contenedor_inputs}>
-                    {errors.benefits && <p className={styles.error_message}>{errors.benefits} </p>}
+                    {errors.benefits && <p className={styles.p_formulario_error}>{errors.benefits} </p>}
                     <label >Beneficios: </label>
                     <textarea className={styles.inputs_strings}  type='text' onChange={(event) => handleChange(event)} value={inputs.benefits} name='benefits'  placeholder="ingrese los benefecios de pertenecer a la empresa"/>                        
                 </div>
 
                 <div className={styles.contenedor_inputs}>
-                    {errors.functions && <p className={styles.error_message}>{errors.functions} </p>}
-                    <label >Funciones: </label>
-                    <textarea className={styles.inputs_strings}  type='text' onChange={(event) => handleChange(event)} value={inputs.functions} name='functions'  placeholder="ingrese las funciones a cumplir"/>                        
-                </div>
-
-                <div className={styles.contenedor_inputs}>
-                    {errors.perks && <p className={styles.error_message}>{errors.perks}</p> }
-                    <label >Perks:</label>
-                    <input type="text" name='perks'  id='perks' className={styles.perks_input} placeholder='ingrese perks' />
-                    <button className={styles.perks_button} type='button' onClick={(event) => handlePerks(event)}>agregar perks</button>
-                    <select className={styles.perks_select} onChange={(event => handlePerksDelete(event))} >
-                        <option id="perks_select" >perks agregados</option>
-                        {inputs.perks.map(perk => {
-                            return (
-                                <option value={perk}>{perk}</option>
-                            )
-                        })}
-                    </select>                    
-                </div>
-
-                <div className={styles.contenedor_inputs}>
-                    <span className={styles.perks_information}>* beneficio resumido en una palabra, ej: prepaga, click sobre perk en la lista para eliminar</span>
-                </div>
-
-                <div className={styles.contenedor_inputs}>
-                    {errors.modality && <p className={styles.error_message}>{errors.modality} </p>}            
+                    {errors.modality && <p className={styles.p_formulario_error}>{errors.modality} </p>}            
                     <label >Modalidad: </label>
                     <select name="modality" onChange={(event) => handleChange(event)} >
                         <option value="">Seleccione</option>
@@ -158,7 +133,7 @@ export default function OffersCreate () {
                 </div>
 
                 <div className={styles.contenedor_inputs}>
-                    {(errors.min_salary || errors.max_salary) && <p className={styles.error_message}>{errors.min_salary} </p>} 
+                    {(errors.min_salary || errors.max_salary) && <p className={styles.p_formulario_error}>{errors.min_salary} </p>} 
                     <label >Salario: </label>
                     <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.min_salary} name='min_salary'  placeholder="maximo"/>                        
                     <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.max_salary} name='max_salary'  placeholder="minimo"/>

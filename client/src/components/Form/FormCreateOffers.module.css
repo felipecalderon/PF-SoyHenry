@@ -47,26 +47,7 @@
     margin-bottom: 1rem;
 }
 
-.perks_select{
-    width: 140px;
-}
-
-.perks_information{
-    font-size: 12px;
-    font-style: italic;
-}
-
-.perks_input{
-    width: 135px;
-}
-
-.perks_button {    
-    border: 1px black solid;
-    border-radius: 5px;
-    padding: 3px;    
-}
-
-.error_message{
+.p_formulario_error{
     font-size: 12px;
     font-style: italic;
     color: red;
