@@ -6,7 +6,7 @@ const {
     DBUSER,
     DBPASS,
     DB_DEPLOY,
-    PORT
+    PORTDB
     } = process.env
 
 // PONER SSL en dialectOptions en deploy
@@ -17,7 +17,7 @@ const ssl = {
 const sequelize = new Sequelize(DBNAME, DBUSER, DBPASS, {
   host: DBHOST,
   dialect: 'postgres',
-  port: PORT,
+  port: PORTDB,
   dialectOptions: {
     pool: {
         acquire: 30000, // tiempo de espera para adquirir una conexión

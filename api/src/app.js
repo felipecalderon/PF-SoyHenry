@@ -9,7 +9,7 @@ const { loginRouter } = require ('./auth/github');
 const axios = require('axios')
 
 axios.defaults.baseURL = 'https://www.getonbrd.com';
-
+const port = process.env.PORT || 3002
 // middlewares
 app.use(express.json())
 app.use(express.urlencoded({
@@ -26,8 +26,8 @@ app.use(passport.initialize())
 // app.use('/auth', loginRouter)
 
 // inicio de server
-app.listen(3001, () => {
-    console.log('API ACTIVADA')
+app.listen(port, () => {
+    console.log('API ACTIVADA EN PUERTO ', port)
 })
 
 module.exports = { app };
