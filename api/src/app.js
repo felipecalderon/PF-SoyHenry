@@ -9,7 +9,7 @@ const { loginRouter } = require ('./auth/github');
 const axios = require('axios')
 
 axios.defaults.baseURL = 'https://www.getonbrd.com';
-const port = process.env.PORT || 3002
+const port = process.env.PORT || 3001
 // middlewares
 app.use(express.json())
 app.use(express.urlencoded({
