@@ -25,7 +25,7 @@ const allOffers = async (req, res) => {
         const offers = await getAllOffersController(req.query)
         return res
         .status(200)
-        .header('Access-Control-Allow-Origin', 'https://fusionajobs-production.up.railway.app/')
+        // .header('Access-Control-Allow-Origin', 'https://fusionajobs-production.up.railway.app/')
         .json( offers )
         
     } catch (error) {
