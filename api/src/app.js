@@ -6,6 +6,9 @@ const sequelize = require('./database')
 const cors = require('cors')
 const passport = require('passport')
 const { loginRouter } = require ('./auth/github');
+const axios = require('axios')
+
+axios.defaults.baseURL = 'https://www.getonbrd.com';
 
 // middlewares
 app.use(express.json())

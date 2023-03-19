@@ -8,7 +8,7 @@ const { cloudinary } = require("./Utils/cloudinaryConfig");
 //const{imgUploader}=require('./Utils/uploaderimages')
 const getCompanyAPI = async () => {
     try {
-        let dataAPI = await axios(`https://www.getonbrd.com/api/v0/companies`)
+        let dataAPI = await axios(`/api/v0/companies`)
         const company = cleaningGetonbrdCompany( dataAPI.data );
         return company;
     } catch (error) {
@@ -18,7 +18,7 @@ const getCompanyAPI = async () => {
 
 const searchCompanyAPI = async (id) => {
     try {
-        let dataAPI = await axios(`https://www.getonbrd.com/api/v0/companies/${id}`)
+        let dataAPI = await axios(`/api/v0/companies/${id}`)
         return dataAPI.data.data.attributes
     } catch (error) {
         return error

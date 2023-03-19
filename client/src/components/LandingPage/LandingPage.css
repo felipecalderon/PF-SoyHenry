@@ -141,11 +141,6 @@ h2{
   box-shadow: 3px 5px 8px 4px rgba(0, 0, 0, 0.42);
 
 }
-article img{
-    position: relative;
-    top: -115px;
-    left: 13px;
-}
 .testimonios article h2{
     position: relative;
     top: -68px;

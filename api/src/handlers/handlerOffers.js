@@ -69,7 +69,7 @@ const getOffersById = async ( id ) => {
 // gets and cleaning Api
 const getOffersApiGetonbrd = async ( language ) => {
     try {
-        let dataAPI = await axios(`https://www.getonbrd.com/api/v0/search/jobs?query=${language}`);
+        let dataAPI = await axios(`/api/v0/search/jobs?query=${language}`);
         const offers = cleaningGetonbrd( dataAPI.data );
         return offers
         
@@ -81,7 +81,7 @@ const getOffersByIdApi = async ( id ) => {
     try {
         // id es el titulo de la oferta como la api no tiene un end poin para solicitar por id 
         // hace la busqueda por el titulo
-        let dataAPI = await axios(`https://www.getonbrd.com/api/v0/search/jobs?query=${id}`);
+        let dataAPI = await axios(`/api/v0/search/jobs?query=${id}`);
         
         // filtra la oferta que tenga el titulo buscado
         const offers = cleaningGetonbrd( dataAPI.data );

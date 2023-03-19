@@ -4,12 +4,12 @@ import {getPostList} from '../../redux/slices/postSlices'
 import {useDispatch, useSelector} from "react-redux";
 import { useEffect } from "react";
 
-const url = 'http://localhost:3001/jobs'
+const url = '/jobs'
 
 const Cards = () => {
     const dispatch = useDispatch()
     const { postJobs } = useSelector((state) => state.postSlice) 
-    const {data, isLoading} = useFetch(url)
+    const {data, isLoading, error} = useFetch(url)
 
     useEffect(() => {
         if(data) dispatch(getPostList(data.data))

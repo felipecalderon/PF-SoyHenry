@@ -5,9 +5,19 @@ const { User, Admin, Postulant, Company } = require("../models/relations.js");
 // Post
 const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, gender, password, name, description, location, website, logo}) => {
     try {
-        const usuario = await User.create({
-            username, email, rol, active, password
-            });
+        const [usuario, created] = await User.findOrCreate({
+                where: { email },
+                defaults: {
+                  username,
+                  rol,
+                  active,
+                  password
+                }
+        });
+        if(usuario) {
+            return usuario.dataValues
+        }
+        if (!created) {
         switch (rol) {
             case 'Postulante':
                 const dataPostulante = await Postulant.create({
@@ -24,6 +34,7 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
             default:
                 throw 'Tipo de usuario no válido'
         }
+    }
     } catch(err) {
         console.log(err)
         throw err

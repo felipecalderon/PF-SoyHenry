@@ -15,7 +15,9 @@ const {
 } = require('./offersRoute');
 //const{allAdmin,createAdmin,putAdmin,deleteadmin,getadminbyid}=require('./adminRoute')
 const {
- authUserCreate
+ authUserCreate,
+ authUserCreateGoogleBtn,
+ authUserGoogleBtnCB
 } = require('./authRoute')
 //
 const{allCompany,
@@ -53,6 +55,8 @@ route.delete('/company/:id',deleteCompany);
 //
 
 route.post('/auth/register', authUserCreate)
+route.get('/auth/google', authUserCreateGoogleBtn)
+route.get('/auth/google/callback', authUserGoogleBtnCB)
 //admin
 /*route.get('/admin',allAdmin )
 route.post('/admin',createAdmin )
