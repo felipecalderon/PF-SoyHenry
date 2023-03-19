@@ -28,17 +28,18 @@
 }
 
 .boton_submit {
-    margin-left: 30rem;
+    
     border: 1px black solid;
     border-radius: 5px;
     padding: 2px;
+    width: 150px;
     margin-top: 1rem;
     margin-bottom: 1rem;
     
 }
 
 .boton_volver {
-    margin-left: 32rem;
+ 
     border: 1px black solid;
     border-radius: 5px;
     padding: 2px;

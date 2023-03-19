@@ -1,0 +1,29 @@
+.personal_information{
+    border: 1px black solid;
+    background-color: #29183c;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 15px;
+    color: #fafad0;
+}
+
+.content{
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.titulo{
+    margin-top: 1rem;
+    margin-left: 1rem;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.titulo_integrantes{
+    margin-left: 1rem;
+    font-size: 16px;    
+}
+
+.container{
+   background: #fafad0;    
+}

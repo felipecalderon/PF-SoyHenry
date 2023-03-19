@@ -9,8 +9,12 @@ function validate(inputs){
     let errors = {};
     if (!inputs.title) errors.title = 'se requiere un titulo *';
     if (!inputs.description) errors.description = 'se requiere una descripcion *';
+    if (!inputs.requeriments) errors.requeriments = 'se requiere requisitos *';
     if (!inputs.benefits) errors.benefits = 'se requiere beneficios *';
+    if (!inputs.functions) errors.functions = 'se requiere funciones a cumplir *'
     if (!inputs.modality) errors.modality = 'debe selecionar una modalidad *';
+    if (!inputs.perks.length) errors.perks = 'debe ingresar perks *'
+    if (!inputs.experience)  errors.experience = 'se debe seleccionar la experiencia requerida'
     if (inputs.min_salary <= 0) errors.min_salary = 'ingrese un salario correcto *';
     if (inputs.max_salary <= 0) errors.max_salary = 'ingrese un salario correcto *';
 
@@ -25,15 +29,18 @@ export default function OffersCreate () {
         
         title: '',        
         description: '',
+        requeriments:'',
         benefits: '',
+        functions: '',
         perks: [],
-        min_salary: 0,
-        max_salary: 0,
+        min_salary: '',
+        max_salary: '',
         modality: '',
         applications_count: 0,
-        link: '',
+        experience: '',        
+        
     })
-
+    
     function handleChange(event){
         setInputs({
             ...inputs,
@@ -43,6 +50,28 @@ export default function OffersCreate () {
             ...inputs,
             [event.target.name]: event.target.value
         }));
+        console.log(inputs.modality)
+    }
+
+    function handlePerks(event){
+        
+        let perks = document.getElementById('perks')        
+        if (perks.value === '') return
+           
+        setInputs({
+            ...inputs,
+            perks: [...inputs.perks, perks.value]
+        })
+        perks.value = '';
+    }
+    
+    function handlePerksDelete(event){
+        
+        alert('perks eliminado')        
+        setInputs({
+            ...inputs,
+            perks: inputs.perks.filter(perk => perk !== event.target.value)
+        })
     }
 
     function handleSubmit(event){
@@ -60,11 +89,19 @@ export default function OffersCreate () {
                     <label >Titulo: </label>
                     <input className={styles.inputs_strings} type='text' onChange={(event) => handleChange(event)} value={inputs.title} name='title'  placeholder="Ingrese un titulo de la oferta"/>                        
                 </div>
+
                 <div className={styles.contenedor_inputs}>
                     {errors.description && <p className={styles.p_formulario_error}>{errors.description} </p> }
                     <label >Descripcion: </label>
                     <textarea className={styles.inputs_strings}  type='text' onChange={(event) => handleChange(event)} value={inputs.description} name='description'  placeholder="Describa la oferta laboral"/>                        
-                </div>               
+                </div>
+                
+                <div className={styles.contenedor_inputs}>
+                {errors.requeriments && <p className={styles.error_message}>{errors.requeriments} </p>}
+                    <label >Requisitos: </label>
+                    <textarea className={styles.inputs_strings}  type='text' onChange={(event) => handleChange(event)} value={inputs.requeriments} name='requeriments'  placeholder="Describa los requesitos necesarios para aplicar"/> 
+                </div>
+                
                 <div className={styles.contenedor_inputs}>
                     {errors.benefits && <p className={styles.p_formulario_error}>{errors.benefits} </p>}
                     <label >Beneficios: </label>
@@ -76,9 +113,22 @@ export default function OffersCreate () {
                     <label >Modalidad: </label>
                     <select name="modality" onChange={(event) => handleChange(event)} >
                         <option value="">Seleccione</option>
-                        <option value="Presencial">Presencial</option>
-                        <option value="Hybrido">Hybrido</option>
-                        <option value="Remoto">Remoto</option>
+                        <option value="no_remote">Presencial</option>
+                        <option value="hybrid">Hybrido</option>
+                        <option value="fully_remote">Remoto</option>
+                        <option value="remote_local">Remoto local</option>
+                    </select>            
+                </div>
+
+                <div className={styles.contenedor_inputs}>
+                    {errors.experience && <p className={styles.error_message}>{errors.experience} </p>}            
+                    <label >Experiencia requerida: </label>
+                    <select name="experience" onChange={(event) => handleChange(event)} >
+                        <option value="">Seleccione</option>
+                        <option value="0">sin experiencia</option>
+                        <option value="1">1 año</option>
+                        <option value="2-4">2 a 4 años</option>
+                        <option value="5">5 años</option>
                     </select>            
                 </div>
 
@@ -87,18 +137,14 @@ export default function OffersCreate () {
                     <label >Salario: </label>
                     <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.min_salary} name='min_salary'  placeholder="maximo"/>                        
                     <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.max_salary} name='max_salary'  placeholder="minimo"/>
-                </div>
+                </div>                
+                   
                 <div className={styles.contenedor_inputs}>
-                    <label >Link: </label>
-                    <input className={styles.inputs_strings} type='text' onChange={(event) => handleChange(event)} value={inputs.link} name='link'  placeholder="ingrese link publicacion externa"/>                        
-                </div>
-                    <div>
-
-                    </div>
-                <button className={styles.boton_submit} type='submit' disabled = {( Object.keys(errors).length !== 0 || inputs.title === '' )}> Publicar oferta</button>              
+                    <button className={styles.boton_submit} type='submit' disabled = {( Object.keys(errors).length !== 0 || inputs.title === '' )}> Publicar oferta</button>              
+                    <Link to='/dashboardempresa'> <button className={styles.boton_volver}> Volver a dashboard</button></Link>
+                    
+                </div>   
             </form>
-            <Link to='/'> <button className={styles.boton_volver}> Volver </button></Link>
         </div>
     )
-
 }

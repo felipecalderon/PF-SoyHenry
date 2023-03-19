@@ -38,7 +38,7 @@ export const NavLanding = () => {
           <div className="hidden md:block">
             <div className="ml-6 flex items-baseline space-x-4 dark:text-text-dark text-gray-900">
             <Link className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Planes</Link>
-            <Link className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Sobre nosotros</Link>
+            <Link to='/about' className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Sobre nosotros</Link>
             <Link to='/dashboardempresa' className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Dashboard Empresa</Link>
             <Link to='/registro' className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Registro</Link>
           </div>
