@@ -61,22 +61,4 @@ export const NavLanding = () => {
       <ModalLogin isOpen={open} setOpen={setOpen}/>
     </nav>
 )
-    /*
-    return (
-      <div className="flex bg-slate-300 theme fixed">
-        <nav className="relative dark:bg-black bg-slate-300 w-screen h-16">
-      <div className="container flex justify-around items-center h-full w-full mx-auto px-4">
-        <img src={logofusionajob} alt='logo' className="flex h-16 w-60 mr-4" />
-        <div className="flex dark:text-yellow-400 text-gray-900">
-          </div>
-            
-          <div className="ml-6">
-            <button onClick={handleToggle} id="toggleButton" className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">{isDarkMode ? 'Día' : 'Noche'}</button>
-          </div>
-      </div>
-      
-        </nav>
-      </div>
-    )
-    */
 }
