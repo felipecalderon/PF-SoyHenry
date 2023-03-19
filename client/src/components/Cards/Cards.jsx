@@ -4,7 +4,7 @@ import {getPostList} from '../../redux/slices/postSlices'
 import {useDispatch, useSelector} from "react-redux";
 import { useEffect } from "react";
 
-const url = 'http://localhost:3001/jobs'
+const url = '/jobs'
 
 const Cards = () => {
     const dispatch = useDispatch()
