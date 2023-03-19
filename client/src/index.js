@@ -9,7 +9,7 @@ import { rutas } from './routes';
 import axios from 'axios';
 
 // axios.defaults.baseURL = 'https://localhost:3001';
-axios.defaults.baseURL = 'pf-soyhenry-production.up.railway.app';
+axios.defaults.baseURL = 'https://pf-soyhenry-production.up.railway.app';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
