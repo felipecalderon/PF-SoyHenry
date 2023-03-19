@@ -50,10 +50,20 @@ const postCompany = async ({ username,rol,email,active,password,name,description
     }
 }
 
-
+//trae todos los company de la db
 const getCompanywithDb = async () => {
     const companyDatB = await Company.findAll();
     return companyDatB;
+}
+//este trae los id de la company de la dB
+const getCompanywithDbId = async (id) => {
+    
+    try {
+        const offert = await Company.findByPk( id );
+        return offert;
+    } catch (error) {
+        throw error
+    }
 }
 
 const putCompany = async ( {id}, {name,description,location,website,logo}) => {
@@ -78,11 +88,29 @@ const putCompany = async ( {id}, {name,description,location,website,logo}) => {
 };
 
 
-//borrado de la db
-const deleteCompany = async ( id) => {
-    const deletecomp = await Company.findByPk( id );
+//borrado logico de la db
+const deleteCompany = async ( { id }, { active }) => {
+    /*const deletecomp = await Company.findByPk( id );
     await deletecomp.destroy();
-    return "Companii boorrado correctamente";
+    return "Companii boorrado correctamente";*/
+
+    try {
+       
+        const company = await Company.findByPk( id );
+        if( !company ) throw Error( `La compania con id: ${id} no existe` );
+        
+        
+        await Company.update(
+            { active },
+            {
+                where: { id }
+            }
+        )
+        
+        return active === true ?  'La compania ha sido re-activada': 'la compania ha sido desactivada' ;
+    } catch (error) {
+        throw error
+    }
 };
 
 
@@ -97,4 +125,5 @@ module.exports={
     deleteCompany,
     searchCompanyAPI,
     putCompany,
+    getCompanywithDbId
 }

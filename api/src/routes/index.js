@@ -23,6 +23,7 @@ const {
 const{allCompany,
     newCompany,
     companyById,
+    companyByIdDatBas,
     putCompany,
     deleteCompany
     }=require('./companyRoute');
@@ -49,7 +50,8 @@ route.delete('/jobdb/:id' , deleteOffer); // Physical deletion
 
 route.get('/company',allCompany);
 route.post('/company',newCompany);
-route.get('/company/:id',companyById);
+route.get('/company/:id',companyById);//id de la api
+route.get('/companydb/:id',companyByIdDatBas);//id dela db
 route.put('/company/:id', putCompany);
 route.delete('/company/:id',deleteCompany);
 //
