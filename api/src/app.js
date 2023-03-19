@@ -16,7 +16,7 @@ app.use(express.urlencoded({
     extended: true
 }))
 app.use(cors({
-    origin: '*',
+    origin: 'https://fusionajobs-production.up.railway.app',
     methods: '*'
   }))
 sequelize.sync({ force: true })
