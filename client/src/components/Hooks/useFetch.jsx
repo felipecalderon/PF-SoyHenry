@@ -13,7 +13,11 @@ function useFetch(url) {
       try {
         setIsLoading(true);
 
-        const response = await axios(url, { signal });
+        const response = await axios(url, { signal }, {
+          headers: {
+            'Origin': 'https://fusionajobs-production.up.railway.app'
+          }
+        });
 
         setData(response.data);
       } catch (error) {
