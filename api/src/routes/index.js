@@ -15,9 +15,9 @@ const {
 } = require('./offersRoute');
 //const{allAdmin,createAdmin,putAdmin,deleteadmin,getadminbyid}=require('./adminRoute')
 const {
- authUserCreate,
- authUserCreateGoogleBtn,
- authUserGoogleBtnCB
+    authUserCreate,
+    authUserCreateGoogleBtn,
+    authUserGoogleBtnCB
 } = require('./authRoute')
 //
 const{allCompany,
