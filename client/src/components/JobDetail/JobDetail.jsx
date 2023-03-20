@@ -1,21 +1,20 @@
 import React ,{ useEffect, useState } from "react";
+import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { getDataPostulacion, getDataEmpresa } from "../../redux/slices/postSlices";
 import useFetch from '../Hooks/useFetch'
 
-const JobDetail = (props) => {
+const JobDetail = () => {
 const dispatch = useDispatch();
 const {jobId} = useSelector((state) => state.postSlice)
-const url = `http://localhost:3001/jobsdb/`
+const {id} = useParams()
+const url = `/jobsdb/${id}`
 const {data} = useFetch(url)
 const [empresa, setEmpresa] = useState(null)
 
 useEffect(() => {
-  if(data) dispatch(getDataPostulacion(data[0]))
-  if(jobId) fetch(`http://localhost:3001/company/${jobId.idEmpresa}`)
-  .then(res => res.json())
-  .then(data => setEmpresa(data))
-}, [dispatch, data, jobId])
+  if(data) dispatch(getDataPostulacion(data))
+}, [data])
 
     if(!jobId) return null
     
@@ -24,7 +23,7 @@ useEffect(() => {
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
           <div className="md:flex">
             <div className="md:flex-shrink-0">
-              <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa ? empresa.logo : null} alt="Job Posting" />
+              {/* <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa ? empresa.logo : null} alt="Job Posting" /> */}
             </div>
             <div className="p-8">
             {/* <span className="material-symbols-outlined">star_rate</span> ver como medir el "valor/renking" de la empresa  */}

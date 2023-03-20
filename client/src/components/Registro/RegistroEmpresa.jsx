@@ -107,14 +107,14 @@ export const RegistroEmpresa = () => {
     return (
         <div className='relative bg-yellow-100'>
 
-        <div className=' bg-slate-300 h-16'>
+        <div className='bg-secondary-dark dark:bg-primary-dark h-16'>
             <img src={logofusionajob} alt='Fusionalogo' className='flex relative w-[16rem] ml-[32rem]'/>
-            <Link to='/'><button className='absolute top-4 left-14 w-auto h-auto bg-blue-300 rounded-[6px] border-black py-[.1rem] px-2'>← Home</button></Link>
-            <Link to='/registro'><button className='absolute top-5 right-10 text-red-600 font-bold'>Registrate como candidato</button></Link>
+            <Link to='/'><button className='absolute top-3 left-14 py-[.1rem] px-2 h-[2.5rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>← Home</button></Link>
+            <Link to='/registro'><button className='absolute top-5 right-10 text-red-600 font-bold hover:text-xl transition-all'>Registrate como candidato</button></Link>
         </div>
 
         <div className='flex relative justify-center mt-[2rem] mb-[2rem] text-4xl'>
-            <h2>¡Registra tu empresa y encuentra al mejor candidato!</h2>
+            <h2 className='font-bold'>¡Registra tu empresa y encuentra al mejor candidato!</h2>
         </div>
 
         <div className='flex absolute right-0 mr-[5rem]'>
@@ -183,7 +183,7 @@ export const RegistroEmpresa = () => {
                 </div>
 
                 <div className='relative mt-[6rem] ml-[20rem] font-bold pb-[3rem]'>
-                    <button type='submit' className='bg-blue-300 hover:bg-blue-400 w-32 h-8 rounded-lg border-black hover:text-yellow-200' disabled = {( Object.keys(errors).length !== 0)}>Crear cuenta</button>
+                    <button type='submit' disabled={( Object.keys(errors).length > 0)} className='w-32 h-8 disabled:opacity-50 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>Crear cuenta</button>
                 </div>
 
             </form>

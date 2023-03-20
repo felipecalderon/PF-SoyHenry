@@ -97,7 +97,7 @@ export default function OffersCreate () {
                 </div>
                 
                 <div className={styles.contenedor_inputs}>
-                {errors.requeriments && <p className={styles.error_message}>{errors.requeriments} </p>}
+                {errors.requeriments && <p className={styles.p_formulario_error}>{errors.requeriments} </p>}
                     <label >Requisitos: </label>
                     <textarea className={styles.inputs_strings}  type='text' onChange={(event) => handleChange(event)} value={inputs.requeriments} name='requeriments'  placeholder="Describa los requesitos necesarios para aplicar"/> 
                 </div>
@@ -106,6 +106,31 @@ export default function OffersCreate () {
                     {errors.benefits && <p className={styles.p_formulario_error}>{errors.benefits} </p>}
                     <label >Beneficios: </label>
                     <textarea className={styles.inputs_strings}  type='text' onChange={(event) => handleChange(event)} value={inputs.benefits} name='benefits'  placeholder="ingrese los benefecios de pertenecer a la empresa"/>                        
+                </div>
+
+                <div className={styles.contenedor_inputs}>
+                    {errors.functions && <p className={styles.p_formulario_error}>{errors.functions} </p>}
+                    <label >Funciones: </label>
+                    <textarea className={styles.inputs_strings}  type='text' onChange={(event) => handleChange(event)} value={inputs.functions} name='functions'  placeholder="ingrese las funciones a cumplir"/>                        
+                </div>
+
+                <div className={styles.contenedor_inputs}>
+                    {errors.perks && <p className={styles.p_formulario_error}>{errors.perks}</p> }
+                    <label >Perks:</label>
+                    <input type="text" name='perks'  id='perks' className={styles.perks_input} placeholder='ingrese perks' />
+                    <button className={styles.perks_button} type='button' onClick={(event) => handlePerks(event)}>agregar perks</button>
+                    <select className={styles.perks_select} onChange={(event => handlePerksDelete(event))} >
+                        <option id="perks_select" >perks agregados</option>
+                        {inputs.perks.map(perk => {
+                            return (
+                                <option value={perk}>{perk}</option>
+                            )
+                        })}
+                    </select>                    
+                </div>
+
+                <div className={styles.contenedor_inputs}>
+                    <span className={styles.perks_information}>* beneficio resumido en una palabra, ej: prepaga, click sobre perk en la lista para eliminar</span>
                 </div>
 
                 <div className={styles.contenedor_inputs}>
@@ -121,7 +146,7 @@ export default function OffersCreate () {
                 </div>
 
                 <div className={styles.contenedor_inputs}>
-                    {errors.experience && <p className={styles.error_message}>{errors.experience} </p>}            
+                    {errors.experience && <p className={styles.p_formulario_error}>{errors.experience} </p>}            
                     <label >Experiencia requerida: </label>
                     <select name="experience" onChange={(event) => handleChange(event)} >
                         <option value="">Seleccione</option>
