@@ -8,6 +8,7 @@ import Lisidev from '../../assets/Lisidev.jpeg';
 import Williamdev from '../../assets/Williamdev.jpeg';
 import Leandrodev from '../../assets/Leandrodev.jpg';
 import Santiagodev from '../../assets/Santiagodev.jpg';
+import Ericdev from '../../assets/Ericdev.jpeg';
 
 export const About = () => {
     return (
@@ -59,7 +60,8 @@ export const About = () => {
 
                 {/* Eric */}
                 <div className='flex ml-[33rem]'>
-                    <p className='bg-overlay-light m-[1rem] p-[2rem] pt-[.5rem] pr-[1.5rem] rounded-l-full pl-[20rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Eric Palacio{<br/>}(28 años, de Corralito, Provincia de Córdoba, Argentina) trabajaba como ayudante de electricista antes de decidir estudiar programación. Actualmente trabaja en el área de Back. </p>
+                <img src={Ericdev} al='eric' className='absolute w-[13rem] h-[13rem] rounded-full ml-[2rem] mt-[2rem]'/>
+                    <p className='bg-overlay-light m-[1rem] p-[2rem] pt-[1.5rem] pr-[1.5rem] rounded-l-full pl-[18rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Eric Palacio{<br/>}(28 años, de Corralito, Provincia de Córdoba, Argentina) trabajaba como ayudante de electricista antes de decidir estudiar programación. Actualmente trabaja en el área de Back. </p>
                 </div>
 
                 {/* Franco  */}
