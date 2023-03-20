@@ -5,6 +5,7 @@ import { NavAbout } from './NavAbout';
 import Felipedev from '../../assets/Felipedev.jpeg';
 import Francodev from '../../assets/Francodev.jpg';
 import Lisidev from '../../assets/Lisidev.jpeg';
+import Williamdev from '../../assets/Williamdev.jpeg';
 import Leandrodev from '../../assets/Leandrodev.jpg';
 import Santiagodev from '../../assets/Santiagodev.jpg';
 
@@ -34,7 +35,7 @@ export const About = () => {
 
                 {/* Leandro */}
                 <div className='flex ml-[33rem]'>
-                    <img src={Leandrodev} al='lean' className='absolute w-[13rem] h-[13rem] rounded-full ml-[2.5rem] mt-[2rem]'/>
+                    <img src={Leandrodev} al='lean' className='absolute w-[13rem] h-[13rem] rounded-full ml-[2rem] mt-[2rem]'/>
                     <p className='bg-overlay-light m-[1rem] p-[2rem] pr-[1.5rem] pt-[.4rem] rounded-l-full pl-[15.5rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Leandro Carrizo{<br/>}(38 años, de Rosario, Santa Fe, Argentina) trabajó en la industria de la gastronomía antes de retomar sus estudios. Actualmente estudia una tecnicatura universitaria en IA y trabaja en colaboración tanto en el área de Front como de Back.</p>
                 </div>
 
@@ -46,7 +47,8 @@ export const About = () => {
 
                 {/* William */}
                 <div className='flex ml-[33rem]'>
-                    <p className='bg-overlay-light m-[1rem] p-[2rem] pr-[1.5rem] rounded-l-full pl-[20rem] h-[16rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>William Henao{<br/>}(23 años, de Colombia) trabajó como auxiliar de mantenimiento eléctrico industrial antes de decidir estudiar programación. Actualmente trabaja en el área de Back.</p>
+                <img src={Williamdev} al='alex' className='absolute w-[13rem] h-[13rem] rounded-full ml-[2rem] mt-[2rem]'/>
+                    <p className='bg-overlay-light m-[1rem] p-[2rem] pr-[1.5rem] pt-[1.5rem] rounded-l-full pl-[20rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>William Henao{<br/>}(23 años, de Colombia) trabajó como auxiliar de mantenimiento eléctrico industrial antes de decidir estudiar programación. Actualmente trabaja en el área de Back.</p>
                 </div>
 
                 {/* Santiago */}
@@ -57,7 +59,7 @@ export const About = () => {
 
                 {/* Eric */}
                 <div className='flex ml-[33rem]'>
-                    <p className='bg-overlay-light m-[1rem] p-[2rem] pt-[1rem] pr-[1.5rem] rounded-l-full pl-[20rem] h-[16rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Eric Palacio{<br/>}(28 años, de Corralito, Provincia de Córdoba, Argentina) trabajaba como ayudante de electricista antes de decidir estudiar programación. Actualmente trabaja en el área de Back. </p>
+                    <p className='bg-overlay-light m-[1rem] p-[2rem] pt-[.5rem] pr-[1.5rem] rounded-l-full pl-[20rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Eric Palacio{<br/>}(28 años, de Corralito, Provincia de Córdoba, Argentina) trabajaba como ayudante de electricista antes de decidir estudiar programación. Actualmente trabaja en el área de Back. </p>
                 </div>
 
                 {/* Franco  */}
@@ -67,8 +69,8 @@ export const About = () => {
                 </div>
 
                 {/* Violeta */}
-                <div className='flex ml-[33rem]'>
-                    <p className='bg-overlay-light m-[1rem] p-[2rem] pr-[1.5rem] rounded-l-full pl-[20rem] h-[16rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Violeta Sol Arias Hours{<br/>}(24 años, de Salta, Argentina) se graduó como diseñadora de modas y asesora de imagen personal antes de unirse a nuestro equipo. Actualmente trabaja en el área de Back.</p>
+                <div className='flex ml-[33rem] mb-[1rem]'>
+                    <p className='bg-overlay-light m-[1rem] p-[2rem] pr-[1.5rem] rounded-l-full pl-[20rem] pt-[1.5rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Violeta Sol Arias Hours{<br/>}(24 años, de Salta, Argentina) se graduó como diseñadora de modas y asesora de imagen personal antes de unirse a nuestro equipo. Actualmente trabaja en el área de Back.</p>
                 </div>
             </div>
 
