@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDataPostulacion, getDataEmpresa } from "../../redux/slices/postSlices";
 import useFetch from '../Hooks/useFetch'
 
-const JobDetail = () => {
+const Detail = () => {
 const dispatch = useDispatch();
 const {jobId} = useSelector((state) => state.postSlice)
 const {id} = useParams()
-const url = `/jobsdb/${id}`
+const url = `/jobs/${id}`
 const {data} = useFetch(url)
 const [empresa, setEmpresa] = useState(null)
 
@@ -44,7 +44,6 @@ useEffect(() => {
               <h4 className="text-gray-600 dark:text-gray-300">Rango salarial: {jobId.min_salary}-{jobId.max_salary}</h4>
               <div className="mt-8">
                 <button className="bg-purple-400 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-full">
-                  {}
                   Aplicar 
                 </button>
               </div>
@@ -55,4 +54,4 @@ useEffect(() => {
     );
   };
 
-  export default JobDetail;
+  export default Detail;
