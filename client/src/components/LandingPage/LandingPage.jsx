@@ -8,163 +8,201 @@ import Juan from "../../assets/Juan.png"
 import Footer from '../Footer/Footer'
 import { useNavigate } from 'react-router-dom'
 import { NavLanding } from '../NavLanding/NavLanding'
-import styles from"./LandingPage.module.css"
-
-
 
 function LandingPage() {
-  const checkmark=<svg width="46" height="26" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path d="M12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75S17.376 2.25 12 2.25Zm5.074 6.482-6.3 7.5a.748.748 0 0 1-.562.268h-.013a.75.75 0 0 1-.557-.248l-2.7-3a.751.751 0 0 1 .88-1.186c.09.045.17.107.234.182l2.123 2.36 5.747-6.84a.75.75 0 0 1 1.148.964Z"></path>
-</svg>
 const navigate=useNavigate()
   return (
     <div>
     <NavLanding/>
-    <section className={styles.section1_landing_page}>
-      <div className={styles.section1_img_container}>
-           <img src={work1}  alt="img_working"  className={styles.img_section1_landing_page}/>
+    <section className="pt-20 pb-10 w-full flex flex-row flex-wrap bg-primary-light dark:bg-secondary-dark">
+      <div className="w-full sm:w-1/2">
+           <img src={work1}  alt="img_working" className="p-10"/>
       </div>
-        <div className={styles.section1_text_container}>
-            <h2 className={styles.section1_h2}>Encuentra tu trabajo ideal aquí</h2>
-            <p className={styles.section1_p}>
-              Únete ahora a nuestra plataforma y comienza a encontrar oportunidades de trabajo que se ajusten a tu perfil y habilidades</p>
-            <span
-            className={styles.call_to_action}
-            onClick={()=>navigate("/registro")}>Comienza Ahora!</span>
+      <div className="w-full sm:w-1/2 text-center sm:text-left flex flex-col justify-center">
+            <h2 className="mb-4 text-2x pr-10 font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">Encuentra tu trabajo ideal aquí</h2>
+            <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl pr-10 dark:text-gray-400">Únete ahora a nuestra plataforma y comienza a encontrar oportunidades de trabajo que se ajusten a tu perfil y habilidades.</p>
+            <button onClick={()=>navigate("/registro")} type="button" className="w-full sm:w-1/3 text-gray-900 border border-gray-800 hover:bg-secondary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800">Comienza Ahora</button>
       </div>
     </section>
-    <section className={styles.section2_landing_page}>
-      <div className={styles.section2_landing_text_container}>
-        <div className={styles.section2_lading_card}>
-        <ul className={styles.section2_ul}>
-          <li>
-            <h2 className={styles.section2_list_h2}>{checkmark}Ahorra tiempo y esfuerzo</h2>
-            <p className={styles.section2_list_p}>publica o busca trabajos en minutos.</p>
+
+    <section className="py-10 w-full flex flex-row flex-wrap bg-secondary-light dark:bg-primary-dark">
+      <div className="w-full sm:w-1/2 text-center sm:text-left flex flex-col justify-center">
+        <ul className="w-full p-6 md:p-10 text-center md:text-right text-sm font-medium text-gray-900 border-gray-200 rounded-lg dark:border-gray-600 dark:text-white">
+          <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+            <h3 className="mb-4 text-xl md:pr-10 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Ahorra tiempo y esfuerzo</h3>
+            <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl pr-10 dark:text-gray-400">Publica o busca trabajos en minutos.</p>
           </li>
-          
-          <li>
-            <h2 className={styles.section2_list_h2}>{checkmark}Amplía tu alcance</h2>
-
-            <p className={styles.section2_list_p}>
-              encuentra o publica trabajos que se ajusten a tus necesidades y habilidades.</p>
+          <li class="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+            <h3 className="mb-4 text-xl md:pr-10 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Amplía tu alcance</h3>
+            <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl pr-10 dark:text-gray-400">Encuentra trabajos que se ajusten a tus necesidades y habilidades.</p>
           </li>
-          
-          <li>
-            
-            <h2 className={styles.section2_list_h2}>{checkmark}
-                Mejora tus posibilidades</h2>
-
-             <p className={styles.section2_list_p}>aumenta tus opciones al buscar o seleccionar entre una amplia variedad de trabajos o solicitantes de empleo.</p>
+          <li class="w-full px-4 py-2 border-gray-200 rounded-t-lg dark:border-gray-600">
+            <h3 className="mb-4 text-xl md:pr-10 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Mejora tus posibilidades</h3>
+            <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl pr-10 dark:text-gray-400">Aumenta tus opciones entre una amplia variedad de trabajos.</p>
           </li>
-        </ul>
-        </div>
+      </ul>
+      </div>
 
-        </div>
-      <img src={work2} alt="" />
-
+      <div className="w-full sm:w-1/2 ">
+           <img src={work2} alt="img_working" className=" h-full w-full object-contain"/>
+      </div>
     </section>
- 
-    <section className={styles.section3_landing_soluciones}>
-        <h2 className={styles.section3_landing_h2}>
-        FusionaJob: La solución completa para encontrar trabajo o candidatos</h2>
-        <section className={styles.section3_contenedor_soluciones}>
-          <article className={styles.section3_landing_soluciones_article}>
-            <h2 className={styles.section3_h2}>Empresa</h2>
-            <ul  className={styles.section3_landing_soluciones_ul}>
 
-              <li className={styles.section3_ul_li}>{checkmark}
-                Permite a los empleadores y candidatos interactuar y coordinar entrevistas y otros detalles.</li>
+    <section className="py-10 w-full flex flex-col flex-wrap bg-primary-light dark:bg-secondary-dark">
+      <h2 className="pt-3 text-center mb-4 text-2x pr-10 font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">FusionaJob</h2> 
+      <p className="text-center mb-6 text-lg font-normal text-gray-500 lg:text-xl pr-10 dark:text-gray-400">La solución completa para encontrar trabajo o candidatos</p>
+      <div className="w-full flex flex-row flex-wrap justify-evenly bg-primary-light dark:bg-secondary-dark">
+        <div className="w-1/3 bg-secondary-light border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <img className="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
+            <div className="h-full p-5 flex flex-col flex-wrap items-center align-middle justify-center text-center">
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Empresa</h5>
+                  <ul className="w-full p-3 text-center text-sm font-medium text-gray-900 border-gray-200 rounded-lg dark:border-gray-600 dark:text-white">
+                    <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                      <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">Permite a los empleadores y candidatos interactuar y coordinar entrevistas y otros detalles.</p>
+                    </li>
+                    <li className="w-full px-4 py-2 border-gray-200 rounded-t-lg dark:border-gray-600">
+                      <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">Ayuda a los empleadores a encontrar al candidato adecuado.</p>
+                    </li>
+                  </ul>
+                <button onClick={()=>navigate("/companyregister")} type="button" className="w-full sm:w-1/2 text-gray-900 border border-gray-800 hover:bg-primary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800">Registrate como Empresa</button>
+            </div>
+        </div>
+        <div className="w-1/3 bg-secondary-light border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <img className="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
+            <div className="h-full p-5 flex flex-col flex-wrap items-center align-middle justify-center text-center">
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Candidato</h5>
+                <ul className="w-full p-3 text-center text-sm font-medium text-gray-900 border-gray-200 rounded-lg dark:border-gray-600 dark:text-white">
+                    <li class="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                      <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">Simplifica el proceso de búsqueda de trabajo.</p>
+                    </li>
+                    <li class="w-full px-4 py-2 border-gray-200 rounded-t-lg dark:border-gray-600">
+                      <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">Permitirles crear un perfil, subir su currículum y buscar trabajos de manera fácil y eficiente.</p>
+                    </li>
+                  </ul>
+                <button onClick={()=>navigate("/registro")} type="button" className="w-full sm:w-1/2 text-gray-900 border border-gray-800 hover:bg-primary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800">Registrate como Candidato</button>
+            </div>
+        </div>
+      </div>
+    </section>
+    
+    <section className="py-10 w-full flex flex-col flex-wrap bg-secondary-light dark:bg-primary-dark">
+      <h2 className="pt-3 text-center mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">Testimonios</h2>
+      <figure className="max-w-screen-md mx-auto text-center">
+        <svg aria-hidden="true" className="w-12 h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" fill="currentColor"/></svg>
+        <blockquote>
+            <p className="text-2xl italic font-medium text-gray-900 dark:text-white">"Nunca había sido tan fácil encontrar trabajo hasta que encontré Fusionajob. ¡Gracias por hacerlo posible!."</p>
+        </blockquote>
+        <figcaption className="flex items-center justify-center mt-6 space-x-3">
+            <img className="w-10 h-10 rounded-full object-cover" src={Maria} alt="testimonio" />
+            <div className="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
+                <cite className="pr-3 font-medium text-gray-900 dark:text-white">María Mercedes</cite>
+                <cite className="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">CEO en Rappi</cite>
+            </div>
+        </figcaption>
+      </figure>
+    </section>
 
-                <li className={styles.section3_ul_li}>{checkmark}Ayuda a los empleadores a encontrar al candidato adecuado</li>
+    <section className="py-10 w-full flex flex-col flex-wrap bg-primary-light dark:bg-secondary-dark">
+      <h2 className="pt-3 text-center mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">Suscríbete!</h2>
+      <div className='flex flex-col items-center md:flex-row justify-center gap-6'>
+        <div className="w-full max-w-sm p-4 bg-secondary-light rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <h5 className="mb-4 text-xl font-medium text-gray-800 dark:text-gray-400">Plan Básico</h5>
+          <div className="flex items-baseline text-gray-900 dark:text-white">
+              <span className="text-3xl font-semibold">$</span>
+              <span className="text-5xl font-extrabold tracking-tight">Free</span>
+          </div>
+          <ul className="space-y-5 my-7">
+              <li className="flex space-x-3">
+                  <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-blue-50 dark:bg-primary-dark" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">Filtrado simple</span>
+              </li>
+              <li className="flex space-x-3">
+                  <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-blue-50 dark:bg-primary-dark" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">Empleos de database externa</span>
+              </li>
+              <li className="flex space-x-3 line-through decoration-gray-500">
+                  <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-gray-400 dark:text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <span className="text-base font-normal leading-tight text-gray-500">Empleos de database interna</span>
+              </li>
+              <li className="flex space-x-3 line-through decoration-gray-500">
+                  <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-gray-400 dark:text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <span className="text-base font-normal leading-tight text-gray-500">Filtrado avanzado</span>
+              </li>
+              <li className="flex space-x-3 line-through decoration-gray-500">
+                  <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-gray-400 dark:text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <span className="text-base font-normal leading-tight text-gray-500">Asesoramiento con un profesional</span>
+              </li>
           </ul>
-
-          <h2 className={styles.section3_btn_registro}
-           onClick={()=>navigate("/companyregister")}>
-            Registrate como Empresa</h2>
-
-          </article>
-        <article className={styles.section3_landing_soluciones_article}>
-        <h2 className={styles.section3_h2}>Candidato</h2>
-
-          <ul className={styles.section3_landing_soluciones_ul}>
-            <li className={styles.section3_ul_li}>{checkmark} Simplifica el proceso de búsqueda de trabajo</li>
-              <li  className={styles.section3_ul_li}>{checkmark}Permitirles crear un perfil, subir su currículum y buscar trabajos de manera fácil y eficiente</li>
-   </ul>
-   <h2 
-      className={styles.section3_btn_registro}
-      onClick={()=>navigate("/registro")}>Registrate como Candidato</h2>
-        </article>
-      </section>
-
-
+          <button type="button" class="text-gray-800 bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Elegir cuenta free</button>
+        </div>
+        <div className="w-full max-w-sm p-4 bg-secondary-light rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <h5 className="mb-4 text-xl font-medium text-gray-800 dark:text-gray-400">Plan Premium</h5>
+          <div className="flex items-baseline text-gray-900 dark:text-white">
+              <span className="text-3xl font-semibold">$</span>
+              <span className="text-5xl font-extrabold tracking-tight">15</span>
+              <span className="ml-1 text-xl font-normal text-gray-800 dark:text-gray-400">/mes</span>
+          </div>
+          <ul className="space-y-5 my-7">
+            <li className="flex space-x-3">
+                <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-blue-50 dark:bg-primary-dark" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">Filtrado simple</span>
+            </li>
+            <li className="flex space-x-3">
+                <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-blue-50 dark:bg-primary-dark" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">Empleos de database externa</span>
+            </li>
+            <li className="flex space-x-3">
+                <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-blue-50 dark:bg-primary-dark" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">Empleos de database interna</span>
+            </li>
+            <li className="flex space-x-3">
+                <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-blue-50 dark:bg-primary-dark" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">Filtro Avanzado</span>
+            </li>
+            <li className="flex space-x-3 line-through decoration-gray-500">
+                <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-gray-400 dark:text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span className="text-base font-normal leading-tight text-gray-500">Asesoramiento con un profesional</span>
+            </li>
+          </ul>
+          <button type="button" class="text-gray-800 bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Elegir cuenta premium</button>
+        </div>
+        <div className="w-full max-w-sm p-4 bg-secondary-light rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <h5 className="mb-4 text-xl font-medium text-gray-800 dark:text-gray-400">Plan Pro</h5>
+          <div className="flex items-baseline text-gray-900 dark:text-white">
+              <span className="text-3xl font-semibold">$</span>
+              <span className="text-5xl font-extrabold tracking-tight">39</span>
+              <span className="ml-1 text-xl font-normal text-gray-800 dark:text-gray-400">/mes</span>
+          </div>
+          <ul className="space-y-5 my-7">
+            <li className="flex space-x-3">
+                <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-blue-50 dark:bg-primary-dark" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">Filtrado simple</span>
+            </li>
+            <li className="flex space-x-3">
+                <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-blue-50 dark:bg-primary-dark" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">Empleos de database externa</span>
+            </li>
+            <li className="flex space-x-3">
+                <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-blue-50 dark:bg-primary-dark" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">Empleos de database interna</span>
+            </li>
+            <li className="flex space-x-3">
+                <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-blue-50 dark:bg-primary-dark" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">Filtro Avanzado</span>
+            </li>
+            <li className="flex space-x-3">
+                <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-blue-50 dark:bg-primary-dark" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">Asesoramiento con un profesional</span>
+            </li>
+          </ul>
+          <button type="button" class="text-gray-800 bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Elegir cuenta pro</button>
+        </div>
+      </div>
     </section>
-    <section className={styles.section_testimonios}>
-        <h2 className={styles.title_testimonios}>Testimonios</h2>
-      <section className={styles.testimonios}>
 
-        <article className={styles.testimonios_article}>
-          <img src={Anna} width="420px" 
-          className='img-testimonio' alt='testimonio-ana'/>
-            <h2 className={styles.testimonios_nombres}>Anna</h2>
-            <p className={styles.testimonios_p}>Gracias a Fusionajob conseguí mi trabajo soñado. ¡Lo recomiendo totalmente!</p>
-        </article>
-
-        <article className={styles.testimonios_article}>
-          <img src={Maria} width="420px" className='img-testimonio' alt='testimonio-Maria'/>
-            <h2 className={styles.testimonios_nombres}>María</h2>
-            <p className={styles.testimonios_p}>Nunca había sido tan fácil encontrar trabajo hasta que encontré Fusionajob. ¡Gracias por hacerlo posible!</p>
-          </article>
-        <article className={styles.testimonios_article}>
-          <img src={Juan} width="420px" className='img-testimonio' alt='testimonio-Juan'/>
-            <h2 className={styles.testimonios_nombres}>Juan</h2>
-            <p className={styles.testimonios_p}>Fusionajob me ayudó a conseguir mi primer trabajo después de graduarme.  ¡Increíble servicio de búsqueda laboral!</p>
-        </article>
-      </section>
-
-
-    </section>
-    <section className={styles.section_subscripciones}>
-      <h2 className={styles.section_subscripciones_title}>Subscripciones</h2>
-      <img src={subscripciones} alt="" />
-      </section>
-      <Footer/>
-
+    <Footer/>
     </div>
   )
 }
 
 export default LandingPage
-
-
-
-function Tabla() {
-  const filas = [
-    { titulo: '', columna1: 'Free', columna2: 'Premium', columna3: 'Pro' },
-    { titulo: 'Funciones Básicas', columna1: 'Ok', columna2: 'Ok', columna3: 'Ok' },
-    { titulo: 'Acceso Completo', columna1: 'No', columna2: 'Ok', columna3: 'Ok' },
-    { titulo: 'Asesoramiento de un Profesional', columna1: 'No', columna2: 'No', columna3: 'Ok' }
-  ];
-
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th></th>
-          <th>Free</th>
-          <th>Premium</th>
-          <th>Pro</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filas.map((fila, index) => (
-          <tr key={index}>
-            <th>{fila.titulo}</th>
-            <td>{fila.columna1}</td>
-            <td>{fila.columna2}</td>
-            <td>{fila.columna3}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-}

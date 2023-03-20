@@ -23,7 +23,7 @@ export const NavLanding = () => {
     const [open, setOpen] = useState(false);
 
     return (
-    <nav className="bg-secondary-dark dark:bg-primary-dark transition-all fixed w-full">
+    <nav className="bg-secondary-light dark:bg-primary-dark fixed w-full transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -50,7 +50,7 @@ export const NavLanding = () => {
             <img className="w-4 inline-block align-middle mr-2" src={perfil} alt='ingresar'/>
               Ingresar
             </button>
-            <div onClick={handleToggle} className="cursor-pointer py-2 px-2 bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 dark:hover:bg-secondary-dark">{isDarkMode 
+            <div onClick={handleToggle} className="cursor-pointer py-2 px-2 bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 dark:hover:bg-secondary-light">{isDarkMode 
             ? <img className="w-6" src={dia} alt='dia'/>
             : <img className="w-6" src={noche} alt='noche'/>
             }</div>
