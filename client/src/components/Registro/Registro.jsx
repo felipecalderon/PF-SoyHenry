@@ -153,7 +153,7 @@ export const Registro = () => {
                     </div>
 
                     <div className='relative mt-[6rem] ml-[20rem] font-bold pb-[3rem]'>
-                        <button  type='submit' className='bg-blue-300 hover:bg-blue-400 w-32 h-8 rounded-lg border-black hover:text-yellow-200'>Crear cuenta</button>
+                        <button disabled={( Object.keys(errors).length > 0)} type='submit' className='bg-blue-300 hover:bg-blue-400 w-32 h-8 rounded-lg border-black hover:text-yellow-200'>Crear cuenta</button>
                     </div>
 
                 </form>
