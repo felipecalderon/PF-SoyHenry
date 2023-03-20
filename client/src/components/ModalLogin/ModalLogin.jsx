@@ -13,17 +13,11 @@ export const ModalLogin = ({isOpen, setOpen}) => {
     const email = 'proyecto@henry.com';
     const password = 'aprobado123'; // el login funciona como tal solamente con estos datos por el momento
     const navigate = useNavigate();
-    const [access, setAccess] = useState(false);
     const login = (form) => {
         if(form.email === email && form.password === password){
-            setAccess(true);
             navigate('/cards');
         }
     }
-
-    useEffect(() => {
-        !access && navigate('/')
-    }, [access]);
 
     const [form, setForm] = useState({
         email: '',
