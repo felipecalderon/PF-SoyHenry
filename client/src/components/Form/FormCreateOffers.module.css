@@ -52,3 +52,22 @@
     font-style: italic;
     color: red;
 }
+
+.perks_information{
+    font-size: 12px;
+    font-style: italic;
+}
+
+.perks_select{
+    width: 140px;
+}
+
+.perks_input{
+    width: 135px;
+}
+
+.perks_button {    
+    border: 1px black solid;
+    border-radius: 5px;
+    padding: 3px;    
+}
