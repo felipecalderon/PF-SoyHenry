@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import validations from './validations';
 import fblogo from '../../assets/fbwhite.png';
 import gglogo from '../../assets/ggwhite.png';
-import ghlogo from '../../assets/ggwhite.png';
+import ghlogo from '../../assets/ghwhite.png';
 import { useNavigate } from "react-router";
 import { Link } from 'react-router-dom';
 
