@@ -15,8 +15,8 @@ export const About = () => {
                 <div className=''>
                     <h2 className='flex relative justify-center mt-[2rem] mb-[2rem] text-2xl font-bold dark:text-text-dark'>Sobre nosotros</h2>
                     <div>
-                    <p className='m-[1rem] p-[2rem] text-lg rounded-3xl bg-overlay-light dark:text-text-dark dark:bg-secondary-dark'>¡Bienvenidos a FusionaJob! Somos un equipo de desarrolladores apasionados por la creación de soluciones tecnológicas innovadoras para la búsqueda y posteo de trabajos en línea.{<br/>}{<br/>}
-                    En Fusionajob, nos enorgullece haber creado una plataforma que permite a los empleadores y candidatos interactuar y coordinar entrevistas y otros detalles, y que ayuda a los empleadores a encontrar al candidato adecuado. Además, nuestro sitio web simplifica el proceso de búsqueda de trabajo para los candidatos, permitiéndoles crear un perfil, subir su currículum y buscar trabajos de manera fácil y eficiente.{<br/>}{<br/>}
+                    <p className='m-[1rem] p-[2rem] text-lg rounded-3xl bg-overlay-light dark:text-text-dark dark:bg-secondary-dark'>¡Bienvenidos a FusionaJob!{<br/>}Somos un equipo de desarrolladores apasionados por la creación de soluciones tecnológicas innovadoras para la búsqueda y posteo de trabajos IT en línea.{<br/>}{<br/>}
+                    En Fusionajob, nos enorgullece haber creado una plataforma que permite a los empleadores y candidatos interactuar, coordinar entrevistas entre otros detalles, y que ayuda a los empleadores a encontrar al candidato adecuado. Además, nuestro sitio web simplifica el proceso de búsqueda de trabajo para los candidatos, permitiéndoles crear un perfil, subir su currículum y buscar trabajos de manera fácil y eficiente.{<br/>}{<br/>}
                     Estamos comprometidos con la excelencia en la experiencia del usuario y en brindar un servicio de alta calidad. Estamos emocionados de tener la oportunidad de ayudar a las personas a encontrar trabajo y a los empleadores a encontrar el talento adecuado. ¡Gracias por elegir Fusionajob!</p>
                     </div>
                 </div>

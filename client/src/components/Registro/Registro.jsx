@@ -100,7 +100,7 @@ export const Registro = () => {
             </div>
 
             <div className='flex relative justify-center mt-[2rem] mb-[2rem] text-4xl'>
-                <h2 className='font-bold'>¡Crea tu cuenta y encuentra ese empleo deseado!</h2>
+                <h2 className='font-bold'>¡Crea tu cuenta y encuentra ese empleo IT deseado!</h2>
             </div>
 
             <div className='flex absolute right-0 mr-[5rem]'>
