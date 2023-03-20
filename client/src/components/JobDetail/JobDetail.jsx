@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDataPostulacion, getDataEmpresa } from "../../redux/slices/postSlices";
 import useFetch from '../Hooks/useFetch'
 
+
 const JobDetail = () => {
 const dispatch = useDispatch();
 const {jobId} = useSelector((state) => state.postSlice)
@@ -11,6 +12,8 @@ const {id} = useParams()
 const url = `/jobsdb/${id}`
 const {data} = useFetch(url)
 const [empresa, setEmpresa] = useState(null)
+
+
 
 useEffect(() => {
   if(data) dispatch(getDataPostulacion(data))
@@ -23,7 +26,7 @@ useEffect(() => {
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
           <div className="md:flex">
             <div className="md:flex-shrink-0">
-              <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa ? empresa.logo : null} alt="Job Posting" />
+              {/* <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa ? empresa.logo : null} alt="Job Posting" /> */}
             </div>
             <div className="p-8">
             {/* <span className="material-symbols-outlined">star_rate</span> ver como medir el "valor/renking" de la empresa  */}
@@ -41,10 +44,15 @@ useEffect(() => {
               
                 </ul>
               </div>
-              <h4 className="text-gray-600 dark:text-gray-300">Rango salarial: {jobId.min_salary}-{jobId.max_salary}</h4>
+              <h4 className="text-gray-600 dark:text-gray-300">
+                  Rango salarial: 
+                   {jobId.min_salary === jobId.max_salary 
+                    ? jobId.min_salary 
+                     : `${jobId.min_salary}-${jobId.max_salary}`
+                   }
+              </h4>
               <div className="mt-8">
                 <button className="bg-purple-400 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-full">
-                  {}
                   Aplicar 
                 </button>
               </div>

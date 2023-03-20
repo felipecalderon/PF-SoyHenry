@@ -19,7 +19,7 @@ const Cards = () => {
     <div className="flex flex-wrap gap-3 justify-center dark:bg-slate-600 py-6">
       { 
       postJobs.map((card) => (
-        <Card key={card.title} title={card.title} description={card.functions} id={card.id} modality={card.modality} Rango_salarial={card.min_salary} Rango_salarial1={card.max_salary}/>
+        <Card key={card.title} title={card.title} description={card.functions} id={card.id} modality={card.modality} salario_minimo={card.min_salary} salario_maximo={card.max_salary}/>
           ))
       }
     </div>
