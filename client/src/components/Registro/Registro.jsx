@@ -28,62 +28,17 @@ export const Registro = () => {
         documento: ''
     });
 
-    const handleNombre = (event) => {
+    const handleChange = (event) => {
         setForm({
             ...form,
-            username: (event.target.value)
-        });
+            [event.target.name]: event.target.value 
+        })
         setErrors(validationsRegister({
             ...form,
-            username: (event.target.value)
-        }));
+            [event.target.name]: event.target.value
+        }))
     };
 
-    const handleApellido = (event) => {
-        setForm({
-            ...form,
-            apellido: (event.target.value)
-        });
-        setErrors(validationsRegister({
-            ...form,
-            apellido: (event.target.value)
-        }));
-    };
-
-    const handleEmail = (event) => {
-        setForm({
-            ...form,
-            email: (event.target.value)
-        });
-        setErrors(validationsRegister({
-            ...form,
-            email: (event.target.value)
-        }));
-    };
-
-    const handleContraseña = (event) => {
-        setForm({
-            ...form,
-            password: (event.target.value)
-        });
-        setErrors(validationsRegister({
-            ...form,
-            password: (event.target.value)
-        }));
-    };
-    
-    const handleDocumento = (event) => {
-        setForm({
-            ...form,
-            documento: (event.target.value)
-        });
-        setErrors(validationsRegister({
-            ...form,
-            documento: (event.target.value)
-        }));
-    };
-
-    
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(postFetchNewUsers(form))
@@ -116,7 +71,7 @@ export const Registro = () => {
                         <label>Nombre:</label>
                     </div>
                     <div className='relative ml-[1rem] mb-[2rem]'>
-                        <input type='text' name='username' value={form.username} onChange={handleNombre} className='border-2 rounded-2xl px-2'></input>
+                        <input type='text' name='username' value={form.username} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
                         {errors.username && <p className='absolute text-red-500' >{errors.username}</p>}
                     </div>
 
@@ -124,7 +79,7 @@ export const Registro = () => {
                         <label>Email:</label>
                     </div>
                     <div className='relative ml-[1rem] mb-[2rem]'>
-                        <input type='text' name='email' value={form.email} onChange={handleEmail} className='border-2 rounded-2xl px-2'></input>
+                        <input type='text' name='email' value={form.email} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
                         {errors.email && <p className='absolute mt-15 text-red-500' >{errors.email}</p>}
                     </div>
 
@@ -132,7 +87,7 @@ export const Registro = () => {
                         <label>Apellido:</label>
                     </div>
                     <div className='absolute ml-[15rem] mt-[1.5rem] top-0'>
-                        <input type='text' name='apellido' value={form.apellido} onChange={handleApellido} className='border-2 rounded-2xl px-2'></input>
+                        <input type='text' name='apellido' value={form.apellido} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
                         {errors.apellido && <p className='absolute mt-15 text-red-500' >{errors.apellido}</p>}
                     </div>
 
@@ -140,7 +95,7 @@ export const Registro = () => {
                         <label>Contraseña:</label>
                     </div>
                     <div className='absolute ml-[15rem] mt-[6.8rem] top-0'>
-                        <input type='password' name='password' value={form.password} onChange={handleContraseña} className='border-2 rounded-2xl px-2'></input>
+                        <input type='password' name='password' value={form.password} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
                         {errors.password && <p className='absolute mt-15 text-red-500' >{errors.password}</p>}
                     </div>
 
@@ -148,12 +103,12 @@ export const Registro = () => {
                         <label>Documento:</label>
                     </div>
                     <div className='relative ml-[1rem] mb-[1rem]'>
-                        <input type='text' pattern="^[0-9]\d*$" name='documento' value={form.documento} onChange={handleDocumento} className='border-2 rounded-2xl px-2'></input>
+                        <input type='text' pattern="^[0-9]\d*$" name='documento' value={form.documento} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
                         {errors.documento && <p className='absolute mt-15 text-red-500' >{errors.documento}</p>}
                     </div>
 
                     <div className='relative mt-[6rem] ml-[20rem] font-bold pb-[3rem]'>
-                        <button disabled={( Object.keys(errors).length > 0)} type='submit' className='w-32 h-8 disabled:opacity-50 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>Crear cuenta</button>
+                        <button disabled={(Object.keys(errors).length > 0)} type='submit' className='w-32 h-8 disabled:opacity-50 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>Crear cuenta</button>
                     </div>
 
                 </form>

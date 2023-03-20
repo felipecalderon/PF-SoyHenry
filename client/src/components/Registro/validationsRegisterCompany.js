@@ -1,4 +1,4 @@
-const validationsRegister = (form) => {
+const validationsRegisterCompany = (form) => {
 
     let errors = {};
 
@@ -22,6 +22,14 @@ const validationsRegister = (form) => {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
         errors.email = 'El email es inválido.';
     }
+    if(!form.nombreEmpresa){
+        errors.nombreEmpresa = 'Se necesita nombre de la empresa'
+    }
+    if(!form.cuit){
+        errors.cuit = 'Se necesita número de CUIT'
+    } else if (!/^[1-9]\d*$/.test(form.cuit)) {
+        errors.cuit = 'El CUIT es inválido'
+    } 
     if(!form.password.match(/\d/)){
         errors.password = "La contraseña debe contener al menos un número";
     }
@@ -31,4 +39,4 @@ const validationsRegister = (form) => {
     return errors;
 }
 
-export default validationsRegister;
+export default validationsRegisterCompany;
