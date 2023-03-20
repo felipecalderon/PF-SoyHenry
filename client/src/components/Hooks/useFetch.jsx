@@ -6,18 +6,11 @@ function useFetch(url) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const controller = new AbortController();
-    const { signal } = controller;
-
     const fetchData = async () => {
       try {
         setIsLoading(true);
 
-        const response = await axios(url, { signal }, {
-          headers: {
-            'Origin': 'https://fusionajobs-production.up.railway.app'
-          }
-        });
+        const response = await axios(url);
 
         setData(response.data);
       } catch (error) {
@@ -28,10 +21,6 @@ function useFetch(url) {
     };
 
     fetchData();
-
-    return () => {
-      controller.abort();
-    };
   }, [url]);
 
   return { data, error, isLoading };
