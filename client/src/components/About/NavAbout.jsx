@@ -30,14 +30,14 @@ export const NavAbout = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <img
-              className="h-10 w-auto"
+              className="h-10 w-auto relative ml-[5rem]"
               src={logofusionajob}
               alt="Workflow"
             />
           </div>
           {/* Menú */}
           <div className="hidden md:block">
-            <div className="ml-6 flex items-baseline space-x-4 dark:text-text-dark text-gray-900">
+            <div className="flex items-baseline space-x-4 dark:text-text-dark text-gray-900">
             <Link className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Planes</Link>
             <Link to='/dashboardempresa' className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Dashboard Empresa</Link>
             <Link to='/registro' className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Registro</Link>

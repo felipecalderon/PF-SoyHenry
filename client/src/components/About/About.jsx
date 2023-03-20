@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import { NavAbout } from './NavAbout';
 import Felipedev from '../../assets/Felipedev.jpeg';
@@ -11,6 +12,7 @@ export const About = () => {
     return (
         <div className='bg-primary-light dark:bg-primary-dark'>
             <NavAbout/>
+            <Link to='/'><button className='absolute top-3 left-14 py-[.1rem] px-2 h-[2.5rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>← Home</button></Link>
             <div>
                 <div className=''>
                     <h2 className='flex relative justify-center mt-[2rem] mb-[2rem] text-2xl font-bold dark:text-text-dark'>Sobre nosotros</h2>
