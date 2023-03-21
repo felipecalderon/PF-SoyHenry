@@ -4,15 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDataPostulacion, getDataEmpresa } from "../../redux/slices/postSlices";
 import useFetch from '../Hooks/useFetch'
 
+
 const JobDetail = () => {
 const dispatch = useDispatch();
-const query = new URLSearchParams(window.location.search);
-const title = query.get('title');
 const {jobId} = useSelector((state) => state.postSlice)
 const {id} = useParams()
-const url = `/jobs/${id}?title=${title}`
+const url = `/jobsdb/${id}`
 const {data} = useFetch(url)
 const [empresa, setEmpresa] = useState(null)
+
+
 
 useEffect(() => {
   if(data) dispatch(getDataPostulacion(data))
@@ -21,7 +22,7 @@ useEffect(() => {
     if(!jobId) return null
     
     return (
-      <div className="bg-primary-light dark:bg-primary-dark py-8">
+      <div className="bg-gray-100 py-8">
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
           <div className="md:flex">
             <div className="md:flex-shrink-0">
