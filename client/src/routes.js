@@ -9,6 +9,7 @@ import { RegistroEmpresa } from './components/Registro/RegistroEmpresa'
 import { About } from './components/About/About'
 import UserProfile from './components/UserProfile/UserProfile'
 
+
 export const rutas = createBrowserRouter([
     {
       path: '/',

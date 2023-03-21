@@ -6,9 +6,11 @@ import useFetch from '../Hooks/useFetch'
 
 const JobDetail = () => {
 const dispatch = useDispatch();
+const query = new URLSearchParams(window.location.search);
+const title = query.get('title');
 const {jobId} = useSelector((state) => state.postSlice)
 const {id} = useParams()
-const url = `/jobsdb/${id}`
+const url = `/jobs/${id}?title=${title}`
 const {data} = useFetch(url)
 const [empresa, setEmpresa] = useState(null)
 
@@ -19,7 +21,7 @@ useEffect(() => {
     if(!jobId) return null
     
     return (
-      <div className="bg-gray-100 py-8">
+      <div className="bg-primary-light dark:bg-primary-dark py-8">
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
           <div className="md:flex">
             <div className="md:flex-shrink-0">
@@ -41,7 +43,13 @@ useEffect(() => {
               
                 </ul>
               </div>
-              <h4 className="text-gray-600 dark:text-gray-300">Rango salarial: {jobId.min_salary}-{jobId.max_salary}</h4>
+              <h4 className="text-gray-600 dark:text-gray-300">
+                  Rango salarial: 
+                   {jobId.min_salary === jobId.max_salary 
+                    ? jobId.min_salary 
+                     : `${jobId.min_salary}-${jobId.max_salary}`
+                   }
+              </h4>
               <div className="mt-8">
                 <button className="bg-purple-400 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-full">
                   Aplicar 

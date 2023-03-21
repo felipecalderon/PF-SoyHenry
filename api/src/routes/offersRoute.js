@@ -43,7 +43,7 @@ const allOffersDb = async (req, res) => {
 }
 const getOffersById = async (req, res) => {
     try {
-        const offert = await getOfferByIdController(req.params)
+        const offert = await getOfferByIdController(req.params, req.query)
         return res.status(200).json( offert )
         
     } catch (error) {
