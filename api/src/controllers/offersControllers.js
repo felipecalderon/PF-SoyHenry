@@ -24,14 +24,14 @@ const createOfferController = async (body) => {
 }
 
 // gets
-const getAllOffersController = async ({ language = 'junior', title, page = 1, limit = 10, dt, exp, mty, sly }) => {
+const getAllOffersController = async ({ title = 'a', dt, exp, mty, sly }) => {
     try {
         // DataBase
-        const offer_db = title ? await getOffersByTitleDb( title ) : await getOffersDb();
+        const offer_db = title !== 'a' ? await getOffersByTitleDb( title ) : await getOffersDb();
         
         // Apis
-        //      Api Getonbrd
-        const jobsGetonbrd = title ? await getOffersApiGetonbrd( title ) : await getOffersApiGetonbrd( language );
+        // Api Getonbrd
+        const jobsGetonbrd = await getOffersApiGetonbrd( title );
         
         // concatena las ofertas de las apis y de la DB
         all_offers = [  ...offer_db, ...jobsGetonbrd ] 
