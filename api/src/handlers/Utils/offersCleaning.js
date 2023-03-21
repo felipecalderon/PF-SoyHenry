@@ -1,3 +1,4 @@
+const { DateTime } = require('luxon');
 const cleaningGetonbrd = ( jobsGetonbrd, current = 0 ) => {
     return jobsGetonbrd.data.map((job) => {
         current++
@@ -14,7 +15,7 @@ const cleaningGetonbrd = ( jobsGetonbrd, current = 0 ) => {
             id: current, // Genera un nuevo id
             idEmpresa: job.attributes.company.data.id,
             title: job.attributes.title,
-            date_post: new Date(job.attributes.published_at * 1000).toLocaleDateString('es-ES', options), // la api manda la fecha en formato unix y con este metodo se pasa a formato UTC.
+            date_post: DateTime.fromMillis(job.attributes.published_at * 1000).toFormat('dd/MM/yyyy HH:mm:ss'), // la api manda la fecha en formato unix y con este metodo se pasa a formato UTC.
             requeriments:  job.attributes.description,
             functions:  job.attributes.functions,
             benefits: job.attributes.benefits,
