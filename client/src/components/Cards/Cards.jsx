@@ -1,9 +1,13 @@
 import Card from "./Card"
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostList } from '../../redux/slices/postSlices';
 import { spinnerPurple } from './spinner';
+import logofusionajob from '../../assets/logofusionajob.png'
 import useFetch from '../Hooks/useFetch';
+import dia from '../../assets/sun.png'
+import noche from '../../assets/moon.png'
 import ReactPaginate from 'react-paginate'; // libreria para hacer el paginado
 
 
@@ -11,6 +15,7 @@ const Cards = () => {
   const dispatch = useDispatch()
   const { postJobs } = useSelector((state) => state.postSlice) 
   const [filters, setFilters] = useState({});
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   // Filtrado  
   const queryString = new URLSearchParams(filters).toString(); // "page=1&dt=15&exp=2-4&mty=fr&sly=4"
@@ -29,7 +34,7 @@ const Cards = () => {
   const {data, isLoading, error} = useFetch(urlFilters)
 
   const [pageNumber, setPageNumber] = useState(0);
-  const [perPage] = useState(10);
+  const [perPage] = useState(9);
 
     
   useEffect(() => {
@@ -98,47 +103,67 @@ const Cards = () => {
   });
   }
 
+  const handleToggle = () => {
+    if (isDarkMode) {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
-    <div>
+    <div className='bg-primary-light dark:bg-secondary-dark transition-all'>
       {/* Muestra los filtros */}
-      <div className="m-5 flex justify-center items-center">
+      <nav className='bg-secondary-light dark:bg-primary-dark h-16'>
+      <div className="flex">
+      <Link to='userprofile'><button className='absolute font-medium py-[.1rem] px-2 h-[2.5rem] top-3 rounded-md ml-[75rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white shadow-md hover:bg-gray-400'>Perfil</button></Link>
+      <div onClick={handleToggle} className="cursor-pointer absolute py-2 px-2 top-3 ml-[79rem] bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 dark:hover:bg-secondary-light">{isDarkMode 
+            ? <img className="w-6" src={dia} alt='dia'/>
+            : <img className="w-6" src={noche} alt='noche'/>
+            }</div>
+      <Link to='/'><button className='absolute top-3 left-14 py-[.1rem] px-2 h-[2.5rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>← Home</button></Link>
+      <div className="flex-shrink-0">
+      <img src={logofusionajob} alt='logo' className="h-10 top-3 w-auto relative ml-[9rem]"/>
+      </div>
         <form>
           {/* <p> Filtros: </p> */}
-          <select id="date" onChange={(e) => handleFilterChange('dt', e.target.value)} defaultValue={'DEFAULT'} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-purple-600 peer">
-              <option value="DEFAULT" disabled> Por Fecha: </option>
-              <option value="1"> Hoy </option>
-              <option value="4"> Últimos 3 dias </option>
-              <option value="16"> Últimos 15 dias </option>
-              <option value="31"> Último mes </option>
+          <select id="date" onChange={(e) => handleFilterChange('dt', e.target.value)} defaultValue={'DEFAULT'} className="relative top-5 w-50 text-l text-text-light dark:text-text-dark bg-transparent mr-[1rem] ml-[1rem]">
+              <option value="DEFAULT" disabled className='dark:bg-secondary-dark bg-secondary-light'> Fecha de publicación: </option>
+              <option value="1" className='dark:bg-secondary-dark bg-secondary-light'> Hoy </option>
+              <option value="4" className='dark:bg-secondary-dark bg-secondary-light'> Últimos 3 dias </option>
+              <option value="16" className='dark:bg-secondary-dark bg-secondary-light'> Últimos 15 dias </option>
+              <option value="31" className='dark:bg-secondary-dark bg-secondary-light'> Último mes </option>
           </select>
-          <select id="experience" onChange={(e) => handleFilterChange('exp', e.target.value)} defaultValue={'DEFAULT'} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-purple-600 peer">
-              <option value="DEFAULT" disabled> Por Experiencia: </option>
-              <option value="0"> Sin experiencia </option>
-              <option value="1"> 1 año de experiencia </option>
-              <option value="2-4"> 2-4 años de experiencia </option>
-              <option value="5"> Más de 5 años </option>
+          <select id="experience" onChange={(e) => handleFilterChange('exp', e.target.value)} defaultValue={'DEFAULT'} className="relative top-5 w-50 text-l text-text-light dark:text-text-dark bg-transparent mr-[1rem]">
+              <option value="DEFAULT" disabled className='dark:bg-secondary-dark bg-secondary-light'> Experiencia: </option>
+              <option value="0" className='dark:bg-secondary-dark bg-secondary-light'> Sin experiencia </option>
+              <option value="1" className='dark:bg-secondary-dark bg-secondary-light'> 1 año </option>
+              <option value="2-4" className='dark:bg-secondary-dark bg-secondary-light'> 2-4 años </option>
+              <option value="5" className='dark:bg-secondary-dark bg-secondary-light'> Más de 5 años </option>
           </select>
-          <select id="modality" onChange={(e) => handleFilterChange('mty', e.target.value)} defaultValue={'DEFAULT'} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-purple-600 peer">
-              <option value="DEFAULT" disabled> Por Modalidad: </option>
-              <option value="fr"> Remoto </option>
-              <option value="rl"> Remoto local </option>
-              <option value="h"> Híbrido </option>
-              <option value="nr"> Presencial </option>
+          <select id="modality" onChange={(e) => handleFilterChange('mty', e.target.value)} defaultValue={'DEFAULT'} className="relative top-5 w-50 text-l text-text-light dark:text-text-dark bg-transparent mr-[1rem]">
+              <option value="DEFAULT" disabled className='dark:bg-secondary-dark bg-secondary-light'> Modalidad: </option>
+              <option value="fr" className='dark:bg-secondary-dark bg-secondary-light'> Remoto </option>
+              <option value="rl" className='dark:bg-secondary-dark bg-secondary-light'> Remoto local </option>
+              <option value="h" className='dark:bg-secondary-dark bg-secondary-light'> Híbrido </option>
+              <option value="nr" className='dark:bg-secondary-dark bg-secondary-light'> Presencial </option>
           </select>
-          <select id="salary" onChange={(e) => handleFilterChange('sly', e.target.value)} defaultValue={'DEFAULT'} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-purple-600 peer">
-              <option value="DEFAULT" disabled> Por Salario: </option>
-              <option value="1"> Menos de 200 </option>
-              <option value="2"> Más de 200 </option>
-              <option value="3"> Más de 500 </option>
-              <option value="4"> Más de 500 </option>
+          <select id="salary" onChange={(e) => handleFilterChange('sly', e.target.value)} defaultValue={'DEFAULT'} className="relative top-5 w-50 text-l text-text-light dark:text-text-dark bg-transparent mr-[1rem]">
+              <option value="DEFAULT" disabled className='dark:bg-secondary-dark bg-secondary-light'> Salario: </option>
+              <option value="1" className='dark:bg-secondary-dark bg-secondary-light'> Menos de 200 </option>
+              <option value="2" className='dark:bg-secondary-dark bg-secondary-light'> Más de 200 </option>
+              <option value="3" className='dark:bg-secondary-dark bg-secondary-light'> Más de 500 </option>
+              <option value="4" className='dark:bg-secondary-dark bg-secondary-light'> Más de 500 </option>
           </select>
-          <button id="btn-reset" type='reset' onClick={() => handleFilterChange('resetFilter')} className="mx-5 my-2.5 py-0 px-0 w-50 text-l text-red-500 bg-transparent border-0 border-b-2 border-red-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-red-600 peer"> 
+          <button id="btn-reset" type='reset' onClick={() => handleFilterChange('resetFilter')} className="relative top-5 w-50 text-l font-semibold text-red-600 dark:text-text-red-600 bg-transparent mr-[1rem]"> 
             Limpiar filtros 
           </button>
         </form>
       </div>
+      </nav>
       {/* Muestra las cards */}
-      <div className="flex flex-wrap gap-3 justify-center dark:bg-slate-600 py-6">
+      <div className="flex flex-wrap gap-3 justify-center dark:bg-secondary-dark bg-primary-light py-6">
         { 
           getPaginatedData().map((card) => (
             <Card key={card.id} 
@@ -162,7 +187,7 @@ const Cards = () => {
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={handlePageClick}
-        containerClassName="flex justify-center my-4"
+        containerClassName="flex justify-center pb-[1rem] dark:bg-secondary-dark"
         pageClassName="mx-2 rounded-full py-2 bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer"
         pageLinkClassName="px-4 py-2 text-sm"
         activeClassName="bg-blue-500 text-yellow-500 font-bold"

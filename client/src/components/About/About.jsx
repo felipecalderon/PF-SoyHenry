@@ -31,48 +31,43 @@ export const About = () => {
                 {/* Felipe */}
                 <div className='flex ml-[2rem]'>
                     <img src={Felipedev} alt='feli' className='absolute w-[13rem] h-[13rem] rounded-full ml-[34rem] mt-[2rem]'/>
-                    <p className='bg-overlay-light m-[1rem] p-[2rem] pt-[1.5rem] rounded-r-full pr-[20rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Felipe Calderón Espinoza{<br/>}(31 años, de Temuco, Chile) es un diseñador de páginas WordPress con experiencia previa en trabajo freelance. Actualmente trabaja en el área de Front.</p>
+                    <p className='bg-overlay-light m-[1rem] p-[2rem] pt-[1.5rem] rounded-r-full pr-[20rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Felipe Calderón Espinoza{<br/>}(31 años, Temuco, Chile) es un diseñador de páginas WordPress con experiencia previa en trabajo freelance. Actualmente trabaja en el área de Front.</p>
                 </div>
 
                 {/* Leandro */}
                 <div className='flex ml-[33rem]'>
                     <img src={Leandrodev} al='lean' className='absolute w-[13rem] h-[13rem] rounded-full ml-[2rem] mt-[2rem]'/>
-                    <p className='bg-overlay-light m-[1rem] p-[2rem] pr-[1.5rem] pt-[.4rem] rounded-l-full pl-[15.5rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Leandro Carrizo{<br/>}(38 años, de Rosario, Santa Fe, Argentina) trabajó en la industria de la gastronomía antes de retomar sus estudios. Actualmente estudia una tecnicatura universitaria en IA y trabaja en colaboración tanto en el área de Front como de Back.</p>
+                    <p className='bg-overlay-light m-[1rem] p-[2rem] pr-[1.5rem] pt-[.4rem] rounded-l-full pl-[15.5rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Leandro Carrizo{<br/>}(38 años, Rosario, Santa Fe, Argentina) trabajó en la industria de la gastronomía antes de retomar sus estudios. Actualmente estudia una tecnicatura universitaria en IA y trabaja en colaboración tanto en el área de Front como de Back.</p>
                 </div>
 
                 {/* Lisi */}
                 <div className='flex ml-[2rem]'>
                 <img src={Lisidev} alt='lisi' className='absolute w-[13rem] h-[13rem] rounded-full ml-[34rem] mt-[2rem]'/>
-                    <p className='bg-overlay-light m-[1rem] p-[2rem] pt-[2rem] rounded-r-full pr-[20rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Lisi Daniela Gonzalez{<br/>}(22 años, de Córdoba, Argentina) es estudiante de Licenciatura en Relaciones Internacionales y trabaja en el área de Front.</p>
+                    <p className='bg-overlay-light m-[1rem] p-[2rem] pt-[2rem] rounded-r-full pr-[20rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Lisi Daniela Gonzalez{<br/>}(22 años, Córdoba, Argentina) es estudiante de Licenciatura en Relaciones Internacionales y trabaja en el área de Front.</p>
                 </div>
 
                 {/* William */}
                 <div className='flex ml-[33rem]'>
                 <img src={Williamdev} al='alex' className='absolute w-[13rem] h-[13rem] rounded-full ml-[2rem] mt-[2rem]'/>
-                    <p className='bg-overlay-light m-[1rem] p-[2rem] pr-[1.5rem] pt-[1.5rem] rounded-l-full pl-[20rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>William Henao{<br/>}(23 años, de Colombia) trabajó como auxiliar de mantenimiento eléctrico industrial antes de decidir estudiar programación. Actualmente trabaja en el área de Back.</p>
+                    <p className='bg-overlay-light m-[1rem] p-[2rem] pr-[1.5rem] pt-[1.5rem] rounded-l-full pl-[20rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>William Henao{<br/>}(23 años, Colombia) trabajó como auxiliar de mantenimiento eléctrico industrial antes de decidir estudiar programación. Actualmente trabaja en el área de Back.</p>
                 </div>
 
                 {/* Santiago */}
                 <div className='flex ml-[2rem]'>
                 <img src={Santiagodev} alt='santi' className='absolute w-[13rem] h-[13rem] rounded-full ml-[34rem] mt-[2rem]'/>
-                    <p className='bg-overlay-light m-[1rem] p-[2rem] pt-[1.5rem] rounded-r-full pr-[15rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Santiago Pagge{<br/>}(29 años, de Junín, Buenos Aires, Argentina) trabajó como vendedor en una estación de servicio y luego en una estación de peajes antes de unirse a nuestro equipo. Actualmente trabaja en el área de Front.</p>
+                    <p className='bg-overlay-light m-[1rem] p-[2rem] pt-[1.5rem] rounded-r-full pr-[15rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Santiago Pagge{<br/>}(29 años, Junín, Buenos Aires, Argentina) trabajó como vendedor en una estación de servicio y luego en una estación de peajes antes de unirse a nuestro equipo. Actualmente trabaja en el área de Front.</p>
                 </div>
 
                 {/* Eric */}
                 <div className='flex ml-[33rem]'>
                 <img src={Ericdev} al='eric' className='absolute w-[13rem] h-[13rem] rounded-full ml-[2rem] mt-[2rem]'/>
-                    <p className='bg-overlay-light m-[1rem] p-[2rem] pt-[1.5rem] pr-[1.5rem] rounded-l-full pl-[18rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Eric Palacio{<br/>}(28 años, de Corralito, Provincia de Córdoba, Argentina) trabajaba como ayudante de electricista antes de decidir estudiar programación. Actualmente trabaja en el área de Back. </p>
+                    <p className='bg-overlay-light m-[1rem] p-[2rem] pt-[2rem] pr-[1.5rem] rounded-l-full pl-[18rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Eric Palacio{<br/>}(28 años, Corralito, Córdoba, Argentina) trabajaba como ayudante de electricista antes de decidir estudiar programación. Actualmente trabaja en el área de Back. </p>
                 </div>
 
-                {/* Franco  */}
-                <div className='flex ml-[2rem]'>
+                {/* Franco */}
+                <div className='flex ml-[2rem] mb-[1rem]'>
                 <img src={Francodev} alt='franco' className='absolute w-[13rem] h-[13rem] rounded-full ml-[34rem] mt-[2rem]'/>
-                    <p className='bg-overlay-light m-[1rem] p-[2rem] pt-[.5rem] rounded-r-full pr-[15rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Franco Valdez{<br/>}(23 años, de Córdoba, Argentina) es estudiante de Ingeniería Electrónica y Administrador de E-Commerce, y trabaja en el área de Front. Su experiencia laboral previa incluye trabajo como administrador de E-Commerce.</p>
-                </div>
-
-                {/* Violeta */}
-                <div className='flex ml-[33rem] mb-[1rem]'>
-                    <p className='bg-overlay-light m-[1rem] p-[2rem] pr-[1.5rem] rounded-l-full pl-[20rem] pt-[1.5rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Violeta Sol Arias Hours{<br/>}(24 años, de Salta, Argentina) se graduó como diseñadora de modas y asesora de imagen personal antes de unirse a nuestro equipo. Actualmente trabaja en el área de Back.</p>
+                    <p className='bg-overlay-light m-[1rem] p-[2rem] pt-[1rem] rounded-r-full pr-[15rem] h-[15rem] w-[47rem] text-2xl dark:text-text-dark dark:bg-secondary-dark'>Franco Valdez{<br/>}(23 años, Córdoba, Argentina) es estudiante de Ingeniería Electrónica y Administrador de E-Commerce, y trabaja en el área de Front. Su experiencia laboral previa incluye trabajo como administrador de E-Commerce.</p>
                 </div>
             </div>
 

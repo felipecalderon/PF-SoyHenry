@@ -36,29 +36,29 @@ export const RegistroEmpresa = () => {
             ...form,
             [event.target.name]: event.target.value 
         })
-        setErrors(validationsRegisterCompany({
-            ...form,
-            [event.target.name]: event.target.value
-        }))
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(postFetchNewCompany(form))
-        alert('Empresa creada');
+        const errorsNew = validationsRegisterCompany(form);
+        setErrors(errorsNew);
+        if(Object.keys(errorsNew).length === 0) {
+            dispatch(postFetchNewCompany(form));
+            alert('Usuario registrado');
+        }
     };
 
     return (
-        <div className='relative bg-yellow-100'>
+        <div className='relative bg-primary-light dark:bg-secondary-dark'>
 
-        <div className='bg-secondary-dark dark:bg-primary-dark h-16'>
+        <div className='bg-secondary-light dark:bg-primary-dark h-16'>
             <img src={logofusionajob} alt='Fusionalogo' className='flex relative w-[16rem] ml-[32rem]'/>
             <Link to='/'><button className='absolute top-3 left-14 py-[.1rem] px-2 h-[2.5rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>← Home</button></Link>
             <Link to='/registro'><button className='absolute top-5 right-10 text-red-600 font-bold hover:text-xl transition-all'>Registrate como candidato</button></Link>
         </div>
 
         <div className='flex relative justify-center mt-[2rem] mb-[2rem] text-4xl'>
-            <h2 className='font-bold'>¡Registra tu empresa y encuentra al mejor candidato!</h2>
+            <h2 className='font-bold dark:text-text-dark'>¡Registrate como Recruiter y encuentra al mejor candidato!</h2>
         </div>
 
         <div className='flex absolute right-0 mr-[5rem]'>
@@ -71,7 +71,7 @@ export const RegistroEmpresa = () => {
             <form className='relative' onSubmit={(event) => handleSubmit(event)}>
 
                 <div className='relative ml-[1.5rem]'>
-                    <label>Nombre:</label>
+                    <label className='dark:text-text-dark'>Nombre:</label>
                 </div>
                 <div className='relative ml-[1rem] mb-[2rem]'>
                     <input type='text' name='username' value={form.username} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
@@ -79,7 +79,7 @@ export const RegistroEmpresa = () => {
                 </div>
 
                 <div className='relative ml-[1.5rem]'>
-                    <label>Email:</label>
+                    <label className='dark:text-text-dark'>Email:</label>
                 </div>
                 <div className='relative ml-[1rem] mb-[2rem]'>
                     <input type='text' name='email' value={form.email} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
@@ -87,7 +87,7 @@ export const RegistroEmpresa = () => {
                 </div>
 
                 <div className='relative ml-[1.5rem]'>
-                    <label>Nombre de la empresa:</label>
+                    <label className='dark:text-text-dark'>Nombre de la empresa:</label>
                 </div>
                 <div className='relative ml-[1rem] mb-[2rem]'>
                     <input type='text' name='nombreEmpresa' value={form.nombreEmpresa} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
@@ -95,7 +95,7 @@ export const RegistroEmpresa = () => {
                 </div>
 
                 <div className='absolute ml-[15.5rem] top-0'>
-                    <label>Apellido:</label>
+                    <label className='dark:text-text-dark'>Apellido:</label>
                 </div>
                 <div className='absolute ml-[15rem] mt-[1.5rem] top-0'>
                     <input type='text' name='apellido' value={form.apellido} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
@@ -103,7 +103,7 @@ export const RegistroEmpresa = () => {
                 </div>
 
                 <div className='absolute ml-[15.5rem] mt-[5.2rem] top-0'>
-                    <label>Contraseña:</label>
+                    <label className='dark:text-text-dark'>Contraseña:</label>
                 </div>
                 <div className='absolute ml-[15rem] mt-[6.8rem] top-0'>
                     <input type='password' name='password' value={form.password} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
@@ -111,7 +111,7 @@ export const RegistroEmpresa = () => {
                 </div>
 
                 <div className='absolute ml-[15.5rem] mt-[10.5rem] top-0'>
-                    <label>CUIT:</label>
+                    <label className='dark:text-text-dark'>CUIT:</label>
                 </div>
                 <div className='absolute ml-[15rem] mt-[12rem] top-0'>
                     <input type='text' name='cuit' value={form.cuit} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
@@ -119,7 +119,7 @@ export const RegistroEmpresa = () => {
                 </div>
 
                 <div className='relative ml-[1.5rem]'>
-                    <label>Documento:</label>
+                    <label className='dark:text-text-dark'>Documento:</label>
                 </div>
                 <div className='relative ml-[1rem] mb-[1rem]'>
                     <input type='text' pattern="^[0-9]\d*$" name='documento' value={form.documento} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
@@ -127,7 +127,7 @@ export const RegistroEmpresa = () => {
                 </div>
 
                 <div className='relative mt-[6rem] ml-[20rem] font-bold pb-[3rem]'>
-                    <button type='submit' disabled={( Object.keys(errors).length > 0)} className='w-32 h-8 disabled:opacity-50 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>Crear cuenta</button>
+                    <button type='submit' className="text-gray-900 border border-gray-800 hover:bg-secondary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-[1rem] py-[.5rem] dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800 disabled:opacity-50">Crear cuenta</button>
                 </div>
 
             </form>
@@ -135,7 +135,7 @@ export const RegistroEmpresa = () => {
         </div>
 
         <div className='absolute ml-[15rem] mt-[35rem] top-0'>
-            <p className='text-black'>Al hacer click en Crear Cuenta, acepto las Condiciones de uso y las Políticas de privacidad de Fusionajob.</p>
+            <p className='dark:text-text-dark'>Al hacer click en Crear Cuenta, acepto las Condiciones de uso y las Políticas de privacidad de Fusionajob.</p>
         </div>
 
         <div className='bottom-0'>
