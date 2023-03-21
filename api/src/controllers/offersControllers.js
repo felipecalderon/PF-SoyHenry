@@ -55,10 +55,10 @@ const getAllOffersDbController = async ( query ) => {
         throw error
     }
 }
-const getOfferByIdController = async ({ id }) => {
+const getOfferByIdController = async ({ id }, {title}) => {
     try {
         // si el id es un numero buscara en la Db sino buscara en la api
-        const offert = !isNaN( id )? await getOffersById( id ) : await getOffersByIdApi( id );
+        const offert = !isNaN( id )? await getOffersById( id ) : await getOffersByIdApi( id, title );
         return offert 
     } catch (error) {
         throw error

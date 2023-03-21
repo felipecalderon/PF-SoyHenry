@@ -77,12 +77,12 @@ const getOffersApiGetonbrd = async ( title ) => {
         throw error;
     }
 };
-const getOffersByIdApi = async ( id ) => {
+const getOffersByIdApi = async (id, title) => {
     try {
         // id es el titulo de la oferta como la api no tiene un end poin para solicitar por id 
         // hace la busqueda por el titulo
-        const hardcodedtitle = id.split('-').slice(0,2).join()
-        let dataAPI = await axios(`/api/v0/search/jobs?query=${hardcodedtitle}`);
+
+        let dataAPI = await axios(`/api/v0/search/jobs?query=${title}`);
         // filtra la oferta que tenga el titulo buscado
         const offers = cleaningGetonbrd( dataAPI.data );
 
