@@ -24,14 +24,14 @@ const createOfferController = async (body) => {
 }
 
 // gets
-const getAllOffersController = async ({ language = 'junior', title, page = 1, limit = 10, dt, exp, mty, sly }) => {
+const getAllOffersController = async ({ title = 'a', dt, exp, mty, sly }) => {
     try {
         // DataBase
-        const offer_db = title ? await getOffersByTitleDb( title ) : await getOffersDb();
+        const offer_db = title !== 'a' ? await getOffersByTitleDb( title ) : await getOffersDb();
         
         // Apis
-        //      Api Getonbrd
-        const jobsGetonbrd = title ? await getOffersApiGetonbrd( title ) : await getOffersApiGetonbrd( language );
+        // Api Getonbrd
+        const jobsGetonbrd = await getOffersApiGetonbrd( title );
         
         // concatena las ofertas de las apis y de la DB
         all_offers = [  ...offer_db, ...jobsGetonbrd ] 
@@ -40,10 +40,9 @@ const getAllOffersController = async ({ language = 'junior', title, page = 1, li
         const offertFilters = dt || exp || mty || sly ?  filters( all_offers, dt, exp, mty, sly ) : all_offers
     
         // hace el paginado
-        const offers = paginate( offertFilters, page, limit )
+        // const offers = paginate( offertFilters, page, limit )
 
-        
-        return offers
+        return offertFilters
     } catch (error) {
         throw error
     }
@@ -56,10 +55,10 @@ const getAllOffersDbController = async ( query ) => {
         throw error
     }
 }
-const getOfferByIdController = async ({ id }) => {
+const getOfferByIdController = async ({ id }, {title}) => {
     try {
         // si el id es un numero buscara en la Db sino buscara en la api
-        const offert = !isNaN( id )? await getOffersById( id ) : await getOffersByIdApi( id );
+        const offert = !isNaN( id )? await getOffersById( id ) : await getOffersByIdApi( id, title );
         return offert 
     } catch (error) {
         throw error

@@ -33,4 +33,4 @@ const authLoginGoogleCB = async (body) => {
   }
 }
 
-module.exports = {authCreatePostulant, authLoginGoogle, authLoginGoogleCB}
+module.exports = { authCreatePostulant, authLoginGoogle, authLoginGoogleCB }

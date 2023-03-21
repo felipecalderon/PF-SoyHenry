@@ -15,9 +15,9 @@ const {
 } = require('./offersRoute');
 //const{allAdmin,createAdmin,putAdmin,deleteadmin,getadminbyid}=require('./adminRoute')
 const {
- authUserCreate,
- authUserCreateGoogleBtn,
- authUserGoogleBtnCB
+    authUserCreate,
+    authUserCreateGoogleBtn,
+    authUserGoogleBtnCB
 } = require('./authRoute')
 //
 const{allCompany,
@@ -38,8 +38,8 @@ route.post('/user', createUser);
 // Offers
 route.post('/jobs' , createOffer);
 route.get('/jobs' , allOffers);
+route.get('/jobs/:id' , getOffersById);
 route.get('/jobsdb' , allOffersDb);
-route.get('/jobsdb/:id' , getOffersById);
 route.put('/jobdb/:id' , putOffers);
 route.put('/jobsld/:id' , putLdOffers); // Logical deletion
 route.delete('/jobdb/:id' , deleteOffer); // Physical deletion
