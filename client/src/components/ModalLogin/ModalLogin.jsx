@@ -59,7 +59,7 @@ export const ModalLogin = ({isOpen, setOpen}) => {
 
     if(!isOpen) return null;
     return (
-        <div className='z-50 fixed top-0 left-0 right-0 bottom-0 bg-gray-800 bg-opacity-80 flex justify-center items-center' onClick={closeModal}>
+        <div className='z-50 fixed top-0 left-0 right-0 bottom-0 bg-primary-dark bg-opacity-80 flex justify-center items-center' onClick={closeModal}>
             <article className='w-1/2 mx-auto relative'>
                 <div className="rounded-3xl bg-primary-light" onClick={handleModalContainerClick}>
                 <div className="absolute top-0 right-0 m-4 cursor-pointer text-2xl" onClick={closeModal}> x </div>

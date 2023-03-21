@@ -141,7 +141,15 @@ const Cards = () => {
       <div className="flex flex-wrap gap-3 justify-center dark:bg-slate-600 py-6">
         { 
           getPaginatedData().map((card) => (
-            <Card key={card.id} title={card.title} description={card.description} id={card.id} salary={card.min_salary}/>
+            <Card key={card.id} 
+            title={card.title} 
+            description={card.functions} 
+            id={card.id} 
+            salario_minimo={card.min_salary}
+            salario_maximo={card.max_salary}
+            modality={card.modality}
+            
+            />
           ))
         }
       </div>
