@@ -40,10 +40,9 @@ const getAllOffersController = async ({ language = 'junior', title, page = 1, li
         const offertFilters = dt || exp || mty || sly ?  filters( all_offers, dt, exp, mty, sly ) : all_offers
     
         // hace el paginado
-        const offers = paginate( offertFilters, page, limit )
+        // const offers = paginate( offertFilters, page, limit )
 
-        
-        return offers
+        return offertFilters
     } catch (error) {
         throw error
     }

@@ -1,5 +1,5 @@
 const { createUsers } = require("../handlers/handlerUserModels")
-const {firebase} = require('../auth/firebase.config')
+const {firebase, googleProvider} = require('../auth/firebase.config')
 const authCreatePostulant = async (body) => {
     try {
         const { email, password } = body
@@ -15,9 +15,7 @@ const authCreatePostulant = async (body) => {
 }
 
 const authLoginGoogle = async (body) => {
-  const provider = firebase.GoogleAuthProvider();
   try {
-    const credentials = await signInWithPopup(auth, provider)
     await firebase.auth().signInWithRedirect(googleProvider)
     return "Redirigiendo a Google para autenticación..."
   } catch (error) {
@@ -35,4 +33,4 @@ const authLoginGoogleCB = async (body) => {
   }
 }
 
-module.exports = {authCreatePostulant, authLoginGoogle, authLoginGoogleCB}
+module.exports = { authCreatePostulant, authLoginGoogle, authLoginGoogleCB }

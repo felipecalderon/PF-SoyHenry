@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 const { User, Admin, Postulant, Company } = require("../models/relations.js");
 
 // Post
-const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, gender, password, name, description, location, website, logo}) => {
+const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, gender, password, name, description, location, website, logo, experience, tecnology}) => {
     try {
         const [usuario, created] = await User.findOrCreate({
                 where: { email },
@@ -20,8 +20,8 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
         if (!created) {
         switch (rol) {
             case 'Postulante':
-                const dataPostulante = await Postulant.create({
-                        names, lastnames, phone, disability, gender, 
+                const dataPostulante = await Postulant.create({      //nueva modificacion experiencia y tecnologia modelo postulant
+                        names, lastnames, phone, disability, gender, experience, tecnology,
                         userId: usuario.id
                     });
                 return dataPostulante
