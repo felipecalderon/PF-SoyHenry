@@ -13,7 +13,7 @@ const Cards = () => {
   const [filters, setFilters] = useState({});
 
   // Filtrado  
-  const queryString = new URLSearchParams(filters).toString(); // "page=1&dt=15&exp=2-4&mty=fr&sly=4"
+  const queryString = new URLSearchParams(filters).toString();
 
   const urlFilters = `/jobs?${queryString}`;
 
@@ -34,7 +34,9 @@ const Cards = () => {
     
   useEffect(() => {
       if(data) dispatch(getPostList(data))
-  }, [dispatch, data])
+      const objetoJSON = JSON.stringify(filters) // vuelve el objeto un JSON para poder guardarse en localStorage
+      localStorage.setItem('filtersLocalStorage', objetoJSON); //  Guardado local para que se mantengan la pagina en la que estaba el usuario
+  }, [dispatch, data, filters])
 
   if(isLoading) return spinnerPurple() 
 
@@ -46,6 +48,7 @@ const Cards = () => {
   };
   const handlePageClick = (selectedPage) => {
     setPageNumber(selectedPage.selected);
+    window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
   };
 
   // Guardado local para que se mantengan los filtros en el select
@@ -76,25 +79,22 @@ const Cards = () => {
   const expFilterSelect = localStorage.getItem('expFilterSelect');
   const mtyFilterSelect = localStorage.getItem('mtyFilterSelect');
   const slyFilterSelect = localStorage.getItem('slyFilterSelect');
+  const filtersLocalStorage = localStorage.getItem("filtersLocalStorage");
+  // Convertir el objeto JSON en un objeto JavaScript
+  const filtros = JSON.parse(filtersLocalStorage);
 
-  if (dateFilterSelect ) {
-    if (dateFilter) dateFilter.value = dateFilterSelect;
-  }
-  if (expFilterSelect ) {
-    if (experienceFilter) experienceFilter.value = expFilterSelect;
-  }
-  if (mtyFilterSelect ) {
-    if (modalityFilter) modalityFilter.value = mtyFilterSelect;
-  }
-  if (slyFilterSelect ) {
-    if (salaryFilter) salaryFilter.value = slyFilterSelect;
-  }
+  if (filtersLocalStorage && Object.keys(filtros).length !== 0 && Object.keys(filters).length === 0) setFilters(filtros)
+  if (dateFilterSelect && dateFilter) dateFilter.value = dateFilterSelect;
+  if (expFilterSelect && experienceFilter) experienceFilter.value = expFilterSelect;
+  if (mtyFilterSelect && modalityFilter) modalityFilter.value = mtyFilterSelect;
+  if (slyFilterSelect && salaryFilter) salaryFilter.value = slyFilterSelect;
 
-  //  Escucha el evento click en el botón de eliminar filtros y borra los datos almacenados en localStorage
+  //  Escucha el evento click en el botón de eliminar filtros, borra los datos almacenados en localStorage y los filtros aplicados 
   const botonEliminarFiltros = document.getElementById('btn-reset');
   if(botonEliminarFiltros){
   botonEliminarFiltros.addEventListener('click', () => {
     localStorage.clear();
+    setFilters({})
   });
   }
 
