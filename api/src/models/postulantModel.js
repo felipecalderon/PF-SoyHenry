@@ -28,6 +28,14 @@ const Postulant = sequelize.define('Postulant', {
     gender:{
         type: DataTypes.ENUM('Femenino', 'Masculino', 'Prefiero no decirlo'),
     },
+    experience:{
+        type: DataTypes.STRING,
+        isAlpha:true,
+    },
+    tecnology:{
+        type: DataTypes.STRING,
+        isAlpha:true,
+    },
 })
 
 module.exports = Postulant;
