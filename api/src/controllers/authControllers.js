@@ -1,36 +1,43 @@
 const { createUsers } = require("../handlers/handlerUserModels")
-const {firebase, googleProvider} = require('../auth/firebase.config')
+const firebase = require('../auth/firebase.config')
+const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithCredential} = require("firebase/auth")
+
 const authCreatePostulant = async (body) => {
     try {
+        const auth = getAuth();
         const { email, password } = body
           const usercreatedDB = await createUsers(body)
-          const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password, {
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password, {
             uid: usercreatedDB.userId
           })
           const user = userCredential.user
-        return `Usuario creado exitosamente: ${user}`
+          console.log(user)
+        return `Inicio de sesion exitoso`
     } catch (error) {
-        throw error
+        console.log(error)
+        throw 'Error al iniciar sesión'
     }
 }
-
-const authLoginGoogle = async (body) => {
+const authLoginCredentials = async ({email, password}) => {
   try {
-    await firebase.auth().signInWithRedirect(googleProvider)
-    return "Redirigiendo a Google para autenticación..."
+    const auth = getAuth();
+    const userCredential = await signInWithEmailAndPassword(auth, email, password)
+    const {accessToken} = userCredential.user.stsTokenManager
+    return accessToken
+  } catch (error) {
+      throw error
+  }
+}
+const authLoginGoogle = async ({token}) => {
+  try {
+    const auth = getAuth()
+    const credential = GoogleAuthProvider.credential(token)
+    const result = await signInWithCredential(auth, credential)
+    console.log(result)
+    return result
   } catch (error) {
     return `Error al autenticar con Google: ${error.message}`
   }
 }
 
-const authLoginGoogleCB = async (body) => {
-  try {
-    const result = await firebase.auth().getRedirectResult()
-
-    return "Autenticación con Google exitosa!"
-  } catch (error) {
-    return `Error al autenticar con Google: ${error.message}`
-  }
-}
-
-module.exports = { authCreatePostulant, authLoginGoogle, authLoginGoogleCB }
+module.exports = { authCreatePostulant, authLoginGoogle, authLoginCredentials }
