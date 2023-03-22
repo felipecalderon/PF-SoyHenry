@@ -58,7 +58,7 @@ const displayComponente=(selectedValueBarraPerfil)=>{
             checked={selectedValueBarraPerfil.valorSeleccionado === "curriculum"}
             onChange={handleSortOrderChange}
                   />
-<label for="curriculum" className='checked:bg-secondary-light'>Curriculum</label>
+<label for="curriculum" className='cursor-pointer select-none '>Curriculum</label>
                 <input
                 className='invisible'
             type="radio"
@@ -70,7 +70,7 @@ const displayComponente=(selectedValueBarraPerfil)=>{
 
 
                   />
-<label for="postulaciones">Postulaciones</label>         
+<label for="postulaciones" className='cursor-pointer select-none'>Postulaciones</label>         
 <input
 className='invisible'
             type="radio"
@@ -82,7 +82,7 @@ className='invisible'
 
 
                   />
-<label for="favoritos">Favoritos</label>
+<label for="favoritos" className='cursor-pointer select-none'>Favoritos</label>
 
 <input
 className='invisible'
@@ -95,7 +95,7 @@ className='invisible'
 
 
                   />
-<label for="configuracion">Configuracion</label>
+<label for="configuracion" className='cursor-pointer select-none'>Configuracion</label>
                 </div>
 
             <section className="bg-primary-light flex  ">
