@@ -9,6 +9,7 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
                 where: { email },
                 defaults: {
                   username,
+                  lastnames,
                   rol,
                   active,
                   password
