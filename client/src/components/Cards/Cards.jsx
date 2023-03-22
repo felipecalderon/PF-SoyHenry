@@ -11,11 +11,13 @@ const Cards = () => {
   const dispatch = useDispatch()
   const { postJobs } = useSelector((state) => state.postSlice) 
   const [filters, setFilters] = useState({});
+  const [title, setTitle] = useState('a');
+  const [search, setSearch] = useState('');
 
   // Filtrado  
   const queryString = new URLSearchParams(filters).toString();
 
-  const urlFilters = `/jobs?${queryString}`;
+  const urlFilters = `/jobs?title=${title}&${queryString}`;
 
   const handleFilterChange = ( name, value ) => {
     name === 'resetFilter'? 
@@ -25,18 +27,24 @@ const Cards = () => {
       [name]: value,
     });
   }
-
+  
   const {data, isLoading, error} = useFetch(urlFilters)
-
+  
   const [pageNumber, setPageNumber] = useState(0);
   const [perPage] = useState(10);
-
-    
+  
+  const currentPage = parseInt(localStorage.getItem('currentPage')); // pagina actual
+  
   useEffect(() => {
-      if(data) dispatch(getPostList(data))
-      const objetoJSON = JSON.stringify(filters) // vuelve el objeto un JSON para poder guardarse en localStorage
-      localStorage.setItem('filtersLocalStorage', objetoJSON); //  Guardado local para que se mantengan la pagina en la que estaba el usuario
-  }, [dispatch, data, filters])
+    if(data) dispatch(getPostList(data))
+    const objetoJSON = JSON.stringify(filters) // vuelve el objeto un JSON para poder guardarse en localStorage
+    localStorage.setItem('filtersLocalStorage', objetoJSON); //  Guardado local para que se mantengan la pagina en la que estaba el usuario
+    setPageNumber(currentPage ? currentPage : 0);
+    window.addEventListener('beforeunload', handleUnload); // Agregar evento beforeunload para limpiar localStorage
+    return () => {
+      window.removeEventListener('beforeunload', handleUnload); // Eliminar evento beforeunload al desmontar el componente
+    }
+  }, [dispatch, data, filters, currentPage])
 
   if(isLoading) return spinnerPurple() 
 
@@ -47,8 +55,16 @@ const Cards = () => {
     return postJobs.slice(startIndex, endIndex);
   };
   const handlePageClick = (selectedPage) => {
+    localStorage.setItem('currentPage', selectedPage.selected); //  Guardado local para que se mantengan la pagina en la que estaba el usuario
     setPageNumber(selectedPage.selected);
     window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
+  };
+  
+  // SearchBar
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setTitle(search)
+    localStorage.setItem('title', search);
   };
 
   // Guardado local para que se mantengan los filtros en el select
@@ -79,11 +95,12 @@ const Cards = () => {
   const expFilterSelect = localStorage.getItem('expFilterSelect');
   const mtyFilterSelect = localStorage.getItem('mtyFilterSelect');
   const slyFilterSelect = localStorage.getItem('slyFilterSelect');
-  const filtersLocalStorage = localStorage.getItem("filtersLocalStorage");
-  // Convertir el objeto JSON en un objeto JavaScript
-  const filtros = JSON.parse(filtersLocalStorage);
+  const titleSearchbar = localStorage.getItem('title') // titulo buscado en la searchbar
+  const filtersLocalStorage = localStorage.getItem("filtersLocalStorage"); // filtros aplicados
+  const filtros = JSON.parse(filtersLocalStorage); // Convertir el objeto JSON en un objeto JavaScript
 
-  if (filtersLocalStorage && Object.keys(filtros).length !== 0 && Object.keys(filters).length === 0) setFilters(filtros)
+  if (titleSearchbar && title !== 'a' ) console.log(titleSearchbar) //setTitle(titleSearchbar)
+  if (filtersLocalStorage && Object.keys(filtros).length !== 0 && Object.keys(filters).length === 0) setFilters(filtros) // Si hay filtros guardados los aplica
   if (dateFilterSelect && dateFilter) dateFilter.value = dateFilterSelect;
   if (expFilterSelect && experienceFilter) experienceFilter.value = expFilterSelect;
   if (mtyFilterSelect && modalityFilter) modalityFilter.value = mtyFilterSelect;
@@ -95,15 +112,32 @@ const Cards = () => {
   botonEliminarFiltros.addEventListener('click', () => {
     localStorage.clear();
     setFilters({})
+    setTitle('a')
   });
   }
+  const handleUnload = () => {
+    localStorage.clear();
+    setFilters({})
+    setTitle('a')
+  };
 
   return (
     <div>
+      <form onSubmit={handleSearch}>   
+        <div className="relative mx-10 my-4">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
+          <input type="search" id="default-search" onChange={(event) => setSearch(event.target.value)} className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Busca tu empleo soñado..." required/>
+          <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+        </div>
+      </form>
+      {
+        titleSearchbar ? <p className="m-5 flex justify-center items-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white" > Buscando las ofertas por: {titleSearchbar} </p> : <p></p>
+      }
       {/* Muestra los filtros */}
-      <div className="m-5 flex justify-center items-center">
+      <div className="m-5 flex justify-center items-center ">
         <form>
-          {/* <p> Filtros: </p> */}
           <select id="date" onChange={(e) => handleFilterChange('dt', e.target.value)} defaultValue={'DEFAULT'} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-purple-600 peer">
               <option value="DEFAULT" disabled> Por Fecha: </option>
               <option value="1"> Hoy </option>
@@ -160,8 +194,9 @@ const Cards = () => {
         breakLabel={'...'}
         pageCount={Math.ceil(postJobs.length / perPage)}
         marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={3}
         onPageChange={handlePageClick}
+        forcePage={currentPage ? currentPage : 0 }
         containerClassName="flex justify-center my-4"
         pageClassName="mx-2 rounded-full py-2 bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer"
         pageLinkClassName="px-4 py-2 text-sm"
