@@ -1,19 +1,18 @@
-import { Nav } from './components/Nav/Nav'
+import style from './App.js'
+import { Route, Routes } from 'react-router'
 import Cards from './components/Cards/Cards'
-// import axios from 'axios';
+import LandingPage from './components/LandingPage/LandingPage';
+import JobDetail from './components/JobDetail/JobDetail';
 
-// // axios.defaults.baseURL = 'https://localhost:3001';
-// axios.defaults.baseURL = 'pf-soyhenry-production.up.railway.app';
 
 function App() {
   return (
-    <div>
-      <div>
-        <Nav/>
-      </div>
-      <div>
-        <Cards/>  
-      </div>      
+    <div className={style.all}>
+      <Routes>
+        <Route path='/' component={LandingPage}/>
+        <Route path='/cards' component={Cards}/>
+        <Route path='/detail' component={JobDetail}/>
+      </Routes>
     </div>
   );
 }

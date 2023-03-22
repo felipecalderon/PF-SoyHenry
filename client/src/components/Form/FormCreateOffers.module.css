@@ -1,0 +1,73 @@
+.contenedor {
+    padding: 1rem;
+    padding-left: 4rem;
+    background-color:#c8cab4;
+    height: 100dvh;
+    
+}
+
+.titulo {
+    margin-bottom: 1rem;
+    text-decoration: underline;
+}
+
+.contenedor_inputs {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    width: 768px;
+    margin-bottom: 1rem;
+}
+
+.inputs_strings {
+    width: 400px;
+}
+
+.inputs_number {
+    width: 100px;
+}
+
+.boton_submit {
+    
+    border: 1px black solid;
+    border-radius: 5px;
+    padding: 2px;
+    width: 150px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    
+}
+
+.boton_volver {
+ 
+    border: 1px black solid;
+    border-radius: 5px;
+    padding: 2px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.p_formulario_error{
+    font-size: 12px;
+    font-style: italic;
+    color: red;
+}
+
+.perks_information{
+    font-size: 12px;
+    font-style: italic;
+}
+
+.perks_select{
+    width: 140px;
+}
+
+.perks_input{
+    width: 135px;
+}
+
+.perks_button {    
+    border: 1px black solid;
+    border-radius: 5px;
+    padding: 3px;    
+}

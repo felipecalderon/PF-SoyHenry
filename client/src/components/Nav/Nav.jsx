@@ -15,12 +15,14 @@ export const Nav = () => {
       setIsDarkMode(!isDarkMode);
     };
     return (
+      <div>
         <nav className="relative dark:bg-black bg-slate-300 w-screen h-16">
       <div className="container flex justify-start items-center h-full w-full mx-auto px-4">
         <img src={logofusionajob} alt='logo' className="flex h-16 w-60 mr-4" />
-        <div className="flex items-center dark:text-yellow-400 text-gray-900">
+        <div className="flex items-center dark:text-yellow-100 text-gray-900">
           <Link href="#" className="inline-block dark:hover:text-yellow-200 font-medium px-4 py-2">Inicio</Link>
           <Link href="#" className="inline-block dark:hover:text-yellow-200 font-medium px-4 py-2">Empleadores</Link>
+          <Link to='/offersCreate'>Crear oferta laboral  </Link>
           <div className="relative">
             <select className="border-none  dark:bg-black bg-slate-300 appearance-none cursor-pointer px-4 py-2" name="Trabajos">
               <option value="trabajos">Trabajos ▼</option>
@@ -37,6 +39,7 @@ export const Nav = () => {
           </div>
         </div>
       </div>
-    </nav>
+        </nav>
+      </div>
     )
 }

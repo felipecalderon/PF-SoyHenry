@@ -45,3 +45,4 @@ const getCompanyById = async ({id}) => {
 
 module.exports = { getSearchByLanguage, getCompanyById};
 
+

@@ -1,21 +1,43 @@
 // const{ Users } = require('../database.js')
 const { Op } = require("sequelize");
-const { User, Admin, Postulant } = require("../models/relations.js");
+const { User, Admin, Postulant, Company } = require("../models/relations.js");
 
 // Post
-const createUsers = async ({ username, email, rol, nombres, apellidos, celular, discapacidad, activo, genero }) => {
+const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, gender, password, name, description, location, website, logo, experience, tecnology}) => {
     try {
-        const newUser = await User.create({
-        username, email, rol, activo
+        const [usuario, created] = await User.findOrCreate({
+                where: { email },
+                defaults: {
+                  username,
+                  rol,
+                  active,
+                  password
+                }
         });
-
-        const newPostulant = await Postulant.create({
-          nombres, apellidos, celular, discapacidad, genero,
-          userId: newUser.id
-        });
-        return newPostulant
+        if(usuario) {
+            return usuario.dataValues
+        }
+        if (!created) {
+        switch (rol) {
+            case 'Postulante':
+                const dataPostulante = await Postulant.create({      //nueva modificacion experiencia y tecnologia modelo postulant
+                        names, lastnames, phone, disability, gender, experience, tecnology,
+                        userId: usuario.id
+                    });
+                return dataPostulante
+            case 'Empresa':                       
+                const dataEmpresa = await Company.create({
+                    name, description, phone, location, gender, website, logo, 
+                        userId: usuario.id
+                    });
+                return dataEmpresa
+            default:
+                throw 'Tipo de usuario no válido'
+        }
+    }
     } catch(err) {
-      throw err
+        console.log(err)
+        throw err
     }
 }
 
@@ -23,7 +45,7 @@ const createUsers = async ({ username, email, rol, nombres, apellidos, celular, 
 const getUsers = async () => {
     const users = await User.findAll({
         where: {
-            estado: 1
+            active: true
         },
     });
     return users;

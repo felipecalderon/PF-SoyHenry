@@ -4,20 +4,28 @@ const app = express()
 const route = require('./routes/')
 const sequelize = require('./database')
 const cors = require('cors')
+const passport = require('passport')
+const axios = require('axios')
 
+axios.defaults.baseURL = 'https://www.getonbrd.com';
+const port = process.env.PORT || 3001
 // middlewares
 app.use(express.json())
 app.use(express.urlencoded({
     extended: true
 }))
-app.use(cors())
+app.use(cors({
+    origin: '*',
+    methods: '*'
+  }))
 sequelize.sync({ force: true })
 
 app.use(route)
+app.use(passport.initialize())
 
 // inicio de server
-app.listen(3001, () => {
-    console.log('API ACTIVADA')
+app.listen(port, () => {
+    console.log('API ACTIVADA EN PUERTO ', port)
 })
 
 module.exports = { app };

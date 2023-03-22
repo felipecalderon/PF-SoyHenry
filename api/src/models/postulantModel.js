@@ -1,31 +1,41 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 const sequelize = require('../database');
 
 const Postulant = sequelize.define('Postulant', {
-  id:{
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-  },
-  nombres:{
-      type: DataTypes.STRING,
-      isAlpha:true,
-  },
-  apellidos:{
-      type: DataTypes.STRING,
-      isAlpha:true,
-  },
-  celular:{
-      type: DataTypes.INTEGER,
-      unique: true,
-  },
-  discapacidad:{
-      type: DataTypes.STRING,
-      isAlpha:true,
-  },
-  genero:{
-      type: DataTypes.ENUM('Femenino', 'Masculino', 'Prefiero no decirlo'),
-  },
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false,
+        primaryKey: true,
+      },
+    names:{
+        type: DataTypes.STRING,
+        isAlpha:true,
+    },
+    lastnames:{
+        type: DataTypes.STRING,
+        isAlpha:true,
+    },
+    phone:{
+        type: DataTypes.STRING,
+        isNumeric: true, 
+        unique: true,
+    },
+    disability:{
+        type: DataTypes.STRING,
+        isAlpha:true,
+    },
+    gender:{
+        type: DataTypes.ENUM('Femenino', 'Masculino', 'Prefiero no decirlo'),
+    },
+    experience:{
+        type: DataTypes.STRING,
+        isAlpha:true,
+    },
+    tecnology:{
+        type: DataTypes.STRING,
+        isAlpha:true,
+    },
 })
 
 module.exports = Postulant;
