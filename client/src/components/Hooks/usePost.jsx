@@ -1,28 +1,19 @@
 import { useState, useEffect } from 'react';
-
-function usePost(url, userData) {
+import axios from 'axios'
+function usePost(url, body) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  console.log(body)
 
   useEffect(() => {
-    const controller = new AbortController();
-    const { signal } = controller;
-
-    const postData = async () => {
+    const fetchData = async (url, body) => {
       try {
         setIsLoading(true);
 
-        const response = await fetch(url, { signal }, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(userData)
-        });
-        const result = await response.json();
+        const response = await axios.post(url, body);
 
-        setData(result);
+        setData(response.data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -30,14 +21,10 @@ function usePost(url, userData) {
       }
     };
 
-    postData();
-
-    return () => {
-      controller.abort();
-    };
+    fetchData();
   }, [url]);
 
   return { data, error, isLoading };
 }
 
-export default usePost;
+export default usePost
