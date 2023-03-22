@@ -90,7 +90,7 @@ export const ModalLogin = ({isOpen, setOpen}) => {
                 <div className="rounded-3xl bg-primary-light dark:bg-primary-dark" onClick={handleModalContainerClick}>
                 <div className="absolute top-0 right-0 m-4 px-2 rounded-full cursor-pointer text-xl dark:text-white hover:scale-150 transition-all" onClick={closeModal}> x </div>
                 <h2 className="pt-10 text-center text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Ingresar a Fusionajob</h2>
-                { user && <h3 className="text-center font-medium text-xl py-4">Bienvenido {user}</h3>}
+                { user && <h3 className="text-center font-medium text-xl py-4 dark:text-white">Bienvenido {user}</h3>}
                 { error && <h3 className="text-center text-white font-medium w-1/2 rounded-lg mx-auto bg-red-700">{error}</h3> }
                     <form onSubmit={handleSubmit} className="px-8 py-6">
                         <div className='mb-4'>
