@@ -30,6 +30,7 @@ const{allCompany,
     }=require('./companyRoute');
 
 //
+const{paymentSub}=require('./paymentRoute')
 
 const route = Router();
 
@@ -67,6 +68,11 @@ route.post('/admin',createAdmin )
 route.put('/admin/:id', putAdmin)
 route.delete('/admin/:id', deleteadmin)
 route.get('/admin/:id',getadminbyid)*/
+//
+
+//a modo de ejemplo
+route.post('/payment',paymentSub)
+
 //
 
 module.exports = route;
