@@ -1,16 +1,18 @@
 const axios = require('axios');
 const { Op } = require('sequelize');
-const Offers = require('../models/offersModel');
-// const { Offers } = require('../models/relations.js');
+const { Offers, Company } = require("../models/relations.js");
 const { cleaningGetonbrd } = require('./Utils/offersCleaning');
 const paginate = require('./Utils/paginate');
 
 //post
-const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create }) => {
+const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create, by }) => {
     try {
         const newOffer = await Offers.create({
             title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create
         });
+
+        // Relacione videogames con genres
+        await newOffer.addUser( by );
         
         return newOffer
     } catch(err) {
