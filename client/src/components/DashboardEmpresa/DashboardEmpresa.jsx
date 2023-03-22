@@ -7,8 +7,8 @@ export const DashboardEmpresa = () => {
     return (
         <div>
             <NavEmpresa/>
-            <h2>Dashboard Empresa</h2>
-            <Link to='/offerscreate'><button>Crear oferta</button></Link>
+            <h2 className='flex justify-center text-2xl font-bold mt-[1rem]'>Dashboard Empresa</h2>
+            <Link to='/offerscreate' className='flex justify-center text-md mt-[1rem] pb-[1rem]'><button>Crear oferta</button></Link>
             <Footer/>
         </div>
     )
