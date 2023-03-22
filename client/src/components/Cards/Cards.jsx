@@ -1,5 +1,9 @@
 import Card from "./Card"
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
+import logofusionajob from '../../assets/logofusionajob.png'
+import dia from '../../assets/sun.png'
+import noche from '../../assets/moon.png'
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostList } from '../../redux/slices/postSlices';
 import { spinnerPurple } from './spinner';
@@ -13,11 +17,25 @@ const Cards = () => {
   const [filters, setFilters] = useState({});
   const [title, setTitle] = useState('a');
   const [search, setSearch] = useState('');
+  const localDark = JSON.parse(localStorage.getItem('isDarkMode')) || false
+  const [isDarkMode, setIsDarkMode] = useState(localDark);
 
   // Filtrado  
   const queryString = new URLSearchParams(filters).toString();
 
   const urlFilters = `/jobs?title=${title}&${queryString}`;
+
+  const handleToggle = () => {
+    const newIsDarkMode = !isDarkMode;
+    setIsDarkMode(newIsDarkMode);
+    if (!newIsDarkMode) {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('isDarkMode', 'false');
+    } else {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('isDarkMode', 'true');
+    }
+  };
 
   const handleFilterChange = ( name, value ) => {
     name === 'resetFilter'? 
@@ -136,7 +154,17 @@ const Cards = () => {
         titleSearchbar ? <p className="m-5 flex justify-center items-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white" > Buscando las ofertas por: {titleSearchbar} </p> : <p></p>
       }
       {/* Muestra los filtros */}
-      <div className="m-5 flex justify-center items-center ">
+      <nav className='bg-secondary-light dark:bg-primary-dark h-16'>
+      <div className="flex">
+      <Link to='/profile'><button className='absolute font-medium py-[.1rem] px-2 h-[2.5rem] top-3 rounded-md ml-[75rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white shadow-md hover:bg-gray-400'>Perfil</button></Link>
+      <div onClick={handleToggle} className="cursor-pointer absolute py-2 px-2 top-3 ml-[79rem] bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 dark:hover:bg-secondary-light">{isDarkMode 
+            ? <img className="w-6" src={dia} alt='dia'/>
+            : <img className="w-6" src={noche} alt='noche'/>
+            }</div>
+      <Link to='/'><button className='absolute top-3 left-14 py-[.1rem] px-2 h-[2.5rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>← Home</button></Link>
+      <div className="flex-shrink-0">
+      <img src={logofusionajob} alt='logo' className="h-10 top-3 w-auto relative ml-[9rem]"/>
+      </div>
         <form>
           <select id="date" onChange={(e) => handleFilterChange('dt', e.target.value)} defaultValue={'DEFAULT'} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-purple-600 peer">
               <option value="DEFAULT" disabled> Por Fecha: </option>
@@ -171,6 +199,7 @@ const Cards = () => {
           </button>
         </form>
       </div>
+      </nav>
       {/* Muestra las cards */}
       <div className="flex flex-wrap gap-3 justify-center dark:bg-slate-600 py-6">
         { 

@@ -6,6 +6,7 @@ const sequelize = require('./database')
 const cors = require('cors')
 const passport = require('passport')
 const axios = require('axios')
+const morgan = require('morgan')
 
 axios.defaults.baseURL = 'https://www.getonbrd.com';
 const port = process.env.PORT || 3001
@@ -20,6 +21,7 @@ app.use(cors({
   }))
 sequelize.sync({ force: true })
 
+app.use(morgan('dev'));
 app.use(route)
 app.use(passport.initialize())
 

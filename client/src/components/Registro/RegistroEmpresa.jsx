@@ -62,7 +62,7 @@ export const RegistroEmpresa = () => {
         </div>
 
         <div className='flex absolute right-0 mr-[5rem]'>
-            <img src={working2} alt='work1' className='w-[35rem] mt-[1rem]'/>
+            <img src={working2 } alt='work1' className='w-[35rem] mt-[1rem]'/>
         </div>
 
 
