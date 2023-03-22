@@ -5,7 +5,6 @@ const route = require('./routes/')
 const sequelize = require('./database')
 const cors = require('cors')
 const passport = require('passport')
-const { loginRouter } = require ('./auth/github');
 const axios = require('axios')
 
 axios.defaults.baseURL = 'https://www.getonbrd.com';
@@ -23,7 +22,6 @@ sequelize.sync({ force: true })
 
 app.use(route)
 app.use(passport.initialize())
-// app.use('/auth', loginRouter)
 
 // inicio de server
 app.listen(port, () => {

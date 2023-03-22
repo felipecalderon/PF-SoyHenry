@@ -1,4 +1,4 @@
-const { authCreatePostulant, authLoginGoogle, authLoginGoogleCB } = require('../controllers/authControllers');
+const { authCreatePostulant, authLoginGoogle, authLoginGoogleCB, authLoginCredentials } = require('../controllers/authControllers');
 
 // Registro de usuario con correo electrónico y contraseña
 const authUserCreate = async (req, res) => {
@@ -13,9 +13,23 @@ const authUserCreate = async (req, res) => {
     }
   };
 
+  const authUserLoginCredentials = async (req, res) => {
+    try {
+      const data = await authLoginCredentials(req.body)
+      res
+      .setHeader('token', data)
+      .json({ message: 'Inicio de sesion exitoso' });
+
+    } catch (error) {
+      if(error.code === 'auth/email-already-in-use') return res.status(400).json({ message: 'El usuario ya existe' });
+      res.status(400).json({ message: 'Usuario inválido' });
+
+    }
+  };
+
   const authUserCreateGoogleBtn = async (req, res) => {
     try {
-      const data = await authLoginGoogle(req.body)
+      const data = await authLoginGoogle(req.params)
       res.json(data);
 
     } catch (error) {
@@ -25,14 +39,4 @@ const authUserCreate = async (req, res) => {
     }
   };
 
-  const authUserGoogleBtnCB = async (req, res) => {
-    try {
-      const data = await authLoginGoogleCB(req.body)
-    } catch (error) {
-      console.error(error);
-      if(error.code === 'auth/email-already-in-use') return res.status(400).json({ message: 'El usuario ya existe' });
-      res.status(400).json({ message: 'Error al crear el usuario' });
-    }
-  }
-
-  module.exports = {authUserCreate, authUserCreateGoogleBtn, authUserGoogleBtnCB}
+  module.exports = {authUserCreate, authUserCreateGoogleBtn, authUserLoginCredentials}
