@@ -23,6 +23,10 @@ const createOfferHandler = async ({ title, requeriments, functions, benefits, pe
 const getOffersDb = async () => {
     try {
         const offerts_db = await Offers.findAll({
+            include: {
+                model: User,
+                attributes: [ "id","username" ] 
+            },
             where: {
                 active: true
             },
