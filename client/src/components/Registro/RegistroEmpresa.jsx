@@ -4,6 +4,7 @@ import logofusionajob from '../../assets/logofusionajob.png';
 import working2 from '../../assets/working2.png';
 import Footer from "../Footer/Footer";
 import validationsRegister from "./validationsRegister";
+import empresa from "../../assets/empresapng.png"
 
 export const RegistroEmpresa = () => {
 
@@ -118,7 +119,7 @@ export const RegistroEmpresa = () => {
         </div>
 
         <div className='flex absolute right-0 mr-[5rem]'>
-            <img src={working2} alt='work1' className='w-[35rem] mt-[1rem]'/>
+            <img src={working2 } alt='work1' className='w-[35rem] mt-[1rem]'/>
         </div>
 
 
