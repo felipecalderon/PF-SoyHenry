@@ -117,7 +117,7 @@ const Cards = () => {
       {/* Muestra los filtros */}
       <nav className='bg-secondary-light dark:bg-primary-dark h-16'>
       <div className="flex">
-      <Link to='profile'><button className='absolute font-medium py-[.1rem] px-2 h-[2.5rem] top-3 rounded-md ml-[75rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white shadow-md hover:bg-gray-400'>Perfil</button></Link>
+      <Link to='/profile'><button className='absolute font-medium py-[.1rem] px-2 h-[2.5rem] top-3 rounded-md ml-[75rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white shadow-md hover:bg-gray-400'>Perfil</button></Link>
       <div onClick={handleToggle} className="cursor-pointer absolute py-2 px-2 top-3 ml-[79rem] bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 dark:hover:bg-secondary-light">{isDarkMode 
             ? <img className="w-6" src={dia} alt='dia'/>
             : <img className="w-6" src={noche} alt='noche'/>
