@@ -22,7 +22,7 @@ const sequelize = new Sequelize(DBNAME, DBUSER, DBPASS, {
         acquire: 30000, // tiempo de espera para adquirir una conexión
         idle: 10000 // tiempo de espera para liberar una conexión
     },
-  ssl
+  // ssl
   },
   logging: false, // para evitar logueos de SQL en la consola
 });
