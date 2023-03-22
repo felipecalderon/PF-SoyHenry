@@ -15,14 +15,12 @@ const Cards = () => {
   const dispatch = useDispatch()
   const { postJobs } = useSelector((state) => state.postSlice) 
   const [filters, setFilters] = useState({});
-  const [title, setTitle] = useState('a');
-  const [search, setSearch] = useState('');
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   // Filtrado  
-  const queryString = new URLSearchParams(filters).toString();
+  const queryString = new URLSearchParams(filters).toString(); // "page=1&dt=15&exp=2-4&mty=fr&sly=4"
 
-  const urlFilters = `/jobs?title=${title}&${queryString}`;
+  const urlFilters = `/jobs?${queryString}`;
 
   const handleFilterChange = ( name, value ) => {
     name === 'resetFilter'? 
@@ -32,23 +30,16 @@ const Cards = () => {
       [name]: value,
     });
   }
-  
+
   const {data, isLoading, error} = useFetch(urlFilters)
-  
+
   const [pageNumber, setPageNumber] = useState(0);
-  const [perPage] = useState(10);
+  const [perPage] = useState(9);
 
     
   useEffect(() => {
-    if(data) dispatch(getPostList(data))
-    const objetoJSON = JSON.stringify(filters) // vuelve el objeto un JSON para poder guardarse en localStorage
-    localStorage.setItem('filtersLocalStorage', objetoJSON); //  Guardado local para que se mantengan la pagina en la que estaba el usuario
-    setPageNumber(currentPage ? currentPage : 0);
-    window.addEventListener('beforeunload', handleUnload); // Agregar evento beforeunload para limpiar localStorage
-    return () => {
-      window.removeEventListener('beforeunload', handleUnload); // Eliminar evento beforeunload al desmontar el componente
-    }
-  }, [dispatch, data, filters, currentPage])
+      if(data) dispatch(getPostList(data))
+  }, [dispatch, data])
 
   if(isLoading) return spinnerPurple() 
 
@@ -59,16 +50,7 @@ const Cards = () => {
     return postJobs.slice(startIndex, endIndex);
   };
   const handlePageClick = (selectedPage) => {
-    localStorage.setItem('currentPage', selectedPage.selected); //  Guardado local para que se mantengan la pagina en la que estaba el usuario
     setPageNumber(selectedPage.selected);
-    window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
-  };
-  
-  // SearchBar
-  const handleSearch = (event) => {
-    event.preventDefault();
-    setTitle(search)
-    localStorage.setItem('title', search);
   };
 
   // Guardado local para que se mantengan los filtros en el select
@@ -99,39 +81,59 @@ const Cards = () => {
   const expFilterSelect = localStorage.getItem('expFilterSelect');
   const mtyFilterSelect = localStorage.getItem('mtyFilterSelect');
   const slyFilterSelect = localStorage.getItem('slyFilterSelect');
-  const titleSearchbar = localStorage.getItem('title') // titulo buscado en la searchbar
-  const filtersLocalStorage = localStorage.getItem("filtersLocalStorage"); // filtros aplicados
-  const filtros = JSON.parse(filtersLocalStorage); // Convertir el objeto JSON en un objeto JavaScript
 
-  if (titleSearchbar && title !== 'a' ) console.log(titleSearchbar) //setTitle(titleSearchbar)
-  if (filtersLocalStorage && Object.keys(filtros).length !== 0 && Object.keys(filters).length === 0) setFilters(filtros) // Si hay filtros guardados los aplica
-  if (dateFilterSelect && dateFilter) dateFilter.value = dateFilterSelect;
-  if (expFilterSelect && experienceFilter) experienceFilter.value = expFilterSelect;
-  if (mtyFilterSelect && modalityFilter) modalityFilter.value = mtyFilterSelect;
-  if (slyFilterSelect && salaryFilter) salaryFilter.value = slyFilterSelect;
+  if (dateFilterSelect ) {
+    if (dateFilter) dateFilter.value = dateFilterSelect;
+  }
+  if (expFilterSelect ) {
+    if (experienceFilter) experienceFilter.value = expFilterSelect;
+  }
+  if (mtyFilterSelect ) {
+    if (modalityFilter) modalityFilter.value = mtyFilterSelect;
+  }
+  if (slyFilterSelect ) {
+    if (salaryFilter) salaryFilter.value = slyFilterSelect;
+  }
 
-  //  Escucha el evento click en el botón de eliminar filtros, borra los datos almacenados en localStorage y los filtros aplicados 
+  //  Escucha el evento click en el botón de eliminar filtros y borra los datos almacenados en localStorage
   const botonEliminarFiltros = document.getElementById('btn-reset');
   if(botonEliminarFiltros){
   botonEliminarFiltros.addEventListener('click', () => {
     localStorage.clear();
-    setFilters({})
-    setTitle('a')
   });
   }
 
+  const handleToggle = () => {
+    if (isDarkMode) {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
-    <div>
+    <div className='bg-primary-light dark:bg-secondary-dark transition-all'>
       {/* Muestra los filtros */}
-      <div className="m-5 flex justify-center items-center">
+      <nav className='bg-secondary-light dark:bg-primary-dark h-16'>
+      <div className="flex">
+      <Link to='profile'><button className='absolute font-medium py-[.1rem] px-2 h-[2.5rem] top-3 rounded-md ml-[75rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white shadow-md hover:bg-gray-400'>Perfil</button></Link>
+      <div onClick={handleToggle} className="cursor-pointer absolute py-2 px-2 top-3 ml-[79rem] bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 dark:hover:bg-secondary-light">{isDarkMode 
+            ? <img className="w-6" src={dia} alt='dia'/>
+            : <img className="w-6" src={noche} alt='noche'/>
+            }</div>
+      <Link to='/'><button className='absolute top-3 left-14 py-[.1rem] px-2 h-[2.5rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>← Home</button></Link>
+      <div className="flex-shrink-0">
+      <img src={logofusionajob} alt='logo' className="h-10 top-3 w-auto relative ml-[9rem]"/>
+      </div>
         <form>
           {/* <p> Filtros: </p> */}
-          <select id="date" onChange={(e) => handleFilterChange('dt', e.target.value)} defaultValue={'DEFAULT'} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-purple-600 peer">
-              <option value="DEFAULT" disabled> Por Fecha: </option>
-              <option value="1"> Hoy </option>
-              <option value="4"> Últimos 3 dias </option>
-              <option value="16"> Últimos 15 dias </option>
-              <option value="31"> Último mes </option>
+          <select id="date" onChange={(e) => handleFilterChange('dt', e.target.value)} defaultValue={'DEFAULT'} className="relative top-5 w-50 text-l text-text-light dark:text-text-dark bg-transparent mr-[1rem] ml-[1rem]">
+              <option value="DEFAULT" disabled className='dark:bg-secondary-dark bg-secondary-light'> Fecha de publicación: </option>
+              <option value="1" className='dark:bg-secondary-dark bg-secondary-light'> Hoy </option>
+              <option value="4" className='dark:bg-secondary-dark bg-secondary-light'> Últimos 3 dias </option>
+              <option value="16" className='dark:bg-secondary-dark bg-secondary-light'> Últimos 15 dias </option>
+              <option value="31" className='dark:bg-secondary-dark bg-secondary-light'> Último mes </option>
           </select>
           <select id="experience" onChange={(e) => handleFilterChange('exp', e.target.value)} defaultValue={'DEFAULT'} className="relative top-5 w-50 text-l text-text-light dark:text-text-dark bg-transparent mr-[1rem]">
               <option value="DEFAULT" disabled className='dark:bg-secondary-dark bg-secondary-light'> Experiencia: </option>
@@ -183,9 +185,9 @@ const Cards = () => {
         breakLabel={'...'}
         pageCount={Math.ceil(postJobs.length / perPage)}
         marginPagesDisplayed={2}
-        pageRangeDisplayed={3}
+        pageRangeDisplayed={5}
         onPageChange={handlePageClick}
-        containerClassName="flex justify-center my-4"
+        containerClassName="flex justify-center pb-[1rem] dark:bg-secondary-dark"
         pageClassName="mx-2 rounded-full py-2 bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer"
         pageLinkClassName="px-4 py-2 text-sm"
         activeClassName="bg-blue-500 text-yellow-500 font-bold"
