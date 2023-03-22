@@ -43,7 +43,7 @@ export const rutas = createBrowserRouter([
       element: <About />
     },
     // {
-    //   path:'/userprofile',
+    //   path:'/profile',
     //   element: <UserProfile/>
     // }
 ])
