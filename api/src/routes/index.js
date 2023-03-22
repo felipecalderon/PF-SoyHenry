@@ -17,7 +17,8 @@ const {
 const {
     authUserCreate,
     authUserCreateGoogleBtn,
-    authUserGoogleBtnCB
+    authUserGoogleBtnCB,
+    authUserLoginCredentials
 } = require('./authRoute')
 //
 const{allCompany,
@@ -27,6 +28,7 @@ const{allCompany,
     putCompany,
     deleteCompany
     }=require('./companyRoute');
+
 //
 
 const route = Router();
@@ -56,9 +58,9 @@ route.put('/company/:id', putCompany);
 route.delete('/company/:id',deleteCompany);
 //
 
+route.post('/auth/login', authUserLoginCredentials)
 route.post('/auth/register', authUserCreate)
-route.get('/auth/google', authUserCreateGoogleBtn)
-route.get('/auth/google/callback', authUserGoogleBtnCB)
+route.get('/auth/google/:token', authUserCreateGoogleBtn)
 //admin
 /*route.get('/admin',allAdmin )
 route.post('/admin',createAdmin )
