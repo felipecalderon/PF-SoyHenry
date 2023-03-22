@@ -1,25 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logofusionajob from '../../assets/logofusionajob.png'
 import dia from '../../assets/sun.png'
 import noche from '../../assets/moon.png'
 import perfil from '../../assets/user.png'
-import { ModalLogin } from "../ModalLogin/ModalLogin";
+import { ModalLogin } from "../ModalLogin/ModalLogin"
 
 export const NavLanding = () => {
-
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const localDark = JSON.parse(localStorage.getItem('isDarkMode')) || false
+    const [isDarkMode, setIsDarkMode] = useState(localDark);
 
     const handleToggle = () => {
-      if (isDarkMode) {
+      const newIsDarkMode = !isDarkMode;
+      setIsDarkMode(newIsDarkMode);
+      if (!newIsDarkMode) {
         document.documentElement.classList.remove('dark');
+        localStorage.setItem('isDarkMode', 'false');
       } else {
         document.documentElement.classList.add('dark');
+        localStorage.setItem('isDarkMode', 'true');
       }
-      setIsDarkMode(!isDarkMode);
     };
-    // Creamos un estado para controlar si el menú está abierto o cerrado
+
+    useEffect(() => {
+      if(localDark) document.documentElement.classList.add('dark')
+      else document.documentElement.classList.remove('dark')
+    }, [localDark])
+    
     const [open, setOpen] = useState(false);
 
     return (
