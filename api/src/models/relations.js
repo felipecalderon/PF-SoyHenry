@@ -8,7 +8,7 @@ Postulant.belongsTo(User, { foreignKey: 'userId' });
 Admin.belongsTo(User, { foreignKey: 'userId' });
 Company.belongsTo(User, { foreignKey: 'userId' });
 
-Offers.belongsTo(User, { foreignKey: 'offerId' })
+Offers.belongsTo(User, { foreignKey: 'userId' })
 
 module.exports = { User, 
     Postulant, 

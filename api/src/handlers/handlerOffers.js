@@ -1,19 +1,18 @@
 const axios = require('axios');
 const { Op } = require('sequelize');
-const { Offers, Company } = require("../models/relations.js");
+const { Offers, User } = require("../models/relations.js");
 const { cleaningGetonbrd } = require('./Utils/offersCleaning');
 const paginate = require('./Utils/paginate');
 
 //post
 const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create, by }) => {
     try {
+
         const newOffer = await Offers.create({
-            title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create
+            title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create,
+            userId: by,
         });
 
-        // Relacione videogames con genres
-        await newOffer.addUser( by );
-        
         return newOffer
     } catch(err) {
         throw err
