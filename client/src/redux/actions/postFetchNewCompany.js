@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios'
 
-export const postFechNewCompany = createAsyncThunk(
+export const postFetchNewCompany = createAsyncThunk(
   'users/createUser',
   async (userData, { rejectWithValue }) => {
     try {      
