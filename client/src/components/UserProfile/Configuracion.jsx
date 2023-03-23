@@ -44,9 +44,9 @@ function Configuracion() {
   };
 
   return (
-    <form>
-         <section className='bg-secondary-light m-5 p-4 border rounded-xl w-full '>
-                    {inConfig===false?<button onClick={()=>SetInConfig(!inConfig)}>Configurar</button>:null}
+    <div>
+        
+                    <button onClick={()=>SetInConfig(!inConfig)}>Configurar</button>
 
                     <ul className='flex flex-col justify-between items-start '>
                         <li><img src={user} alt="" width="150px" className='border rounded-full m-4' /></li>
@@ -54,14 +54,14 @@ function Configuracion() {
                         <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>
                            <div className='flex flex-row flex-wrap '>
 
-                             <label for="nombre">Nombre</label><input type="text" 
+                             <label for="nombre"></label><input type="text" 
                              id="nombre" placeholder='Nombre' className='flex-shrink m-1' name="nombre" value={data.nombre} onChange={actualizarData} required/>
-                            <label for="apellido">Apellido</label>
-                           <input type="text" id="apellido" className='flex-shrink m-1' placeholder='Apellido' name="apellido" value={data.apellido} onChange={actualizarData}/>
+                            <label for="apellido"></label>
+                           <input type="text" id="pellido" className='flex-shrink m-1' placeholder='Apellido' name="apellido" value={data.apellido} onChange={actualizarData}/>
                            <label for="edad">Edad</label>
                            <input type="number" id="edad" className='flex-shrink m-1'  min="18" max="120" name="edad" value={data.edad} onChange={actualizarData}/>
                            
-                           </div>:
+                           </div>
                        </li>
 
                         <hr className='border border-b-gray-100  w-full ' />
@@ -106,8 +106,8 @@ function Configuracion() {
                                 
                               
                     {inConfig?<><button>OK</button><hr /><button>cancel</button></>:null}
-                </section>
-    </form>
+                
+    </div>
   )
  
   

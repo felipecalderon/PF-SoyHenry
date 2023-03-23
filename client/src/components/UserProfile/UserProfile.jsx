@@ -106,19 +106,8 @@ className='invisible'
                   />
 <label for="favoritos" className='cursor-pointer select-none'>Favoritos</label>
 
-<input
-className='invisible'
-            type="radio"
-            name="barra-perfil"
-            value="configuracion"
-            id="configuracion"
-            checked={selectedValueBarraPerfil.valorSeleccionado === "configuracion"}
-            onChange={handleBarraPerfil}
+</div>
 
-
-                  />
-<label for="configuracion" className='cursor-pointer select-none'>Configuracion</label>
-                </div>
 
             <section className="bg-primary-light flex  ">
 
