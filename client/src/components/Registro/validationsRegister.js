@@ -7,10 +7,10 @@ const validationsRegister = (form) => {
     } else if (!/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g.test(form.username)) {
         errors.username = 'El nombre es inválido.'
     }
-    if(!form.apellido) {
-        errors.apellido = 'Se necesita un apellido'
-    } else if (!/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g.test(form.apellido)) {
-        errors.apellido = 'El apellido es inválido.'
+    if(!form.lastnames) {
+        errors.lastnames = 'Se necesita un apellido'
+    } else if (!/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g.test(form.lastnames)) {
+        errors.lastnames = 'El apellido es inválido.'
     }
     if(!form.documento) {
         errors.documento = 'Se necesita un documento'

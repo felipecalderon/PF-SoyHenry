@@ -13,16 +13,17 @@ export const Registro = () => {
 
     const [form, setForm] = useState({
         username: '',
-        apellido: '',
+        lastnames: '',
         email: '',
         password: '',
         documento: '',
-        rol: 'Postulante'
+        rol: 'Postulante',
+        active: true
     });
 
     const [errors, setErrors] = useState({
         username: '',
-        apellido: '',
+        lastnames: '',
         email: '',
         password: '',
         documento: ''
@@ -31,7 +32,7 @@ export const Registro = () => {
     const handleChange = (event) => {
         setForm({
             ...form,
-            [event.target.name]: event.target.value 
+            [event.target.name]: event.target.value
         })
     };
     
@@ -87,8 +88,8 @@ export const Registro = () => {
                         <label className='dark:text-text-dark'>Apellido:</label>
                     </div>
                     <div className='absolute ml-[15rem] mt-[1.5rem] top-0'>
-                        <input type='text' name='apellido' value={form.apellido} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
-                        {errors.apellido && <p className='absolute mt-15 text-red-500' >{errors.apellido}</p>}
+                        <input type='text' name='lastnames' value={form.lastnames} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
+                        {errors.lastnames && <p className='absolute mt-15 text-red-500' >{errors.lastnames}</p>}
                     </div>
 
                     <div className='absolute ml-[15.5rem] mt-[5.2rem] top-0'>
