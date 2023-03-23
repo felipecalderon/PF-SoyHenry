@@ -16,6 +16,7 @@ User.hasMany(Company, { foreignKey: 'userId' });
 Offers.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
 User.hasMany(Offers, { foreignKey: 'userId' });
 
+
 module.exports = { User, 
     Postulant, 
     Admin, 
