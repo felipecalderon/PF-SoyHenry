@@ -26,12 +26,7 @@ function User() {
            direccion:"calle falsa 123" 
         }
     })
-    const handleBarraPerfil =(event)=>{
-        const {value}=event.target
-        SetSelectedValueBarraPerfil({
-            valorSeleccionado:value
-        })
-    }
+  
     const actualizarData =(event)=>{
         const {name,value}=event.target;
         SetData({

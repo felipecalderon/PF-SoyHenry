@@ -63,9 +63,8 @@ function Configuracion() {
                            
                            </div>
                        </li>
-
                         <hr className='border border-b-gray-100  w-full ' />
-                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'  >Ubicacion </li>
+                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400' >Ubicacion </li>
                         <hr className='border border-b-gray-100  w-full ' />
                         <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Titulo </li>
                         <hr className='border border-b-gray-100  w-full ' />
@@ -105,9 +104,10 @@ function Configuracion() {
                                     </ul>
                                 
                               
-                    {inConfig?<><button>OK</button><hr /><button>cancel</button></>:null}
+                   <button>OK</button><hr />
+                   <button onClick={()=>SetInConfig(!inConfig)}>cancel</button>
                 
-    </div>
+    </form>
   )
  
   

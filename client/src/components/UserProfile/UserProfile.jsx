@@ -55,9 +55,7 @@ const displayComponente=(selectedValueBarraPerfil)=>{
         case "curriculum":
             return <Curriculum/>
         case "postulaciones":
-            return <Postulaciones/>    
-        case "configuracion":
-            return <Configuracion/>
+            return <Postulaciones/>   
           case "favoritos":
             return <Favoritos/>  
           };
@@ -112,8 +110,8 @@ className='invisible'
             <section className="bg-primary-light flex  ">
 
                 <section className='bg-secondary-light m-5 p-4 border rounded-xl w-full '>
-                    {inConfig===false?
-                    <button onClick={()=>SetInConfig(!inConfig)}>Configurar</button>:null}
+                  
+                    <button onClick={()=>SetInConfig(!inConfig)}>Configurar</button>
 
                     {inConfig?<Configuracion/>:<User/>}
                                 
