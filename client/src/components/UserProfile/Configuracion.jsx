@@ -52,17 +52,17 @@ function Configuracion() {
                         <li><img src={user} alt="" width="150px" className='border rounded-full m-4' /></li>
 
                         <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>
-                           <div className='flex flex-row flex-wrap '>
+                            <div className='flex flex-row flex-wrap '>
 
-                             <label for="nombre"></label><input type="text" 
-                             id="nombre" placeholder='Nombre' className='flex-shrink m-1' name="nombre" value={data.nombre} onChange={actualizarData} required/>
+                              <label for="nombre"></label><input type="text" 
+                              id="nombre" placeholder='Nombre' className='flex-shrink m-1' name="nombre" value={data.nombre} onChange={actualizarData} required/>
                             <label for="apellido"></label>
-                           <input type="text" id="pellido" className='flex-shrink m-1' placeholder='Apellido' name="apellido" value={data.apellido} onChange={actualizarData}/>
-                           <label for="edad">Edad</label>
-                           <input type="number" id="edad" className='flex-shrink m-1'  min="18" max="120" name="edad" value={data.edad} onChange={actualizarData}/>
-                           
-                           </div>
-                       </li>
+                            <input type="text" id="pellido" className='flex-shrink m-1' placeholder='Apellido' name="apellido" value={data.apellido} onChange={actualizarData}/>
+                            <label for="edad">Edad</label>
+                            <input type="number" id="edad" className='flex-shrink m-1'  min="18" max="120" name="edad" value={data.edad} onChange={actualizarData}/>
+
+                            </div>
+                        </li>
                         <hr className='border border-b-gray-100  w-full ' />
                         <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400' >Ubicacion </li>
                         <hr className='border border-b-gray-100  w-full ' />
@@ -77,7 +77,7 @@ function Configuracion() {
                                     </li>
                                     <hr className='border border-b-gray-100  w-full ' />
 
-                                   <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Idioma</li>     
+                                    <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Idioma</li>     
                                         
                           <hr className='border border-b-gray-100  w-full ' />
                                         
@@ -90,7 +90,7 @@ function Configuracion() {
                                     <li className='m-1 p-1 rounded-xl bg-slate-200 select-none'>css</li>
                                     <li className='m-1 p-1  rounded-xl bg-slate-200 select-none'>react</li>
                                     
-                                   </ul>
+                                    </ul>
                             </li>
                             <hr className='border border-b-gray-100  w-full ' />
                             <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Datos de contacto :
@@ -104,13 +104,11 @@ function Configuracion() {
                                     </ul>
                                 
                               
-                   <button>OK</button><hr />
-                   <button onClick={()=>SetInConfig(!inConfig)}>cancel</button>
+                    <button>OK</button><hr />
+                    <button onClick={()=>SetInConfig(!inConfig)}>cancel</button>
                 
-    </form>
-  )
- 
-  
+    </div>
+  )  
 }
 
 export default Configuracion
