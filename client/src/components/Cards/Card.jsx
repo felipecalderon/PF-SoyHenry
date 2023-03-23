@@ -29,7 +29,7 @@ const Card = ({title, description, id, modality, salario_minimo, salario_maximo}
         
             <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">{title}</h5>
         
-        <p className="mb-3 font-normal text-gray-500 dark:text-gray-400" dangerouslySetInnerHTML={{ __html: recortarTexto(description, 236) }}></p>
+        <p className="mb-3 font-normal text-gray-500 dark:text-gray-400" dangerouslySetInnerHTML={{ __html: recortarTexto(description, 200) }}></p>
 
         <h3 className="text-gray-600 dark:text-gray-300">Modalidad: {
         modality?.split("_").join(' ')
