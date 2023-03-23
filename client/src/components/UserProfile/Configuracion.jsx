@@ -37,8 +37,8 @@ const actualizarData =(event)=>{
 }
   return (
     <form>
-         <section className='bg-secondary-light m-5 p-4 border rounded-xl w-full '>
-                    {inConfig===false?<button onClick={()=>SetInConfig(!inConfig)}>Configurar</button>:null}
+
+                   
 
                     <ul className='flex flex-col justify-between items-start '>
                         <li><img src={user} alt="" width="150px" className='border rounded-full m-4' /></li>
@@ -53,11 +53,11 @@ const actualizarData =(event)=>{
                            <label for="edad">Edad</label>
                            <input type="number" id="edad" className='flex-shrink m-1'  min="18" max="120" name="edad" value={data.edad} onChange={actualizarData}/>
                            
-                           </div>:
-                       </li>
+                           </div>
 
+                       </li>
                         <hr className='border border-b-gray-100  w-full ' />
-                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'  >Ubicacion </li>
+                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400' >Ubicacion </li>
                         <hr className='border border-b-gray-100  w-full ' />
                         <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Titulo </li>
                         <hr className='border border-b-gray-100  w-full ' />
@@ -97,8 +97,9 @@ const actualizarData =(event)=>{
                                     </ul>
                                 
                               
-                    {inConfig?<><button>OK</button><hr /><button>cancel</button></>:null}
-                </section>
+                   <button>OK</button><hr />
+                   <button onClick={()=>SetInConfig(!inConfig)}>cancel</button>
+                
     </form>
   )
 }

@@ -55,9 +55,7 @@ const displayComponente=(selectedValueBarraPerfil)=>{
         case "curriculum":
             return <Curriculum/>
         case "postulaciones":
-            return <Postulaciones/>    
-        case "configuracion":
-            return <Configuracion/>
+            return <Postulaciones/>   
           case "favoritos":
             return <Favoritos/>  
           };
@@ -106,25 +104,14 @@ className='invisible'
                   />
 <label for="favoritos" className='cursor-pointer select-none'>Favoritos</label>
 
-<input
-className='invisible'
-            type="radio"
-            name="barra-perfil"
-            value="configuracion"
-            id="configuracion"
-            checked={selectedValueBarraPerfil.valorSeleccionado === "configuracion"}
-            onChange={handleBarraPerfil}
 
-
-                  />
-<label for="configuracion" className='cursor-pointer select-none'>Configuracion</label>
                 </div>
 
             <section className="bg-primary-light flex  ">
 
                 <section className='bg-secondary-light m-5 p-4 border rounded-xl w-full '>
-                    {inConfig===false?
-                    <button onClick={()=>SetInConfig(!inConfig)}>Configurar</button>:null}
+                  
+                    <button onClick={()=>SetInConfig(!inConfig)}>Configurar</button>
 
                     {inConfig?<Configuracion/>:<User/>}
                                 
