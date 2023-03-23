@@ -34,8 +34,8 @@ const{allCompany,
 const route = Router();
 
 // users
-route.get('/user', allUsers);
-route.post('/user', createUser);
+route.get('/auth/register', allUsers);
+route.post('/auth/register', createUser);
 
 // Offers
 route.post('/jobs' , createOffer);
