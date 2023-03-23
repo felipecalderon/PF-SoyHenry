@@ -5,7 +5,7 @@ export const postFetchNewUsers = createAsyncThunk(
   'users/createUser',
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.get('/auth/login', userData);
+      const response = await axios.get('/auth/register', userData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
