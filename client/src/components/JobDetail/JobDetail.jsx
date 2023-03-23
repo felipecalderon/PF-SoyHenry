@@ -37,7 +37,7 @@ useEffect(() => {
               <h3 className="text-gray-600 dark:text-gray-300">Modalidad: {jobId.modality?.split("_").join(" ")}</h3>
               <p className="mt-2 text-gray-600 dark:text-gray-300" dangerouslySetInnerHTML={jobDescriptionHTML}></p>
               <h3 className="text-gray-600 dark:text-gray-300" dangerouslySetInnerHTML={jobBenefitsHTML}></h3>
-              <br></br>
+              <br/>
               <h3 className="text-gray-600 dark:text-gray-300"> Funciones a realizar: 
               <h3 className="text-gray-600 dark:text-gray-300" dangerouslySetInnerHTML={jobFunctionsHTML}></h3>
               </h3>
