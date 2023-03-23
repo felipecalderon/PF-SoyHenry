@@ -59,7 +59,7 @@ export const ModalLogin = ({isOpen, setOpen}) => {
         if(googleUser !== undefined) setUser(googleUser?.user?.displayName)  
         setError(true) 
     }, [idToken, googleUser])
-    
+
     useEffect(() => {
         const {email, password} = form
         if(sendform) axios.post('/auth/login/', {
