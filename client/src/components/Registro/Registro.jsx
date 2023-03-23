@@ -41,7 +41,8 @@ export const Registro = () => {
         const errorsNew = validationsRegister(form);
         setErrors(errorsNew);
         if(Object.keys(errorsNew).length === 0) {
-            dispatch(postFetchNewUsers(form));
+         
+        dispatch(postFetchNewUsers(form));
             alert('Usuario registrado');
         }
     };

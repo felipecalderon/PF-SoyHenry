@@ -1,7 +1,41 @@
 import React from 'react'
+import { useState } from 'react'
+import user from "../../assets/user.png"
 
 
 function Configuracion() {
+  const [isLogin,SetIsLogin]=useState(true)
+  const [inConfig,SetInConfig]=useState(false)
+  const [selectedValueBarraPerfil,SetSelectedValueBarraPerfil]=useState({
+      valorSeleccionado:"curriculum"
+  })
+  const [data,SetData]=useState({
+      nombre:"nombre",
+      apellido:"apellido",
+      edad:20,
+      ubicacion:"",
+      titulo:"Titulo",
+      descripcion:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem consequatur nisi perspiciatis earum neque aspernatur recusandae numquam, corrupti quasi explicabo alias placeat libero cumque ad repellat adipisci aut! Obcaecati, quasi!",
+      idioma:"",
+      habilidades:["javascript","css"],
+      contacto:{
+          tel:"123456789",
+          mail:"hola@gmail.com",
+          redes_sociales:{
+              linkedin:"",
+              facebook:"",
+              instagram:""
+          },
+         direccion:"calle falsa 123" 
+      }
+  })
+  const actualizarData =(event)=>{
+    const {name,value}=event.target;
+    SetData({
+        ...data,
+        [name]:value
+    })
+  }
  
 
   const handleSubmit = (event) => {
@@ -10,54 +44,73 @@ function Configuracion() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name">Nombre:</label>
-        <input type="text" id="name"  className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-      </div>
-      <div>
-        <label htmlFor="age">Edad:</label>
-        <input type="text" id="age" className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm"  />
-      </div>
-      <div>
-        <label htmlFor="location">Ubicación:</label>
-        <input type="text" id="location" className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm"  />
-      </div>
-      <div>
-        <label htmlFor="title">Título:</label>
-        <input type="text" id="title"  className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-      </div>
-      <div>
-        <label htmlFor="description">Descripción:</label>
-        <textarea id="description" className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm" ></textarea>
-      </div>
-      <div>
-        <label htmlFor="languages">Idiomas:</label>
-        <input type="text" id="languages" className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm"/>
-      </div>
-      <div>
-        <label htmlFor="skills">Habilidades:</label>
-        <input type="text" id="skills" className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm" />
-      </div>
-      <div>
-        <label htmlFor="phone">Telefono:</label>
-        <input type="text" id="phone" className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm"></input>
-      </div>
-      <div>
-        <label htmlFor="mail">Mail:</label>
-        <input type="mail" id="mail" className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm"></input>
-      </div>
-      <div>
-        <label htmlFor="social_media">Redes sociales:</label>
-        <input type="text" id="social_media" className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm"></input>
-      </div>
-      <div>
-        <label htmlFor="adress">Direccion:</label>
-        <input type="text" id="adress" className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm"></input>
-      </div>
-      
-      
-      </form>)
+    <form>
+         <section className='bg-secondary-light m-5 p-4 border rounded-xl w-full '>
+                    {inConfig===false?<button onClick={()=>SetInConfig(!inConfig)}>Configurar</button>:null}
+
+                    <ul className='flex flex-col justify-between items-start '>
+                        <li><img src={user} alt="" width="150px" className='border rounded-full m-4' /></li>
+
+                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>
+                           <div className='flex flex-row flex-wrap '>
+
+                             <label for="nombre">Nombre</label><input type="text" 
+                             id="nombre" placeholder='Nombre' className='flex-shrink m-1' name="nombre" value={data.nombre} onChange={actualizarData} required/>
+                            <label for="apellido">Apellido</label>
+                           <input type="text" id="apellido" className='flex-shrink m-1' placeholder='Apellido' name="apellido" value={data.apellido} onChange={actualizarData}/>
+                           <label for="edad">Edad</label>
+                           <input type="number" id="edad" className='flex-shrink m-1'  min="18" max="120" name="edad" value={data.edad} onChange={actualizarData}/>
+                           
+                           </div>:
+                       </li>
+
+                        <hr className='border border-b-gray-100  w-full ' />
+                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'  >Ubicacion </li>
+                        <hr className='border border-b-gray-100  w-full ' />
+                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Titulo </li>
+                        <hr className='border border-b-gray-100  w-full ' />
+
+                        <li className=''>
+                            <h2 className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Descripcion</h2>
+                            <p className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem consequatur nisi perspiciatis earum neque aspernatur recusandae numquam, corrupti quasi explicabo alias placeat libero cumque ad repellat adipisci aut! Obcaecati, quasi!</p>
+                            
+                                    </li>
+                                    <hr className='border border-b-gray-100  w-full ' />
+
+                                   <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Idioma</li>     
+                                        
+                          <hr className='border border-b-gray-100  w-full ' />
+                                        
+
+                                    <li className=''>
+                                <h2 className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Habilidades:</h2>
+                                <ul className='flex flex-wrap justify-start'>
+                                    <li className='m-1 p-1 px-2 rounded-xl bg-slate-200 select-none'>javascript</li>
+                                    <li className=' m-1 p-1 rounded-xl  bg-slate-200 select-none'>html</li>
+                                    <li className='m-1 p-1 rounded-xl bg-slate-200 select-none'>css</li>
+                                    <li className='m-1 p-1  rounded-xl bg-slate-200 select-none'>react</li>
+                                    
+                                   </ul>
+                            </li>
+                            <hr className='border border-b-gray-100  w-full ' />
+                            <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Datos de contacto :
+                                <ul>
+                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>tel:</li>
+                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>mail: </li>
+                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>redes sociales: </li>
+                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>direccion:</li>
+                                </ul>
+                                </li>
+                                    </ul>
+                                
+                              
+                    {inConfig?<><button>OK</button><hr /><button>cancel</button></>:null}
+                </section>
+    </form>
+  )
+ 
+  
 }
 
 export default Configuracion
