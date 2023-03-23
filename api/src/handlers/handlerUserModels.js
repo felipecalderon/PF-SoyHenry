@@ -32,7 +32,7 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
                 default:
                     throw 'Tipo de usuario no válido'
             }
-        // }
+        }
     } catch(err) {
         console.log(err)
         throw err
@@ -41,8 +41,9 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
 
 //      Activos
 const getUsers = async () => {
-    const users = await User.findAll({
-        include:[
+    try {
+        const users = await User.findAll({
+            include:[
             {
                 model: Admin,
                 attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
@@ -65,6 +66,9 @@ const getUsers = async () => {
         },
     });
     return users
+    } catch (error) {
+        
+    }
 };
 const getUsersByName = async ( name ) => {
     const users = await User.findAll({
