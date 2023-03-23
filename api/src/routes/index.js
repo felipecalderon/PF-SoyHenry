@@ -35,7 +35,8 @@ const route = Router();
 
 // users
 route.get('/user', allUsers);
-route.post('/user', createUser);
+route.post('/auth/register', authUserCreate);
+route.post('/auth/login', authUserLoginCredentials);
 
 // Offers
 route.post('/jobs' , createOffer);

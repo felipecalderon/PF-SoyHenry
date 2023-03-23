@@ -15,10 +15,7 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
                   password
                 }
         });
-        if(usuario) {
-            return usuario.dataValues
-        }
-        if (!created) {
+        if (usuario) {
         switch (rol) {
             case 'Postulante':
                 const dataPostulante = await Postulant.create({      //nueva modificacion experiencia y tecnologia modelo postulant
