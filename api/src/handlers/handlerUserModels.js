@@ -59,19 +59,19 @@ const getUsers = async () => {
         include:[
             {
                 model: Admin,
-                attributes: { exclude: ['createdAt', 'updatedAt'] },
+                attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
             },
             {
                 model: Postulant,
-                attributes: { exclude: ['createdAt', 'updatedAt'] },
+                attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
             },
             {
                 model: Company,
-                attributes: { exclude: ['createdAt', 'updatedAt'] },
+                attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
             },
             {
                 model: Offers,
-                attributes: { exclude: ['createdAt', 'updatedAt'] },
+                attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
             }
         ],
         where: {
