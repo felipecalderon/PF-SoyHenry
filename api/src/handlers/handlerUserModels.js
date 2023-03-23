@@ -1,24 +1,21 @@
 // const{ Users } = require('../database.js')
 const { Op } = require("sequelize");
-const { User, Admin, Postulant, Company } = require("../models/relations.js");
+const { User, Admin, Postulant, Company, Offers } = require("../models/relations.js");
 
 // Post
-const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, gender, password, name, description, location, website, logo, experience, tecnology}) => {
+const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, gender, password, name, description, location, website, logo, experience, tecnology }) => {
     try {
-        const [usuario, created] = await User.findOrCreate({
-                where: { email },
-                defaults: {
-                  username,
-                  lastnames,
-                  rol,
-                  active,
-                  password
-                }
+        const [ usuario, created ] = await User.findOrCreate({
+            where: { email },
+            defaults: {
+                username,
+                lastnames,
+                rol,
+                active,
+                password
+            }
         });
-        if(usuario) {
-            return usuario.dataValues
-        }
-        if (!created) {
+        if (usuario) {
         switch (rol) {
             case 'Postulante':
                 const dataPostulante = await Postulant.create({      //nueva modificacion experiencia y tecnologia modelo postulant
@@ -31,11 +28,11 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
                     name, description, phone, location, gender, website, logo, 
                         userId: usuario.id
                     });
-                return dataEmpresa
-            default:
-                throw 'Tipo de usuario no válido'
+                    return { ...usuario.dataValues, dataEmpresa }
+                default:
+                    throw 'Tipo de usuario no válido'
+            }
         }
-    }
     } catch(err) {
         console.log(err)
         throw err
@@ -44,12 +41,34 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
 
 //      Activos
 const getUsers = async () => {
-    const users = await User.findAll({
+    try {
+        const users = await User.findAll({
+            include:[
+            {
+                model: Admin,
+                attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
+            },
+            {
+                model: Postulant,
+                attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
+            },
+            {
+                model: Company,
+                attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
+            },
+            {
+                model: Offers,
+                attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
+            }
+        ],
         where: {
             active: true
         },
     });
-    return users;
+    return users
+    } catch (error) {
+        
+    }
 };
 const getUsersByName = async ( name ) => {
     const users = await User.findAll({
@@ -60,6 +79,12 @@ const getUsersByName = async ( name ) => {
     });
     return users;
 };
+
+const getUsersByEmail = async ( email ) => {
+    const users = await User.findOne({ where: { email: email } });
+    return users;
+};
+
 const getUsersById = async ( id ) => {
     const user = await User.findByPk( id, {
         where: {
@@ -136,5 +161,6 @@ module.exports = {
     getUsersInactById,
     putUsers,
     putState,
-    deleteUsers
+    deleteUsers,
+    getUsersByEmail
 };

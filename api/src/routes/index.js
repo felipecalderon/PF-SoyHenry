@@ -2,7 +2,8 @@
 const { Router } = require('express')
 const { 
     allUsers, 
-    createUser
+    createUser,
+    deleteUsers
 } = require('./userRoute')
 const { 
     allOffers, 
@@ -28,14 +29,9 @@ const{allCompany,
     putCompany,
     deleteCompany
     }=require('./companyRoute');
-
 //
 
 const route = Router();
-
-// users
-route.get('/user', allUsers);
-route.post('/user', createUser);
 
 // Offers
 route.post('/jobs' , createOffer);
@@ -48,16 +44,15 @@ route.delete('/jobdb/:id' , deleteOffer); // Physical deletion
 
 // company
 //route.get('/company/:id', companiesRoute)
-
-
 route.get('/company',allCompany);
-route.post('/company',newCompany);
+route.post('/company',newCompany); // se deberia crear desde user
 route.get('/company/:id',companyById);//id de la api
 route.get('/companydb/:id',companyByIdDatBas);//id dela db
 route.put('/company/:id', putCompany);
 route.delete('/company/:id',deleteCompany);
 //
 
+route.get('/user', allUsers);
 route.post('/auth/login', authUserLoginCredentials)
 route.post('/auth/register', authUserCreate)
 route.get('/auth/google/:token', authUserCreateGoogleBtn)

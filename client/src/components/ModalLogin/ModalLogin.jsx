@@ -9,6 +9,7 @@ import fbapp from "../../firebaseConfig"
 import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
 import useFetch from "../Hooks/useFetch";
 import axios from 'axios'
+// import {decode} from 'jsonwebtoken'
 
 export const ModalLogin = ({isOpen, setOpen}) => {
     const [user, setUser] = useState(null)
@@ -24,7 +25,8 @@ export const ModalLogin = ({isOpen, setOpen}) => {
                 const credential = GoogleAuthProvider.credentialFromResult(result);
                 console.log(credential)
                 const token = credential.idToken;
-                setIdToken(token);
+                // const data = decode(token)
+                // console.log(data);
             })
     };
 
@@ -60,25 +62,29 @@ export const ModalLogin = ({isOpen, setOpen}) => {
         setError(true) 
     }, [idToken, googleUser])
 
-    useEffect(() => {
-        const {email, password} = form
-        if(sendform) axios.post('/auth/login/', {
-            email,
-            password
-          })
-          .then(function (response) {
-            setError(true)
-            navigate('/cards')
-          })
-          .catch(function (error) {
-            setError(error.response.data.message);
-          });
+    // useEffect(() => {
+        
 
-      }, [sendform]);
+    //   }, [sendform]);
 
       const handleSubmit = (event) => {
           event.preventDefault()
-        setSendForm(!sendform)
+          console.log('click');
+          const {email, password} = form
+          axios.post('/auth/login/', {
+              email,
+              password
+            })
+            .then(function (response) {
+              const {data} = response
+              if(data.user === 'Empresa') navigate('/dashboardempresa')
+              if(data.user === 'Postulante') navigate('/cards')
+            //   navigate('/cards')
+            })
+            .catch(function (error) {
+              console.log(error)
+              setError(error.response.data.message);
+            });
     };
 
     const handleModalContainerClick = (event) => event.stopPropagation(); //.stopPropagation hace que no se cierre el modal al hacer click dentro

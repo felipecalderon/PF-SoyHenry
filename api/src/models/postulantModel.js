@@ -7,7 +7,7 @@ const Postulant = sequelize.define('Postulant', {
         defaultValue: Sequelize.UUIDV4,
         allowNull: false,
         primaryKey: true,
-      },
+    },
     names:{
         type: DataTypes.STRING,
         isAlpha:true,
@@ -33,7 +33,7 @@ const Postulant = sequelize.define('Postulant', {
         isAlpha:true,
     },
     tecnology:{
-        type: DataTypes.STRING,
+        type: DataTypes.ARRAY(DataTypes.STRING),
         isAlpha:true,
     },
 })
