@@ -86,6 +86,7 @@ export const Registro = () => {
     
     const handleSubmit = (event) => {
         event.preventDefault();
+     
         dispatch(postFetchNewUsers(form))
         alert('Usuario registrado');
     };
