@@ -33,11 +33,6 @@ const{allCompany,
 
 const route = Router();
 
-// users
-route.get('/user', allUsers);
-route.post('/auth/register', authUserCreate);
-route.post('/auth/login', authUserLoginCredentials);
-
 // Offers
 route.post('/jobs' , createOffer);
 route.get('/jobs' , allOffers);
@@ -57,6 +52,7 @@ route.put('/company/:id', putCompany);
 route.delete('/company/:id',deleteCompany);
 //
 
+route.get('/user', allUsers);
 route.post('/auth/login', authUserLoginCredentials)
 route.post('/auth/register', authUserCreate)
 route.get('/auth/google/:token', authUserCreateGoogleBtn)

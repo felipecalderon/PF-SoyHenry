@@ -79,6 +79,12 @@ const getUsersByName = async ( name ) => {
     });
     return users;
 };
+
+const getUsersByEmail = async ( email ) => {
+    const users = await User.findOne({ where: { email: email } });
+    return users;
+};
+
 const getUsersById = async ( id ) => {
     const user = await User.findByPk( id, {
         where: {
@@ -155,5 +161,6 @@ module.exports = {
     getUsersInactById,
     putUsers,
     putState,
-    deleteUsers
+    deleteUsers,
+    getUsersByEmail
 };
