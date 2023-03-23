@@ -46,7 +46,7 @@ function Configuracion() {
   return (
     <div>
         
-                    <button onClick={()=>SetInConfig(!inConfig)}>Configurar</button>
+                    
 
                     <ul className='flex flex-col justify-between items-start '>
                         <li><img src={user} alt="" width="150px" className='border rounded-full m-4' /></li>
@@ -107,7 +107,7 @@ function Configuracion() {
                    <button>OK</button><hr />
                    <button onClick={()=>SetInConfig(!inConfig)}>cancel</button>
                 
-    </form>
+    </div>
   )
  
   
