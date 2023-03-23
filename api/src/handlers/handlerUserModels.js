@@ -28,7 +28,7 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
                     name, description, phone, location, gender, website, logo, 
                         userId: usuario.id
                     });
-                    return { ...usuario.dataValues, company }
+                    return { ...usuario.dataValues, dataEmpresa }
                 default:
                     throw 'Tipo de usuario no válido'
             }
