@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { Op } = require('sequelize');
-const { Offers, User } = require("../models/relations.js");
+const { Offers, User, Company } = require("../models/relations.js");
 const { cleaningGetonbrd } = require('./Utils/offersCleaning');
 const paginate = require('./Utils/paginate');
 
@@ -25,7 +25,13 @@ const getOffersDb = async () => {
         const offerts_db = await Offers.findAll({
             include: {
                 model: User,
-                attributes: [ "id","username" ] 
+                attributes: [ "id","username" ],
+                include: [
+                    {
+                        model: Company,
+                        attributes: ["id","name","website"]
+                    }
+                ]
             },
             where: {
                 active: true

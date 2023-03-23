@@ -7,6 +7,7 @@ const Offers = require('./offersModel');
 Postulant.belongsTo(User, { foreignKey: 'userId' });
 Admin.belongsTo(User, { foreignKey: 'userId' });
 Company.belongsTo(User, { foreignKey: 'userId' });
+User.hasMany(Company, { foreignKey: 'userId' });
 
 Offers.belongsTo(User, { foreignKey: 'userId' })
 
