@@ -13,7 +13,7 @@ function Configuracion() {
       nombre:"nombre",
       apellido:"apellido",
       edad:20,
-      ubicacion:"",
+      ubicacion:"argentina",
       titulo:"Titulo",
       descripcion:"Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem consequatur nisi perspiciatis earum neque aspernatur recusandae numquam, corrupti quasi explicabo alias placeat libero cumque ad repellat adipisci aut! Obcaecati, quasi!",
       idioma:"",
@@ -51,33 +51,33 @@ function Configuracion() {
                     <ul className='flex flex-col justify-between items-start '>
                         <li><img src={user} alt="" width="150px" className='border rounded-full m-4' /></li>
 
-                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>
-                           <div className='flex flex-row flex-wrap '>
-
+                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400  w-full flex content-center  justify-items-start '>
                              <label for="nombre"></label><input type="text" 
-                             id="nombre" placeholder='Nombre' className='flex-shrink m-1' name="nombre" value={data.nombre} onChange={actualizarData} required/>
+                             id="nombre" placeholder='Nombre' className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-1/3  " name="nombre" value={data.nombre} onChange={actualizarData} required/>
                             <label for="apellido"></label>
-                           <input type="text" id="pellido" className='flex-shrink m-1' placeholder='Apellido' name="apellido" value={data.apellido} onChange={actualizarData}/>
-                           <label for="edad">Edad</label>
-                           <input type="number" id="edad" className='flex-shrink m-1'  min="18" max="120" name="edad" value={data.edad} onChange={actualizarData}/>
-                           
-                           </div>
+                           <input type="text" id="pellido" className="form-input mt-1 block  rounded-md border-gray-300 shadow-sm w-1/3" placeholder='Apellido' name="apellido" value={data.apellido} onChange={actualizarData}/>
+                           <label for="edad">Edad<input type="number" id="edad" className="form-input mt-1 block rounded-md border-gray-300 shadow-sm"  min="18" max="120" name="edad" value={data.edad} onChange={actualizarData}/>
+                           </label>
+                        
+                          
                        </li>
                         <hr className='border border-b-gray-100  w-full ' />
-                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400' >Ubicacion </li>
+                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex-grow' ><label for="ubicacion">Ubicacion <input type="text" /></label> </li>
                         <hr className='border border-b-gray-100  w-full ' />
-                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Titulo </li>
+                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Titulo <input type="text"  className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm" width="100%" /> </li>
                         <hr className='border border-b-gray-100  w-full ' />
 
                         <li className=''>
                             <h2 className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Descripcion</h2>
                             <p className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem consequatur nisi perspiciatis earum neque aspernatur recusandae numquam, corrupti quasi explicabo alias placeat libero cumque ad repellat adipisci aut! Obcaecati, quasi!</p>
+                      <textarea></textarea>
+                       </p>
                             
                                     </li>
                                     <hr className='border border-b-gray-100  w-full ' />
 
-                                   <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Idioma</li>     
+                                   <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Idioma
+                                   <input type="text" /></li>     
                                         
                           <hr className='border border-b-gray-100  w-full ' />
                                         
@@ -93,12 +93,12 @@ function Configuracion() {
                                    </ul>
                             </li>
                             <hr className='border border-b-gray-100  w-full ' />
-                            <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Datos de contacto :
+                            <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Datos de contacto 
                                 <ul>
-                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>tel:</li>
-                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>mail: </li>
+                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>tel:<input type="text"/></li>
+                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>mail: <input type="email"/></li>
                                 <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>redes sociales: </li>
-                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>direccion:</li>
+                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>direccion:<input type="text"/></li>
                                 </ul>
                                 </li>
                                     </ul>

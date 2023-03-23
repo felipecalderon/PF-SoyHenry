@@ -111,7 +111,7 @@ className='invisible'
 
                 <section className='bg-secondary-light m-5 p-4 border rounded-xl w-full '>
                   
-                    <button onClick={()=>SetInConfig(!inConfig)}>Configurar</button>
+                   {inConfig?<button onClick={()=>SetInConfig(!inConfig)}>Volver</button>:<button onClick={()=>SetInConfig(!inConfig)}>Configurar</button>} 
 
                     {inConfig?<Configuracion/>:<User/>}
                                 
@@ -124,7 +124,7 @@ className='invisible'
 
                 <section className='bg-secondary-light m-5 p-4 border rounded-xl w-full flex-grow ' >
                 
-                {  displayComponente(selectedValueBarraPerfil)}
+                { displayComponente(selectedValueBarraPerfil)}
                   
                 </section>
                 
