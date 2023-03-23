@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios'
 
-export const postFetchNewCompany = createAsyncThunk(
+export const postFetchNewUsers = createAsyncThunk(
   'users/createUser',
   async (userData, { rejectWithValue }) => {
-    try {      
-      const response = await axios.post('/company', userData);
+    try {
+      const response = await axios.get('/auth/register', userData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);

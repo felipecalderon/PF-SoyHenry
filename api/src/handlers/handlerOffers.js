@@ -1,17 +1,18 @@
 const axios = require('axios');
 const { Op } = require('sequelize');
-const Offers = require('../models/offersModel');
-// const { Offers } = require('../models/relations.js');
+const { Offers, User, Company } = require("../models/relations.js");
 const { cleaningGetonbrd } = require('./Utils/offersCleaning');
 const paginate = require('./Utils/paginate');
 
 //post
-const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create }) => {
+const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create, by }) => {
     try {
+
         const newOffer = await Offers.create({
-            title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create
+            title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create,
+            userId: by,
         });
-        
+
         return newOffer
     } catch(err) {
         throw err
@@ -22,6 +23,16 @@ const createOfferHandler = async ({ title, requeriments, functions, benefits, pe
 const getOffersDb = async () => {
     try {
         const offerts_db = await Offers.findAll({
+            include: {
+                model: User,
+                attributes: [ "id","username" ],
+                include: [
+                    {
+                        model: Company,
+                        attributes: ["id","name","website"]
+                    }
+                ]
+            },
             where: {
                 active: true
             },
