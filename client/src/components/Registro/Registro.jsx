@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import validationsRegister from './validationsRegister';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logofusionajob from '../../assets/logofusionajob.png';
 import working1 from '../../assets/working1.png';
 import Footer from "../Footer/Footer";
@@ -10,6 +10,7 @@ import { postFetchNewUsers } from "../../redux/actions/postFetchNewUser";
 export const Registro = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [form, setForm] = useState({
         username: '',
@@ -43,6 +44,7 @@ export const Registro = () => {
         if(Object.keys(errorsNew).length === 0) {
             dispatch(postFetchNewUsers(form));
             alert('Usuario registrado');
+            navigate('/');
         }
     };
 
