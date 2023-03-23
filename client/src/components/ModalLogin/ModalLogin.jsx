@@ -75,9 +75,9 @@ export const ModalLogin = ({isOpen, setOpen}) => {
           });
 
       }, [sendform]);
-    
-    const handleSubmit = (event) => {
-        event.preventDefault()
+
+      const handleSubmit = (event) => {
+          event.preventDefault()
         setSendForm(!sendform)
     };
 
