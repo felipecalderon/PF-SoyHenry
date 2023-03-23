@@ -1,7 +1,7 @@
 const { createUsers } = require("../handlers/handlerUserModels")
 const firebase = require('../auth/firebase.config')
 const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithCredential} = require("firebase/auth")
-
+const { getUsersByEmail } = require('../handlers/handlerUserModels')
 const authCreatePostulant = async (body) => {
     try {
         const auth = getAuth();
@@ -11,10 +11,8 @@ const authCreatePostulant = async (body) => {
             uid: usercreatedDB.userId
           })
           const user = userCredential.user
-          console.log(user)
         return `Inicio de sesion exitoso`
     } catch (error) {
-        console.log(error)
         throw 'Error al iniciar sesión'
     }
 }
@@ -22,8 +20,10 @@ const authLoginCredentials = async ({email, password}) => {
   try {
     const auth = getAuth();
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
-    const {accessToken} = userCredential.user.stsTokenManager
-    return accessToken
+    const {token} = userCredential.user.stsTokenManager
+    const user = await getUsersByEmail(email)
+    console.log(user, token);
+    return {token, user}
   } catch (error) {
       throw error
   }
@@ -33,7 +33,6 @@ const authLoginGoogle = async ({token}) => {
     const auth = getAuth()
     const credential = GoogleAuthProvider.credential(token)
     const result = await signInWithCredential(auth, credential)
-    console.log(result)
     return result
   } catch (error) {
     return `Error al autenticar con Google: ${error.message}`
