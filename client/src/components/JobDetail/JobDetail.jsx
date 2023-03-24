@@ -34,7 +34,11 @@ useEffect(() => {
             {/* <span className="material-symbols-outlined">star_rate</span> ver como medir el "valor/renking" de la empresa  */}
               <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">{empresa ? empresa.name : null}</div>
               <h2 className="text-2xl font-semibold text-gray-800">{jobId.title}</h2>
-              <h3 className="text-gray-600 dark:text-gray-300">Modalidad: {jobId.modality?.split("_").join(" ")}</h3>
+              {jobId.modality &&
+                   <h3 className="text-gray-600 dark:text-gray-300">
+                   Modalidad: {jobId.modality?.split("_").join(" ")}
+                   </h3>
+              }
               <p className="mt-2 text-gray-600 dark:text-gray-300" dangerouslySetInnerHTML={jobDescriptionHTML}></p>
               <h3 className="text-gray-600 dark:text-gray-300" dangerouslySetInnerHTML={jobBenefitsHTML}></h3>
               <br/>
@@ -50,13 +54,13 @@ useEffect(() => {
               
                 </ul>
               </div>
-              <h4 className="text-gray-600 dark:text-gray-300">
-                  Rango salarial: 
-                   {jobId.min_salary === jobId.max_salary 
-                    ? jobId.min_salary 
-                     : `${jobId.min_salary}-${jobId.max_salary}`
-                   }
-              </h4>
+              {jobId.min_salary !== null && jobId.max_salary !== null &&
+                 <h4 className="text-gray-600 dark:text-gray-300">
+                  Rango salarial: {jobId.min_salary === jobId.max_salary 
+                   ? jobId.min_salary 
+                  : `${jobId.min_salary}-${jobId.max_salary}`}
+                  </h4>
+              }
               <div className="mt-8">
                 <button className="bg-purple-400 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-full">
                   Aplicar 
