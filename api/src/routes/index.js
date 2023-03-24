@@ -29,17 +29,13 @@ const{allCompany,
     putCompany,
     deleteCompany
     }=require('./companyRoute');
+const { getUsersByEmail } = require('../handlers/handlerUserModels');
 //
 const{paymentSub}=require('./paymentRoute')
 //////
 const{paymentMP}=require('./SubcriptionRoute')//este hace suscripcion
 
 const route = Router();
-
-// users
-route.get('/user', allUsers);
-route.post('/user', createUser);
-route.delete('/user/:id', deleteUsers ); // al eliminar el usuario se eliminara todo lo relacionado con ello (solo con postulantes, empresa y por relacion ofertas)
 
 // Offers
 route.post('/jobs' , createOffer);
@@ -60,6 +56,8 @@ route.put('/company/:id', putCompany);
 route.delete('/company/:id',deleteCompany);
 //
 
+route.get('/user', allUsers);
+// route.get('/user/:id', getUserById )
 route.post('/auth/login', authUserLoginCredentials)
 route.post('/auth/register', authUserCreate)
 route.get('/auth/google/:token', authUserCreateGoogleBtn)

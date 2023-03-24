@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    postJobs: [],
-    postData: null,
-    jobId:null,
-    empresa:null,
+  postJobs: [],
+  postData: null,
+  jobId: null,
+  empresa: null,
 }
 
 export const postSlice = createSlice({
@@ -12,10 +12,8 @@ export const postSlice = createSlice({
   initialState,
   reducers: {
     getPostList: (state, action) => {
-        state.postJobs = action.payload
+      state.postJobs = action.payload
     },
-
-   
 
     orderPostListAZ: (state) => {
       state.postJobs = state.postJobs.sort((a, b) => {
@@ -33,11 +31,11 @@ export const postSlice = createSlice({
       });
     },
 
-    getDataPostulacion: (state, action)=>{
-     state.jobId = action.payload
+    getDataPostulacion: (state, action) => {
+      state.jobId = action.payload
     },
 
-    getDataEmpresa:(state, action)=>{
+    getDataEmpresa: (state, action) => {
       state.empresa = action.payload
     }
   },
@@ -49,6 +47,6 @@ export const postSlice = createSlice({
 
 
 
-export const { getPostList, getPostData, orderPostListAZ, orderPostListZA, getDataPostulacion, getDataEmpresa} = postSlice.actions
-export default postSlice.reducer;  
+export const { getPostList, getPostData, orderPostListAZ, orderPostListZA, getDataPostulacion, getDataEmpresa } = postSlice.actions
+export default postSlice.reducer;
 

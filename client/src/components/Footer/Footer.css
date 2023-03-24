@@ -3,15 +3,13 @@ footer{
     text-align: center;
     background-color: #fafad0;
     color: #29183c;
-    height: 260px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 footer article ul li{
     font-family: "Poppins", sans-serif;
-    
-
+    padding: 5px 0;
 }
 article{
     width: 275px;
@@ -19,13 +17,11 @@ article{
 .footer-section1{
     display: flex;
     justify-content: space-around;
-    height: 80%;
     align-items: center;
 }
 .footer-section1 article{
-    height: 75%;
     display: flex;
-   
+    padding: 10px 0;
 }
 
 .footer-section1 article .firts-list,.second-list{
