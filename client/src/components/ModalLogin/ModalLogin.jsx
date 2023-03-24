@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import validations from './validations';
 import fblogo from '../../assets/fbwhite.png';
 import gglogo from '../../assets/ggwhite.png';
@@ -9,9 +10,11 @@ import fbapp from "../../firebaseConfig"
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
 import useFetch from "../Hooks/useFetch";
 import axios from 'axios'
+import { saveUser } from '../../redux/slices/userRegisterSlice'
 // import {decode} from 'jsonwebtoken'
 
 export const ModalLogin = ({ isOpen, setOpen }) => {
+    const dispatch = useDispatch();
     const [user, setUser] = useState(null)
     const [error, setError] = useState(null)
     const [sendform, setSendForm] = useState(false)
@@ -96,15 +99,24 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
         event.preventDefault()
         console.log('click');
         const { email, password } = form
-        signInWithEmailAndPassword(auth, email, password) // inicia sesion en firebase para poder autenticar el ingreso a las rutas
-        axios.post('/auth/login/', {
+        //signInWithEmailAndPassword(auth, email, password) // inicia sesion en firebase para poder autenticar el ingreso a las rutas
+        axios.post('/auth/login', {
             email,
             password
         })
             .then(function (response) {
                 const { data } = response
                 if (data.user === 'Empresa') navigate('/dashboardempresa')
-                if (data.user === 'Postulante') navigate('/offers')
+                if (data.user === 'Postulante') navigate('/cards')
+                
+                axios.post('/userPk', {id: data.id})
+                .then(function (response){
+                    dispatch(saveUser(response.data))
+                })
+                .catch(function (error) {
+                    console.log(error)                    
+                });
+
             })
             .catch(function (error) {
                 console.log(error)
