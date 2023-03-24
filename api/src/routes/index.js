@@ -53,6 +53,7 @@ route.delete('/company/:id',deleteCompany);
 //
 
 route.get('/user', allUsers);
+// route.get('/user/:id', getUserById )
 route.post('/auth/login', authUserLoginCredentials)
 route.post('/auth/register', authUserCreate)
 route.get('/auth/google/:token', authUserCreateGoogleBtn)
