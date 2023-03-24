@@ -135,9 +135,290 @@ function Postulaciones() {
         "applications_count": 31,
         "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
         "bd_create": false
+    },
+    {
+        "id": "analista-qa-klap-santiago",
+        "idEmpresa": 6360,
+        "title": "Analista QA",
+        "date_post": "21/03/2023 13:02:15",
+        "requeriments": "<p><strong>Requisitos</strong></p><ul><li>Ingeniero ejecución informatico, analista de sistemas, o carrera a fin</li><li>Al menos 2 años de experiencia en puestos similares.</li></ul><p><strong>Conocimiento</strong></p><ul><li>Inglés.</li><li>Herramientas de gestión de pruebas (Jira, Zephir, ALM u otras).</li><li>Postman.</li><li>Java.</li><li>Confluence.</li><li>Selenium.</li><li>Jmeter.</li><li>MS Office.</li><li>Administradores de Base de datos.</li><li>Conocimientos en metodología ágil Scrum. </li><li>Metodologías en gestión de pruebas.</li></ul>",
+        "functions": "<p>Validar la calidad de las soluciones tecnológicas creadas en Klap, garantizando su funcionamiento de punta a punta. ​ </p><p>Ayudar en la identificación de los criterios de aceptación de las historias de usuario, no solo con el objetivo de detectar errores, sino en la medida de lo posible, prevenir dichos errores y mejorar la calidad del producto. </p><p><strong> Principales Desafíos</strong>: </p><ul><li>Entender y analizar los requerimientos del negocio a partir del diseño funcional, historias de usuario y reuniones con usuarios, Product Owner y otros interesados. </li><li>Estimar en tiempo las actividades de QA (Diseño y ejecución de pruebas). </li><li>Planificar las actividades de QA (Diseño y ejecución de pruebas), de acuerdo con la estimación y fechas requeridas por el negocio. </li><li>Diseñar los casos de prueba. </li><li>Ejecutar pruebas manuales y/o automáticas. </li><li>Construir script de automatización de pruebas. </li><li>Ejecutar pruebas funcionales y/o técnicas. </li><li>Validar que los resultados y las evidencias de las pruebas estén correctamente registrados en el sistema.</li><li>Analizar los defectos y hacer seguimiento de su corrección. </li><li>Generar métricas de calidad. </li></ul>",
+        "benefits": "<p>· Seguro complementario de salud y dental, para ti y tu grupo familiar. </p><p>· Capacitación continua en nuestra plataforma de clase mundial disponible para ti.</p><p>· Posibilidades de desarrollo interno, según requisitos.</p><p>· Plataformas de convenios y descuentos (fitness, salud, seguros y otros).</p><p>· Entorno de trabajo colaborativo con excelente clima laboral.</p><p>Esta oferta laboral se enmarca bajo la Ley 21.015 que incentiva la Inclusión de Personas con Discapacidad al mundo laboral. Avísanos si requieres algún ajuste de proceso de selección, para que participes en igualdad de condiciones (Ley 20.422) (Agregar solo si el cargo acepta personas con discapacidad)</p>",
+        "modality": "hybrid",
+        "perks": [
+            "health_coverage",
+            "computer_provided",
+            "informal_dresscode"
+        ],
+        "experience": null,
+        "min_salary": null,
+        "max_salary": null,
+        "applications_count": 31,
+        "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
+        "bd_create": false
+    },{
+        "id": "analista-qa-klap-santiago",
+        "idEmpresa": 6360,
+        "title": "Analista QA",
+        "date_post": "21/03/2023 13:02:15",
+        "requeriments": "<p><strong>Requisitos</strong></p><ul><li>Ingeniero ejecución informatico, analista de sistemas, o carrera a fin</li><li>Al menos 2 años de experiencia en puestos similares.</li></ul><p><strong>Conocimiento</strong></p><ul><li>Inglés.</li><li>Herramientas de gestión de pruebas (Jira, Zephir, ALM u otras).</li><li>Postman.</li><li>Java.</li><li>Confluence.</li><li>Selenium.</li><li>Jmeter.</li><li>MS Office.</li><li>Administradores de Base de datos.</li><li>Conocimientos en metodología ágil Scrum. </li><li>Metodologías en gestión de pruebas.</li></ul>",
+        "functions": "<p>Validar la calidad de las soluciones tecnológicas creadas en Klap, garantizando su funcionamiento de punta a punta. ​ </p><p>Ayudar en la identificación de los criterios de aceptación de las historias de usuario, no solo con el objetivo de detectar errores, sino en la medida de lo posible, prevenir dichos errores y mejorar la calidad del producto. </p><p><strong> Principales Desafíos</strong>: </p><ul><li>Entender y analizar los requerimientos del negocio a partir del diseño funcional, historias de usuario y reuniones con usuarios, Product Owner y otros interesados. </li><li>Estimar en tiempo las actividades de QA (Diseño y ejecución de pruebas). </li><li>Planificar las actividades de QA (Diseño y ejecución de pruebas), de acuerdo con la estimación y fechas requeridas por el negocio. </li><li>Diseñar los casos de prueba. </li><li>Ejecutar pruebas manuales y/o automáticas. </li><li>Construir script de automatización de pruebas. </li><li>Ejecutar pruebas funcionales y/o técnicas. </li><li>Validar que los resultados y las evidencias de las pruebas estén correctamente registrados en el sistema.</li><li>Analizar los defectos y hacer seguimiento de su corrección. </li><li>Generar métricas de calidad. </li></ul>",
+        "benefits": "<p>· Seguro complementario de salud y dental, para ti y tu grupo familiar. </p><p>· Capacitación continua en nuestra plataforma de clase mundial disponible para ti.</p><p>· Posibilidades de desarrollo interno, según requisitos.</p><p>· Plataformas de convenios y descuentos (fitness, salud, seguros y otros).</p><p>· Entorno de trabajo colaborativo con excelente clima laboral.</p><p>Esta oferta laboral se enmarca bajo la Ley 21.015 que incentiva la Inclusión de Personas con Discapacidad al mundo laboral. Avísanos si requieres algún ajuste de proceso de selección, para que participes en igualdad de condiciones (Ley 20.422) (Agregar solo si el cargo acepta personas con discapacidad)</p>",
+        "modality": "hybrid",
+        "perks": [
+            "health_coverage",
+            "computer_provided",
+            "informal_dresscode"
+        ],
+        "experience": null,
+        "min_salary": null,
+        "max_salary": null,
+        "applications_count": 31,
+        "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
+        "bd_create": false
+    },{
+        "id": "analista-qa-klap-santiago",
+        "idEmpresa": 6360,
+        "title": "Analista QA",
+        "date_post": "21/03/2023 13:02:15",
+        "requeriments": "<p><strong>Requisitos</strong></p><ul><li>Ingeniero ejecución informatico, analista de sistemas, o carrera a fin</li><li>Al menos 2 años de experiencia en puestos similares.</li></ul><p><strong>Conocimiento</strong></p><ul><li>Inglés.</li><li>Herramientas de gestión de pruebas (Jira, Zephir, ALM u otras).</li><li>Postman.</li><li>Java.</li><li>Confluence.</li><li>Selenium.</li><li>Jmeter.</li><li>MS Office.</li><li>Administradores de Base de datos.</li><li>Conocimientos en metodología ágil Scrum. </li><li>Metodologías en gestión de pruebas.</li></ul>",
+        "functions": "<p>Validar la calidad de las soluciones tecnológicas creadas en Klap, garantizando su funcionamiento de punta a punta. ​ </p><p>Ayudar en la identificación de los criterios de aceptación de las historias de usuario, no solo con el objetivo de detectar errores, sino en la medida de lo posible, prevenir dichos errores y mejorar la calidad del producto. </p><p><strong> Principales Desafíos</strong>: </p><ul><li>Entender y analizar los requerimientos del negocio a partir del diseño funcional, historias de usuario y reuniones con usuarios, Product Owner y otros interesados. </li><li>Estimar en tiempo las actividades de QA (Diseño y ejecución de pruebas). </li><li>Planificar las actividades de QA (Diseño y ejecución de pruebas), de acuerdo con la estimación y fechas requeridas por el negocio. </li><li>Diseñar los casos de prueba. </li><li>Ejecutar pruebas manuales y/o automáticas. </li><li>Construir script de automatización de pruebas. </li><li>Ejecutar pruebas funcionales y/o técnicas. </li><li>Validar que los resultados y las evidencias de las pruebas estén correctamente registrados en el sistema.</li><li>Analizar los defectos y hacer seguimiento de su corrección. </li><li>Generar métricas de calidad. </li></ul>",
+        "benefits": "<p>· Seguro complementario de salud y dental, para ti y tu grupo familiar. </p><p>· Capacitación continua en nuestra plataforma de clase mundial disponible para ti.</p><p>· Posibilidades de desarrollo interno, según requisitos.</p><p>· Plataformas de convenios y descuentos (fitness, salud, seguros y otros).</p><p>· Entorno de trabajo colaborativo con excelente clima laboral.</p><p>Esta oferta laboral se enmarca bajo la Ley 21.015 que incentiva la Inclusión de Personas con Discapacidad al mundo laboral. Avísanos si requieres algún ajuste de proceso de selección, para que participes en igualdad de condiciones (Ley 20.422) (Agregar solo si el cargo acepta personas con discapacidad)</p>",
+        "modality": "hybrid",
+        "perks": [
+            "health_coverage",
+            "computer_provided",
+            "informal_dresscode"
+        ],
+        "experience": null,
+        "min_salary": null,
+        "max_salary": null,
+        "applications_count": 31,
+        "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
+        "bd_create": false
+    },{
+        "id": "analista-qa-klap-santiago",
+        "idEmpresa": 6360,
+        "title": "Analista QA",
+        "date_post": "21/03/2023 13:02:15",
+        "requeriments": "<p><strong>Requisitos</strong></p><ul><li>Ingeniero ejecución informatico, analista de sistemas, o carrera a fin</li><li>Al menos 2 años de experiencia en puestos similares.</li></ul><p><strong>Conocimiento</strong></p><ul><li>Inglés.</li><li>Herramientas de gestión de pruebas (Jira, Zephir, ALM u otras).</li><li>Postman.</li><li>Java.</li><li>Confluence.</li><li>Selenium.</li><li>Jmeter.</li><li>MS Office.</li><li>Administradores de Base de datos.</li><li>Conocimientos en metodología ágil Scrum. </li><li>Metodologías en gestión de pruebas.</li></ul>",
+        "functions": "<p>Validar la calidad de las soluciones tecnológicas creadas en Klap, garantizando su funcionamiento de punta a punta. ​ </p><p>Ayudar en la identificación de los criterios de aceptación de las historias de usuario, no solo con el objetivo de detectar errores, sino en la medida de lo posible, prevenir dichos errores y mejorar la calidad del producto. </p><p><strong> Principales Desafíos</strong>: </p><ul><li>Entender y analizar los requerimientos del negocio a partir del diseño funcional, historias de usuario y reuniones con usuarios, Product Owner y otros interesados. </li><li>Estimar en tiempo las actividades de QA (Diseño y ejecución de pruebas). </li><li>Planificar las actividades de QA (Diseño y ejecución de pruebas), de acuerdo con la estimación y fechas requeridas por el negocio. </li><li>Diseñar los casos de prueba. </li><li>Ejecutar pruebas manuales y/o automáticas. </li><li>Construir script de automatización de pruebas. </li><li>Ejecutar pruebas funcionales y/o técnicas. </li><li>Validar que los resultados y las evidencias de las pruebas estén correctamente registrados en el sistema.</li><li>Analizar los defectos y hacer seguimiento de su corrección. </li><li>Generar métricas de calidad. </li></ul>",
+        "benefits": "<p>· Seguro complementario de salud y dental, para ti y tu grupo familiar. </p><p>· Capacitación continua en nuestra plataforma de clase mundial disponible para ti.</p><p>· Posibilidades de desarrollo interno, según requisitos.</p><p>· Plataformas de convenios y descuentos (fitness, salud, seguros y otros).</p><p>· Entorno de trabajo colaborativo con excelente clima laboral.</p><p>Esta oferta laboral se enmarca bajo la Ley 21.015 que incentiva la Inclusión de Personas con Discapacidad al mundo laboral. Avísanos si requieres algún ajuste de proceso de selección, para que participes en igualdad de condiciones (Ley 20.422) (Agregar solo si el cargo acepta personas con discapacidad)</p>",
+        "modality": "hybrid",
+        "perks": [
+            "health_coverage",
+            "computer_provided",
+            "informal_dresscode"
+        ],
+        "experience": null,
+        "min_salary": null,
+        "max_salary": null,
+        "applications_count": 31,
+        "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
+        "bd_create": false
+    },{
+        "id": "analista-qa-klap-santiago",
+        "idEmpresa": 6360,
+        "title": "Analista QA",
+        "date_post": "21/03/2023 13:02:15",
+        "requeriments": "<p><strong>Requisitos</strong></p><ul><li>Ingeniero ejecución informatico, analista de sistemas, o carrera a fin</li><li>Al menos 2 años de experiencia en puestos similares.</li></ul><p><strong>Conocimiento</strong></p><ul><li>Inglés.</li><li>Herramientas de gestión de pruebas (Jira, Zephir, ALM u otras).</li><li>Postman.</li><li>Java.</li><li>Confluence.</li><li>Selenium.</li><li>Jmeter.</li><li>MS Office.</li><li>Administradores de Base de datos.</li><li>Conocimientos en metodología ágil Scrum. </li><li>Metodologías en gestión de pruebas.</li></ul>",
+        "functions": "<p>Validar la calidad de las soluciones tecnológicas creadas en Klap, garantizando su funcionamiento de punta a punta. ​ </p><p>Ayudar en la identificación de los criterios de aceptación de las historias de usuario, no solo con el objetivo de detectar errores, sino en la medida de lo posible, prevenir dichos errores y mejorar la calidad del producto. </p><p><strong> Principales Desafíos</strong>: </p><ul><li>Entender y analizar los requerimientos del negocio a partir del diseño funcional, historias de usuario y reuniones con usuarios, Product Owner y otros interesados. </li><li>Estimar en tiempo las actividades de QA (Diseño y ejecución de pruebas). </li><li>Planificar las actividades de QA (Diseño y ejecución de pruebas), de acuerdo con la estimación y fechas requeridas por el negocio. </li><li>Diseñar los casos de prueba. </li><li>Ejecutar pruebas manuales y/o automáticas. </li><li>Construir script de automatización de pruebas. </li><li>Ejecutar pruebas funcionales y/o técnicas. </li><li>Validar que los resultados y las evidencias de las pruebas estén correctamente registrados en el sistema.</li><li>Analizar los defectos y hacer seguimiento de su corrección. </li><li>Generar métricas de calidad. </li></ul>",
+        "benefits": "<p>· Seguro complementario de salud y dental, para ti y tu grupo familiar. </p><p>· Capacitación continua en nuestra plataforma de clase mundial disponible para ti.</p><p>· Posibilidades de desarrollo interno, según requisitos.</p><p>· Plataformas de convenios y descuentos (fitness, salud, seguros y otros).</p><p>· Entorno de trabajo colaborativo con excelente clima laboral.</p><p>Esta oferta laboral se enmarca bajo la Ley 21.015 que incentiva la Inclusión de Personas con Discapacidad al mundo laboral. Avísanos si requieres algún ajuste de proceso de selección, para que participes en igualdad de condiciones (Ley 20.422) (Agregar solo si el cargo acepta personas con discapacidad)</p>",
+        "modality": "hybrid",
+        "perks": [
+            "health_coverage",
+            "computer_provided",
+            "informal_dresscode"
+        ],
+        "experience": null,
+        "min_salary": null,
+        "max_salary": null,
+        "applications_count": 31,
+        "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
+        "bd_create": false
+    },{
+        "id": "analista-qa-klap-santiago",
+        "idEmpresa": 6360,
+        "title": "Analista QA",
+        "date_post": "21/03/2023 13:02:15",
+        "requeriments": "<p><strong>Requisitos</strong></p><ul><li>Ingeniero ejecución informatico, analista de sistemas, o carrera a fin</li><li>Al menos 2 años de experiencia en puestos similares.</li></ul><p><strong>Conocimiento</strong></p><ul><li>Inglés.</li><li>Herramientas de gestión de pruebas (Jira, Zephir, ALM u otras).</li><li>Postman.</li><li>Java.</li><li>Confluence.</li><li>Selenium.</li><li>Jmeter.</li><li>MS Office.</li><li>Administradores de Base de datos.</li><li>Conocimientos en metodología ágil Scrum. </li><li>Metodologías en gestión de pruebas.</li></ul>",
+        "functions": "<p>Validar la calidad de las soluciones tecnológicas creadas en Klap, garantizando su funcionamiento de punta a punta. ​ </p><p>Ayudar en la identificación de los criterios de aceptación de las historias de usuario, no solo con el objetivo de detectar errores, sino en la medida de lo posible, prevenir dichos errores y mejorar la calidad del producto. </p><p><strong> Principales Desafíos</strong>: </p><ul><li>Entender y analizar los requerimientos del negocio a partir del diseño funcional, historias de usuario y reuniones con usuarios, Product Owner y otros interesados. </li><li>Estimar en tiempo las actividades de QA (Diseño y ejecución de pruebas). </li><li>Planificar las actividades de QA (Diseño y ejecución de pruebas), de acuerdo con la estimación y fechas requeridas por el negocio. </li><li>Diseñar los casos de prueba. </li><li>Ejecutar pruebas manuales y/o automáticas. </li><li>Construir script de automatización de pruebas. </li><li>Ejecutar pruebas funcionales y/o técnicas. </li><li>Validar que los resultados y las evidencias de las pruebas estén correctamente registrados en el sistema.</li><li>Analizar los defectos y hacer seguimiento de su corrección. </li><li>Generar métricas de calidad. </li></ul>",
+        "benefits": "<p>· Seguro complementario de salud y dental, para ti y tu grupo familiar. </p><p>· Capacitación continua en nuestra plataforma de clase mundial disponible para ti.</p><p>· Posibilidades de desarrollo interno, según requisitos.</p><p>· Plataformas de convenios y descuentos (fitness, salud, seguros y otros).</p><p>· Entorno de trabajo colaborativo con excelente clima laboral.</p><p>Esta oferta laboral se enmarca bajo la Ley 21.015 que incentiva la Inclusión de Personas con Discapacidad al mundo laboral. Avísanos si requieres algún ajuste de proceso de selección, para que participes en igualdad de condiciones (Ley 20.422) (Agregar solo si el cargo acepta personas con discapacidad)</p>",
+        "modality": "hybrid",
+        "perks": [
+            "health_coverage",
+            "computer_provided",
+            "informal_dresscode"
+        ],
+        "experience": null,
+        "min_salary": null,
+        "max_salary": null,
+        "applications_count": 31,
+        "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
+        "bd_create": false
+    },{
+        "id": "analista-qa-klap-santiago",
+        "idEmpresa": 6360,
+        "title": "Analista QA",
+        "date_post": "21/03/2023 13:02:15",
+        "requeriments": "<p><strong>Requisitos</strong></p><ul><li>Ingeniero ejecución informatico, analista de sistemas, o carrera a fin</li><li>Al menos 2 años de experiencia en puestos similares.</li></ul><p><strong>Conocimiento</strong></p><ul><li>Inglés.</li><li>Herramientas de gestión de pruebas (Jira, Zephir, ALM u otras).</li><li>Postman.</li><li>Java.</li><li>Confluence.</li><li>Selenium.</li><li>Jmeter.</li><li>MS Office.</li><li>Administradores de Base de datos.</li><li>Conocimientos en metodología ágil Scrum. </li><li>Metodologías en gestión de pruebas.</li></ul>",
+        "functions": "<p>Validar la calidad de las soluciones tecnológicas creadas en Klap, garantizando su funcionamiento de punta a punta. ​ </p><p>Ayudar en la identificación de los criterios de aceptación de las historias de usuario, no solo con el objetivo de detectar errores, sino en la medida de lo posible, prevenir dichos errores y mejorar la calidad del producto. </p><p><strong> Principales Desafíos</strong>: </p><ul><li>Entender y analizar los requerimientos del negocio a partir del diseño funcional, historias de usuario y reuniones con usuarios, Product Owner y otros interesados. </li><li>Estimar en tiempo las actividades de QA (Diseño y ejecución de pruebas). </li><li>Planificar las actividades de QA (Diseño y ejecución de pruebas), de acuerdo con la estimación y fechas requeridas por el negocio. </li><li>Diseñar los casos de prueba. </li><li>Ejecutar pruebas manuales y/o automáticas. </li><li>Construir script de automatización de pruebas. </li><li>Ejecutar pruebas funcionales y/o técnicas. </li><li>Validar que los resultados y las evidencias de las pruebas estén correctamente registrados en el sistema.</li><li>Analizar los defectos y hacer seguimiento de su corrección. </li><li>Generar métricas de calidad. </li></ul>",
+        "benefits": "<p>· Seguro complementario de salud y dental, para ti y tu grupo familiar. </p><p>· Capacitación continua en nuestra plataforma de clase mundial disponible para ti.</p><p>· Posibilidades de desarrollo interno, según requisitos.</p><p>· Plataformas de convenios y descuentos (fitness, salud, seguros y otros).</p><p>· Entorno de trabajo colaborativo con excelente clima laboral.</p><p>Esta oferta laboral se enmarca bajo la Ley 21.015 que incentiva la Inclusión de Personas con Discapacidad al mundo laboral. Avísanos si requieres algún ajuste de proceso de selección, para que participes en igualdad de condiciones (Ley 20.422) (Agregar solo si el cargo acepta personas con discapacidad)</p>",
+        "modality": "hybrid",
+        "perks": [
+            "health_coverage",
+            "computer_provided",
+            "informal_dresscode"
+        ],
+        "experience": null,
+        "min_salary": null,
+        "max_salary": null,
+        "applications_count": 31,
+        "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
+        "bd_create": false
+    },{
+        "id": "analista-qa-klap-santiago",
+        "idEmpresa": 6360,
+        "title": "Analista QA",
+        "date_post": "21/03/2023 13:02:15",
+        "requeriments": "<p><strong>Requisitos</strong></p><ul><li>Ingeniero ejecución informatico, analista de sistemas, o carrera a fin</li><li>Al menos 2 años de experiencia en puestos similares.</li></ul><p><strong>Conocimiento</strong></p><ul><li>Inglés.</li><li>Herramientas de gestión de pruebas (Jira, Zephir, ALM u otras).</li><li>Postman.</li><li>Java.</li><li>Confluence.</li><li>Selenium.</li><li>Jmeter.</li><li>MS Office.</li><li>Administradores de Base de datos.</li><li>Conocimientos en metodología ágil Scrum. </li><li>Metodologías en gestión de pruebas.</li></ul>",
+        "functions": "<p>Validar la calidad de las soluciones tecnológicas creadas en Klap, garantizando su funcionamiento de punta a punta. ​ </p><p>Ayudar en la identificación de los criterios de aceptación de las historias de usuario, no solo con el objetivo de detectar errores, sino en la medida de lo posible, prevenir dichos errores y mejorar la calidad del producto. </p><p><strong> Principales Desafíos</strong>: </p><ul><li>Entender y analizar los requerimientos del negocio a partir del diseño funcional, historias de usuario y reuniones con usuarios, Product Owner y otros interesados. </li><li>Estimar en tiempo las actividades de QA (Diseño y ejecución de pruebas). </li><li>Planificar las actividades de QA (Diseño y ejecución de pruebas), de acuerdo con la estimación y fechas requeridas por el negocio. </li><li>Diseñar los casos de prueba. </li><li>Ejecutar pruebas manuales y/o automáticas. </li><li>Construir script de automatización de pruebas. </li><li>Ejecutar pruebas funcionales y/o técnicas. </li><li>Validar que los resultados y las evidencias de las pruebas estén correctamente registrados en el sistema.</li><li>Analizar los defectos y hacer seguimiento de su corrección. </li><li>Generar métricas de calidad. </li></ul>",
+        "benefits": "<p>· Seguro complementario de salud y dental, para ti y tu grupo familiar. </p><p>· Capacitación continua en nuestra plataforma de clase mundial disponible para ti.</p><p>· Posibilidades de desarrollo interno, según requisitos.</p><p>· Plataformas de convenios y descuentos (fitness, salud, seguros y otros).</p><p>· Entorno de trabajo colaborativo con excelente clima laboral.</p><p>Esta oferta laboral se enmarca bajo la Ley 21.015 que incentiva la Inclusión de Personas con Discapacidad al mundo laboral. Avísanos si requieres algún ajuste de proceso de selección, para que participes en igualdad de condiciones (Ley 20.422) (Agregar solo si el cargo acepta personas con discapacidad)</p>",
+        "modality": "hybrid",
+        "perks": [
+            "health_coverage",
+            "computer_provided",
+            "informal_dresscode"
+        ],
+        "experience": null,
+        "min_salary": null,
+        "max_salary": null,
+        "applications_count": 31,
+        "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
+        "bd_create": false
+    },{
+        "id": "analista-qa-klap-santiago",
+        "idEmpresa": 6360,
+        "title": "Analista QA",
+        "date_post": "21/03/2023 13:02:15",
+        "requeriments": "<p><strong>Requisitos</strong></p><ul><li>Ingeniero ejecución informatico, analista de sistemas, o carrera a fin</li><li>Al menos 2 años de experiencia en puestos similares.</li></ul><p><strong>Conocimiento</strong></p><ul><li>Inglés.</li><li>Herramientas de gestión de pruebas (Jira, Zephir, ALM u otras).</li><li>Postman.</li><li>Java.</li><li>Confluence.</li><li>Selenium.</li><li>Jmeter.</li><li>MS Office.</li><li>Administradores de Base de datos.</li><li>Conocimientos en metodología ágil Scrum. </li><li>Metodologías en gestión de pruebas.</li></ul>",
+        "functions": "<p>Validar la calidad de las soluciones tecnológicas creadas en Klap, garantizando su funcionamiento de punta a punta. ​ </p><p>Ayudar en la identificación de los criterios de aceptación de las historias de usuario, no solo con el objetivo de detectar errores, sino en la medida de lo posible, prevenir dichos errores y mejorar la calidad del producto. </p><p><strong> Principales Desafíos</strong>: </p><ul><li>Entender y analizar los requerimientos del negocio a partir del diseño funcional, historias de usuario y reuniones con usuarios, Product Owner y otros interesados. </li><li>Estimar en tiempo las actividades de QA (Diseño y ejecución de pruebas). </li><li>Planificar las actividades de QA (Diseño y ejecución de pruebas), de acuerdo con la estimación y fechas requeridas por el negocio. </li><li>Diseñar los casos de prueba. </li><li>Ejecutar pruebas manuales y/o automáticas. </li><li>Construir script de automatización de pruebas. </li><li>Ejecutar pruebas funcionales y/o técnicas. </li><li>Validar que los resultados y las evidencias de las pruebas estén correctamente registrados en el sistema.</li><li>Analizar los defectos y hacer seguimiento de su corrección. </li><li>Generar métricas de calidad. </li></ul>",
+        "benefits": "<p>· Seguro complementario de salud y dental, para ti y tu grupo familiar. </p><p>· Capacitación continua en nuestra plataforma de clase mundial disponible para ti.</p><p>· Posibilidades de desarrollo interno, según requisitos.</p><p>· Plataformas de convenios y descuentos (fitness, salud, seguros y otros).</p><p>· Entorno de trabajo colaborativo con excelente clima laboral.</p><p>Esta oferta laboral se enmarca bajo la Ley 21.015 que incentiva la Inclusión de Personas con Discapacidad al mundo laboral. Avísanos si requieres algún ajuste de proceso de selección, para que participes en igualdad de condiciones (Ley 20.422) (Agregar solo si el cargo acepta personas con discapacidad)</p>",
+        "modality": "hybrid",
+        "perks": [
+            "health_coverage",
+            "computer_provided",
+            "informal_dresscode"
+        ],
+        "experience": null,
+        "min_salary": null,
+        "max_salary": null,
+        "applications_count": 31,
+        "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
+        "bd_create": false
+    },{
+        "id": "analista-qa-klap-santiago",
+        "idEmpresa": 6360,
+        "title": "Analista QA",
+        "date_post": "21/03/2023 13:02:15",
+        "requeriments": "<p><strong>Requisitos</strong></p><ul><li>Ingeniero ejecución informatico, analista de sistemas, o carrera a fin</li><li>Al menos 2 años de experiencia en puestos similares.</li></ul><p><strong>Conocimiento</strong></p><ul><li>Inglés.</li><li>Herramientas de gestión de pruebas (Jira, Zephir, ALM u otras).</li><li>Postman.</li><li>Java.</li><li>Confluence.</li><li>Selenium.</li><li>Jmeter.</li><li>MS Office.</li><li>Administradores de Base de datos.</li><li>Conocimientos en metodología ágil Scrum. </li><li>Metodologías en gestión de pruebas.</li></ul>",
+        "functions": "<p>Validar la calidad de las soluciones tecnológicas creadas en Klap, garantizando su funcionamiento de punta a punta. ​ </p><p>Ayudar en la identificación de los criterios de aceptación de las historias de usuario, no solo con el objetivo de detectar errores, sino en la medida de lo posible, prevenir dichos errores y mejorar la calidad del producto. </p><p><strong> Principales Desafíos</strong>: </p><ul><li>Entender y analizar los requerimientos del negocio a partir del diseño funcional, historias de usuario y reuniones con usuarios, Product Owner y otros interesados. </li><li>Estimar en tiempo las actividades de QA (Diseño y ejecución de pruebas). </li><li>Planificar las actividades de QA (Diseño y ejecución de pruebas), de acuerdo con la estimación y fechas requeridas por el negocio. </li><li>Diseñar los casos de prueba. </li><li>Ejecutar pruebas manuales y/o automáticas. </li><li>Construir script de automatización de pruebas. </li><li>Ejecutar pruebas funcionales y/o técnicas. </li><li>Validar que los resultados y las evidencias de las pruebas estén correctamente registrados en el sistema.</li><li>Analizar los defectos y hacer seguimiento de su corrección. </li><li>Generar métricas de calidad. </li></ul>",
+        "benefits": "<p>· Seguro complementario de salud y dental, para ti y tu grupo familiar. </p><p>· Capacitación continua en nuestra plataforma de clase mundial disponible para ti.</p><p>· Posibilidades de desarrollo interno, según requisitos.</p><p>· Plataformas de convenios y descuentos (fitness, salud, seguros y otros).</p><p>· Entorno de trabajo colaborativo con excelente clima laboral.</p><p>Esta oferta laboral se enmarca bajo la Ley 21.015 que incentiva la Inclusión de Personas con Discapacidad al mundo laboral. Avísanos si requieres algún ajuste de proceso de selección, para que participes en igualdad de condiciones (Ley 20.422) (Agregar solo si el cargo acepta personas con discapacidad)</p>",
+        "modality": "hybrid",
+        "perks": [
+            "health_coverage",
+            "computer_provided",
+            "informal_dresscode"
+        ],
+        "experience": null,
+        "min_salary": null,
+        "max_salary": null,
+        "applications_count": 31,
+        "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
+        "bd_create": false
+    },{
+        "id": "analista-qa-klap-santiago",
+        "idEmpresa": 6360,
+        "title": "Analista QA",
+        "date_post": "21/03/2023 13:02:15",
+        "requeriments": "<p><strong>Requisitos</strong></p><ul><li>Ingeniero ejecución informatico, analista de sistemas, o carrera a fin</li><li>Al menos 2 años de experiencia en puestos similares.</li></ul><p><strong>Conocimiento</strong></p><ul><li>Inglés.</li><li>Herramientas de gestión de pruebas (Jira, Zephir, ALM u otras).</li><li>Postman.</li><li>Java.</li><li>Confluence.</li><li>Selenium.</li><li>Jmeter.</li><li>MS Office.</li><li>Administradores de Base de datos.</li><li>Conocimientos en metodología ágil Scrum. </li><li>Metodologías en gestión de pruebas.</li></ul>",
+        "functions": "<p>Validar la calidad de las soluciones tecnológicas creadas en Klap, garantizando su funcionamiento de punta a punta. ​ </p><p>Ayudar en la identificación de los criterios de aceptación de las historias de usuario, no solo con el objetivo de detectar errores, sino en la medida de lo posible, prevenir dichos errores y mejorar la calidad del producto. </p><p><strong> Principales Desafíos</strong>: </p><ul><li>Entender y analizar los requerimientos del negocio a partir del diseño funcional, historias de usuario y reuniones con usuarios, Product Owner y otros interesados. </li><li>Estimar en tiempo las actividades de QA (Diseño y ejecución de pruebas). </li><li>Planificar las actividades de QA (Diseño y ejecución de pruebas), de acuerdo con la estimación y fechas requeridas por el negocio. </li><li>Diseñar los casos de prueba. </li><li>Ejecutar pruebas manuales y/o automáticas. </li><li>Construir script de automatización de pruebas. </li><li>Ejecutar pruebas funcionales y/o técnicas. </li><li>Validar que los resultados y las evidencias de las pruebas estén correctamente registrados en el sistema.</li><li>Analizar los defectos y hacer seguimiento de su corrección. </li><li>Generar métricas de calidad. </li></ul>",
+        "benefits": "<p>· Seguro complementario de salud y dental, para ti y tu grupo familiar. </p><p>· Capacitación continua en nuestra plataforma de clase mundial disponible para ti.</p><p>· Posibilidades de desarrollo interno, según requisitos.</p><p>· Plataformas de convenios y descuentos (fitness, salud, seguros y otros).</p><p>· Entorno de trabajo colaborativo con excelente clima laboral.</p><p>Esta oferta laboral se enmarca bajo la Ley 21.015 que incentiva la Inclusión de Personas con Discapacidad al mundo laboral. Avísanos si requieres algún ajuste de proceso de selección, para que participes en igualdad de condiciones (Ley 20.422) (Agregar solo si el cargo acepta personas con discapacidad)</p>",
+        "modality": "hybrid",
+        "perks": [
+            "health_coverage",
+            "computer_provided",
+            "informal_dresscode"
+        ],
+        "experience": null,
+        "min_salary": null,
+        "max_salary": null,
+        "applications_count": 31,
+        "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
+        "bd_create": false
+    },{
+        "id": "analista-qa-klap-santiago",
+        "idEmpresa": 6360,
+        "title": "Analista QA",
+        "date_post": "21/03/2023 13:02:15",
+        "requeriments": "<p><strong>Requisitos</strong></p><ul><li>Ingeniero ejecución informatico, analista de sistemas, o carrera a fin</li><li>Al menos 2 años de experiencia en puestos similares.</li></ul><p><strong>Conocimiento</strong></p><ul><li>Inglés.</li><li>Herramientas de gestión de pruebas (Jira, Zephir, ALM u otras).</li><li>Postman.</li><li>Java.</li><li>Confluence.</li><li>Selenium.</li><li>Jmeter.</li><li>MS Office.</li><li>Administradores de Base de datos.</li><li>Conocimientos en metodología ágil Scrum. </li><li>Metodologías en gestión de pruebas.</li></ul>",
+        "functions": "<p>Validar la calidad de las soluciones tecnológicas creadas en Klap, garantizando su funcionamiento de punta a punta. ​ </p><p>Ayudar en la identificación de los criterios de aceptación de las historias de usuario, no solo con el objetivo de detectar errores, sino en la medida de lo posible, prevenir dichos errores y mejorar la calidad del producto. </p><p><strong> Principales Desafíos</strong>: </p><ul><li>Entender y analizar los requerimientos del negocio a partir del diseño funcional, historias de usuario y reuniones con usuarios, Product Owner y otros interesados. </li><li>Estimar en tiempo las actividades de QA (Diseño y ejecución de pruebas). </li><li>Planificar las actividades de QA (Diseño y ejecución de pruebas), de acuerdo con la estimación y fechas requeridas por el negocio. </li><li>Diseñar los casos de prueba. </li><li>Ejecutar pruebas manuales y/o automáticas. </li><li>Construir script de automatización de pruebas. </li><li>Ejecutar pruebas funcionales y/o técnicas. </li><li>Validar que los resultados y las evidencias de las pruebas estén correctamente registrados en el sistema.</li><li>Analizar los defectos y hacer seguimiento de su corrección. </li><li>Generar métricas de calidad. </li></ul>",
+        "benefits": "<p>· Seguro complementario de salud y dental, para ti y tu grupo familiar. </p><p>· Capacitación continua en nuestra plataforma de clase mundial disponible para ti.</p><p>· Posibilidades de desarrollo interno, según requisitos.</p><p>· Plataformas de convenios y descuentos (fitness, salud, seguros y otros).</p><p>· Entorno de trabajo colaborativo con excelente clima laboral.</p><p>Esta oferta laboral se enmarca bajo la Ley 21.015 que incentiva la Inclusión de Personas con Discapacidad al mundo laboral. Avísanos si requieres algún ajuste de proceso de selección, para que participes en igualdad de condiciones (Ley 20.422) (Agregar solo si el cargo acepta personas con discapacidad)</p>",
+        "modality": "hybrid",
+        "perks": [
+            "health_coverage",
+            "computer_provided",
+            "informal_dresscode"
+        ],
+        "experience": null,
+        "min_salary": null,
+        "max_salary": null,
+        "applications_count": 31,
+        "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
+        "bd_create": false
+    },{
+        "id": "analista-qa-klap-santiago",
+        "idEmpresa": 6360,
+        "title": "Analista QA",
+        "date_post": "21/03/2023 13:02:15",
+        "requeriments": "<p><strong>Requisitos</strong></p><ul><li>Ingeniero ejecución informatico, analista de sistemas, o carrera a fin</li><li>Al menos 2 años de experiencia en puestos similares.</li></ul><p><strong>Conocimiento</strong></p><ul><li>Inglés.</li><li>Herramientas de gestión de pruebas (Jira, Zephir, ALM u otras).</li><li>Postman.</li><li>Java.</li><li>Confluence.</li><li>Selenium.</li><li>Jmeter.</li><li>MS Office.</li><li>Administradores de Base de datos.</li><li>Conocimientos en metodología ágil Scrum. </li><li>Metodologías en gestión de pruebas.</li></ul>",
+        "functions": "<p>Validar la calidad de las soluciones tecnológicas creadas en Klap, garantizando su funcionamiento de punta a punta. ​ </p><p>Ayudar en la identificación de los criterios de aceptación de las historias de usuario, no solo con el objetivo de detectar errores, sino en la medida de lo posible, prevenir dichos errores y mejorar la calidad del producto. </p><p><strong> Principales Desafíos</strong>: </p><ul><li>Entender y analizar los requerimientos del negocio a partir del diseño funcional, historias de usuario y reuniones con usuarios, Product Owner y otros interesados. </li><li>Estimar en tiempo las actividades de QA (Diseño y ejecución de pruebas). </li><li>Planificar las actividades de QA (Diseño y ejecución de pruebas), de acuerdo con la estimación y fechas requeridas por el negocio. </li><li>Diseñar los casos de prueba. </li><li>Ejecutar pruebas manuales y/o automáticas. </li><li>Construir script de automatización de pruebas. </li><li>Ejecutar pruebas funcionales y/o técnicas. </li><li>Validar que los resultados y las evidencias de las pruebas estén correctamente registrados en el sistema.</li><li>Analizar los defectos y hacer seguimiento de su corrección. </li><li>Generar métricas de calidad. </li></ul>",
+        "benefits": "<p>· Seguro complementario de salud y dental, para ti y tu grupo familiar. </p><p>· Capacitación continua en nuestra plataforma de clase mundial disponible para ti.</p><p>· Posibilidades de desarrollo interno, según requisitos.</p><p>· Plataformas de convenios y descuentos (fitness, salud, seguros y otros).</p><p>· Entorno de trabajo colaborativo con excelente clima laboral.</p><p>Esta oferta laboral se enmarca bajo la Ley 21.015 que incentiva la Inclusión de Personas con Discapacidad al mundo laboral. Avísanos si requieres algún ajuste de proceso de selección, para que participes en igualdad de condiciones (Ley 20.422) (Agregar solo si el cargo acepta personas con discapacidad)</p>",
+        "modality": "hybrid",
+        "perks": [
+            "health_coverage",
+            "computer_provided",
+            "informal_dresscode"
+        ],
+        "experience": null,
+        "min_salary": null,
+        "max_salary": null,
+        "applications_count": 31,
+        "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
+        "bd_create": false
+    },{
+        "id": "analista-qa-klap-santiago",
+        "idEmpresa": 6360,
+        "title": "Analista QA",
+        "date_post": "21/03/2023 13:02:15",
+        "requeriments": "<p><strong>Requisitos</strong></p><ul><li>Ingeniero ejecución informatico, analista de sistemas, o carrera a fin</li><li>Al menos 2 años de experiencia en puestos similares.</li></ul><p><strong>Conocimiento</strong></p><ul><li>Inglés.</li><li>Herramientas de gestión de pruebas (Jira, Zephir, ALM u otras).</li><li>Postman.</li><li>Java.</li><li>Confluence.</li><li>Selenium.</li><li>Jmeter.</li><li>MS Office.</li><li>Administradores de Base de datos.</li><li>Conocimientos en metodología ágil Scrum. </li><li>Metodologías en gestión de pruebas.</li></ul>",
+        "functions": "<p>Validar la calidad de las soluciones tecnológicas creadas en Klap, garantizando su funcionamiento de punta a punta. ​ </p><p>Ayudar en la identificación de los criterios de aceptación de las historias de usuario, no solo con el objetivo de detectar errores, sino en la medida de lo posible, prevenir dichos errores y mejorar la calidad del producto. </p><p><strong> Principales Desafíos</strong>: </p><ul><li>Entender y analizar los requerimientos del negocio a partir del diseño funcional, historias de usuario y reuniones con usuarios, Product Owner y otros interesados. </li><li>Estimar en tiempo las actividades de QA (Diseño y ejecución de pruebas). </li><li>Planificar las actividades de QA (Diseño y ejecución de pruebas), de acuerdo con la estimación y fechas requeridas por el negocio. </li><li>Diseñar los casos de prueba. </li><li>Ejecutar pruebas manuales y/o automáticas. </li><li>Construir script de automatización de pruebas. </li><li>Ejecutar pruebas funcionales y/o técnicas. </li><li>Validar que los resultados y las evidencias de las pruebas estén correctamente registrados en el sistema.</li><li>Analizar los defectos y hacer seguimiento de su corrección. </li><li>Generar métricas de calidad. </li></ul>",
+        "benefits": "<p>· Seguro complementario de salud y dental, para ti y tu grupo familiar. </p><p>· Capacitación continua en nuestra plataforma de clase mundial disponible para ti.</p><p>· Posibilidades de desarrollo interno, según requisitos.</p><p>· Plataformas de convenios y descuentos (fitness, salud, seguros y otros).</p><p>· Entorno de trabajo colaborativo con excelente clima laboral.</p><p>Esta oferta laboral se enmarca bajo la Ley 21.015 que incentiva la Inclusión de Personas con Discapacidad al mundo laboral. Avísanos si requieres algún ajuste de proceso de selección, para que participes en igualdad de condiciones (Ley 20.422) (Agregar solo si el cargo acepta personas con discapacidad)</p>",
+        "modality": "hybrid",
+        "perks": [
+            "health_coverage",
+            "computer_provided",
+            "informal_dresscode"
+        ],
+        "experience": null,
+        "min_salary": null,
+        "max_salary": null,
+        "applications_count": 31,
+        "link": "https://www.getonbrd.com/jobs/analista-qa-klap-santiago",
+        "bd_create": false
     },]
 return (
-<>{data.map((el)=><>  <hr className='border border-b-gray-100  w-full ' /><h2>{el.title}</h2></>)}</>
+<>{data.map((el)=><h2 className="bg-white rounded-xl p-4 border mb-4 text-center">{el.title}</h2>)}</>
 )
 }
 
