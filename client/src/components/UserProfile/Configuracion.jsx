@@ -61,30 +61,34 @@ function Configuracion() {
                            <input type="number" id="edad" className="form-input mt-1 block rounded-md border-gray-300 shadow-sm"  min="18" max="120" name="edad" value={data.edad} onChange={actualizarData}/>
                           
                        </li>
-                        <hr className='border border-b-gray-100  w-full ' />
+                        
                         <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full' >
                           <label for="ubicacion">Ubicacion </label>
                           <input 
                           id="ubicacion"
                           type="text"
                           className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full" /> </li>
-                        <hr className='border border-b-gray-100  w-full ' />
-                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Titulo <input type="text"  className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm" width="100%" /> </li>
-                        <hr className='border border-b-gray-100  w-full ' />
+                      
+                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full'>
+                          <label for="titulo">Titulo</label><input type="text"  id="titulo" className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm" width="100%" /> </li>
+                     
 
-                        <li className=''>
-                            <h2 className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Descripcion</h2>
-                            <p className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>
-                      <textarea></textarea>
-                       </p>
+                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full flex-col'>
+
+                              <label for="descripcion" className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Descripcion</label>
                             
-                                    </li>
-                                    <hr className='border border-b-gray-100  w-full ' />
+                        <textarea id="descripcion" className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm' style={{maxHeight:"200px" , minHeight:"200px"}} ></textarea>
+                       </li>
+                                    
 
-                                   <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Idioma
-                                   <input type="text" /></li>     
+                                   <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>
+                                    <label for="idioma">Idioma</label>
+                                   <input 
+                                   id='idioma'
+                                   type="text"
+                                   className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm' /></li>     
                                         
-                          <hr className='border border-b-gray-100  w-full ' />
+                          
                                         
 
                                     <li className=''>
@@ -97,20 +101,55 @@ function Configuracion() {
                                     
                                     </ul>
                             </li>
-                            <hr className='border border-b-gray-100  w-full ' />
+                           
                             <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Datos de contacto 
                                 <ul>
-                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>tel:<input type="text"/></li>
-                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>mail: <input type="email"/></li>
-                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>redes sociales: </li>
-                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>direccion:<input type="text"/></li>
+                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full'>
+                                  <label for="tel">tel:</label>
+                                <input 
+                                id='tel'
+                                type="number"
+                                className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm'/>
+                                </li>
+                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full'>
+
+                                <label for="mail">mail:</label>
+                                  <input 
+                                  id='mail'
+                                  type="email"
+                                  className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm'/>
+                                </li>
+                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex  w-full'>
+                                  <label for="facebook">Facebook</label>
+                                  <input
+                                  className='w-2/5 form-input mt-1 block rounded-md border-gray-300 shadow-sm'
+                                  id='facebook'
+                                   type="text"
+                                  />
+                                  <label for="linkedin">Linkedin</label>
+                                  <input
+                                  className='w-2/5 form-input mt-1 block rounded-md border-gray-300 shadow-sm'
+                                  id='linkedin'
+                                   type="text"
+                                  />
+                                </li>
+                                <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full'>
+                                  <label for="direccion">direccion</label>
+                                <input
+                                id='direccion'
+                                type="text"
+                                className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm'/>
+                                </li>
                                 </ul>
                                 </li>
                                     </ul>
                                 
                               
-                    <button>OK</button><hr />
-                    <button onClick={()=>SetInConfig(!inConfig)}>cancel</button>
+                    <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Aceptar Cambios</button>
+                    <button
+                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded
+                    "
+                    onClick={()=>SetInConfig(!inConfig)}>Descartar Cambios</button>
                 
     </div>
   )

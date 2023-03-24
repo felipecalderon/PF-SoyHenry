@@ -13,12 +13,17 @@ const authUserCreate = async (req, res) => {
     }
   };
 
+  const getUserById = async () => {
+    
+  };
+
   const authUserLoginCredentials = async (req, res) => {
     try {
       const {user, token} = await authLoginCredentials(req.body)
       res
       // .setHeader('token', token)
       .json({ message: 'Inicio de sesion exitoso',
+              id: user.id,
               user: user.rol
     });
 

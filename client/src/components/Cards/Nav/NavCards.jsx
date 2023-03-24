@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import dia from '../../../assets/sun.png'
 import noche from '../../../assets/moon.png'
 import logofusionajob from '../../../assets/logofusionajob.png'
-import perfil from '../../../assets/user.png'
-import { Link } from "react-router-dom";
 
 
 export const NavCards = () => {
@@ -23,29 +22,75 @@ export const NavCards = () => {
     };
 
     useEffect(() => {
-        if(localDark) document.documentElement.classList.add('dark')
+        if (localDark) document.documentElement.classList.add('dark')
         else document.documentElement.classList.remove('dark')
     }, [localDark])
 
-    return(
-        <nav className='bg-secondary-light dark:bg-primary-dark h-16'>
+    const hadleSignOut = () => {
+        // Eliminar todo el contenido del localStorage
+        localStorage.clear();
+        // Agregar el elemento que desea mantener de nuevo al localStorage
+        localStorage.setItem('isDarkMode', localDark);
+    }
+
+    const [showMenu, setShowMenu] = useState(false);
+
+    function handleAvatarClick() {
+        setShowMenu(!showMenu);
+    }
+
+
+    return (
+        <nav className='flex justify-center bg-secondary-light dark:bg-primary-dark h-16'>
             <div className="flex">
-                <Link to='/profile'>
-                    <button className='absolute font-medium py-[.1rem] px-2 h-[2.5rem] top-3 rounded-md ml-[75rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white shadow-md hover:bg-gray-400'>
-                        <img className="w-4 inline-block align-middle mr-2" src={perfil} alt='ingresar'/>
-                        Perfil
-                    </button>
-                </Link>
-                <div onClick={handleToggle} className="cursor-pointer absolute py-2 px-2 top-3 ml-[79rem] bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 dark:hover:bg-secondary-light">
-                    {
-                        isDarkMode 
-                        ? <img className="w-6" src={dia} alt='dia'/>
-                        : <img className="w-6" src={noche} alt='noche'/>
-                    }
-                </div>
-                <Link to='/'><button className='absolute top-3 left-14 py-[.1rem] px-2 h-[2.5rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>← Home</button></Link>
-                <div className="flex-shrink-0">
-                    <img src={logofusionajob} alt='logo' className="h-10 top-3 w-auto relative ml-[9rem]"/>
+                <div className="flex items-center justify-between h-16">
+                    {/* Logo */}
+                    <div className="flex-shrink-0">
+                        <img
+                            className="h-10 w-auto"
+                            src={logofusionajob}
+                            alt="Workflow"
+                        />
+                    </div>
+                    {/* Menú */}
+                    <div className="flex dark:text-text-dark text-gray-900">
+                        <Link to='/cards' className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Ofertas</Link>
+                        <Link to='/about' className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Sobre nosotros</Link>
+                        <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" className="w-10 h-10 rounded-full cursor-pointer" src="https://st2.depositphotos.com/1309454/5538/v/450/depositphotos_55380965-stock-illustration-avatars-characters.jpg" alt="User dropdown" onClick={handleAvatarClick} />
+                        {/* Menu desplegable */}
+                        <div id="userDropdown" className={`fixed z-10 ${showMenu ? "" : "hidden"} bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 translate-y-12 translate-x-40 `}>
+                            <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                                <div>Bonnie Green</div>
+                                <div class="font-medium truncate">name@flowbite.com</div>
+                            </div>
+                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
+                                <li>
+                                    <Link href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Postulaciones</Link>
+                                </li>
+                                <li>
+                                    <Link href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Ofertas Guardadas</Link>
+                                </li>
+                                <li>
+                                    <Link href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Favoritos</Link>
+                                </li>
+                                <li>
+                                    <Link to={'/profile'} class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</Link>
+                                </li>
+                            </ul>
+                            <div class="py-1">
+                                <Link to={"/"} onClick={hadleSignOut} class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</Link>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Botones */}
+                    <div className="hidden md:block">
+                        <div className="ml-4 flex items-center md:ml-6 gap-3">
+                            <div onClick={handleToggle} className="cursor-pointer py-2 px-2 bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 dark:hover:bg-secondary-light">{isDarkMode
+                                ? <img className="w-6" src={dia} alt='dia' />
+                                : <img className="w-6" src={noche} alt='noche' />
+                            }</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
