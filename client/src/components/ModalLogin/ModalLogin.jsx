@@ -15,7 +15,7 @@ import { saveUser } from '../../redux/slices/userRegisterSlice'
 
 export const ModalLogin = ({ isOpen, setOpen }) => {
     const dispatch = useDispatch();
-    const [user, setUser] = useState(null)
+    // const [user, setUser] = useState()
     const [error, setError] = useState(null)
     const [sendform, setSendForm] = useState(false)
     const [idToken, setIdToken] = useState('');
@@ -26,6 +26,13 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
         const provider = new GoogleAuthProvider();
         const correo = await signInWithPopup(auth, provider)
             .then((result) => {
+                const usergoogle = { 
+                    photo: result.user.photoURL, 
+                    email: result.user.email,
+                    name: result.user.displayName,
+                }
+                const objetoJSON = JSON.stringify(usergoogle) // vuelve el objeto un JSON para poder guardarse en localStorage
+                localStorage.setItem('usergoogle', objetoJSON); //  Guardado local para que se mantengan la pagina en la que estaba el usuario
                 return result.user.email
             })
             .catch(function (error) {
@@ -35,15 +42,24 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
         axios.get(`/user?email=${correo}`)
             .then(function (response) {
                 const { data } = response
-                if (data === 'Empresa') navigate('/dashboardempresa')
-                if (data === 'Postulante') navigate('/cards')
-                console.log(data)
+                axios.post('/userPk', { id: data.id })
+                    .then(function (response) {
+                        dispatch(saveUser(response.data))
+                        const objetoJSON = JSON.stringify(response.data)
+                        localStorage.setItem('userLogin', objetoJSON);
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    });
+                if (data.rol === 'Empresa') navigate('/dashboardempresa')
+                if (data.rol === 'Postulante') navigate('/offers')
             })
             .catch(function (error) {
                 console.log(error)
                 alert("Usuario no regitrado")
                 navigate('/profile')
             });
+        
     };
 
     const [form, setForm] = useState({
@@ -71,18 +87,6 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
         }));
     };
 
-    const { data: googleUser, error: errorUser, isLoading: loadingGoogle } = useFetch(`/auth/google/${idToken}`)
-
-    useEffect(() => {
-        if (googleUser !== undefined) setUser(googleUser?.user?.displayName)
-        setError(true)
-    }, [idToken, googleUser])
-
-    // useEffect(() => {
-
-
-    //   }, [sendform]);
-
     const handleSubmit = (event) => {
         console.log(idToken)
         event.preventDefault()
@@ -96,16 +100,16 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
             .then(function (response) {
                 const { data } = response
                 if (data.user === 'Empresa') navigate('/dashboardempresa')
-                if (data.user === 'Postulante') navigate('/cards')
-                
-                axios.post('/userPk', {id: data.id})
-                .then(function (response){
-                    dispatch(saveUser(response.data))
-                })
-                .catch(function (error) {
-                    console.log(error)                    
-                });
-
+                if (data.user === 'Postulante') navigate('/offers')
+                axios.post('/userPk', { id: data.id })
+                    .then(function (response) {
+                        dispatch(saveUser(response.data))
+                        const objetoJSON = JSON.stringify(response.data)
+                        localStorage.setItem('userLogin', objetoJSON);
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    });
             })
             .catch(function (error) {
                 console.log(error)
@@ -122,7 +126,6 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
                 <div className="rounded-3xl bg-primary-light dark:bg-primary-dark" onClick={handleModalContainerClick}>
                     <div className="absolute top-0 right-0 m-4 px-2 rounded-full cursor-pointer text-xl dark:text-white hover:scale-150 transition-all" onClick={closeModal}> x </div>
                     <h2 className="pt-10 text-center text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Ingresar a Fusionajob</h2>
-                    {user && <h3 className="text-center font-medium text-xl py-4 dark:text-white">Bienvenido {user}</h3>}
                     {error && <h3 className="text-center text-white font-medium w-1/2 rounded-lg mx-auto bg-red-700">{error}</h3>}
                     <form onSubmit={handleSubmit} className="px-8 py-6">
                         <div className='mb-4'>
