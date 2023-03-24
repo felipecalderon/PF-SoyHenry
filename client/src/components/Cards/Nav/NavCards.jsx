@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import dia from '../../../assets/sun.png'
 import noche from '../../../assets/moon.png'
 import logofusionajob from '../../../assets/logofusionajob.png'
+import { getAuth } from 'firebase/auth';
+import fbapp from '../../../firebaseConfig';
+
 
 
 export const NavCards = () => {
@@ -31,6 +34,9 @@ export const NavCards = () => {
         localStorage.clear();
         // Agregar el elemento que desea mantener de nuevo al localStorage
         localStorage.setItem('isDarkMode', localDark);
+        const auth = getAuth(fbapp);
+        // Cierra la sesion en firabase
+        auth.signOut()
     }
 
     const [showMenu, setShowMenu] = useState(false);

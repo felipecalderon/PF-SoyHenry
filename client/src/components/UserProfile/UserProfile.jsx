@@ -8,9 +8,21 @@ import Configuracion from "./Configuracion"
 import User from './User'
 import { NavCards } from '../Cards/Nav/NavCards'
 
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import fbapp from '../../firebaseConfig'
+
+
+
 
 
 function UserProfile() {
+    // Obtenemos la instancia de Firebase Auth
+    const auth = getAuth(fbapp);
+    const provider = new GoogleAuthProvider();
+    const [user] = useAuthState(auth);
+    
+    
     const [isLogin, SetIsLogin] = useState(true)
     const [inConfig, SetInConfig] = useState(false)
     const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
@@ -36,6 +48,13 @@ function UserProfile() {
             direccion: "calle falsa 123"
         }
     })
+    const signInWithPopupGoogle = () => {
+        signInWithPopup(auth, provider)
+    }
+    if (!user) {
+        return <button onClick={signInWithPopupGoogle}>login</button>
+    }
+    console.log(user)
     const handleBarraPerfil = (event) => {
         const { value } = event.target
         SetSelectedValueBarraPerfil({
