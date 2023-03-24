@@ -103,9 +103,9 @@ const JobDetail = () => {
 
               <Box >
                 <Fab color="red" 
-    aria-label="add" 
-    className="ml-4"
-    onClick={() => handleAddFavorite(jobId)}>
+                  aria-label="add" 
+                  className="ml-4"
+                  onClick={() => handleAddFavorite(jobId)}>
                   < FavoriteBorderIcon />
 
                 </Fab>

@@ -13,7 +13,7 @@ const userRegisterSlice = createSlice({
             state.user = action.payload
         },
         addFavorites:(state, action) => {
-            state.favorites.push = action.payload
+            state.favorites = action.payload
         }
     }
 })
