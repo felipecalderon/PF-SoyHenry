@@ -107,26 +107,22 @@ const displayComponente=(selectedValueBarraPerfil)=>{
                 </div>
 
 
-                <section className="bg-primary-light flex  ">
+                <section className="bg-primary-light flex   ">
 
-                    <section className='bg-secondary-light m-5 p-4 border rounded-xl w-full overflow-y-auto '>
-
+                    <section className='bg-secondary-light m-5 p-4 border rounded-xl w-full ' style={{maxHeight:" 1200px"}}>
                         {inConfig ? <button className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={() => SetInConfig(!inConfig)}>Volver</button> : <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"onClick={() => SetInConfig(!inConfig)}>Configurar</button>}
-
                         {inConfig ? <Configuracion /> : <User />}
-
-
-
                     </section>
 
-
-
-
-                    <section className='bg-secondary-light m-5 p-4 border rounded-xl w-full flex-grow ' >
-
+                    <section className='bg-secondary-light m-5 p-4 border rounded-xl w-full  flex flex-col justify-start ' >
                         {displayComponente(selectedValueBarraPerfil)}
-
                     </section>
+
+
+
+
+
+
 
                 </section>
                 <Footer />

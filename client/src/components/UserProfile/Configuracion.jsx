@@ -1,7 +1,28 @@
 import React from 'react'
 import { useState } from 'react'
 import user from "../../assets/user.png"
-
+const skills = [
+  "Desarrollo web",
+  "Desarrollo móvil",
+  "Bases de datos",
+  "Seguridad informática",
+  "Redes de computadoras",
+  "Inteligencia artificial",
+  "Aprendizaje automático",
+  "Ciencia de datos",
+  "Gestión de proyectos",
+  "Diseño UX/UI",
+  "Análisis de negocios",
+  "Cloud computing",
+  "DevOps",
+  "Automatización de pruebas",
+  "Ingeniería de software",
+  "Realidad virtual y aumentada",
+  "Blockchain",
+  "Ciberseguridad",
+  "Arquitectura de software",
+  "Gestión de la información",
+];
 
 function Configuracion() {
   const [isLogin,SetIsLogin]=useState(true)
@@ -29,6 +50,8 @@ function Configuracion() {
          direccion:"calle falsa 123" 
       }
   })
+
+  
   const actualizarData =(event)=>{
     const {name,value}=event.target;
     SetData({
@@ -44,9 +67,7 @@ function Configuracion() {
   };
 
   return (
-    <div>
-        
-                    
+    <div>    
 
                     <ul className='flex flex-col justify-between items-start p-8'>
                         <li><img src={user} alt="" width="150px" className='border rounded-full m-4' /></li>
@@ -93,13 +114,13 @@ function Configuracion() {
 
                                     <li className=''>
                                 <h2 className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Habilidades:</h2>
-                                <ul className='flex flex-wrap justify-start'>
-                                    <li className='m-1 p-1 px-2 rounded-xl bg-slate-200 select-none'>javascript</li>
-                                    <li className=' m-1 p-1 rounded-xl  bg-slate-200 select-none'>html</li>
-                                    <li className='m-1 p-1 rounded-xl bg-slate-200 select-none'>css</li>
-                                    <li className='m-1 p-1  rounded-xl bg-slate-200 select-none'>react</li>
-                                    
-                                    </ul>
+                                <ul className='flex flex-wrap justify-start overflow-y-auto' style={{maxHeight:"90px"}}>
+  {skills.map((el) => (
+    <li className='m-1 p-2 rounded-xl bg-white border text-sm text-center flex justify-between items-center'>
+      {el}
+    </li>
+  ))}
+</ul>
                             </li>
                            
                             <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>Datos de contacto 
@@ -145,11 +166,13 @@ function Configuracion() {
                                     </ul>
                                 
                               
-                    <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Aceptar Cambios</button>
-                    <button
-                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded
-                    "
-                    onClick={()=>SetInConfig(!inConfig)}>Descartar Cambios</button>
+                    <div className='flex justify-around'>
+                      <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Aceptar Cambios</button>
+                      <button
+                      className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded
+                      "
+                      onClick={()=>SetInConfig(!inConfig)}>Descartar Cambios</button>
+                    </div>
                 
     </div>
   )
