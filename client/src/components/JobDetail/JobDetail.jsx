@@ -6,6 +6,10 @@ import useFetch from '../Hooks/useFetch'
 import { NavCards } from "../Cards/Nav/NavCards";
 import Footer from "../Footer/Footer";
 import { spinnerPurple } from "../Cards/spinner";
+import {addFavorites} from "../../redux/slices/userRegisterSlice"
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const JobDetail = () => {
   const dispatch = useDispatch();
@@ -26,6 +30,10 @@ const JobDetail = () => {
     window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
     if (data) dispatch(getDataPostulacion(data))
   }, [data, dispatch])
+
+  const handleAddFavorite = (favorite)=>{
+    dispatch(addFavorites(favorite))
+  }
   
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
@@ -92,6 +100,16 @@ const JobDetail = () => {
               <button className="bg-purple-400 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-full">
                 Aplicar
               </button>
+
+              <Box >
+                <Fab color="red" 
+    aria-label="add" 
+    className="ml-4"
+    onClick={() => handleAddFavorite(jobId)}>
+                  < FavoriteBorderIcon />
+
+                </Fab>
+              </Box>
             </div>
           </div>
         </div>

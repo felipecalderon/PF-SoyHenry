@@ -1,10 +1,11 @@
 import React from 'react'
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 
 function Favoritos() {
-
-   
 
     const data=[
         {
@@ -142,7 +143,15 @@ function Favoritos() {
             "bd_create": false
         },]
   return (
-    <>{data.reverse().map((el)=><h2 className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-between">{el.title}</h2>)}</>
+    <>
+    <Box >
+    {data.reverse().map((el)=><h2 className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-between">{el.title}<Fab sx={{ backgroundColor: 'red'}} aria-label="like">
+        <FavoriteIcon />
+      </Fab></h2>)}
+     
+      
+    </Box>
+    </>
   )
 }
 
