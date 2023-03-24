@@ -39,21 +39,27 @@ useEffect(() => {
                    Modalidad: {jobId.modality?.split("_").join(" ")}
                    </h3>
               }
+              {jobId.description &&
               <p className="mt-2 text-gray-600 dark:text-gray-300" dangerouslySetInnerHTML={jobDescriptionHTML}></p>
-              <h3 className="text-gray-600 dark:text-gray-300" dangerouslySetInnerHTML={jobBenefitsHTML}></h3>
+              }
+              {jobId.benefits &&
+               <h3 className="text-gray-600 dark:text-gray-300" dangerouslySetInnerHTML={jobBenefitsHTML}></h3>
+              }
               <br/>
-              <h3 className="text-gray-600 dark:text-gray-300"> Funciones a realizar: 
-              <h3 className="text-gray-600 dark:text-gray-300" dangerouslySetInnerHTML={jobFunctionsHTML}></h3>
-              </h3>
-              <div className="mt-4">
-                <h3 className="text-lg font-semibold text-gray-800">Requisitos</h3>
-                <ul className="list-disc list-inside mt-2 text-gray-600 dark:text-gray-300">
-                {jobId?.perks?.map((requisito) => {
-                  return <li key={requisito}>{requisito?.split("_").join(" ")}</li>
-                }).slice(0,3)}
-              
-                </ul>
+              {jobId.functions &&
+                <h3 className="text-gray-600 dark:text-gray-300" dangerouslySetInnerHTML={jobFunctionsHTML}></h3>
+              }
               </div>
+              {jobId.perks && jobId.perks.length > 0 &&
+                <div className="mt-4">
+                  <h3 className="text-lg font-semibold text-gray-800">Requisitos</h3>
+                  <ul className="list-disc list-inside mt-2 text-gray-600 dark:text-gray-300">
+                    {jobId.perks.map((requisito) => {
+                      return <li key={requisito}>{requisito?.split("_").join(" ")}</li>
+                    }).slice(0,3)}
+                  </ul>
+                </div>
+                  }
               {jobId.min_salary !== null && jobId.max_salary !== null &&
                  <h4 className="text-gray-600 dark:text-gray-300">
                   Rango salarial: {jobId.min_salary === jobId.max_salary 
@@ -69,7 +75,7 @@ useEffect(() => {
             </div>
           </div>
         </div>
-      </div>
+      
     );
   };
 
