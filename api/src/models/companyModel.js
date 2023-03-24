@@ -27,6 +27,7 @@ const Company = sequelize.define('Company', {
   password:{
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
   description:{
     type: DataTypes.TEXT,
@@ -52,10 +53,6 @@ const Company = sequelize.define('Company', {
       isUrl: true,
     },
   },
-  active:{
-    type: DataTypes.BOOLEAN,
-    defaultValue: true
-}
 });
 
 module.exports = Company

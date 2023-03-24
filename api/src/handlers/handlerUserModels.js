@@ -1,9 +1,9 @@
 // const{ Users } = require('../database.js')
 const { Op } = require("sequelize");
-const { User, Admin, Postulant, Company } = require("../models/relations.js");
+const { User, Admin, Postulant, Company, Offers } = require("../models/relations.js");
 
 // Post
-const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, gender, password, name, description, location, website, logo, experience, tecnology}) => {
+const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, gender, password, companyname, description, location, website, logo, experience, tecnology }) => {
     try {
         const [usuario, created] = await User.findOrCreate({
                 where: { email },
@@ -50,12 +50,34 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
 
 //      Activos
 const getUsers = async () => {
-    const users = await User.findAll({
+    try {
+        const users = await User.findAll({
+            include:[
+            {
+                model: Admin,
+                attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
+            },
+            {
+                model: Postulant,
+                attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
+            },
+            {
+                model: Company,
+                attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
+            },
+            {
+                model: Offers,
+                attributes: { exclude: ['createdAt', 'updatedAt', 'userId'] },
+            }
+        ],
         where: {
             active: true
         },
     });
-    return users;
+    return users
+    } catch (error) {
+        
+    }
 };
 const getUsersByName = async ( name ) => {
     const users = await User.findAll({
@@ -66,6 +88,12 @@ const getUsersByName = async ( name ) => {
     });
     return users;
 };
+
+const getUsersByEmail = async ( email ) => {
+    const users = await User.findOne({ where: { email: email } });
+    return users;
+};
+
 const getUsersById = async ( id ) => {
     const user = await User.findByPk( id, {
         where: {
@@ -142,5 +170,6 @@ module.exports = {
     getUsersInactById,
     putUsers,
     putState,
-    deleteUsers
+    deleteUsers,
+    getUsersByEmail
 };

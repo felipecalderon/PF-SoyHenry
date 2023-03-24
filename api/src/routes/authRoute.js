@@ -15,10 +15,12 @@ const authUserCreate = async (req, res) => {
 
   const authUserLoginCredentials = async (req, res) => {
     try {
-      const data = await authLoginCredentials(req.body)
+      const {user, token} = await authLoginCredentials(req.body)
       res
-      .setHeader('token', data)
-      .json({ message: 'Inicio de sesion exitoso' });
+      // .setHeader('token', token)
+      .json({ message: 'Inicio de sesion exitoso',
+              user: user.rol
+    });
 
     } catch (error) {
       if(error.code === 'auth/email-already-in-use') return res.status(400).json({ message: 'El usuario ya existe' });
@@ -33,9 +35,9 @@ const authUserCreate = async (req, res) => {
       res.json(data);
 
     } catch (error) {
-      console.error(error);
+      console.log(error);
       if(error.code === 'auth/email-already-in-use') return res.status(400).json({ message: 'El usuario ya existe' });
-      res.status(400).json({ message: 'Error al crear el usuario' });
+      res.status(400).json(error);
     }
   };
 
