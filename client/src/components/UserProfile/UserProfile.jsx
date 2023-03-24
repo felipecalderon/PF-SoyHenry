@@ -61,13 +61,7 @@ function UserProfile() {
             valorSeleccionado: value
         })
     }
-    const actualizarData = (event) => {
-        const { name, value } = event.target;
-        SetData({
-            ...data,
-            [name]: value
-        })
-    }
+  
 
 const displayComponente=(selectedValueBarraPerfil)=>{
     switch (selectedValueBarraPerfil.valorSeleccionado) {
@@ -98,7 +92,7 @@ const displayComponente=(selectedValueBarraPerfil)=>{
             onChange={handleBarraPerfil}
                   />
 <label for="curriculum" className='cursor-pointer select-none '>Curriculum</label>
-                <input
+        <input
                 className='invisible'
             type="radio"
             name="barra-perfil"
@@ -127,7 +121,6 @@ const displayComponente=(selectedValueBarraPerfil)=>{
 
 
                 <section className="bg-primary-light flex   ">
-
                     <section className='bg-secondary-light m-5 p-4 border rounded-xl w-full ' style={{maxHeight:" 1200px"}}>
                         {inConfig ? <button className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={() => SetInConfig(!inConfig)}>Volver</button> : <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"onClick={() => SetInConfig(!inConfig)}>Configurar</button>}
                         {inConfig ? <Configuracion /> : <User />}
@@ -136,14 +129,15 @@ const displayComponente=(selectedValueBarraPerfil)=>{
                     <section className='bg-secondary-light m-5 p-4 border rounded-xl w-full  flex flex-col justify-start ' >
                         {displayComponente(selectedValueBarraPerfil)}
                     </section>
-
-
-
-
-
-
-
                 </section>
+
+
+
+
+
+
+
+
                 <Footer />
             </>
         )
