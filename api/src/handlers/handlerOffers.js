@@ -29,7 +29,7 @@ const getOffersDb = async () => {
                 include: [
                     {
                         model: Company,
-                        attributes: ["id","name","website"]
+                        attributes: ["id","website"]
                     }
                 ]
             },

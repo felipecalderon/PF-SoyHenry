@@ -3,36 +3,45 @@ const { Op } = require("sequelize");
 const { User, Admin, Postulant, Company, Offers } = require("../models/relations.js");
 
 // Post
-const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, gender, password, name, description, location, website, logo, experience, tecnology }) => {
+const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, gender, password, companyname, description, location, website, logo, experience, tecnology }) => {
     try {
-        const [ usuario, created ] = await User.findOrCreate({
-            where: { email },
-            defaults: {
-                username,
-                lastnames,
-                rol,
-                active,
-                password
-            }
+        const [usuario, created] = await User.findOrCreate({
+                where: { email },
+                defaults: {
+                  username,
+                  lastnames,
+                  rol,
+                  active,
+                  password,
+                  companyname,
+                  logo,
+                  website,
+                  description,
+                  location,
+                  email
+                }
         });
-        if (usuario) {
+        // if(usuario) {
+            // return usuario.dataValues
+        // }
+        // if (!created) {
         switch (rol) {
             case 'Postulante':
-                const dataPostulante = await Postulant.create({      //nueva modificacion experiencia y tecnologia modelo postulant
+                const postulant = await Postulant.create({      //nueva modificacion experiencia y tecnologia modelo postulant
                         names, lastnames, phone, disability, gender, experience, tecnology,
                         userId: usuario.id
                     });
-                return dataPostulante
+                return { ...usuario.dataValues, postulant }
             case 'Empresa':                       
-                const dataEmpresa = await Company.create({
-                    name, description, phone, location, gender, website, logo, 
+                const company = await Company.create({
+                    username, companyname, lastnames, password, email, description, location, website, logo, 
                         userId: usuario.id
                     });
-                    return { ...usuario.dataValues, dataEmpresa }
-                default:
-                    throw 'Tipo de usuario no válido'
-            }
+                    return { ...usuario.dataValues, company }
+            default:
+                throw 'Tipo de usuario no válido'
         }
+    // }
     } catch(err) {
         console.log(err)
         throw err

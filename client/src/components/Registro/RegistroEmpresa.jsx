@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logofusionajob from '../../assets/logofusionajob.png';
 import working2 from '../../assets/working2.png';
 import Footer from "../Footer/Footer";
@@ -9,26 +9,33 @@ import { useDispatch } from "react-redux";
 
 export const RegistroEmpresa = () => {
 
-    const dispatch = useDispatch
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [form, setForm] = useState({
         username: '',
-        apellido: '',
-        email: '',
+        companyname: '',
+        lastnames: '',
         password: '',
-        nombreEmpresa: '',
-        cuit: '',
-        documento: ''
+        email: '',
+        description: '',
+        location: '',
+        website: '',
+        logo: '',
+        rol: 'Empresa',
+        active: true
     });
 
     const [errors, setErrors] = useState({
         username: '',
-        apellido: '',
-        email: '',
+        companyname: '',
+        lastnames: '',
         password: '',
-        nombreEmpresa: '',
-        cuit: '',
-        documento: ''
+        email: '',
+        description: '',
+        location: '',
+        website: '',
+        logo: '',
     });
 
     const handleChange = (event) => {
@@ -44,7 +51,9 @@ export const RegistroEmpresa = () => {
         setErrors(errorsNew);
         if(Object.keys(errorsNew).length === 0) {
             dispatch(postFetchNewCompany(form));
+            console.log(form)
             alert('Usuario registrado');
+            navigate('/dashboardempresa');
         }
     };
 
@@ -90,16 +99,16 @@ export const RegistroEmpresa = () => {
                     <label className='dark:text-text-dark'>Nombre de la empresa:</label>
                 </div>
                 <div className='relative ml-[1rem] mb-[2rem]'>
-                    <input type='text' name='nombreEmpresa' value={form.nombreEmpresa} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
-                    {errors.nombreEmpresa && <p className='absolute mt-15 text-red-500' >{errors.nombreEmpresa}</p>}
+                    <input type='text' name='companyname' value={form.companyname} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
+                    {errors.companyname && <p className='absolute mt-15 text-red-500' >{errors.companyname}</p>}
                 </div>
 
                 <div className='absolute ml-[15.5rem] top-0'>
                     <label className='dark:text-text-dark'>Apellido:</label>
                 </div>
                 <div className='absolute ml-[15rem] mt-[1.5rem] top-0'>
-                    <input type='text' name='apellido' value={form.apellido} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
-                    {errors.apellido && <p className='absolute mt-15 text-red-500' >{errors.apellido}</p>}
+                    <input type='text' name='lastnames' value={form.lastnames} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
+                    {errors.lastnames && <p className='absolute mt-15 text-red-500' >{errors.lastnames}</p>}
                 </div>
 
                 <div className='absolute ml-[15.5rem] mt-[5.2rem] top-0'>
@@ -111,19 +120,35 @@ export const RegistroEmpresa = () => {
                 </div>
 
                 <div className='absolute ml-[15.5rem] mt-[10.5rem] top-0'>
-                    <label className='dark:text-text-dark'>CUIT:</label>
+                    <label className='dark:text-text-dark'>Descripcion:</label>
                 </div>
                 <div className='absolute ml-[15rem] mt-[12rem] top-0'>
-                    <input type='text' name='cuit' value={form.cuit} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
-                    {errors.cuit && <p className='absolute mt-15 text-red-500' >{errors.cuit}</p>}
+                    <textarea type='text' name='description' value={form.description} onChange={handleChange} className='border-2 rounded-2xl px-2'></textarea>
+                    {errors.description && <p className='absolute mt-15 text-red-500' >{errors.description}</p>}
                 </div>
 
                 <div className='relative ml-[1.5rem]'>
-                    <label className='dark:text-text-dark'>Documento:</label>
+                    <label className='dark:text-text-dark'>Ubicacion:</label>
                 </div>
                 <div className='relative ml-[1rem] mb-[1rem]'>
-                    <input type='text' pattern="^[0-9]\d*$" name='documento' value={form.documento} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
-                    {errors.documento && <p className='absolute mt-15 text-red-500' >{errors.documento}</p>}
+                    <input type='text' name='location' value={form.location} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
+                    {errors.location && <p className='absolute mt-15 text-red-500' >{errors.location}</p>}
+                </div>
+
+                <div className='relative ml-[1.5rem]'>
+                    <label className='dark:text-text-dark'>Website:</label>
+                </div>
+                <div className='relative ml-[1rem] mb-[1rem]'>
+                    <input type='text' name='website' value={form.website} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
+                    {errors.website && <p className='absolute mt-15 text-red-500' >{errors.website}</p>}
+                </div>
+
+                <div className='relative ml-[1.5rem]'>
+                    <label className='dark:text-text-dark'>Logo:</label>
+                </div>
+                <div className='relative ml-[1rem] mb-[1rem]'>
+                    <input type='text' name='logo' value={form.logo} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
+                    {errors.logo && <p className='absolute mt-15 text-red-500' >{errors.logo}</p>}
                 </div>
 
                 <div className='relative mt-[6rem] ml-[20rem] font-bold pb-[3rem]'>

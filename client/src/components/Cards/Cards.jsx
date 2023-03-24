@@ -33,7 +33,7 @@ const Cards = () => {
   const {data, isLoading, error} = useFetch(urlFilters)
   
   const [pageNumber, setPageNumber] = useState(0);
-  const [perPage] = useState(10);
+  const [perPage] = useState(9);
   
   const currentPage = parseInt(localStorage.getItem('currentPage')); // pagina actual
   
