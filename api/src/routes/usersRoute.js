@@ -13,10 +13,10 @@ const {
 const usersRoute = Router();
 
 // Post
-usersRoute.post( '/', createUsersController );
+usersRoute.post( '/auth/register', createUsersController );
 
 // Gets
-usersRoute.get( '/', getUsersControllers );
+usersRoute.get( '/auth/register', getUsersControllers );
 usersRoute.get( '/:id', getUsersByIdControllers );
 usersRoute.get( '/inact', getUsersInactControllers );
 usersRoute.get( '/inact/:id', getUsersInactByIdControllers );
