@@ -11,7 +11,25 @@ import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
+// Validacion del usuario 
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { getAuth } from 'firebase/auth';
+import fbapp from '../../firebaseConfig';
+import { useNavigate } from 'react-router-dom';
+
+
 const JobDetail = () => {
+  // Obtenemos la instancia de Firebase Auth
+  const auth = getAuth(fbapp);
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate()
+  
+  // valida si el usuario inicio sesion 
+  if (!user) {
+    spinnerPurple();
+    navigate('/');
+  }
+  
   const dispatch = useDispatch();
   const query = new URLSearchParams(window.location.search);
   const title = query.get('title');

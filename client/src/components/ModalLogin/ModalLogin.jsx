@@ -23,6 +23,15 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
         const provider = new GoogleAuthProvider();
         const correo = await signInWithPopup(auth, provider)
             .then((result) => {
+                console.log(result)
+                const usergoogle = { 
+                    photo: result.user.photoURL, 
+                    email: result.user.email,
+                    name: result.user.displayName,
+                }
+                const objetoJSON = JSON.stringify(usergoogle) // vuelve el objeto un JSON para poder guardarse en localStorage
+                localStorage.setItem('usergoogle', objetoJSON); //  Guardado local para que se mantengan la pagina en la que estaba el usuario
+                console.log(usergoogle)
                 return result.user.email
             })
             .catch(function (error) {
@@ -32,15 +41,17 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
         axios.get(`/user?email=${correo}`)
             .then(function (response) {
                 const { data } = response
-                if (data === 'Empresa') navigate('/dashboardempresa')
-                if (data === 'Postulante') navigate('/cards')
-                console.log(data)
+                const objetoJSON = JSON.stringify(data) // vuelve el objeto un JSON para poder guardarse en localStorage
+                localStorage.setItem('datauser', objetoJSON); //  Guardado local para que se mantengan la pagina en la que estaba el usuario
+                if (data.rol === 'Empresa') navigate('/dashboardempresa')
+                if (data.rol === 'Postulante') navigate('/offers')
             })
             .catch(function (error) {
                 console.log(error)
                 alert("Usuario no regitrado")
                 navigate('/profile')
             });
+        
     };
 
     const [form, setForm] = useState({
@@ -93,8 +104,7 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
             .then(function (response) {
                 const { data } = response
                 if (data.user === 'Empresa') navigate('/dashboardempresa')
-                if (data.user === 'Postulante') navigate('/cards')
-                console.log(data)
+                if (data.user === 'Postulante') navigate('/offers')
             })
             .catch(function (error) {
                 console.log(error)
