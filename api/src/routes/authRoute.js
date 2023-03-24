@@ -20,6 +20,8 @@ const authUserCreate = async (req, res) => {
   const authUserLoginCredentials = async (req, res) => {
     try {
       const {user, token} = await authLoginCredentials(req.body)
+      
+      
       res
       // .setHeader('token', token)
       .json({ message: 'Inicio de sesion exitoso',
@@ -28,7 +30,9 @@ const authUserCreate = async (req, res) => {
     });
 
     } catch (error) {
+      console.log(error)
       if(error.code === 'auth/email-already-in-use') return res.status(400).json({ message: 'El usuario ya existe' });
+      
       res.status(400).json({ message: 'Usuario inválido' });
 
     }
