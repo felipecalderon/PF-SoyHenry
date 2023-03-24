@@ -29,6 +29,7 @@ const{allCompany,
     putCompany,
     deleteCompany
     }=require('./companyRoute');
+const { getUsersByEmail } = require('../handlers/handlerUserModels');
 //
 
 const route = Router();
