@@ -142,7 +142,7 @@ function Favoritos() {
             "bd_create": false
         },]
   return (
-    <>{data.reverse().map((el)=><h2 className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-between">{el.title}{SVG_FAV}</h2>)}</>
+    <>{data.reverse().map((el)=><h2 className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-between">{el.title}</h2>)}</>
   )
 }
 
