@@ -7,6 +7,8 @@ import LandingPage from './components/LandingPage/LandingPage'
 import { Registro } from './components/Registro/Registro'
 import { RegistroEmpresa } from './components/Registro/RegistroEmpresa'
 import { About } from './components/About/About'
+import UserProfile from './components/UserProfile/UserProfile'
+import Pdf from './components/UserProfile/Pdf'
 
 
 export const rutas = createBrowserRouter([
@@ -41,5 +43,13 @@ export const rutas = createBrowserRouter([
     {
       path: '/about',
       element: <About />
+    },
+    {
+      path:"/profile",
+      element:<UserProfile/>
+    },
+    {
+      path:"/profile/pdf",
+      element:<Pdf/>
     }
 ])

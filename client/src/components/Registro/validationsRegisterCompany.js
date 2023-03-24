@@ -1,4 +1,4 @@
-const validationsRegister = (form) => {
+const validationsRegisterCompany = (form) => {
 
     let errors = {};
 
@@ -7,10 +7,10 @@ const validationsRegister = (form) => {
     } else if (!/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g.test(form.username)) {
         errors.username = 'El nombre es inválido.'
     }
-    if(!form.lastnames) {
-        errors.lastnames = 'Se necesita un apellido'
-    } else if (!/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g.test(form.lastnames)) {
-        errors.lastnames = 'El apellido es inválido.'
+    if(!form.apellido) {
+        errors.apellido = 'Se necesita un apellido'
+    } else if (!/^[ a-zA-ZÀ-ÿ\u00f1\u00d1]*$/g.test(form.apellido)) {
+        errors.apellido = 'El apellido es inválido.'
     }
     if(!form.documento) {
         errors.documento = 'Se necesita un documento'
@@ -22,6 +22,14 @@ const validationsRegister = (form) => {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
         errors.email = 'El email es inválido.';
     }
+    if(!form.nombreEmpresa){
+        errors.nombreEmpresa = 'Se necesita nombre de la empresa'
+    }
+    if(!form.cuit){
+        errors.cuit = 'Se necesita número de CUIT'
+    } else if (!/^[1-9]\d*$/.test(form.cuit)) {
+        errors.cuit = 'El CUIT es inválido'
+    } 
     if(!form.password.match(/\d/)){
         errors.password = "La contraseña debe contener al menos un número";
     }
@@ -31,4 +39,4 @@ const validationsRegister = (form) => {
     return errors;
 }
 
-export default validationsRegister;
+export default validationsRegisterCompany;
