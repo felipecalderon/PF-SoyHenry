@@ -7,7 +7,8 @@ const {
     getUsersInact,
     getUsersInactById,
     putState,
-    putUsers
+    putUsers,
+    getUsersByEmail
 } = require('../handlers/handlerUserModels') 
 
 const createUsersController = async (body) => {
@@ -21,9 +22,9 @@ const createUsersController = async (body) => {
 };
 
 // Gets
-const getUsersControllers = async ( { name } ) => {
+const getUsersControllers = async ( { name, email } ) => {
     try {
-        const response = name ? await getUsersByName( name ) : await getUsers();
+        const response = name ? await getUsersByName( name ) : email? await getUsersByEmail(email) : await getUsers()  ;
         return response
     } catch (error) {
         console.log(error)
