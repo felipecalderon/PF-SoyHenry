@@ -5,12 +5,12 @@ const { cleaningGetonbrd } = require('./Utils/offersCleaning');
 const paginate = require('./Utils/paginate');
 
 //post
-const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create, by }) => {
+const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create, by,idRecruiterOfferCreate }) => {
     try {
 
         const newOffer = await Offers.create({
             title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create,
-            userId: by,
+            userId: by,idRecruiterOfferCreate
         });
 
         return newOffer

@@ -19,11 +19,12 @@ const authCreatePostulant = async (body) => {
 }
 const authLoginCredentials = async ({email, password}) => {
   try {
+    
     const auth = getAuth();
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
     const {token} = userCredential.user.stsTokenManager
     const user = await getUsersByEmail(email)
-    console.log(user, token);
+    console.log(user);
     return {token, user}
   } catch (error) {
       throw error
