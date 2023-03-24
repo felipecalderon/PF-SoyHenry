@@ -9,8 +9,9 @@ import User from './User'
 import { NavCards } from '../Cards/Nav/NavCards'
 
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import fbapp from '../../firebaseConfig'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -19,9 +20,8 @@ import fbapp from '../../firebaseConfig'
 function UserProfile() {
     // Obtenemos la instancia de Firebase Auth
     const auth = getAuth(fbapp);
-    const provider = new GoogleAuthProvider();
     const [user] = useAuthState(auth);
-    
+    const navigate = useNavigate()
     
     const [isLogin, SetIsLogin] = useState(true)
     const [inConfig, SetInConfig] = useState(false)
@@ -48,11 +48,9 @@ function UserProfile() {
             direccion: "calle falsa 123"
         }
     })
-    const signInWithPopupGoogle = () => {
-        signInWithPopup(auth, provider)
-    }
+    
     if (!user) {
-        return <button onClick={signInWithPopupGoogle}>login</button>
+        navigate('/')
     }
     console.log(user)
     const handleBarraPerfil = (event) => {
