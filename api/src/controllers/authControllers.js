@@ -17,6 +17,7 @@ const authCreatePostulant = async (body) => {
         throw 'Error al iniciar sesión'
     }
 }
+// const getRoleByEmailController = async(email) 
 const authLoginCredentials = async ({email, password}) => {
   try {
     const auth = getAuth();

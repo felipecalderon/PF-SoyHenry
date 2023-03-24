@@ -6,8 +6,11 @@ import working1 from '../../assets/working1.png';
 import Footer from "../Footer/Footer";
 import { useDispatch } from "react-redux";
 import { postFetchNewUsers } from "../../redux/actions/postFetchNewUser";
+import fbapp from "../../firebaseConfig"
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
 
 export const Registro = () => {
+    const auth = getAuth(fbapp);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -36,15 +39,16 @@ export const Registro = () => {
             [event.target.name]: event.target.value
         })
     };
-    
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const errorsNew = validationsRegister(form);
         setErrors(errorsNew);
-        if(Object.keys(errorsNew).length === 0) {
-        dispatch(postFetchNewUsers(form));
+        if (Object.keys(errorsNew).length === 0) {
+            dispatch(postFetchNewUsers(form));
+            signInWithEmailAndPassword(auth, form.email, form.password)
             alert('Usuario registrado');
-            navigate('/cards');
+            navigate('/offers');
         }
     };
 
@@ -52,7 +56,7 @@ export const Registro = () => {
         <div className='relative bg-primary-light dark:bg-secondary-dark'>
 
             <div className='bg-secondary-light dark:bg-primary-dark h-16'>
-                <img src={logofusionajob} alt='Fusionalogo' className='flex relative w-[16rem] ml-[32rem]'/>
+                <img src={logofusionajob} alt='Fusionalogo' className='flex relative w-[16rem] ml-[32rem]' />
                 <Link to='/'><button className='absolute top-3 left-14 py-[.1rem] px-2 h-[2.5rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>← Home</button></Link>
                 <Link to='/companyregister'><button className='absolute top-5 right-10 text-red-600 font-bold hover:text-xl transition-all'>Registrate como recruiter</button></Link>
             </div>
@@ -62,7 +66,7 @@ export const Registro = () => {
             </div>
 
             <div className='flex absolute right-0 mr-[5rem]'>
-                <img src={working1} alt='work1' className='w-[35rem] mt-[1rem]'/>
+                <img src={working1} alt='work1' className='w-[35rem] mt-[1rem]' />
             </div>
 
 
@@ -123,7 +127,7 @@ export const Registro = () => {
             </div>
 
             <div className='bottom-0'>
-                <Footer/>
+                <Footer />
             </div>
         </div>
     )

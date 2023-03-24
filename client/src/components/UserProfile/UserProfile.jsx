@@ -8,10 +8,12 @@ import Configuracion from "./Configuracion"
 import User from './User'
 import { NavCards } from '../Cards/Nav/NavCards'
 
+// Validacion del usuario 
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import fbapp from '../../firebaseConfig'
-
+import { useNavigate } from 'react-router-dom'
+import { spinnerPurple } from '../Cards/spinner'
 
 
 
@@ -19,10 +21,9 @@ import fbapp from '../../firebaseConfig'
 function UserProfile() {
     // Obtenemos la instancia de Firebase Auth
     const auth = getAuth(fbapp);
-    const provider = new GoogleAuthProvider();
     const [user] = useAuthState(auth);
-    
-    
+    const navigate = useNavigate()
+
     const [isLogin, SetIsLogin] = useState(true)
     const [inConfig, SetInConfig] = useState(false)
     const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
@@ -48,58 +49,57 @@ function UserProfile() {
             direccion: "calle falsa 123"
         }
     })
-    const signInWithPopupGoogle = () => {
-        signInWithPopup(auth, provider)
-    }
-    if (!user) {
-        return <button onClick={signInWithPopupGoogle}>login</button>
-    }
-    console.log(user)
+
     const handleBarraPerfil = (event) => {
         const { value } = event.target
         SetSelectedValueBarraPerfil({
             valorSeleccionado: value
         })
     }
-  
+    const actualizarData = (event) => {
+        const { name, value } = event.target;
+        SetData({
+            ...data,
+            [name]: value
+        })
+    }
 
-const displayComponente=(selectedValueBarraPerfil)=>{
-    switch (selectedValueBarraPerfil.valorSeleccionado) {
-        case "curriculum":
-            return <Curriculum/>
-        case "postulaciones":
-            return <Postulaciones/>   
-          case "favoritos":
-            return <Favoritos/>  
-          };
-};
-// useEffect(()=>{
-//     displayComponente(selectedValueBarraPerfil)
-// },[selectedValueBarraPerfil])
- if(isLogin) {
-    return (
-        <>
-        <NavCards/>
-
- <div className='flex justify-around bg-primary-light '>
- <input
-            className='invisible'
-            type="radio"
-            name="barra-perfil"
-            value="curriculum"
-            id="curriculum"
-            checked={selectedValueBarraPerfil.valorSeleccionado === "curriculum"}
-            onChange={handleBarraPerfil}
-                  />
-<label for="curriculum" className='cursor-pointer select-none '>Curriculum</label>
-        <input
-                className='invisible'
-            type="radio"
-            name="barra-perfil"
-            value="postulaciones"
-            id="postulaciones"
-            checked={selectedValueBarraPerfil.valorSeleccionado === "postulaciones"}
-            onChange={handleBarraPerfil}
+    const displayComponente = (selectedValueBarraPerfil) => {
+        switch (selectedValueBarraPerfil.valorSeleccionado) {
+            case "curriculum":
+                return <Curriculum />
+            case "postulaciones":
+                return <Postulaciones />
+            case "favoritos":
+                return <Favoritos />
+        };
+    };
+    // useEffect(()=>{
+    //     displayComponente(selectedValueBarraPerfil)
+    // },[selectedValueBarraPerfil])
+    if (isLogin) {
+        return (
+            <>
+                <NavCards />
+                <div className='flex justify-around bg-primary-light '>
+                    <input
+                        className='invisible'
+                        type="radio"
+                        name="barra-perfil"
+                        value="curriculum"
+                        id="curriculum"
+                        checked={selectedValueBarraPerfil.valorSeleccionado === "curriculum"}
+                        onChange={handleBarraPerfil}
+                    />
+                    <label for="curriculum" className='cursor-pointer select-none '>Curriculum</label>
+                    <input
+                        className='invisible'
+                        type="radio"
+                        name="barra-perfil"
+                        value="postulaciones"
+                        id="postulaciones"
+                        checked={selectedValueBarraPerfil.valorSeleccionado === "postulaciones"}
+                        onChange={handleBarraPerfil}
 
 
                     />
@@ -112,11 +112,8 @@ const displayComponente=(selectedValueBarraPerfil)=>{
                         id="favoritos"
                         checked={selectedValueBarraPerfil.valorSeleccionado === "favoritos"}
                         onChange={handleBarraPerfil}
-
-
                     />
                     <label for="favoritos" className='cursor-pointer select-none'>Favoritos</label>
-
                 </div>
 
 
@@ -141,6 +138,9 @@ const displayComponente=(selectedValueBarraPerfil)=>{
                 <Footer />
             </>
         )
+    } else {
+        spinnerPurple()
+        navigate('/')
     }
 }
 
