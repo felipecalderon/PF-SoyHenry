@@ -92,7 +92,7 @@ const getUsersByName = async (name) => {
 const getUsersByEmail = async (email) => {
     try {
         const users = await User.findOne({ where: { email: email } });
-        return users.rol
+        return users
     } catch (error) {
         throw error
     }
