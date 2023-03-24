@@ -35,7 +35,7 @@ function User() {
         })
       }
   return (
-    <ul className='flex flex-col justify-between items-start '>
+    <ul className='flex flex-col justify-between items-start p-8 h-full '>
     <li><img src={user} alt="" width="150px" className='border rounded-full m-4' /></li>
 
     <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>

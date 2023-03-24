@@ -1,7 +1,7 @@
 import React from 'react'
 import Footer from '../Footer/Footer'
 import { useState, useEffect } from 'react'
-import {Nav} from "../Nav/Nav"
+import  {NavCards} from "../Cards/Nav/NavCards"
 import Curriculum from './Curriculum'
 import Postulaciones from "./Postulaciones"
 import Favoritos  from './Favoritos'
@@ -66,7 +66,7 @@ const displayComponente=(selectedValueBarraPerfil)=>{
  if(isLogin) {
     return (
         <>
-        <Nav/>
+        <NavCards/>
 
  <div className='flex justify-around bg-primary-light '>
  <input

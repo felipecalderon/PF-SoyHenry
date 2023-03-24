@@ -48,21 +48,21 @@ function Configuracion() {
         
                     
 
-                    <ul className='flex flex-col justify-between items-start '>
+                    <ul className='flex flex-col justify-between items-start p-8'>
                         <li><img src={user} alt="" width="150px" className='border rounded-full m-4' /></li>
 
                         <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400  w-full flex items-center justify-between'>
                              <input type="text" 
-                             id="nombre" placeholder='Nombre' className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-1/3  " name="nombre" value={data.nombre} onChange={actualizarData} required/>
+                             id="nombre" placeholder='Nombre' className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-1/3 text-center " name="nombre" value={data.nombre} onChange={actualizarData} required/>
                          
-                           <input type="text" id="pellido" className="form-input mt-1 block  rounded-md border-gray-300 shadow-sm w-1/3" placeholder='Apellido' name="apellido" value={data.apellido} onChange={actualizarData}/>
+                           <input type="text" id="pellido" className="form-input mt-1 block  rounded-md border-gray-300 shadow-sm w-1/3 text-center" placeholder='Apellido' name="apellido" value={data.apellido} onChange={actualizarData}/>
                            <label for="edad">Edad
                            </label>
                            <input type="number" id="edad" className="form-input mt-1 block rounded-md border-gray-300 shadow-sm"  min="18" max="120" name="edad" value={data.edad} onChange={actualizarData}/>
                           
                        </li>
                         <hr className='border border-b-gray-100  w-full ' />
-                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex-grow w-full' >
+                        <li className='mb-1 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full' >
                           <label for="ubicacion">Ubicacion </label>
                           <input 
                           id="ubicacion"
