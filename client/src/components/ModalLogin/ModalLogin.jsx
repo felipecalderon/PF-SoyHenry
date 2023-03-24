@@ -61,29 +61,30 @@ export const ModalLogin = ({isOpen, setOpen}) => {
         if(googleUser !== undefined) setUser(googleUser?.user?.displayName)  
         setError(true) 
     }, [idToken, googleUser])
-
+    
     // useEffect(() => {
         
-
-    //   }, [sendform]);
-
-      const handleSubmit = (event) => {
-          event.preventDefault()
-          console.log('click');
-          const {email, password} = form
-          axios.post('/auth/login/', {
-              email,
-              password
+        
+        //   }, [sendform]);
+        
+    const handleSubmit = (event) => {
+        console.log(idToken)
+            event.preventDefault()
+            console.log('click');
+            const {email, password} = form
+            axios.post('/auth/login/', {
+                email,
+                password
             })
             .then(function (response) {
-              const {data} = response
-              if(data.user === 'Empresa') navigate('/dashboardempresa')
-              if(data.user === 'Postulante') navigate('/cards')
-            //   navigate('/cards')
+                const { data } = response
+                if(data.user === 'Empresa') navigate('/dashboardempresa')
+                if(data.user === 'Postulante') navigate('/cards')
+                console.log(data)
             })
             .catch(function (error) {
-              console.log(error)
-              setError(error.response.data.message);
+                console.log(error)
+                setError(error.response.data.message);
             });
     };
 
