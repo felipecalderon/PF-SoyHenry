@@ -13,6 +13,7 @@ const authCreatePostulant = async (body) => {
           const user = userCredential.user
         return `Inicio de sesion exitoso`
     } catch (error) {
+      console.log(error);
         throw 'Error al iniciar sesión'
     }
 }
