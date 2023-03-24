@@ -12,30 +12,36 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
                   lastnames,
                   rol,
                   active,
-                  password
+                  password,
+                  companyname,
+                  logo,
+                  website,
+                  description,
+                  location,
+                  email
                 }
         });
-        if(usuario) {
-            return usuario.dataValues
-        }
-        if (!created) {
+        // if(usuario) {
+            // return usuario.dataValues
+        // }
+        // if (!created) {
         switch (rol) {
             case 'Postulante':
-                const dataPostulante = await Postulant.create({      //nueva modificacion experiencia y tecnologia modelo postulant
+                const postulant = await Postulant.create({      //nueva modificacion experiencia y tecnologia modelo postulant
                         names, lastnames, phone, disability, gender, experience, tecnology,
                         userId: usuario.id
                     });
-                return dataPostulante
+                return { ...usuario.dataValues, postulant }
             case 'Empresa':                       
-                const dataEmpresa = await Company.create({
-                    name, description, phone, location, gender, website, logo, 
+                const company = await Company.create({
+                    username, companyname, lastnames, password, email, description, location, website, logo, 
                         userId: usuario.id
                     });
-                return dataEmpresa
+                    return { ...usuario.dataValues, company }
             default:
                 throw 'Tipo de usuario no válido'
         }
-    }
+    // }
     } catch(err) {
         console.log(err)
         throw err

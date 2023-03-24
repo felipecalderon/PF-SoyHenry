@@ -25,21 +25,37 @@ const searchCompanyAPI = async (id) => {
     }
 }
 
-const postCompany = async ({ username,rol,email,active,password,name,description,location,website,logo}) => {
+const postCompany = async ({ username,rol,email,lastnames, active,password,companyname,description,location,website,logo}) => {
     try {
 
         const result = await cloudinary.uploader.upload(logo)
 
         const newUser = await User.create({
-            username, email, rol, active,password
-            });
-
-        const newCompany = await Company.create({
-            name,
+            username,
+            companyname,
+            lastnames,
+            password,
+            email,
             description,
             location,
             website,
             logo: result.secure_url,
+            rol,
+            active
+            });
+
+        const newCompany = await Company.create({
+            username,
+            companyname,
+            lastnames,
+            password,
+            email,
+            description,
+            location,
+            website,
+            logo: result.secure_url,
+            rol,
+            active,
             userId:newUser.id
         });
         
