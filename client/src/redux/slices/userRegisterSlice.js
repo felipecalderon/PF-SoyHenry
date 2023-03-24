@@ -9,7 +9,7 @@ const userRegisterSlice = createSlice({
 
     },
     reducers: {
-        getUser: (state, action) => {
+        saveUser: (state, action) => {
             state.user = action.payload
         },
         addFavorites:(state, action) => {
@@ -18,5 +18,5 @@ const userRegisterSlice = createSlice({
     }
 })
 
-export const { getUser, addFavorites } = userRegisterSlice.actions
+export const { saveUser, addFavorites } = userRegisterSlice.actions
 export default userRegisterSlice.reducer

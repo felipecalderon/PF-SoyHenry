@@ -91,7 +91,7 @@ const getUsersByName = async (name) => {
 
 const getUsersByEmail = async (email) => {
     try {
-        const users = await User.findOne({ where: { email: email } });
+        const users = await User.findOne({ where: { email: email } });        
         return users
     } catch (error) {
         throw error
@@ -103,6 +103,14 @@ const getUsersById = async (id) => {
         where: {
             estado: 1
         },
+    });
+    return user;
+};
+
+const getUsersByIdCforanea = async ({id}) => {
+    const user = await User.findOne({ where: {id: id} , 
+        
+        include: [{ model: Company}, {model: Postulant}]        
     });
     return user;
 };
@@ -175,5 +183,6 @@ module.exports = {
     putUsers,
     putState,
     deleteUsers,
-    getUsersByEmail
+    getUsersByEmail,
+    getUsersByIdCforanea
 };
