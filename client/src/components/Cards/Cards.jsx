@@ -16,15 +16,15 @@ import { useNavigate } from 'react-router-dom';
 
 const Cards = () => {
   // Obtenemos la instancia de Firebase Auth
-  const auth = getAuth(fbapp);
-  const [user] = useAuthState(auth);
+  // const auth = getAuth(fbapp);
+  // const [user] = useAuthState(auth);
   const navigate = useNavigate()
   
   // valida si el usuario inicio sesion 
-  if (!user) {
-    spinnerPurple();
-    navigate('/');
-  }
+  // if (!user) {
+  //   spinnerPurple();
+  //   navigate('/');
+  // }
 
   const dispatch = useDispatch()
   const { postJobs } = useSelector((state) => state.postSlice)
