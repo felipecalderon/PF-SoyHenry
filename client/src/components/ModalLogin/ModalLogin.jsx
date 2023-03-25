@@ -34,7 +34,7 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
         }
       } 
       
-    const handleLogin = async () => {
+    const handleLoginGoogle = async () => {
         try {
             const {email} = await authWithGoogle()
             const verifyUsrExist = await axios.post(`/user/email`, {email})
@@ -89,12 +89,12 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
                 password
             })
             const { data } = response
-            if (data.user === 'Empresa') navigate('/dashboardempresa')
-            if (data.user === 'Postulante') navigate('/offers')
             const responseUserPk = await axios.post('/userPk', { id: data.id })
             dispatch(saveUser(responseUserPk.data))
             const objetoJSON = JSON.stringify(responseUserPk.data)
             localStorage.setItem('userLogin', objetoJSON)
+            if (data.user === 'Empresa') navigate('/dashboardempresa')
+            if (data.user === 'Postulante') navigate('/offers')
         } catch (error) {
             console.log(error)
             setError(error.response.data.message)
@@ -128,7 +128,7 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
                             <button className='border-2 border-gray-400 hover:border-gray-500 text-gray-400 hover:text-gray-500 font-medium py-2 px-4 rounded-md my-2 transition duration-200'>Crear cuenta</button>
                         </div>
                         <div className='flex justify-center items-center text-sm'>
-                            <button onClick={handleLogin} className='w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md mr-4'>
+                            <button onClick={handleLoginGoogle} className='w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md mr-4'>
                                 <img src={gglogo} className='w-6 h-6 inline-block align-middle mr-2' alt='Google' />Ingresar con Google
                             </button>
                             <button className='w-full bg-blue-700 hover:bg-blue-800 text-white py-2 px-4 rounded-md mr-4'>
