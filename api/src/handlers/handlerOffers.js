@@ -5,12 +5,12 @@ const { cleaningGetonbrd } = require('./Utils/offersCleaning');
 const paginate = require('./Utils/paginate');
 
 //post
-const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create, by,idRecruiterOfferCreate }) => {
+const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create, by,idRecruiterOfferCreate, idAplicants }) => {
     try {
 
         const newOffer = await Offers.create({
             title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create,
-            userId: by,idRecruiterOfferCreate
+            userId: by,idRecruiterOfferCreate, idAplicants
         });
 
         return newOffer
@@ -51,6 +51,22 @@ const getAllOffersDb = async ({ page = 1, limit = 10 }) => {
         const offers = paginate( offerts_db, page, limit )
         
         return offers;
+    } catch (error) {
+        throw error
+    }
+};
+const getAllOffersDbId = async ( id ) => {
+    try {
+        // trae todos las ofertas de la Db
+        const offerts_dbid = await Company.findOne({
+            where: {
+                id
+            },
+            include: [{
+                model: Offers
+            }]
+        });
+        return offerts_dbid;
     } catch (error) {
         throw error
     }
@@ -106,18 +122,18 @@ const getOffersByIdApi = async (id, title) => {
 }
 
 // Puts
-const putOffert = async ({ id }, { title, requeriments, functions, benefits, perks, min_salary, max_salary, modality }) => {
-    try {
+const putOffert = async ({ id }, { title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, idRecruiterOfferCreate, idAplicants }) => {
+    try {   
         // Comprueba si existe la oferta
         const Offert = await Offers.findByPk( id );
         if( !Offert ) throw Error( `La oferta con id: ${id} no existe` );
         
         // Comprueba si falta algun dato
-        if( !title || !requeriments || !functions || !benefits || !perks || !min_salary || !max_salary || !modality ) throw Error('Faltan Datos');
+        if( !title || !requeriments || !functions || !benefits || !perks || !min_salary || !max_salary || !modality || !idAplicants || !experience ||!applications_count ||!idRecruiterOfferCreate ) throw Error('Faltan Datos');
         
         // Actualiza los datos
         await Offers.update(
-            { title, requeriments, functions, benefits, perks, min_salary, max_salary, modality },
+            { title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, idAplicants, experience, applications_count, idRecruiterOfferCreate },
             {
                 where: { id }
             }
@@ -170,6 +186,7 @@ module.exports = {
     createOfferHandler,
     getOffersDb,
     getAllOffersDb,
+    getAllOffersDbId,
     getOffersByTitleDb,
     getOffersApiGetonbrd,
     getOffersById,

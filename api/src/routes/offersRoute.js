@@ -6,6 +6,7 @@ const {
     deleteOffersController,
     getOfferByIdController,
     getAllOffersDbController, 
+    getAllOffersDbIdController, 
 } = require('../controllers/offersControllers')
 
 // post
@@ -41,6 +42,17 @@ const allOffersDb = async (req, res) => {
         res.status(404).json({ error: error.message })
     }
 }
+
+const allOffersDbId = async (req, res) => {
+    try {
+        const offers = await getAllOffersDbIdController(req.params)
+        return res.status(200).json( offers )
+        
+    } catch (error) {
+        res.status(404).json({ error: error.message })
+    }
+}
+
 const getOffersById = async (req, res) => {
     try {
         const offert = await getOfferByIdController(req.params, req.query)
@@ -88,6 +100,7 @@ module.exports = {
     createOffer,
     allOffers,
     allOffersDb,
+    allOffersDbId,
     getOffersById,
     putOffers,
     putLdOffers,

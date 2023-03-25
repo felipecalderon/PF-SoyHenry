@@ -71,7 +71,7 @@ export const RegistroEmpresa = () => {
         </div>
 
         <div className='flex absolute right-0 mr-[5rem]'>
-            <img src={working2 } alt='work1' className='w-[35rem] mt-[1rem]'/>
+            <img src={working2 } alt='work1' className='w-[35rem] mt-[5rem]'/>
         </div>
 
 
@@ -119,18 +119,11 @@ export const RegistroEmpresa = () => {
                     {errors.password && <p className='absolute mt-15 text-red-500' >{errors.password}</p>}
                 </div>
 
+
                 <div className='absolute ml-[15.5rem] mt-[10.5rem] top-0'>
-                    <label className='dark:text-text-dark'>Descripcion:</label>
+                    <label className='dark:text-text-dark'>Ubicación:</label>
                 </div>
                 <div className='absolute ml-[15rem] mt-[12rem] top-0'>
-                    <textarea type='text' name='description' value={form.description} onChange={handleChange} className='border-2 rounded-2xl px-2'></textarea>
-                    {errors.description && <p className='absolute mt-15 text-red-500' >{errors.description}</p>}
-                </div>
-
-                <div className='relative ml-[1.5rem]'>
-                    <label className='dark:text-text-dark'>Ubicacion:</label>
-                </div>
-                <div className='relative ml-[1rem] mb-[1rem]'>
                     <input type='text' name='location' value={form.location} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
                     {errors.location && <p className='absolute mt-15 text-red-500' >{errors.location}</p>}
                 </div>
@@ -138,17 +131,25 @@ export const RegistroEmpresa = () => {
                 <div className='relative ml-[1.5rem]'>
                     <label className='dark:text-text-dark'>Website:</label>
                 </div>
-                <div className='relative ml-[1rem] mb-[1rem]'>
+                <div className='relative ml-[1rem] mb-[2rem]'>
                     <input type='text' name='website' value={form.website} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
                     {errors.website && <p className='absolute mt-15 text-red-500' >{errors.website}</p>}
                 </div>
 
-                <div className='relative ml-[1.5rem]'>
+                <div className='absolute ml-[15.5rem] mt-[15.8rem] top-0'>
                     <label className='dark:text-text-dark'>Logo:</label>
                 </div>
-                <div className='relative ml-[1rem] mb-[1rem]'>
+                <div className='absolute ml-[15rem] mt-[17.3rem] top-0'>
                     <input type='text' name='logo' value={form.logo} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
                     {errors.logo && <p className='absolute mt-15 text-red-500' >{errors.logo}</p>}
+                </div>
+                
+                <div className='relative ml-[1.5rem]'>
+                    <label className='dark:text-text-dark'>Descripción:</label>
+                </div>
+                <div className='relative ml-[1rem] mb-[1rem]'>
+                    <textarea type='text' name='description' value={form.description} onChange={handleChange} className='border-2 rounded-2xl px-2 resize-none'></textarea>
+                    {errors.description && <p className='absolute mt-15 text-red-500' >{errors.description}</p>}
                 </div>
 
                 <div className='relative mt-[6rem] ml-[20rem] font-bold pb-[3rem]'>
@@ -159,7 +160,7 @@ export const RegistroEmpresa = () => {
 
         </div>
 
-        <div className='absolute ml-[15rem] mt-[35rem] top-0'>
+        <div className='absolute ml-[15rem] mt-[41rem] top-0'>
             <p className='dark:text-text-dark'>Al hacer click en Crear Cuenta, acepto las Condiciones de uso y las Políticas de privacidad de Fusionajob.</p>
         </div>
 
