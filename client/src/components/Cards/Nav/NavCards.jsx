@@ -72,8 +72,8 @@ export const NavCards = () => {
                         {/* Menu desplegable */}
                         <div id="userDropdown" className={`fixed z-10 ${showMenu ? "" : "hidden"} bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 translate-y-12 translate-x-40 `}>
                             <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                                <div>{ userGoogle? userGoogle.name : user.username }</div>
-                                <div class="font-medium truncate">{ userGoogle? userGoogle.email : user.email }</div>
+                                <div>{ userGoogle? userGoogle.name : user? user.username : "Completa los datos" }</div>
+                                <div class="font-medium truncate">{ userGoogle? userGoogle.email : user? user.email : "" }</div>
                             </div>
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
                                 <li>
