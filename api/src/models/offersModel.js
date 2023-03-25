@@ -53,9 +53,6 @@ const Offers = sequelize.define('Offers', {
     active:{
         type: DataTypes.BOOLEAN,
         defaultValue: true
-    },
-    idAplicants:{
-        type: DataTypes.ARRAY(DataTypes.STRING),
     }
 });
 module.exports = Offers
