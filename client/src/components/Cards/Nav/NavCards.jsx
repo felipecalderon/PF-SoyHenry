@@ -14,7 +14,9 @@ export const NavCards = () => {
     
     const userGoogleJson = localStorage.getItem('usergoogle');
     const userGoogle = JSON.parse(userGoogleJson); 
-    console.log(userGoogle);
+
+    const userJson = localStorage.getItem('userLogin');
+    const user = JSON.parse(userJson); 
 
     const handleToggle = () => {
         const newIsDarkMode = !isDarkMode;
@@ -66,12 +68,12 @@ export const NavCards = () => {
                     <div className="flex dark:text-text-dark text-gray-900">
                         <Link to='/offers' className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Ofertas</Link>
                         <Link to='/about' className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Sobre nosotros</Link>
-                        {/* <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" className="w-10 h-10 rounded-full cursor-pointer" src={userGoogle.photo} alt="User dropdown" onClick={handleAvatarClick} /> */}
+                        <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" className="w-10 h-10 rounded-full cursor-pointer" src={userGoogle? userGoogle.photo : "https://st2.depositphotos.com/1309454/5538/v/450/depositphotos_55380965-stock-illustration-avatars-characters.jpg"} alt="User dropdown" onClick={handleAvatarClick} />
                         {/* Menu desplegable */}
                         <div id="userDropdown" className={`fixed z-10 ${showMenu ? "" : "hidden"} bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 translate-y-12 translate-x-40 `}>
                             <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                                {/* <div>{userGoogle.name}</div> */}
-                                {/* <div class="font-medium truncate">{userGoogle.email}</div> */}
+                                <div>{ userGoogle? userGoogle?.name : user?.username }</div>
+                                <div class="font-medium truncate">{ userGoogle? userGoogle?.email : user?.email }</div>
                             </div>
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
                                 <li>
