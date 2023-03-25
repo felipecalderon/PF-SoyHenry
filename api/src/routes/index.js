@@ -12,6 +12,7 @@ const {
     allOffers, 
     createOffer,
     allOffersDb,
+    allOffersDbId,
     deleteOffer,
     putOffers,
     putLdOffers,
@@ -48,6 +49,7 @@ route.post('/jobs' , createOffer);
 route.get('/jobs' , allOffers);
 route.get('/jobs/:id' , getOffersById);
 route.get('/jobsdb' , allOffersDb);
+route.get('/jobsdb/:id' , allOffersDbId);
 route.put('/jobdb/:id' , putOffers);
 route.put('/jobsld/:id' , putLdOffers); // Logical deletion
 route.delete('/jobdb/:id' , deleteOffer); // Physical deletion

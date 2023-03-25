@@ -53,10 +53,7 @@ const Offers = sequelize.define('Offers', {
     active:{
         type: DataTypes.BOOLEAN,
         defaultValue: true
-    },
-    idRecruiterOfferCreate:{
-        type: DataTypes.STRING,
-    },
+    }
 });
 
 module.exports = Offers

@@ -4,6 +4,7 @@ const {
     getOffersDb,
     getOffersByTitleDb,
     getAllOffersDb,
+    getAllOffersDbId,
     deleteOffers,
     putOffert,
     putOffertLD,
@@ -55,6 +56,16 @@ const getAllOffersDbController = async ( query ) => {
         throw error
     }
 }
+
+const getAllOffersDbIdController = async ( {id} ) => {
+    try {
+        const offersDbId = await getAllOffersDbId( id );
+        return offersDbId
+    } catch (error) {
+        throw error
+    }
+}
+
 const getOfferByIdController = async ({ id }, {title}) => {
     try {
         // si el id es un numero buscara en la Db sino buscara en la api
@@ -98,6 +109,7 @@ module.exports = {
     createOfferController,
     getAllOffersController, 
     getAllOffersDbController,
+    getAllOffersDbIdController,
     getOfferByIdController,
     putOffertController,
     putOffertLDController,
