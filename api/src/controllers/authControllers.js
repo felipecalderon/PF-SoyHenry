@@ -20,12 +20,10 @@ const authCreatePostulant = async (body) => {
 // const getRoleByEmailController = async(email) 
 const authLoginCredentials = async ({email, password}) => {
   try {
-    
     const auth = getAuth();
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
     const {token} = userCredential.user.stsTokenManager
-    const user = await getUsersByEmail(email)
-    console.log(user);
+    const user = await getUsersByEmail({email})
     return {token, user}
   } catch (error) {
       throw error
