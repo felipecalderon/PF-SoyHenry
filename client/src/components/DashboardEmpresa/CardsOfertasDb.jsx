@@ -1,10 +1,12 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -43,7 +45,14 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 
 export const CardsOfertasDb = () => {
-  const [expanded, setExpanded] = React.useState('panel1');
+  const [expanded, setExpanded] = useState('panel1');
+
+  const { user } = useSelector((state) => state.userRegisterSlice)
+  
+  useEffect(() => {
+      const offersCompany = axios.get(`/jobsdb/${user.Companies[0].id}`)
+      .then(res => console.log(res.data))
+    },[user])
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
