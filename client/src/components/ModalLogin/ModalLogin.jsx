@@ -40,6 +40,7 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
             const verifyUsrExist = await axios.post(`/user/email`, {email})
 
             if(!verifyUsrExist.data) {
+            // ALERT DEBERÍA DECIR ALGO COMO.. ESCOGE EL PERFIL SEGÚN TU INTERÉS: QUIERO BUSCAR EMPLEOS || QUIERO PUBLICAR OFERTAS DE TRABAJO (2 BOTONES)
                 alert("Gracias por unirte a FusionaJob! Por favor continúa completando tu perfíl")
                 return navigate('/profile')
             }
