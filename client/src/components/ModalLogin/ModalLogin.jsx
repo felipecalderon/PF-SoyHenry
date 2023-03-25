@@ -1,122 +1,107 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import validations from './validations';
-import fblogo from '../../assets/fbwhite.png';
-import gglogo from '../../assets/ggwhite.png';
-import ghlogo from '../../assets/ghwhite.png';
-import { useNavigate } from "react-router";
-import { Link } from 'react-router-dom';
+import React, { useState } from "react"
+import { useDispatch } from "react-redux"
+import validations from './validations'
+import fblogo from '../../assets/fbwhite.png'
+import gglogo from '../../assets/ggwhite.png'
+import ghlogo from '../../assets/ghwhite.png'
+import { useNavigate } from "react-router"
 import fbapp from "../../firebaseConfig"
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
-import useFetch from "../Hooks/useFetch";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import axios from 'axios'
 import { saveUser } from '../../redux/slices/userRegisterSlice'
-// import {decode} from 'jsonwebtoken'
 
 export const ModalLogin = ({ isOpen, setOpen }) => {
-    const dispatch = useDispatch();
-    const [user, setUser] = useState(null)
+    const dispatch = useDispatch()
     const [error, setError] = useState(null)
-    const [sendform, setSendForm] = useState(false)
-    const [idToken, setIdToken] = useState('');
     const navigate = useNavigate()
-    const auth = getAuth(fbapp);
+    const auth = getAuth(fbapp)
 
-    const handleLogin = async () => {
-        const provider = new GoogleAuthProvider();
-        const correo = await signInWithPopup(auth, provider)
-            .then((result) => {
-                console.log(result)
-                const usergoogle = { 
-                    photo: result.user.photoURL, 
-                    email: result.user.email,
-                    name: result.user.displayName,
-                }
-                const objetoJSON = JSON.stringify(usergoogle) // vuelve el objeto un JSON para poder guardarse en localStorage
-                localStorage.setItem('usergoogle', objetoJSON); //  Guardado local para que se mantengan la pagina en la que estaba el usuario
-                console.log(usergoogle)
-                return result.user.email
-            })
-            .catch(function (error) {
-                console.log(error)
-                setError(error.response.data.message);
-            });
-        axios.get(`/user?email=${correo}`)
-            .then(function (response) {
-                const { data } = response
-                const objetoJSON = JSON.stringify(data) // vuelve el objeto un JSON para poder guardarse en localStorage
-                localStorage.setItem('datauser', objetoJSON); //  Guardado local para que se mantengan la pagina en la que estaba el usuario
-                if (data.rol === 'Empresa') navigate('/dashboardempresa')
-                if (data.rol === 'Postulante') navigate('/offers')
-            })
-            .catch(function (error) {
-                console.log(error)
-                alert("Usuario no regitrado")
-                navigate('/profile')
-            });
-        
-    };
+    const authWithGoogle = async () => {
+        const provider = new GoogleAuthProvider()
+        try {
+            const result = await signInWithPopup(auth, provider)
+            const usergoogle = {
+                photo: result.user.photoURL,
+                email: result.user.email,
+                name: result.user.displayName,
+            }
+            const objetoJSON = JSON.stringify(usergoogle) 
+            localStorage.setItem('usergoogle', objetoJSON) 
+            return usergoogle
+        } catch (error) {
+            console.log(error)
+            setError(error.response.data.message)
+        }
+      } 
+      
+    const handleLoginGoogle = async () => {
+        try {
+            const {email} = await authWithGoogle()
+            const verifyUsrExist = await axios.post(`/user/email`, {email})
+
+            if(!verifyUsrExist.data) {
+            // ALERT DEBERÍA DECIR ALGO COMO.. ESCOGE EL PERFIL SEGÚN TU INTERÉS: QUIERO BUSCAR EMPLEOS || QUIERO PUBLICAR OFERTAS DE TRABAJO (2 BOTONES)
+                alert("Gracias por unirte a FusionaJob! Por favor continúa completando tu perfíl")
+                return navigate('/profile')
+            }
+            dispatch(saveUser(verifyUsrExist.data))
+            localStorage.setItem('userLogin', JSON.stringify(verifyUsrExist.data))
+            if (verifyUsrExist.data.rol === 'Empresa') navigate('/dashboardempresa')
+            if (verifyUsrExist.data.rol === 'Postulante') navigate('/offers')
+          } catch (error) {
+            console.log(error)
+            setError(error.response.data.message)
+            alert("Hubo un error en el acceso, intente nuevamente")
+          }
+        }
 
     const [form, setForm] = useState({
         email: '',
         password: ''
-    });
+    })
 
     const [errors, setErrors] = useState({
         email: '',
         password: ''
-    });
+    })
 
     const closeModal = () => {
         setOpen(false)
-    };
+    }
 
     const handleForm = (event) => {
         setForm({
             ...form,
             [event.target.name]: (event.target.value)
-        });
+        })
         setErrors(validations({
             ...form,
             [event.target.name]: (event.target.value)
-        }));
-    };
+        }))
+    }
 
-    const { data: googleUser, error: errorUser, isLoading: loadingGoogle } = useFetch(`/auth/google/${idToken}`)
-
-    useEffect(() => {
-        if (googleUser !== undefined) setUser(googleUser?.user?.displayName)
-        setError(true)
-    }, [idToken, googleUser])
-
-    // useEffect(() => {
-
-
-    //   }, [sendform]);
-
-    const handleSubmit = (event) => {
-        console.log(idToken)
+    const handleSubmit = async (event) => {
         event.preventDefault()
-        console.log('click');
         const { email, password } = form
-        //signInWithEmailAndPassword(auth, email, password) // inicia sesion en firebase para poder autenticar el ingreso a las rutas
-        axios.post('/auth/login', {
-            email,
-            password
-        })
-            .then(function (response) {
-                const { data } = response
-                if (data.user === 'Empresa') navigate('/dashboardempresa')
-                if (data.user === 'Postulante') navigate('/cards')
-                
-                axios.post('/userPk', {id: data.id})
-                .then(function (response){
-                    dispatch(saveUser(response.data))
-                })
-                .catch(function (error) {
-                    console.log(error)                    
-                });
+        try {
+            const response = await axios.post('/auth/login', {
+                email,
+                password
+            })
+            const { data } = response
+            const responseUserPk = await axios.post('/userPk', { id: data.id })
+            dispatch(saveUser(responseUserPk.data))
+            const objetoJSON = JSON.stringify(responseUserPk.data)
+            localStorage.setItem('userLogin', objetoJSON)
+            if (data.user === 'Empresa') navigate('/dashboardempresa')
+            if (data.user === 'Postulante') navigate('/offers')
+        } catch (error) {
+            console.log(error)
+            setError(error.response.data.message)
+        }
+    }
 
+>>>>>>>>> Temporary merge branch 2
             })
             .catch(function (error) {
                 console.log(error)
@@ -124,16 +109,13 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
             });
     };
 
-    const handleModalContainerClick = (event) => event.stopPropagation(); //.stopPropagation hace que no se cierre el modal al hacer click dentro
-
-    if (!isOpen) return null;
+    if (!isOpen) return null
     return (
         <div className='z-50 fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-80 flex justify-center items-center' onClick={closeModal}>
             <article className='w-1/2 mx-auto relative'>
                 <div className="rounded-3xl bg-primary-light dark:bg-primary-dark" onClick={handleModalContainerClick}>
                     <div className="absolute top-0 right-0 m-4 px-2 rounded-full cursor-pointer text-xl dark:text-white hover:scale-150 transition-all" onClick={closeModal}> x </div>
                     <h2 className="pt-10 text-center text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Ingresar a Fusionajob</h2>
-                    {user && <h3 className="text-center font-medium text-xl py-4 dark:text-white">Bienvenido {user}</h3>}
                     {error && <h3 className="text-center text-white font-medium w-1/2 rounded-lg mx-auto bg-red-700">{error}</h3>}
                     <form onSubmit={handleSubmit} className="px-8 py-6">
                         <div className='mb-4'>
@@ -152,7 +134,7 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
                             <button className='border-2 border-gray-400 hover:border-gray-500 text-gray-400 hover:text-gray-500 font-medium py-2 px-4 rounded-md my-2 transition duration-200'>Crear cuenta</button>
                         </div>
                         <div className='flex justify-center items-center text-sm'>
-                            <button onClick={handleLogin} className='w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md mr-4'>
+                            <button onClick={handleLoginGoogle} className='w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md mr-4'>
                                 <img src={gglogo} className='w-6 h-6 inline-block align-middle mr-2' alt='Google' />Ingresar con Google
                             </button>
                             <button className='w-full bg-blue-700 hover:bg-blue-800 text-white py-2 px-4 rounded-md mr-4'>
@@ -168,6 +150,6 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
                 </div>
             </article>
         </div>
-    );
+    )
 
-};
+}

@@ -30,8 +30,8 @@ const authUserCreate = async (req, res) => {
     });
 
     } catch (error) {
-      console.log(error)
       if(error.code === 'auth/email-already-in-use') return res.status(400).json({ message: 'El usuario ya existe' });
+      if(error.code === 'auth/user-not-found') return res.status(400).json({ message: 'El usuario no existe' });
       
       res.status(400).json({ message: 'Usuario inválido' });
 
