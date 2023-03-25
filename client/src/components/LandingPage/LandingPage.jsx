@@ -9,11 +9,30 @@ import Footer from '../Footer/Footer'
 import { useNavigate } from 'react-router-dom'
 import { NavLanding } from '../NavLanding/NavLanding'
 
+export const menu = [
+  {
+    name: "Planes",
+    link: "#"
+  },
+  {
+    name: "Sobre Nosotros",
+    link: "/about"
+  },
+  {
+    name: "Dashboard Empresa",
+    link: "/dashboardempresa"
+  },
+  {
+    name: "Registro",
+    link: "/registro"
+  },
+]
+
 function LandingPage() {
   const navigate = useNavigate()
   return (
     <div>
-      <NavLanding />
+      <NavLanding menu={menu} />
       <section className="pt-20 pb-10 w-full flex flex-row flex-wrap bg-primary-light dark:bg-secondary-dark">
         <div className="w-full sm:w-1/2">
           <img src={work1} alt="img_working" className="p-10" />
