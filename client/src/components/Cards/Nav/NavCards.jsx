@@ -11,6 +11,12 @@ import fbapp from '../../../firebaseConfig';
 export const NavCards = () => {
     const localDark = JSON.parse(localStorage.getItem('isDarkMode')) || false
     const [isDarkMode, setIsDarkMode] = useState(localDark);
+    
+    const userGoogleJson = localStorage.getItem('usergoogle');
+    const userGoogle = JSON.parse(userGoogleJson); 
+
+    const userJson = localStorage.getItem('userLogin');
+    const user = JSON.parse(userJson); 
 
     const handleToggle = () => {
         const newIsDarkMode = !isDarkMode;
@@ -60,14 +66,14 @@ export const NavCards = () => {
                     </div>
                     {/* Menú */}
                     <div className="flex dark:text-text-dark text-gray-900">
-                        <Link to='/cards' className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Ofertas</Link>
+                        <Link to='/offers' className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Ofertas</Link>
                         <Link to='/about' className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Sobre nosotros</Link>
-                        <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" className="w-10 h-10 rounded-full cursor-pointer" src="https://st2.depositphotos.com/1309454/5538/v/450/depositphotos_55380965-stock-illustration-avatars-characters.jpg" alt="User dropdown" onClick={handleAvatarClick} />
+                        <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" className="w-10 h-10 rounded-full cursor-pointer" src={userGoogle? userGoogle.photo : "https://st2.depositphotos.com/1309454/5538/v/450/depositphotos_55380965-stock-illustration-avatars-characters.jpg"} alt="User dropdown" onClick={handleAvatarClick} />
                         {/* Menu desplegable */}
                         <div id="userDropdown" className={`fixed z-10 ${showMenu ? "" : "hidden"} bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 translate-y-12 translate-x-40 `}>
                             <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                                <div>Bonnie Green</div>
-                                <div class="font-medium truncate">name@flowbite.com</div>
+                                <div>{ userGoogle? userGoogle.name : user.username }</div>
+                                <div class="font-medium truncate">{ userGoogle? userGoogle.email : user.email }</div>
                             </div>
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
                                 <li>
@@ -80,11 +86,11 @@ export const NavCards = () => {
                                     <Link href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Favoritos</Link>
                                 </li>
                                 <li>
-                                    <Link to={'/profile'} class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</Link>
+                                    <Link to={'/profile'} class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Perfil</Link>
                                 </li>
                             </ul>
                             <div class="py-1">
-                                <Link to={"/"} onClick={hadleSignOut} class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</Link>
+                                <Link to={"/"} onClick={hadleSignOut} class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Salir</Link>
                             </div>
                         </div>
                     </div>
