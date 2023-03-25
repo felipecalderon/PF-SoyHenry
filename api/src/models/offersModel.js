@@ -57,6 +57,9 @@ const Offers = sequelize.define('Offers', {
     idRecruiterOfferCreate:{
         type: DataTypes.STRING,
     },
+    idAplicants:{
+        type: DataTypes.ARRAY(DataTypes.STRING),
+    }
 });
 
 module.exports = Offers
