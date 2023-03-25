@@ -48,7 +48,7 @@ function UserProfile() {
                 return <Favoritos />
         };
     };
-
+    
     if (isLogin) {
         return (
             <>

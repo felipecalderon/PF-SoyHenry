@@ -1,4 +1,4 @@
-const regexNombreApellido = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]{1,40}$/
+const regexNombreApellido = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]{2,40}$/
 const regexUbicacion=/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s,]{1,50}$/
 const regexTituloOIdioma =/^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s,.!?()-]{1,100}$/
 const regexTel=/^\+?\d{1,3}[-.\s]?\d{1,3}[-.\s]?\d{3,4}[-.\s]?\d{3,4}$/
@@ -16,8 +16,11 @@ if (regexNombreApellido.test(form.apellido)){obj.apellido=""}
 else{
  obj.apellido="Ingrese Apellido Valido"
 }
-
-if (regexUbicacion.test(form.ubicacion)) {obj.ubicacion=""
+if(form.edad){
+    obj.edad=""
+}else{ 
+    obj.edad="Debes ingresar una edad"
+}if (regexUbicacion.test(form.ubicacion)) {obj.ubicacion=""
 } else obj.ubicacion=""
     
 if(regexTituloOIdioma.test(form.titulo)){obj.titulo=""

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState,useEffect } from 'react'
-import { Form } from 'react-router-dom';
 import user from "../../assets/user.png"
 import validacionConfig from './validacionconfig';
 const skills = [
@@ -27,10 +26,11 @@ const skills = [
 ];
 
 function Configuracion() {
+  const [showErrors,SetShowErrors]=useState(false)
   const [form,SetForm]=useState({
     nombre:"",
     apellido:"",
-    edad:20,
+    edad:"",
     ubicacion:"",
     descripcion:"",
     idioma:"",
@@ -55,6 +55,7 @@ function Configuracion() {
     facebook:"",
     github:""
   })
+
   const [inConfig,SetInConfig]=useState(false)
 
   const handleSelectSkills =(event)=>{
@@ -73,7 +74,12 @@ function Configuracion() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+    for (let key in error) {
+      if (error[key]) {
+        SetShowErrors(true)
+      }
+    }
+   
   };
   const actualizarData = (event) => {
     const { name, value } = event.target;
@@ -85,10 +91,11 @@ function Configuracion() {
   }
 
   useEffect(() => {
-  
-    validacionConfig(form,SetError)
+            validacionConfig(form,SetError)
+
+    }
     
-    }, [form])
+    , [form])
     
    
   return (
@@ -100,7 +107,7 @@ function Configuracion() {
                           
 
                         <div className='mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400  w-full flex items-center justify-between'>
-                             <p className='text-sm'>{error.nombre+error.apellido+error.edad }</p>
+                            {showErrors?<p className='text-sm'>{error.nombre+error.apellido+error.edad }</p>:null} 
                              <input
                              type="text" 
                              id="nombre"
