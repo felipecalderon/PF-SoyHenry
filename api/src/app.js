@@ -20,7 +20,7 @@ app.use(cors({
     origin: '*',
     methods: '*'
   }))
-sequelize.sync({ alter: true })
+sequelize.sync({ force: true })
 
 app.use(morgan('dev'));
 app.use(route)
