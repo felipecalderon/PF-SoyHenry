@@ -23,32 +23,12 @@ function UserProfile() {
     const auth = getAuth(fbapp);
     const [user] = useAuthState(auth);
     const navigate = useNavigate()
-
     const [isLogin, SetIsLogin] = useState(true)
     const [inConfig, SetInConfig] = useState(false)
     const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
         valorSeleccionado: "curriculum"
     })
-    const [data, SetData] = useState({
-        nombre: "nombre",
-        apellido: "apellido",
-        edad: 20,
-        ubicacion: "",
-        titulo: "Titulo",
-        descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem consequatur nisi perspiciatis earum neque aspernatur recusandae numquam, corrupti quasi explicabo alias placeat libero cumque ad repellat adipisci aut! Obcaecati, quasi!",
-        idioma: "",
-        habilidades: ["javascript", "css"],
-        contacto: {
-            tel: "123456789",
-            mail: "hola@gmail.com",
-            redes_sociales: {
-                linkedin: "",
-                facebook: "",
-                instagram: ""
-            },
-            direccion: "calle falsa 123"
-        }
-    })
+
 
     const handleBarraPerfil = (event) => {
         const { value } = event.target
@@ -56,13 +36,7 @@ function UserProfile() {
             valorSeleccionado: value
         })
     }
-    const actualizarData = (event) => {
-        const { name, value } = event.target;
-        SetData({
-            ...data,
-            [name]: value
-        })
-    }
+   
 
     const displayComponente = (selectedValueBarraPerfil) => {
         switch (selectedValueBarraPerfil.valorSeleccionado) {
@@ -74,9 +48,7 @@ function UserProfile() {
                 return <Favoritos />
         };
     };
-    // useEffect(()=>{
-    //     displayComponente(selectedValueBarraPerfil)
-    // },[selectedValueBarraPerfil])
+
     if (isLogin) {
         return (
             <>
@@ -118,7 +90,7 @@ function UserProfile() {
 
 
                 <section className="bg-primary-light flex   ">
-                    <section className='bg-secondary-light m-5 p-4 border rounded-xl w-full ' style={{maxHeight:" 1200px"}}>
+                    <section className='bg-secondary-light m-5 p-1 border rounded-xl w-full ' style={{maxHeight:" 1200px"}}>
                         {inConfig ? <button className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded" onClick={() => SetInConfig(!inConfig)}>Volver</button> : <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"onClick={() => SetInConfig(!inConfig)}>Configurar</button>}
                         {inConfig ? <Configuracion /> : <User />}
                     </section>
