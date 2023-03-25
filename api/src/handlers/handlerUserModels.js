@@ -89,10 +89,12 @@ const getUsersByName = async (name) => {
     return users;
 };
 
-const getUsersByEmail = async (email) => {
+const getUsersByEmail = async ({email}) => {
     try {
-        const users = await User.findOne({ where: { email: email } });
-        return users.rol
+        const user = await User.findOne({ where: {email}, 
+            include: [{ model: Company}, {model: Postulant}]        
+        });        
+        return user
     } catch (error) {
         throw error
     }
@@ -103,6 +105,14 @@ const getUsersById = async (id) => {
         where: {
             estado: 1
         },
+    });
+    return user;
+};
+
+const getUsersByIdCforanea = async ({id}) => {
+    const user = await User.findOne({ where: {id: id} , 
+        
+        include: [{ model: Company}, {model: Postulant}]        
     });
     return user;
 };
@@ -175,5 +185,6 @@ module.exports = {
     putUsers,
     putState,
     deleteUsers,
-    getUsersByEmail
+    getUsersByEmail,
+    getUsersByIdCforanea
 };

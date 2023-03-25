@@ -18,14 +18,6 @@ export const rutas = createBrowserRouter([
       element: <LandingPage />
     },
     {
-      path: '/cards',
-      element: <Cards />
-    },
-    {
-      path: '/offersCreate',
-      element: <FormCreateOffers />
-    },
-    {
       path: '/registro',
       element: <Registro />
     },
@@ -34,16 +26,17 @@ export const rutas = createBrowserRouter([
       element: <RegistroEmpresa />
     },
     {
+      path:"*",
+      element: <NotFound/>
+    },
+    // Postulant
+    {
+      path: '/offers',
+      element: <Cards />
+    },
+    {
       path:'/detail/:id',
       element: <JobDetail />
-    },
-    {
-      path: '/dashboardempresa',
-      element: <DashboardEmpresa />
-    },
-    {
-      path: '/about',
-      element: <About />
     },
     {
       path:"/profile",
@@ -53,8 +46,17 @@ export const rutas = createBrowserRouter([
       path:"/profile/pdf",
       element: <Pdf/>
     },
+    // Company
     {
-      path:"*",
-      element: <NotFound/>
+      path: '/offersCreate',
+      element: <FormCreateOffers />
+    },
+    {
+      path: '/dashboardempresa',
+      element: <DashboardEmpresa />
+    },
+    {
+      path: '/about',
+      element: <About />
     },
 ])
