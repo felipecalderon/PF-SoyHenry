@@ -1,125 +1,108 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import validations from './validations';
-import fblogo from '../../assets/fbwhite.png';
-import gglogo from '../../assets/ggwhite.png';
-import ghlogo from '../../assets/ghwhite.png';
-import { useNavigate } from "react-router";
-import { Link } from 'react-router-dom';
+import React, { useState } from "react"
+import { useDispatch } from "react-redux"
+import validations from './validations'
+import fblogo from '../../assets/fbwhite.png'
+import gglogo from '../../assets/ggwhite.png'
+import ghlogo from '../../assets/ghwhite.png'
+import { useNavigate } from "react-router"
 import fbapp from "../../firebaseConfig"
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
-import useFetch from "../Hooks/useFetch";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import axios from 'axios'
 import { saveUser } from '../../redux/slices/userRegisterSlice'
-// import {decode} from 'jsonwebtoken'
 
 export const ModalLogin = ({ isOpen, setOpen }) => {
-    const dispatch = useDispatch();
-    // const [user, setUser] = useState()
+    const dispatch = useDispatch()
     const [error, setError] = useState(null)
-    const [sendform, setSendForm] = useState(false)
-    const [idToken, setIdToken] = useState('');
     const navigate = useNavigate()
-    const auth = getAuth(fbapp);
+    const auth = getAuth(fbapp)
 
+    const authWithGoogle = async () => {
+        const provider = new GoogleAuthProvider()
+        try {
+            const result = await signInWithPopup(auth, provider)
+            const usergoogle = {
+                photo: result.user.photoURL,
+                email: result.user.email,
+                name: result.user.displayName,
+            }
+            const objetoJSON = JSON.stringify(usergoogle) 
+            localStorage.setItem('usergoogle', objetoJSON) 
+            return usergoogle
+        } catch (error) {
+            console.log(error)
+            setError(error.response.data.message)
+        }
+      } 
+      
     const handleLogin = async () => {
-        const provider = new GoogleAuthProvider();
-        const correo = await signInWithPopup(auth, provider)
-            .then((result) => {
-                const usergoogle = { 
-                    photo: result.user.photoURL, 
-                    email: result.user.email,
-                    name: result.user.displayName,
-                }
-                const objetoJSON = JSON.stringify(usergoogle) // vuelve el objeto un JSON para poder guardarse en localStorage
-                localStorage.setItem('usergoogle', objetoJSON); //  Guardado local para que se mantengan la pagina en la que estaba el usuario
-                return result.user.email
-            })
-            .catch(function (error) {
-                console.log(error)
-                setError(error.response.data.message);
-            });
-        axios.get(`/user?email=${correo}`)
-            .then(function (response) {
-                const { data } = response
-                axios.post('/userPk', { id: data.id })
-                    .then(function (response) {
-                        dispatch(saveUser(response.data))
-                        const objetoJSON = JSON.stringify(response.data)
-                        localStorage.setItem('userLogin', objetoJSON);
-                    })
-                    .catch(function (error) {
-                        console.log(error)
-                    });
-                if (data.rol === 'Empresa') navigate('/dashboardempresa')
-                if (data.rol === 'Postulante') navigate('/offers')
-            })
-            .catch(function (error) {
-                console.log(error)
-                alert("Usuario no regitrado")
-                navigate('/profile')
-            });
-        
-    };
+        try {
+            const {email} = await authWithGoogle()
+            const verifyUsrExist = await axios.post(`/user/email`, {email})
+
+            if(!verifyUsrExist.data) {
+                alert("Gracias por unirte a FusionaJob! Por favor continúa completando tu perfíl")
+                return navigate('/profile')
+            }
+            dispatch(saveUser(verifyUsrExist.data))
+            localStorage.setItem('userLogin', JSON.stringify(verifyUsrExist.data))
+            if (verifyUsrExist.data.rol === 'Empresa') navigate('/dashboardempresa')
+            if (verifyUsrExist.data.rol === 'Postulante') navigate('/offers')
+          } catch (error) {
+            console.log(error)
+            setError(error.response.data.message)
+            alert("Hubo un error en el acceso, intente nuevamente")
+          }
+        }
 
     const [form, setForm] = useState({
         email: '',
         password: ''
-    });
+    })
 
     const [errors, setErrors] = useState({
         email: '',
         password: ''
-    });
+    })
 
     const closeModal = () => {
         setOpen(false)
-    };
+    }
 
     const handleForm = (event) => {
         setForm({
             ...form,
             [event.target.name]: (event.target.value)
-        });
+        })
         setErrors(validations({
             ...form,
             [event.target.name]: (event.target.value)
-        }));
-    };
+        }))
+    }
 
-    const handleSubmit = (event) => {
-        console.log(idToken)
+    const handleSubmit = async (event) => {
         event.preventDefault()
-        console.log('click');
         const { email, password } = form
-        //signInWithEmailAndPassword(auth, email, password) // inicia sesion en firebase para poder autenticar el ingreso a las rutas
-        axios.post('/auth/login', {
-            email,
-            password
-        })
-            .then(function (response) {
-                const { data } = response
-                if (data.user === 'Empresa') navigate('/dashboardempresa')
-                if (data.user === 'Postulante') navigate('/offers')
-                axios.post('/userPk', { id: data.id })
-                    .then(function (response) {
-                        dispatch(saveUser(response.data))
-                        const objetoJSON = JSON.stringify(response.data)
-                        localStorage.setItem('userLogin', objetoJSON);
-                    })
-                    .catch(function (error) {
-                        console.log(error)
-                    });
+        try {
+            const response = await axios.post('/auth/login', {
+                email,
+                password
             })
-            .catch(function (error) {
-                console.log(error)
-                setError(error.response.data.message);
-            });
-    };
+            const { data } = response
+            if (data.user === 'Empresa') navigate('/dashboardempresa')
+            if (data.user === 'Postulante') navigate('/offers')
+            const responseUserPk = await axios.post('/userPk', { id: data.id })
+            dispatch(saveUser(responseUserPk.data))
+            const objetoJSON = JSON.stringify(responseUserPk.data)
+            localStorage.setItem('userLogin', objetoJSON)
+        } catch (error) {
+            console.log(error)
+            setError(error.response.data.message)
+        }
+    }
 
-    const handleModalContainerClick = (event) => event.stopPropagation(); //.stopPropagation hace que no se cierre el modal al hacer click dentro
+    const handleModalContainerClick = (event) => event.stopPropagation() //.stopPropagation hace que no se cierre el modal al hacer click dentro
 
-    if (!isOpen) return null;
+    if (!isOpen) return null
     return (
         <div className='z-50 fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-80 flex justify-center items-center' onClick={closeModal}>
             <article className='w-1/2 mx-auto relative'>
@@ -160,6 +143,6 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
                 </div>
             </article>
         </div>
-    );
+    )
 
-};
+}

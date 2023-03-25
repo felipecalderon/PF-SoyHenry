@@ -89,10 +89,12 @@ const getUsersByName = async (name) => {
     return users;
 };
 
-const getUsersByEmail = async (email) => {
+const getUsersByEmail = async ({email}) => {
     try {
-        const users = await User.findOne({ where: { email: email } });        
-        return users
+        const user = await User.findOne({ where: {email} , 
+            include: [{ model: Company}, {model: Postulant}]        
+        });        
+        return user
     } catch (error) {
         throw error
     }
