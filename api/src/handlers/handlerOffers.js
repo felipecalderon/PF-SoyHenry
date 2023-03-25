@@ -55,6 +55,22 @@ const getAllOffersDb = async ({ page = 1, limit = 10 }) => {
         throw error
     }
 };
+const getAllOffersDbId = async ( id ) => {
+    try {
+        // trae todos las ofertas de la Db
+        const offerts_dbid = await Company.findOne({
+            where: {
+                id
+            },
+            include: [{
+                model: Offers
+            }]
+        });
+        return offerts_dbid;
+    } catch (error) {
+        throw error
+    }
+};
 const getOffersByTitleDb = async ( title ) => {
     try {
         const offerts_db = await Offers.findAll({
@@ -170,6 +186,7 @@ module.exports = {
     createOfferHandler,
     getOffersDb,
     getAllOffersDb,
+    getAllOffersDbId,
     getOffersByTitleDb,
     getOffersApiGetonbrd,
     getOffersById,

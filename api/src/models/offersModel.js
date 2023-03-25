@@ -54,12 +54,8 @@ const Offers = sequelize.define('Offers', {
         type: DataTypes.BOOLEAN,
         defaultValue: true
     },
-    idRecruiterOfferCreate:{
-        type: DataTypes.STRING,
-    },
     idAplicants:{
         type: DataTypes.ARRAY(DataTypes.STRING),
     }
 });
-
 module.exports = Offers
