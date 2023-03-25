@@ -91,7 +91,7 @@ const getUsersByName = async (name) => {
 
 const getUsersByEmail = async ({email}) => {
     try {
-        const user = await User.findOne({ where: {email} , 
+        const user = await User.findOne({ where: {email}, 
             include: [{ model: Company}, {model: Postulant}]        
         });        
         return user
