@@ -81,7 +81,7 @@ route.delete('/company/:id',deleteCompany);
 // relations
 route.put('/rel_offers/:idOffer/:idUser' , stateAplication);
 route.put('/rel_company/:idCompany/:idUser' , saveCompany);
-route.get('/aplicates/:id', getAplicates) // id del User o de company
+route.get('/aplicates/:id', getAplicates) // id del User o de offer
 route.get('/save_offers/:id', getSaveOffers) // id del User
 route.get('/fav_company/:id', getFavoriteComp) // id del User o de company
 
