@@ -92,8 +92,8 @@ function Configuracion() {
 
   useEffect(() => {
             validacionConfig(form,SetError)
-    }
-  
+            
+          }
     , [form])
     
    
