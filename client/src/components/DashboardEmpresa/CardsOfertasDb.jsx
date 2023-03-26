@@ -76,7 +76,7 @@ export const CardsOfertasDb = () => {
             </AccordionSummary>
             <AccordionDetails>
               <Typography>
-                <p>Descripción: {offer.offerDescription}</p>
+                <p>Descripción: {offer.description}</p>
                 <p>Requisitos: {offer.requeriments}</p>
                 <p>Beneficios: {offer.benefits}</p>
                 <p>Funciones: {offer.functions}</p>
