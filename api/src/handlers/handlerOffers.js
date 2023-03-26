@@ -62,9 +62,19 @@ const getAllOffersDbId = async ( id ) => {
             where: {
                 id
             },
-            include: [{
-                model: Offers
-            }]
+            include: {
+                model: User,
+                attributes: [ "id","username" ],
+                include: [
+                    {
+                        model: Company,
+                        attributes: ["id","website"]
+                    }
+                ]
+            },
+            include: {
+                model: aplications
+            },
         });
         return offerts_dbid;
     } catch (error) {
@@ -170,12 +180,11 @@ const putOffertLD = async ({ id }, { active }) => {
 const deleteOffers = async ( id ) => {
     try {
         // Comprueba si existe la oferta
-        const Offert = await Offers.findByPk( id );
-        if( !Offert ) throw Error( `La oferta con id: ${id} no existe` );
+        const offert = await Offers.findByPk( id );
+        if( !offert ) throw Error( `La oferta con id: ${id} no existe` );
         
         // Elimina los datos
-        const deleteOffert = await Offers.findByPk( id );
-        await deleteOffert.destroy();
+        await offert.destroy();
         return 'la oferta ha sido eliminada con éxito de la base de datos.';
     } catch (error) {
         throw error

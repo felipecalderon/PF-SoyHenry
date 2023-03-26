@@ -3,6 +3,8 @@ const Postulant = require('./postulantModel');
 const Admin = require('./adminModel');
 const Company = require('./companyModel');
 const Offers = require('./offersModel');
+const sequelize = require('../database');
+const { DataTypes } = require('sequelize');
 
 Postulant.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
 User.hasMany(Postulant, { foreignKey: 'userId' });
@@ -19,12 +21,58 @@ User.hasMany(Offers, { foreignKey: 'userId' });
 Offers.belongsTo(Company, { foreignKey: 'idRecruiterOfferCreate', onDelete: 'CASCADE' });
 Company.hasMany(Offers, { foreignKey: 'idRecruiterOfferCreate' });
 
-Postulant.belongsTo(Offers, { foreignKey: 'idAplicants', onDelete: 'CASCADE' });
-Offers.hasMany(Postulant, { foreignKey: 'idAplicants' });
+const Aplications = sequelize.define('Aplications', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
+    status:{
+        type: DataTypes.ENUM('send', 'viewed', 'no_select', 'select')
+    }
+});
 
-module.exports = { User, 
+Aplications.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
+User.hasMany(Aplications, { foreignKey: 'userId', onDelete: 'CASCADE' });
+
+Aplications.belongsTo(Offers, { foreignKey: 'offerId', onDelete: 'CASCADE' });
+Offers.hasMany(Aplications, { foreignKey: 'offerId', onDelete: 'CASCADE' });
+
+const SaveOffer = sequelize.define('SaveOffer', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
+});
+
+SaveOffer.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
+User.hasMany(SaveOffer, { foreignKey: 'userId', onDelete: 'CASCADE' });
+
+SaveOffer.belongsTo(Offers, { foreignKey: 'offerId', onDelete: 'CASCADE' });
+Offers.hasMany(SaveOffer, { foreignKey: 'offerId', onDelete: 'CASCADE' });
+
+const FavoritesComp = sequelize.define('FavoritesComp', {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
+});
+
+FavoritesComp.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
+User.hasMany(FavoritesComp, { foreignKey: 'userId', onDelete: 'CASCADE' });
+
+FavoritesComp.belongsTo(Company, { foreignKey: 'companyId', onDelete: 'CASCADE' });
+Company.hasMany(FavoritesComp, { foreignKey: 'companyId', onDelete: 'CASCADE' });
+
+module.exports = {
+    User,
     Postulant,
-    Admin, 
+    Admin,
     Company,
-    Offers 
+    Offers,
+    Aplications,
+    SaveOffer,
+    FavoritesComp,
 }

@@ -29,6 +29,9 @@ const User = sequelize.define('User', {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
+  state_aplication:{
+      type: DataTypes.INTEGER,
+  },
 });
 
 User.beforeCreate((user) => {

@@ -4,7 +4,7 @@ const { authCreatePostulant, authLoginGoogle, authLoginGoogleCB, authLoginCreden
 const authUserCreate = async (req, res) => {
     try {
       const data = await authCreatePostulant(req.body)
-      res.json({ message: 'Usuario creado exitosamente' });
+      res.json(data);
 
     } catch (error) {
       if(error.code === 'auth/email-already-in-use') return res.status(400).json({ message: 'El usuario ya existe' });
