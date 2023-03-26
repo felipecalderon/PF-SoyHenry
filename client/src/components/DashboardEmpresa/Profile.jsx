@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {Box, Typography, CardContent, CardMedia, Rating, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Slide} from '@mui/material/';
-import logocompany from '../../assets/companylogodemo.png'
 import {Badge} from '@mui/icons-material/';
 import SendIcon from '@mui/icons-material/Send';
 
@@ -8,7 +7,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
-const Profile = (propss) => {
+const Profile = ({company}) => {
+    //eslint-disable-next-line no-unused-vars
+    const {companyname, description, logo, website, email} = company 
     const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -23,16 +24,16 @@ const Profile = (propss) => {
   <Box className="flex flex-row">
     <CardMedia
       component="img"
-      sx={{ width: 151 }}
-      image={logocompany}
+      sx={{ width: 200, objectFit: 'contain' }}
+      image={logo}
       alt="Live from space album cover"
     />
     <CardContent className="flex flex-col justify-center">
       <Typography component="div" variant="h5">
-        Nombre de la empresa
+        {companyname}
       </Typography>
       <Typography component="div" variant="subtitle1">
-        www.empresa.com
+        {website}
       </Typography>
       <Rating name="ratingCompany" value={4} readOnly />
     </CardContent>
