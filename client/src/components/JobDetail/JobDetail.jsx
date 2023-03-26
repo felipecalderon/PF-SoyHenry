@@ -13,6 +13,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { getAuth } from 'firebase/auth';
 import fbapp from '../../firebaseConfig';
 import { useNavigate } from 'react-router-dom';
+import Perks from "./Perks";
 
 
 const JobDetail = () => {
@@ -46,18 +47,28 @@ const JobDetail = () => {
     if (data) dispatch(getDataPostulacion(data))
   }, [data, dispatch])
   
-  if (!jobId) return spinnerPurple()
-  if (isLoading) return spinnerPurple()
-
+  
   const dataUserLocal = localStorage.getItem("userLogin"); 
   const dataUser = JSON.parse(dataUserLocal);
-
+  
   const handlePostulate = () => {
     const offerId = jobId.id
     const userId = dataUser.id
     axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
   };
 
+  // obtener perks en español desde la api getonbrd
+  const [perksApi, setPerksApi] = useState([])
+    useEffect(() => {
+        axios.get('https://www.getonbrd.com/api/v0/perks')
+            .then(res => setPerksApi(res.data.data))
+    }, [])
+
+  // filtrar según las perks que tenga la oferta de trabajo
+  const cleanPerks = perksApi?.filter((perk) => jobId?.perks?.includes(perk.id)).map(perk => perk.attributes.name)
+
+  if (!jobId) return spinnerPurple()
+  if (isLoading) return spinnerPurple()
   return (
     <div className="bg-primary-light dark:bg-secondary-dark">
       <NavCards />
@@ -98,12 +109,12 @@ const JobDetail = () => {
             <h2 className="text-lg font-semibold dark:text-white">Requisitos</h2>
             <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobRequerimentsHTML}></h3>
             <br />
-            <h2 className="text-lg font-semibold dark:text-white"> Ventajas </h2>
-            <ul className="list-disc list-inside mt-2 text-gray-800 dark:text-gray-400">
-              {jobId?.perks?.map((ventajas) => {
-                return <li key={ventajas}>{ventajas?.split("_").join(" ")}</li>
-              }).slice(0, 3)}
-            </ul>
+            <h2 className="text-lg font-semibold dark:text-white py-3"> Ventajas </h2>
+            <div className="flex flex-row flex-wrap gap-3">
+              {cleanPerks?.map((ventajas) => {
+                return <Perks perk={ventajas} />
+              })}
+            </div>
             <div className="mt-8 flex justify-center">
               <button className="bg-purple-400 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-full" onClick={handlePostulate}>
                 Aplicar
