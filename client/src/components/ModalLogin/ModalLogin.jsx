@@ -145,5 +145,4 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
             </article>
         </div>
     )
-
 }
