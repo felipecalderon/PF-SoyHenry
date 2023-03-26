@@ -65,10 +65,11 @@ const JobDetail = () => {
           <div className="p-8">
             <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white mb-4">{jobId.title}</h1>
             <section className="flex my-4">
-              <h3 className="text-lg font-semibold dark:text-white mr-4">
-                Modalidad:
-                <p className="inline mt-2 text-gray-800 dark:text-gray-400 text-base font-normal"> {jobId.modality?.split("_").join(" ")} </p>
-              </h3>
+            {jobId.modality &&
+                   <h3 className="text-gray-600 dark:text-gray-300">
+                   Modalidad: {jobId.modality?.split("_").join(" ")}
+                   </h3>
+              }
               <h3 className="text-lg font-semibold dark:text-white">
                 Rango salarial:
                 {
@@ -79,21 +80,32 @@ const JobDetail = () => {
                 }
               </h3>
             </section>
-            <h2 className="text-lg font-semibold dark:text-white"> Beneficios </h2>
+            { jobId.benefits && <>
+              <h2 className="text-lg font-semibold dark:text-white"> Beneficios </h2>
             <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobBenefitsHTML}></h3>
+            </>
+            }
             <br />
-            <h2 className="text-lg font-semibold dark:text-white"> Funciones a realizar </h2>
+            { jobId.functions && <>
+              <h2 className="text-lg font-semibold dark:text-white"> Funciones a realizar </h2>
             <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobFunctionsHTML}></h3>
+            </>
+            }
             <br />
+            { jobId.requeriments && <>
             <h2 className="text-lg font-semibold dark:text-white">Requisitos</h2>
             <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobRequerimentsHTML}></h3>
+            </>}
+           
             <br />
+            {jobId.perks && jobId.perks.length > 0 && <>
             <h2 className="text-lg font-semibold dark:text-white"> Ventajas </h2>
             <ul className="list-disc list-inside mt-2 text-gray-800 dark:text-gray-400">
               {jobId?.perks?.map((ventajas) => {
                 return <li key={ventajas}>{ventajas?.split("_").join(" ")}</li>
               }).slice(0, 3)}
             </ul>
+              </>}
             <div className="mt-8 flex justify-center">
               <button className="bg-purple-400 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-full">
                 Aplicar
@@ -106,5 +118,7 @@ const JobDetail = () => {
     </div>
   );
 };
+
+             
 
 export default JobDetail;

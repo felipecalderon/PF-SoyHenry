@@ -1,5 +1,7 @@
 import React from 'react'
 
+
+
 function Favoritos() {
 
     const SVG_FAV = <svg width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -18,7 +20,7 @@ const data = [
     "Ingeniero DevOps",
   ];
   return (
-    <div className='h-1043px overflow-y-auto'  style={{maxHeight:" 1040px"}}>{data.reverse().map((el)=><h2 className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-between">{el}{SVG_FAV}</h2>)}</div>
+    <>{data.reverse().map((el)=><h2 className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-between">{el.title}</h2>)}</>
   )
 }
 
