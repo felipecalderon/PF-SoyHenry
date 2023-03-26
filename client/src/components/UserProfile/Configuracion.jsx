@@ -92,9 +92,8 @@ function Configuracion() {
 
   useEffect(() => {
             validacionConfig(form,SetError)
-
     }
-    
+  
     , [form])
     
    
@@ -107,7 +106,7 @@ function Configuracion() {
                           
 
                         <div className='mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400  w-full flex items-center justify-between'>
-                            {showErrors?<p className='text-sm'>{error.nombre+error.apellido+error.edad }</p>:null} 
+                            
                              <input
                              type="text" 
                              id="nombre"
@@ -136,8 +135,12 @@ function Configuracion() {
                             name="edad"
                              value={form.edad}
                              onChange={actualizarData}/>
-                          
                        </div>
+                       {showErrors?<>
+                         <span className='text-sm text-red-500'>{error.nombre}</span>
+                         <span className='text-sm'>{error.apellido} </span>
+                         <span className='text-sm'>{error.edad}</span>
+                       </>:null}
                               <div className='mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full'>
                               <label for="ubicacion">Ubicacion </label>
                                 <input 
@@ -192,7 +195,7 @@ function Configuracion() {
                                    className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm mx-2 text-basetext-base text-base' /></div>     
                                         
                           
-                              <div className='flex flex-wrap justify-start'>
+                              <div className='flex flex-wrap justify-start content-start items-start' style={{height:"140px"}}>
                                         
                              <h2 className='mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 '>Habilidades:</h2>
 
@@ -206,23 +209,24 @@ function Configuracion() {
                                  } 
 
                             </select>
-                            {
-                            form.habilidades.length ?
-                            <div className='flex flex-wrap justify-start overflow-y-auto my-2' 
-                            style={{maxHeight:"90px"}}>
-
-                                     { form.habilidades.map((skill,index) => (
+                            
+                            
+                            <div className='flex flex-wrap justify-start overflow-y-auto' 
+                            style={{height:"95px"}}>
+                             {form.habilidades.length ?
+                              form.habilidades.map((skill,index) => (
                                         
-                                          <button 
-                                          className='m-2 p-2 rounded-xl bg-white border text-sm text-center flex justify-between items-center hover:bg-gray-100 active:bg-gray-200 focus:outline-none flex-shrink'
-                                          onClick={(event)=>SetForm({...form,habilidades:[...form.habilidades].filter((el)=>el!==event.target.value)})}
-                                          value={skill} key={skill} id={index}>{skill}</button>
-                                        
+                                <button 
+                                className='m-2 p-1 rounded-xl bg-white border text-sm text-center flex justify-between items-center hover:bg-gray-100 active:bg-gray-200 focus:outline-none flex-shrink'
+                                onClick={(event)=>SetForm({...form,habilidades:[...form.habilidades].filter((el)=>el!==event.target.value)})}
+                                value={skill} key={skill} id={index}>{skill}</button>
                               
-                                       ))}
+                    
+                             )) :null                             
+                             }
+                                     
                                       </div>
-                                      :null
-                                      }
+                                      
                             
                                   </div>
                            
