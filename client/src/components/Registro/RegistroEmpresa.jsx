@@ -51,8 +51,9 @@ export const RegistroEmpresa = () => {
         setErrors(errorsNew);
         if(Object.keys(errorsNew).length === 0) {
             dispatch(postFetchNewCompany(form));
-            console.log(form)
-            alert('Usuario registrado');
+            const objetoJSON = JSON.stringify(form)
+            localStorage.setItem('userLogin', objetoJSON)
+            alert("Gracias por unirte a FusionaJob! Por favor continúa completando tu perfíl");
             navigate('/dashboardempresa');
         }
     };
