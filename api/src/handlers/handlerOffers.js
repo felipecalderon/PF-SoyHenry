@@ -96,7 +96,19 @@ const getOffersByTitleDb = async ( title ) => {
 };
 const getOffersById = async ( id ) => {
     try {
-        const offert = await Offers.findByPk( id );
+        const offert = await Offers.findByPk( id, {
+            where: {
+                id
+            },
+            include: {
+                model: User,
+                include: [
+                    {
+                        model: Company,
+                    }
+                ]
+            },
+        } );
         return offert;
     } catch (error) {
         throw error
