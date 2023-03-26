@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getDataPostulacion, getDataEmpresa } from "../../redux/slices/postSlices";
+import { getDataPostulacion, getDataEmpresa, getPostulate } from "../../redux/slices/postSlices";
 import useFetch from '../Hooks/useFetch'
 import { NavCards } from "../Cards/Nav/NavCards";
 import Footer from "../Footer/Footer";
@@ -10,6 +10,7 @@ import {addFavorites} from "../../redux/slices/userRegisterSlice"
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import axios from "axios";
 
 // Validacion del usuario 
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -55,6 +56,15 @@ const JobDetail = () => {
   
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
+
+  const dataUserLocal = localStorage.getItem("userLogin"); 
+  const dataUser = JSON.parse(dataUserLocal);
+
+  const handlePostulate = () => {
+    const offerId = jobId.id
+    const userId = dataUser.id
+    axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
+  };
 
   return (
     <div className="bg-primary-light dark:bg-secondary-dark">
@@ -115,7 +125,7 @@ const JobDetail = () => {
             </ul>
               </>}
             <div className="mt-8 flex justify-center">
-              <button className="bg-purple-400 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-full">
+              <button className="bg-purple-400 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-full" onClick={handlePostulate}>
                 Aplicar
               </button>
 
