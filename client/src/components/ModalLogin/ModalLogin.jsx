@@ -101,13 +101,7 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
         }
     }
 
->>>>>>>>> Temporary merge branch 2
-            })
-            .catch(function (error) {
-                console.log(error)
-                setError(error.response.data.message);
-            });
-    };
+    const handleModalContainerClick = (event) => event.stopPropagation() //.stopPropagation hace que no se cierre el modal al hacer click dentro
 
     if (!isOpen) return null
     return (
@@ -151,5 +145,4 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
             </article>
         </div>
     )
-
 }
