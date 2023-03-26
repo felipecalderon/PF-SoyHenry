@@ -7,6 +7,7 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -46,72 +47,59 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export const CardsOfertasDb = () => {
   const [expanded, setExpanded] = useState('panel1');
-
+  const [offers, setOffers] = useState([]);
   const { user } = useSelector((state) => state.userRegisterSlice)
-  
+
   useEffect(() => {
-      const offersCompany = axios.get(`/jobsdb/${user.Companies[0].id}`)
-      .then(res => console.log(res.data))
-    },[user])
+    async function fetchData() {
+      try {
+        const response = await axios.get(`/jobsdb/${user.Companies[0].id}`);
+        setOffers(response.data.Offers);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, [user]);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  return (
-    <div>
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography>Collapsible Group Item #1</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography>Collapsible Group Item #2</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-          <Typography>Collapsible Group Item #3</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-        <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
-          <Typography>Collapsible Group Item #4</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
-    </div>
-  );
-}
+  if (offers.length > 0) {
+    return (
+      <div>
+        {offers.map((offer, index) => (
+          <Accordion key={index} expanded={expanded === `panel${index + 1}`} onChange={handleChange(`panel${index + 1}`)}>
+            <AccordionSummary aria-controls={`panel${index + 1}d-content`} id={`panel${index + 1}d-header`}>
+              <Typography>{offer.title}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>
+                <p>Descripción: {offer.offerDescription}</p>
+                <p>Requisitos: {offer.requeriments}</p>
+                <p>Beneficios: {offer.benefits}</p>
+                <p>Funciones: {offer.functions}</p>
+                <p>Modalidad: {offer.modality}</p>
+                <p>Perks: {offer.perks.map((p) => p).join(', ')}</p>
+                <p>Experiencia: {offer.experience}</p>
+                <p>Salario mínimo: {offer.min_salary}</p>
+                <p>Salario máximo: {offer.max_salary}</p>
+                <p>Cantidad de aplicantes: {offer.applications_count}</p>
+                <p>Fecha de creación: {offer.date_post}</p>
+                <br/>
+                <Link to={`/detail/${offer.id}?${offer.title}`}><button>Ver oferta</button></Link>
+                <br/><br/>
+                <Link><button>Cerrar oferta</button></Link>
+                <br/><br/>
+                <Link><button>Borrar oferta</button></Link>
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </div>
+    );
+  } else {
+    return <h3>Aún no creaste ninguna oferta.</h3>;
+  }
+};
