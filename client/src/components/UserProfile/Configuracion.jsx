@@ -75,7 +75,7 @@ function Configuracion() {
           if(skills.length===0){
             axios("/technologies")
             .then((res)=>setSkills(res.data))
-            console.log(skills)
+            
           }
 
             validacionConfig(form,SetError)
@@ -125,7 +125,7 @@ function Configuracion() {
                        </div>
                        {showErrors?<>
                          <span className='text-sm text-red-500'>{error.nombre}</span>
-                         <span className='text-sm'>{error.apellido} </span>
+                         <span className='text-sm'>{error?.apellido} </span>
                          <span className='text-sm'>{error.edad}</span>
                        </>:null}
                               <div className='mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full'>
@@ -182,11 +182,11 @@ function Configuracion() {
                                    className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm mx-2 text-basetext-base text-base' /></div>     
                                         
                           
-                              <div className='flex flex-wrap justify-start content-start items-start' style={{height:"140px"}}>
+                              <div className='flex flex-wrap justify-start content-start w-full items-start' style={{height:"140px"}}>
                                         
                              <h2 className='mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 '>Habilidades:</h2>
 
-                            <select name="skills" id="" onChange={handleSelectSkills}>
+                            <select name="skills" id="" onChange={handleSelectSkills} className="w-2/3 form-input mt-1 block  rounded-md border-gray-300 shadow-sm text-base">
                             <option value="">Seleccionar Habilidad</option>
                           
                                  {
@@ -218,7 +218,8 @@ function Configuracion() {
                             <div className='mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>
                               Datos de contacto 
                                 <div>
-                                <div className='mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full'>
+
+                                <div className='mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full flex-wrap'>
                                   <label for="tel">tel:</label>
 
                                 <input 
@@ -250,7 +251,7 @@ function Configuracion() {
                                   value={form.facebook}
                                   onChange={form.facebook}
                                   placeholder='https://www.facebook.com/tu_nombre_de_usuario'
-                                  className='w-2/5 form-input mt-1 block rounded-md border-gray-300 shadow-sm text-base'
+                                  className='w-full form-input mt-1 block rounded-md border-gray-300 shadow-sm text-base'
                                    
                                   />
                                   <label for="linkedin">Linkedin</label>
