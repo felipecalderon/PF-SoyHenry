@@ -1,8 +1,10 @@
 .contenedor {
+    display: flex;
+    flex-direction: column;
     padding: 1rem;
     padding-left: 4rem;
     background-color:#c8cab4;
-    height: 100dvh;
+    /* height: 75dvh; */
     
 }
 

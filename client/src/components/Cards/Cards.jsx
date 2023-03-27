@@ -8,23 +8,13 @@ import ReactPaginate from 'react-paginate'; // libreria para hacer el paginado
 import Footer from "../Footer/Footer";
 import { NavCards } from "./Nav/NavCards";
 
-// Validacion del usuario 
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { getAuth } from 'firebase/auth';
-import fbapp from '../../firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 
 const Cards = () => {
-  // Obtenemos la instancia de Firebase Auth
-  // const auth = getAuth(fbapp);
-  // const [user] = useAuthState(auth);
   const navigate = useNavigate()
-  
-  // valida si el usuario inicio sesion 
-  // if (!user) {
-  //   spinnerPurple();
-  //   navigate('/');
-  // }
+  const dataUserLocal = JSON.parse(localStorage.getItem("userLogin"))
+  const dataUserGoogle = JSON.parse(localStorage.getItem("usergoogle"))
+  console.log(dataUserLocal);
 
   const dispatch = useDispatch()
   const { postJobs } = useSelector((state) => state.postSlice)
@@ -133,10 +123,21 @@ const Cards = () => {
     });
   }
   const handleUnload = () => {
-    localStorage.clear();
+    localStorage.removeItem("dateFilterSelect");
+    localStorage.removeItem('expFilterSelect');
+    localStorage.removeItem("slyFilterSelect");
+    localStorage.removeItem("filtersLocalStorage");
+    localStorage.removeItem("mtyFilterSelect");
+    localStorage.removeItem("currentPage");
+    localStorage.removeItem("title");
+
     setFilters({})
     setTitle('a')
   };
+
+  useEffect(() => {
+    if(!dataUserLocal && !dataUserGoogle) navigate('/')
+  }, [])
 
   if (isLoading) return spinnerPurple()
 

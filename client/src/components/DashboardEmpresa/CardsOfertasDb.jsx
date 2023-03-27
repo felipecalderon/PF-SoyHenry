@@ -68,13 +68,13 @@ export const CardsOfertasDb = ({offers}) => {
                <p>Beneficios: {offer.benefits}</p>
                <p>Funciones: {offer.functions}</p>
                <p>Modalidad: {offer.modality}</p>
-               <p>Perks: {offer.perks.map((p) => p).join(', ')}</p>
-               <p>Experiencia: {offer.experience}</p>
-               <p>Salario mínimo: {offer.min_salary}</p>
-               <p>Salario máximo: {offer.max_salary}</p>
-               <p>Cantidad de aplicantes: {offer.applications_count}</p>
+               <p>Tecnologias: {offer.perks.map((p) => p).join(', ')}</p>
+               <p>Experiencia: {offer.experience} Año/s</p>
+               <p>Salario: ${offer.min_salary} - ${offer.max_salary}</p>
                <p>Fecha de creación: {offer.date_post}</p>
-               <br/>
+               <p>Cantidad de aplicantes: {offer.applications_count}</p>
+               <Link><button>Ver aplicantes</button></Link>
+               <br/><br/>
                <Link to={`/detail/${offer.id}?${offer.title}`}><button>Ver oferta</button></Link>
                <br/><br/>
                <Link><button>Cerrar oferta</button></Link>
