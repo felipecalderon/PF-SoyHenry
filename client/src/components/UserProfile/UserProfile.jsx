@@ -21,7 +21,7 @@ function UserProfile() {
 //   const [user] = useAuthState(auth);
   const navigate = useNavigate();
   const [isLogin, SetIsLogin] = useState(true);
-  const [inConfig, SetInConfig] = useState(false);
+  const [inConfig, SetInConfig] = useState(true);
   const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
     valorSeleccionado: "curriculum",
   });
@@ -43,13 +43,12 @@ function UserProfile() {
     }
   };
 
- 
 
   if (isLogin) {
     return (
       <>
         <NavCards />
-        <div className="flex justify-around bg-primary-light ">
+        <div className="flex justify-around bg-primary-light      dark:bg-secondary-dark ">
           <input
             className="invisible"
             type="radio"
@@ -61,7 +60,7 @@ function UserProfile() {
             }
             onChange={handleBarraPerfil}
           />
-          <label for="curriculum" className="cursor-pointer select-none ">
+          <label for="curriculum" className={`cursor-pointer select-none rounded-md mt-3 py-2 px-3  ${selectedValueBarraPerfil.valorSeleccionado==="curriculum"?"bg-secondary-light text-white  dark:bg-primary-dark ":""}`}>
             Curriculum
           </label>
           <input
@@ -75,7 +74,7 @@ function UserProfile() {
             }
             onChange={handleBarraPerfil}
           />
-          <label for="postulaciones" className="cursor-pointer select-none">
+          <label for="postulaciones" className={`cursor-pointer select-none rounded-md mt-3 py-2 px-3  ${selectedValueBarraPerfil.valorSeleccionado==="postulaciones"? "bg-secondary-light text-white dark:bg-primary-dark ":""}`}>
             Postulaciones
           </label>
           <input
@@ -87,21 +86,27 @@ function UserProfile() {
             checked={selectedValueBarraPerfil.valorSeleccionado === "favoritos"}
             onChange={handleBarraPerfil}
           />
-          <label for="favoritos" className="cursor-pointer select-none">
+          <label for="favoritos" className={`cursor-pointer select-none rounded-md mt-3 py-2 px-3 ${selectedValueBarraPerfil.valorSeleccionado==="favoritos"?"bg-secondary-light text-white  dark:bg-primary-dark ":""}`}>
             Favoritos
           </label>
         </div>
 
-        <section className="bg-primary-light flex   ">
+        <section className="bg-primary-light flex  w-full dark:bg-secondary-dark ">
           <section
-            className="bg-secondary-light m-5 p-1 border rounded-xl w-full "
-            style={{ maxHeight: " 1200px" }}>
+            className="bg-secondary-light dark:bg-primary-dark m-5 p-1 border rounded-xl w-full flex flex-col  items-end  "
+            style={{ maxHeight: " 1200px" ,minWidth:"330px"}}>
             {inConfig ? (
               <button
-                className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
+                className= " bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded "
+                style={{position: "relative",
+                  top: "10%",
+                  right: "15%",}}
                 onClick={() => SetInConfig(!inConfig)} >Volver</button>) :
                  (<button
                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                 style={{position: "relative",
+                  top: "10%",
+                  right: "15%",}}
                 onClick={() => SetInConfig(!inConfig)}>
                 Configurar
               </button>
@@ -109,7 +114,7 @@ function UserProfile() {
             {inConfig ? <Configuracion /> : <User />}
           </section>
 
-          <section className="bg-secondary-light m-5 p-4 border rounded-xl w-full  flex flex-col justify-start ">
+          <section className="bg-secondary-light dark:bg-primary-dark m-5 p-4 border rounded-xl w-full  flex flex-col justify-start " style={{minWidth:"330px"}}>
             {displayComponente(selectedValueBarraPerfil)}
           </section>
         </section>
