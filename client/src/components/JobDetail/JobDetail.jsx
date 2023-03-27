@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getDataPostulacion, getDataEmpresa, getPostulate } from "../../redux/slices/postSlices";
+import { getDataPostulacion } from "../../redux/slices/postSlices";
 import useFetch from '../Hooks/useFetch'
 import { NavCards } from "../Cards/Nav/NavCards";
 import Footer from "../Footer/Footer";
@@ -11,27 +11,10 @@ import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import axios from "axios";
-
-// Validacion del usuario 
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { getAuth } from 'firebase/auth';
-import fbapp from '../../firebaseConfig';
-import { useNavigate } from 'react-router-dom';
 import Perks from "./Perks";
 
-
 const JobDetail = () => {
-  // Obtenemos la instancia de Firebase Auth
-  const auth = getAuth(fbapp);
-  const [user] = useAuthState(auth);
   const navigate = useNavigate()
-
-  // valida si el usuario inicio sesion 
-  if (!user) {
-    spinnerPurple();
-    navigate('/');
-  }
-
   const dispatch = useDispatch();
   const query = new URLSearchParams(window.location.search);
   const title = query.get('title');
@@ -39,21 +22,18 @@ const JobDetail = () => {
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
   const { data, isLoading } = useFetch(url);
-  const [empresa, setEmpresa] = useState(null);
-
+  const dataUserLocal = localStorage.getItem("userLogin") 
+  const dataUserGoogle = localStorage.getItem("usergoogle")
+  const dataUser = JSON.parse(dataUserLocal);
+  console.log(dataUserLocal);
   const jobBenefitsHTML = { __html: jobId?.benefits };
   const jobFunctionsHTML = { __html: jobId?.functions };
   const jobRequerimentsHTML = { __html: jobId?.requeriments }
-
 
   useEffect(() => {
     window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
     if (data) dispatch(getDataPostulacion(data))
   }, [data, dispatch])
-
-  
-  const dataUserLocal = localStorage.getItem("userLogin");
-  const dataUser = JSON.parse(dataUserLocal);
   
   const handlePostulateDb = () => {
     const offerId = jobId.id
@@ -72,6 +52,10 @@ const JobDetail = () => {
   // filtrar según las perks que tenga la oferta de trabajo
   const cleanPerks = perksApi?.filter((perk) => jobId?.perks?.includes(perk.id)).map(perk => perk.attributes.name)
   
+  useEffect(() => {
+    if(!dataUserLocal && !dataUserGoogle) navigate('/')
+  }, [])
+
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
   return (
