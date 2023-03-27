@@ -18,10 +18,10 @@ export const menu = [
     name: "Sobre Nosotros",
     link: "/about"
   },
-  {
-    name: "Dashboard Empresa",
-    link: "/dashboardempresa"
-  },
+  // {
+  //   name: "Dashboard Empresa",
+  //   link: "/dashboardempresa"
+  // },
   {
     name: "Registro",
     link: "/registro"
