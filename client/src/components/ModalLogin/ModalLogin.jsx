@@ -25,22 +25,22 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
                 email: result.user.email,
                 name: result.user.displayName,
             }
-            const objetoJSON = JSON.stringify(usergoogle) 
-            localStorage.setItem('usergoogle', objetoJSON) 
+            const objetoJSON = JSON.stringify(usergoogle)
+            localStorage.setItem('usergoogle', objetoJSON)
             return usergoogle
         } catch (error) {
             console.log(error)
             setError(error.response.data.message)
         }
-      } 
-      
+    }
+
     const handleLoginGoogle = async () => {
         try {
-            const {email} = await authWithGoogle()
-            const verifyUsrExist = await axios.post(`/user/email`, {email})
+            const { email } = await authWithGoogle()
+            const verifyUsrExist = await axios.post(`/user/email`, { email })
 
-            if(!verifyUsrExist.data) {
-            // ALERT DEBERÍA DECIR ALGO COMO.. ESCOGE EL PERFIL SEGÚN TU INTERÉS: QUIERO BUSCAR EMPLEOS || QUIERO PUBLICAR OFERTAS DE TRABAJO (2 BOTONES)
+            if (!verifyUsrExist.data) {
+                // ALERT DEBERÍA DECIR ALGO COMO.. ESCOGE EL PERFIL SEGÚN TU INTERÉS: QUIERO BUSCAR EMPLEOS || QUIERO PUBLICAR OFERTAS DE TRABAJO (2 BOTONES)
                 alert("Gracias por unirte a FusionaJob! Por favor continúa completando tu perfíl")
                 return navigate('/profile')
             }
@@ -48,12 +48,12 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
             localStorage.setItem('userLogin', JSON.stringify(verifyUsrExist.data))
             if (verifyUsrExist.data.rol === 'Empresa') navigate('/dashboardempresa')
             if (verifyUsrExist.data.rol === 'Postulante') navigate('/offers')
-          } catch (error) {
+        } catch (error) {
             console.log(error)
             setError(error.response.data.message)
             alert("Hubo un error en el acceso, intente nuevamente")
-          }
         }
+    }
 
     const [form, setForm] = useState({
         email: '',
