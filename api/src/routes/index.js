@@ -42,6 +42,8 @@ const {
     getUsersByIdControllers,
 } = require("../controllers/userControllers");
 
+const { getTechnologies } = require('./technologiesRoute') 
+
 const route = Router();
 
 // Offers
@@ -89,5 +91,8 @@ route.post('/userPk', getUsersRouteClaveForanea)
 // route.delete('/admin/:id', deleteadmin)
 // route.get('/admin/:id',getadminbyid)
 //
+
+//technologies
+route.get('/technologies', getTechnologies)
 
 module.exports = route;
