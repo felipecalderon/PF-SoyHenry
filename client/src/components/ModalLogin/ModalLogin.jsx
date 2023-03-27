@@ -44,7 +44,8 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
         }
     }
 
-    const handleLoginGoogle = async () => {
+    const handleLoginGoogle = async (e) => {
+        e.preventDefault();
         try {
             const { email } = await authWithGoogle()
             const verifyUsrExist = await axios.post(`/user/email`, { email })

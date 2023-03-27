@@ -46,7 +46,7 @@ const Profile = ({company}) => {
       Modificar mis datos
     </Button>
     <Button variant="contained" endIcon={<SendIcon />}>
-      Send
+      Crear oferta de empleo
     </Button>
   </Box>
   <Dialog
@@ -56,16 +56,15 @@ const Profile = ({company}) => {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle>Editar información de la empresa y recruiter</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
+            Este modal servirá para abrir un form que edite la información del usuario.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose}>Agree</Button>
+          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={handleClose}>Aceptar</Button>
         </DialogActions>
       </Dialog>
 </>
