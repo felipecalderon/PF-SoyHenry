@@ -20,13 +20,13 @@ const Offers = sequelize.define('Offers', {
         },
     },
     requeriments: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
     },
     functions: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
     },
     benefits: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
     },
     modality: {
         type: DataTypes.ENUM('fully_remote', 'remote_local', 'hybrid', 'no_remote')

@@ -6,6 +6,7 @@ const Offers = require('./offersModel');
 const Aplications = require('./applicationModel');
 const SaveOffer = require('./saveOfferModel');
 const FavoritesComp = require('./favoritesCompModel');
+const Technologies = require('./technologiesModel')
 
 Postulant.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
 User.hasMany(Postulant, { foreignKey: 'userId' });
@@ -43,12 +44,19 @@ User.hasMany(FavoritesComp, { foreignKey: 'userId', onDelete: 'CASCADE' });
 FavoritesComp.belongsTo(Company, { foreignKey: 'companyId', onDelete: 'CASCADE' });
 Company.hasMany(FavoritesComp, { foreignKey: 'companyId', onDelete: 'CASCADE' });
 
+Technologies.hasMany(Offers, { foreignKey: 'idOffers', onDelete: 'CASCADE' })
+Offers.hasMany(Technologies, { foreignKey: 'idOffers'});
+
+Technologies.hasMany(Postulant, {foreignKey: 'idPostulant', onDelete: 'CASCADE'})
+Postulant.hasMany(Technologies, {foreignKey: 'idPostulant'})
+
 module.exports = {
     User,
     Postulant,
     Admin,
     Company,
     Offers,
+    Technologies,
     Aplications,
     SaveOffer,
     FavoritesComp,
