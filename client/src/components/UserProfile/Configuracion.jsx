@@ -162,7 +162,7 @@ function Configuracion() {
                             name='descripcion'
                             value={form.descripcion}
                             onChange={actualizarData}
-                            className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm text-base ' style={{maxHeight:"200px" , minHeight:"200px"}}
+                            className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm text-base ' style={{maxHeight:"160px" , minHeight:"160px"}}
                             placeholder="Describa sus habilidades, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos."></textarea>
                        </div>
 
@@ -276,7 +276,7 @@ function Configuracion() {
                                     
                                 
                               
-                    <div className='flex justify-around '>
+                    <div className='flex justify-around  w-full'>
                       <button
                       type='submit'
                       className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Aceptar Cambios</button>

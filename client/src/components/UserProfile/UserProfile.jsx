@@ -21,7 +21,7 @@ function UserProfile() {
 //   const [user] = useAuthState(auth);
   const navigate = useNavigate();
   const [isLogin, SetIsLogin] = useState(true);
-  const [inConfig, SetInConfig] = useState(false);
+  const [inConfig, SetInConfig] = useState(true);
   const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
     valorSeleccionado: "curriculum",
   });
@@ -43,7 +43,6 @@ function UserProfile() {
     }
   };
 
- 
 
   if (isLogin) {
     return (
@@ -61,7 +60,7 @@ function UserProfile() {
             }
             onChange={handleBarraPerfil}
           />
-          <label for="curriculum" className="cursor-pointer select-none ">
+          <label for="curriculum" className={`cursor-pointer select-none rounded-md mt-3 py-2 px-3 ${selectedValueBarraPerfil.valorSeleccionado==="curriculum"?"bg-secondary-light text-white  ":""}`}>
             Curriculum
           </label>
           <input
@@ -75,7 +74,7 @@ function UserProfile() {
             }
             onChange={handleBarraPerfil}
           />
-          <label for="postulaciones" className="cursor-pointer select-none">
+          <label for="postulaciones" className={`cursor-pointer select-none rounded-md mt-3 py-2 px-3  ${selectedValueBarraPerfil.valorSeleccionado==="postulaciones"? "bg-secondary-light text-white ":""}`}>
             Postulaciones
           </label>
           <input
@@ -87,7 +86,7 @@ function UserProfile() {
             checked={selectedValueBarraPerfil.valorSeleccionado === "favoritos"}
             onChange={handleBarraPerfil}
           />
-          <label for="favoritos" className="cursor-pointer select-none">
+          <label for="favoritos" className={`cursor-pointer select-none rounded-md mt-3 py-2 px-3 ${selectedValueBarraPerfil.valorSeleccionado==="favoritos"?"bg-secondary-light text-white  ":""}`}>
             Favoritos
           </label>
         </div>
