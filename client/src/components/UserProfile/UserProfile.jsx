@@ -94,7 +94,7 @@ function UserProfile() {
 
         <section className="bg-primary-light flex   ">
           <section
-            className="bg-secondary-light m-5 p-1 border rounded-xl w-full "
+            className="bg-secondary-light m-5 p-1 border rounded-xl w-full flex flex-col  items-end "
             style={{ maxHeight: " 1200px" }}>
             {inConfig ? (
               <button

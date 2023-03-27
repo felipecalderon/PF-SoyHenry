@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import  {useSelector} from "react-redux"
+import usuario from "../../assets/user.png";
 
-import user from "../../assets/user.png";
 const skills = [
   "Desarrollo web",
   "Desarrollo móvil",
@@ -59,7 +59,7 @@ function User() {
     <ul className="flex flex-col justify-between items-start p-8 h-full ">
       <li>
         <img
-          src={user}
+          src={usuario}
           alt=""
           width="150px"
           className="border rounded-full m-1 "
