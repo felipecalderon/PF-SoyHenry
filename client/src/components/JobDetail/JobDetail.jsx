@@ -17,6 +17,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { getAuth } from 'firebase/auth';
 import fbapp from '../../firebaseConfig';
 import { useNavigate } from 'react-router-dom';
+import Perks from "./Perks";
 
 
 const JobDetail = () => {
@@ -24,13 +25,13 @@ const JobDetail = () => {
   const auth = getAuth(fbapp);
   const [user] = useAuthState(auth);
   const navigate = useNavigate()
-  
+
   // valida si el usuario inicio sesion 
   if (!user) {
     spinnerPurple();
     navigate('/');
   }
-  
+
   const dispatch = useDispatch();
   const query = new URLSearchParams(window.location.search);
   const title = query.get('title');
@@ -50,22 +51,29 @@ const JobDetail = () => {
     if (data) dispatch(getDataPostulacion(data))
   }, [data, dispatch])
 
-  const handleAddFavorite = (favorite)=>{
-    dispatch(addFavorites(favorite))
-  }
   
-  if (!jobId) return spinnerPurple()
-  if (isLoading) return spinnerPurple()
-
-  const dataUserLocal = localStorage.getItem("userLogin"); 
+  const dataUserLocal = localStorage.getItem("userLogin");
   const dataUser = JSON.parse(dataUserLocal);
-
-  const handlePostulate = () => {
+  
+  const handlePostulateDb = () => {
     const offerId = jobId.id
     const userId = dataUser.id
     axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
+    alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
   };
 
+  // obtener perks en español desde la api getonbrd
+  const [perksApi, setPerksApi] = useState([])
+    useEffect(() => {
+        axios.get('https://www.getonbrd.com/api/v0/perks')
+            .then(res => setPerksApi(res.data.data))
+    }, [])
+
+  // filtrar según las perks que tenga la oferta de trabajo
+  const cleanPerks = perksApi?.filter((perk) => jobId?.perks?.includes(perk.id)).map(perk => perk.attributes.name)
+  
+  if (!jobId) return spinnerPurple()
+  if (isLoading) return spinnerPurple()
   return (
     <div className="bg-primary-light dark:bg-secondary-dark">
       <NavCards />
@@ -78,7 +86,7 @@ const JobDetail = () => {
           </div>
         </div> */}
       {/* Detalles de la oferta */}
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-8 dark:bg-gray-800">
+      <div className="flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-8 dark:bg-gray-800">
         <div className="md:flex">
           <div className="p-8">
             <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white mb-4">{jobId.title}</h1>
@@ -116,28 +124,28 @@ const JobDetail = () => {
             </>}
            
             <br />
-            {jobId.perks && jobId.perks.length > 0 && <>
-            <h2 className="text-lg font-semibold dark:text-white"> Ventajas </h2>
-            <ul className="list-disc list-inside mt-2 text-gray-800 dark:text-gray-400">
-              {jobId?.perks?.map((ventajas) => {
-                return <li key={ventajas}>{ventajas?.split("_").join(" ")}</li>
-              }).slice(0, 3)}
-            </ul>
-              </>}
+            <h2 className="text-lg font-semibold dark:text-white py-3"> Ventajas </h2>
+            <div className="flex flex-row flex-wrap gap-3">
+              {cleanPerks?.map((ventajas) => {
+                return <Perks perk={ventajas} />
+              })}
+            </div>
             <div className="mt-8 flex justify-center">
-              <button className="bg-purple-400 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded-full" onClick={handlePostulate}>
-                Aplicar
-              </button>
-
-              <Box >
-                <Fab color="red" 
-                  aria-label="add" 
-                  className="ml-4"
-                  onClick={() => handleAddFavorite(jobId)}>
-                  < FavoriteBorderIcon />
-
-                </Fab>
-              </Box>
+              {
+                Number(jobId.id)
+                  ? <button onClick={handlePostulateDb} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+                    <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                      Aplicar
+                    </span>
+                  </button>
+                  : <a href={jobId.link} target="_blank" rel="noreferrer" >
+                    <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+                      <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                        Aplicar en la Pagina
+                      </span>
+                    </button>
+                  </a>
+              }
             </div>
           </div>
         </div>
