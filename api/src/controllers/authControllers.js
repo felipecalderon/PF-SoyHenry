@@ -11,7 +11,7 @@ const authCreatePostulant = async (body) => {
             uid: usercreatedDB.userId
           })
           const user = userCredential.user
-        return `Inicio de sesion exitoso`
+        return usercreatedDB // `Inicio de sesion exitoso`
     } catch (error) {
       console.log(error);
         throw 'Error al iniciar sesión'

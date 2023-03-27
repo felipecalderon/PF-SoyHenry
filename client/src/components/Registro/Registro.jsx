@@ -16,7 +16,7 @@ export const Registro = () => {
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
-        username: '',
+        names: '',
         lastnames: '',
         email: '',
         password: '',
@@ -26,7 +26,7 @@ export const Registro = () => {
     });
 
     const [errors, setErrors] = useState({
-        username: '',
+        names: '',
         lastnames: '',
         email: '',
         password: '',
@@ -43,12 +43,15 @@ export const Registro = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const errorsNew = validationsRegister(form);
+        console.log(form)
         setErrors(errorsNew);
         if (Object.keys(errorsNew).length === 0) {
             dispatch(postFetchNewUsers(form));
             signInWithEmailAndPassword(auth, form.email, form.password)
-            alert('Usuario registrado');
-            navigate('/offers');
+            const objetoJSON = JSON.stringify(form)
+            localStorage.setItem('userLogin', objetoJSON)
+            alert("Gracias por unirte a FusionaJob! Por favor continúa completando tu perfíl");
+            navigate('/profile');
         }
     };
 
@@ -75,7 +78,7 @@ export const Registro = () => {
                 <form className='relative' onSubmit={(event) => handleSubmit(event)}>
 
                     <div className='relative ml-[1.5rem]'>
-                        <label className='dark:text-text-dark'>Nombre:</label>
+                        <label className='dark:text-text-dark'>Nombres:</label>
                     </div>
                     <div className='relative ml-[1rem] mb-[2rem]'>
                         <input type='text' name='username' value={form.username} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
@@ -91,7 +94,7 @@ export const Registro = () => {
                     </div>
 
                     <div className='absolute ml-[15.5rem] top-0'>
-                        <label className='dark:text-text-dark'>Apellido:</label>
+                        <label className='dark:text-text-dark'>Apellidos:</label>
                     </div>
                     <div className='absolute ml-[15rem] mt-[1.5rem] top-0'>
                         <input type='text' name='lastnames' value={form.lastnames} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
