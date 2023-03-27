@@ -47,7 +47,8 @@ const JobDetail = () => {
 
   // filtrar según las perks que tenga la oferta de trabajo
   const cleanPerks = perksApi?.filter((perk) => jobId?.perks?.includes(perk.id)).map(perk => perk.attributes.name)
-  
+  console.log(jobId?.perks);
+  console.log(perksApi);
   useEffect(() => {
     if(!dataUserLocal && !dataUserGoogle) navigate('/')
   }, [])

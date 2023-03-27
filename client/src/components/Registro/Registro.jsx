@@ -117,7 +117,7 @@ export const Registro = () => {
 
             </div>
 
-            <div className='absolute ml-[15rem] mt-[31rem] top-0'>
+            <div className='absolute ml-[15rem] mt-[30rem] top-0'>
                 <p className='text-black dark:text-text-dark'>Al hacer click en Crear Cuenta, acepto las Condiciones de uso y las Políticas de privacidad de Fusionajob.</p>
             </div>
 
