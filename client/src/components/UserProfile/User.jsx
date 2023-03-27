@@ -44,38 +44,7 @@ function User() {
     
   });
   const {user}= useSelector(state=>state.userRegisterSlice)
-/**
- * Postulants
-: 
-[{…}]
-active
-: 
-true
-createdAt
-: 
-"2023-03-27T01:45:55.276Z"
-email
-: 
-"francovz@live.com.ar"
-id
-: 
-"6e7c1fdb-657a-48f2-8e1f-440912f08426"
-password
-: 
-"$2b$10$tzKXgn0Zt.LZR40NsXLtHeZR4YlT.Y2BR9sQiq0lDLktX/j0pJIhe"
-rol
-: 
-"Postulante"
-state_aplication
-: 
-null
-updatedAt
-: 
-"2023-03-27T01:45:55.276Z"
-username
-: 
-"franco"
- */
+
   useEffect(() => {
     const dataUserLocal = localStorage.getItem("userLogin");
     const dataUser = JSON.parse(dataUserLocal);
@@ -115,10 +84,7 @@ username
           Descripcion
         </h2>
         <p className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-          consequatur nisi perspiciatis earum neque aspernatur recusandae
-          numquam, corrupti quasi explicabo alias placeat libero cumque ad
-          repellat adipisci aut! Obcaecati, quasi!
+        Describa sus habilidades, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos.
         </p>
       </li>
       <hr className="border border-b-gray-100  w-full " />

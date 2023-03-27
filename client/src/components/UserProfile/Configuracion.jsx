@@ -1,31 +1,12 @@
+import axios from 'axios';
 import React from 'react'
 import { useState,useEffect } from 'react'
 import user from "../../assets/user.png"
 import validacionConfig from './validacionconfig';
-const skills = [
-  "Desarrollo web",
-  "Desarrollo móvil",
-  "Bases de datos",
-  "Seguridad informática",
-  "Redes de computadoras",
-  "Inteligencia artificial",
-  "Aprendizaje automático",
-  "Ciencia de datos",
-  "Gestión de proyectos",
-  "Diseño UX/UI",
-  "Análisis de negocios",
-  "Cloud computing",
-  "DevOps",
-  "Automatización de pruebas",
-  "Ingeniería de software",
-  "Realidad virtual y aumentada",
-  "Blockchain",
-  "Ciberseguridad",
-  "Arquitectura de software",
-  "Gestión de la información",
-];
+
 
 function Configuracion() {
+  const [skills,setSkills]=useState([])
   const [showErrors,SetShowErrors]=useState(false)
   const [form,SetForm]=useState({
     nombre:"",
@@ -91,10 +72,16 @@ function Configuracion() {
   }
 
   useEffect(() => {
+          if(skills.length===0){
+            axios("/technologies")
+            .then((res)=>setSkills(res.data))
+            console.log(skills)
+          }
+
             validacionConfig(form,SetError)
             
           }
-    , [form])
+    , [form,skills])
     
    
   return (
@@ -201,11 +188,9 @@ function Configuracion() {
 
                             <select name="skills" id="" onChange={handleSelectSkills}>
                             <option value="">Seleccionar Habilidad</option>
-                              <option value="html">HTML</option>
-                              <option value="CSS">CSS</option>
-                              <option value="javascript">javascript</option>
+                          
                                  {
-                                  skills.map((el)=><option value={el}>{el}</option>)
+                                  skills?.map((el)=><option value={el.Technology}>{el.Technology}</option>)
                                  } 
 
                             </select>

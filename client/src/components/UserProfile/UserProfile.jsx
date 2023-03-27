@@ -18,7 +18,7 @@ import { spinnerPurple } from "../Cards/spinner";
 function UserProfile() {
   // Obtenemos la instancia de Firebase Auth
   const auth = getAuth(fbapp);
-  const [user] = useAuthState(auth);
+//   const [user] = useAuthState(auth);
   const navigate = useNavigate();
   const [isLogin, SetIsLogin] = useState(true);
   const [inConfig, SetInConfig] = useState(false);
@@ -43,7 +43,7 @@ function UserProfile() {
     }
   };
 
-  console.log(user)
+ 
 
   if (isLogin) {
     return (
