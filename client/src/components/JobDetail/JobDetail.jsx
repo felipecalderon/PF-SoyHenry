@@ -45,26 +45,29 @@ const JobDetail = () => {
   const jobFunctionsHTML = { __html: jobId?.functions };
   const jobRequerimentsHTML = { __html: jobId?.requeriments }
 
-  const [isFavorite, setIsFavorite] = useState(false);
-  
   
   useEffect(() => {
     window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
     if (data) dispatch(getDataPostulacion(data))
   }, [data, dispatch])
-
-  
-  
+  const [isFavorite, setIsFavorite] = useState(false);
   
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
-
-  const dataUserLocal = localStorage.getItem("userLogin");
   
   const dataUserLocal = localStorage.getItem("userLogin"); 
   const dataUser = JSON.parse(dataUserLocal);
+  
+  const handleToggleFavorite = () => {
+    setIsFavorite(!isFavorite)
+    if(isFavorite){
+      axios(`/fav_company/${dataUser.id}`)
+    }
+  };
+  
+  
 
-  const handlePostulateDb = () => {
+  const handlePostulate = () => {
     const offerId = jobId.id
     const userId = dataUser.id
     axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
@@ -124,7 +127,7 @@ const JobDetail = () => {
             {jobId.perks && jobId.perks.length > 0 && <>
             <h2 className="text-lg font-semibold dark:text-white"> Ventajas </h2>
             <ul className="list-disc list-inside mt-2 text-gray-800 dark:text-gray-400">
-              {jobId?.perks?.map((ventajas) => {
+              {jobId?.perks?.map((ventajas) => { 
                 return <li key={ventajas}>{ventajas?.split("_").join(" ")}</li>
               }).slice(0, 3)}
             </ul>
@@ -132,7 +135,7 @@ const JobDetail = () => {
             <div className="mt-8 flex justify-center">
               {
                 Number(jobId.id)
-                  ? <button onClick={handlePostulateDb} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+                  ? <button onClick={handlePostulate} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
                     <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                       Aplicar
                     </span>
@@ -145,6 +148,15 @@ const JobDetail = () => {
                     </button>
                   </a>
               }
+               <Box >
+              <Fab
+              sx={{ backgroundColor: isFavorite ? 'red' : 'white' }}
+               aria-label="like"
+               onClick={handleToggleFavorite}
+              >
+                {isFavorite ? <FavoriteBorderIcon />  : <FavoriteIcon />}
+              </Fab>
+              </Box>
             </div>
           </div>
         </div>
