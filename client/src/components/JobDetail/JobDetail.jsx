@@ -46,6 +46,8 @@ const JobDetail = () => {
   const jobFunctionsHTML = { __html: jobId?.functions };
   const jobRequerimentsHTML = { __html: jobId?.requeriments }
   
+  const dataUserLocal = localStorage.getItem("userLogin"); 
+  const dataUser = JSON.parse(dataUserLocal);
   
   useEffect(() => {
     window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
@@ -53,16 +55,15 @@ const JobDetail = () => {
   }, [data, dispatch])
   
   const [isFavorite, setIsFavorite] = useState("");
-  const favoritos = axios.get(`/fav_company/${dataUser.id}`)
-  const favFilter = favoritos.filter((cb) => cb.offerId === jobId.id )
+  const favFilter = axios.get(`/fav_company/${dataUser.id}`)
+  .then( (res)=> res.data.filter((cb) => cb.offerId === jobId.id ))
+  
   !favFilter ? setIsFavorite("save") : setIsFavorite("unsave")
   const offersFav = {offerId: jobId?.id , fav: isFavorite}
 
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
   
-  const dataUserLocal = localStorage.getItem("userLogin"); 
-  const dataUser = JSON.parse(dataUserLocal);
    
 
   const handleToggleFavorite = () => {
