@@ -133,7 +133,15 @@ const Cards = () => {
     });
   }
   const handleUnload = () => {
-    localStorage.clear();
+    localStorage.removeItem("dateFilterSelect");
+    localStorage.removeItem('expFilterSelect');
+    localStorage.removeItem("slyFilterSelect");
+    localStorage.removeItem("filtersLocalStorage");
+    localStorage.removeItem("mtyFilterSelect");
+    localStorage.removeItem("currentPage");
+    localStorage.removeItem("title");
+
+
     setFilters({})
     setTitle('a')
   };

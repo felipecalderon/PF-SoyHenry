@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Box, Typography, CardContent, CardMedia, Rating, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Slide} from '@mui/material/';
 import {Badge} from '@mui/icons-material/';
 import SendIcon from '@mui/icons-material/Send';
+import {Link} from 'react-router-dom'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -12,6 +13,7 @@ const Profile = ({company}) => {
   console.log(company);
   const [open, setOpen] = React.useState(false);
   if(!company) return "No hay info"
+
   const {companyname, description, logo, website, email} = company 
 
   const handleClickOpen = () => {
@@ -32,10 +34,10 @@ const Profile = ({company}) => {
       alt="Live from space album cover"
     />
     <CardContent className="flex flex-col justify-center">
-      <Typography component="div" variant="h5">
+      <Typography component="div" variant="h5" className='text-gray-900 dark:text-white'>
         {companyname}
       </Typography>
-      <Typography component="div" variant="subtitle1">
+      <Typography component="div" variant="subtitle1" className='text-gray-900 dark:text-white'>
         {website}
       </Typography>
       <Rating name="ratingCompany" value={4} readOnly />
@@ -45,9 +47,11 @@ const Profile = ({company}) => {
     <Button variant="outlined" onClick={handleClickOpen} startIcon={<Badge />}>
       Modificar mis datos
     </Button>
-    <Button variant="contained" endIcon={<SendIcon />}>
-      Send
-    </Button>
+    <Link to='/offerscreate'>
+      <Button variant="contained" endIcon={<SendIcon />}>
+        Crear oferta de empleo
+      </Button>
+    </Link>
   </Box>
   <Dialog
         open={open}
@@ -56,16 +60,15 @@ const Profile = ({company}) => {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle>Editar información de la empresa y recruiter</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
+            Este modal servirá para abrir un form que edite la información del usuario.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose}>Agree</Button>
+          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={handleClose}>Aceptar</Button>
         </DialogActions>
       </Dialog>
 </>
