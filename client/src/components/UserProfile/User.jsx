@@ -112,16 +112,16 @@ function User() {
       </li>
       <hr className="border border-b-gray-100  w-full " />
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        Datos de contacto :
+        Datos de contacto 
         <ul>
           <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-            tel:
+            Telefono
           </li>
           <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-            mail:{" "}
+            Fabook
           </li>
           <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-            redes sociales:{" "}
+     Linkedin
           </li>
         </ul>
       </li>

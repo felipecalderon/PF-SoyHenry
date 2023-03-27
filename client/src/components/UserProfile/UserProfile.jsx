@@ -69,9 +69,7 @@ function UserProfile() {
             name="barra-perfil"
             value="postulaciones"
             id="postulaciones"
-            checked={
-              selectedValueBarraPerfil.valorSeleccionado === "postulaciones"
-            }
+            checked={ selectedValueBarraPerfil.valorSeleccionado === "postulaciones"}
             onChange={handleBarraPerfil}
           />
           <label for="postulaciones" className={`cursor-pointer select-none rounded-md mt-3 py-2 px-3  ${selectedValueBarraPerfil.valorSeleccionado==="postulaciones"? "bg-secondary-light text-white dark:bg-primary-dark ":""}`}>
@@ -91,10 +89,10 @@ function UserProfile() {
           </label>
         </div>
 
-        <section className="bg-primary-light flex  w-full dark:bg-secondary-dark ">
+        <section className="bg-primary-light flex  w-full dark:bg-secondary-dark flex-wrap justify-center ">
           <section
             className="bg-secondary-light dark:bg-primary-dark m-5 p-1 border rounded-xl w-full flex flex-col  items-end  "
-            style={{ maxHeight: " 1200px" ,minWidth:"330px"}}>
+            style={{ minHeight: " 1200px" ,minWidth:"330px",maxWidth:"616px"}}>
             {inConfig ? (
               <button
                 className= " bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded "
@@ -114,7 +112,7 @@ function UserProfile() {
             {inConfig ? <Configuracion /> : <User />}
           </section>
 
-          <section className="bg-secondary-light dark:bg-primary-dark m-5 p-4 border rounded-xl w-full  flex flex-col justify-start " style={{minWidth:"330px"}}>
+          <section className="bg-secondary-light dark:bg-primary-dark m-5 p-4 border rounded-xl w-full  flex flex-col justify-start " style={{minWidth:"330px",maxWidth:"616px",minHeight: " 1200px"}}>
             {displayComponente(selectedValueBarraPerfil)}
           </section>
         </section>
