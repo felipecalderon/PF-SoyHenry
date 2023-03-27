@@ -17,10 +17,9 @@ function Configuracion() {
     idioma:"",
     habilidades:[],
     tel:"",
-    mail:"",
     linkedin:"",
     facebook:"",
-    github:""
+
   })
   const [error,SetError]=useState({
     nombre:"",
@@ -31,10 +30,9 @@ function Configuracion() {
     idiomas:"",
     habilidades:"",
     tel:"",
-    mail:"",
     linkedin:"",
     facebook:"",
-    github:""
+
   })
 
   const [inConfig,SetInConfig]=useState(false)
@@ -162,7 +160,7 @@ function Configuracion() {
                             name='descripcion'
                             value={form.descripcion}
                             onChange={actualizarData}
-                            className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm text-base ' style={{maxHeight:"160px" , minHeight:"160px"}}
+                            className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm text-base px-2 py-1 ' style={{maxHeight:"160px" , minHeight:"160px"}}
                             placeholder="Describa sus habilidades, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos."></textarea>
                        </div>
 
@@ -197,7 +195,10 @@ function Configuracion() {
                             
                             
                             <div className='flex flex-wrap justify-start overflow-y-auto' 
-                            style={{height:"95px"}}>
+                            style={{
+                              height:" 50%",
+                               width: "100%",
+                              alignContent: "start"}}>
                              {form.habilidades.length ?
                               form.habilidades.map((skill,index) => (
                                         
@@ -220,7 +221,7 @@ function Configuracion() {
                                 <div>
 
                                 <div className='mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full flex-wrap'>
-                                  <label for="tel">tel:</label>
+                                  <label for="tel">Telefono</label>
 
                                 <input 
                                 id='tel'
@@ -232,17 +233,7 @@ function Configuracion() {
                                 className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm text-base'/>
                                 </div>
 
-                                <div className='mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full'>
-
-                                <label for="mail">mail:</label>
-                                  <input 
-                                  id='mail'
-                                  type="email"
-                                  name='email'
-                                  onChange={actualizarData}
-                                  placeholder='juan.perez@gmail.com'
-                                  className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm text-base'/>
-                                </div>
+                               
                                 
                                   <label for="facebook">Facebook</label>
                                   <input
