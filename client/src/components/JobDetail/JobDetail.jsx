@@ -18,15 +18,15 @@ import Perks from "./Perks";
 
 const JobDetail = () => {
   // Obtenemos la instancia de Firebase Auth
-  const auth = getAuth(fbapp);
-  const [user] = useAuthState(auth);
-  const navigate = useNavigate()
+  // const auth = getAuth(fbapp);
+  // const [user] = useAuthState(auth);
+  // const navigate = useNavigate()
 
   // valida si el usuario inicio sesion 
-  if (!user) {
-    spinnerPurple();
-    navigate('/');
-  }
+  // if (!user) {
+  //   spinnerPurple();
+  //   navigate('/');
+  // }
 
   const dispatch = useDispatch();
   const query = new URLSearchParams(window.location.search);
