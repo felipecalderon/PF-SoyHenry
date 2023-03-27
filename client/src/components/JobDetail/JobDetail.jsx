@@ -59,7 +59,7 @@ const JobDetail = () => {
   .then( (res)=> res.data.filter((cb) => cb.offerId === jobId.id ))
   
   !favFilter ? setIsFavorite("save") : setIsFavorite("unsave")
-  const offersFav = {offerId: jobId?.id , fav: isFavorite}
+  const offersFav = {offerId: jobId&&jobId.id , fav: isFavorite}
 
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
