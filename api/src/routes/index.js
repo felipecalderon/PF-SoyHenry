@@ -49,6 +49,8 @@ const {
     getSaveOffers
 } = require('./relationsRoutes');
 
+const { getTechnologies } = require('./technologiesRoute') 
+
 const route = Router();
 
 // users
@@ -103,5 +105,8 @@ route.get('/fav_company/:id', getFavoriteComp) // id del User o de company
 // route.delete('/admin/:id', deleteadmin)
 // route.get('/admin/:id',getadminbyid)
 //
+
+//technologies
+route.get('/technologies', getTechnologies)
 
 module.exports = route;
