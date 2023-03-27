@@ -16,8 +16,21 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
     const navigate = useNavigate()
     const auth = getAuth(fbapp)
 
+    const [form, setForm] = useState({
+        email: '',
+        password: ''
+    })
+
+    const [errors, setErrors] = useState({
+        email: '',
+        password: ''
+    })
+
     const authWithGoogle = async () => {
         const provider = new GoogleAuthProvider()
+        provider.setCustomParameters({
+            login_hint: form.password
+          });
         try {
             const result = await signInWithPopup(auth, provider)
             const usergoogle = {
@@ -54,16 +67,6 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
             alert("Hubo un error en el acceso, intente nuevamente")
         }
     }
-
-    const [form, setForm] = useState({
-        email: '',
-        password: ''
-    })
-
-    const [errors, setErrors] = useState({
-        email: '',
-        password: ''
-    })
 
     const closeModal = () => {
         setOpen(false)
