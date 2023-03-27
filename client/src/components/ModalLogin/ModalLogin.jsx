@@ -28,9 +28,6 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
 
     const authWithGoogle = async () => {
         const provider = new GoogleAuthProvider()
-        provider.setCustomParameters({
-            login_hint: form.password
-          });
         try {
             const result = await signInWithPopup(auth, provider)
             const usergoogle = {
