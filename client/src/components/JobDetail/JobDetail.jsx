@@ -10,6 +10,7 @@ import {addFavorites} from "../../redux/slices/userRegisterSlice"
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
 import axios from "axios";
 
 // Validacion del usuario 
@@ -44,21 +45,29 @@ const JobDetail = () => {
   const jobFunctionsHTML = { __html: jobId?.functions };
   const jobRequerimentsHTML = { __html: jobId?.requeriments }
 
-
+  const [isFavorite, setIsFavorite] = useState(false);
+  
+  
   useEffect(() => {
     window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
     if (data) dispatch(getDataPostulacion(data))
   }, [data, dispatch])
-
-  const handleAddFavorite = (favorite)=>{
-    dispatch(addFavorites(favorite))
-  }
+  
+  
   
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
-
+  
   const dataUserLocal = localStorage.getItem("userLogin"); 
   const dataUser = JSON.parse(dataUserLocal);
+  
+  const handleToggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+    if(isFavorite){
+      axios(`/fav_company/${dataUser.id}`)
+    }
+  };
+  console.log(dataUser)
 
   const handlePostulate = () => {
     const offerId = jobId.id
@@ -130,13 +139,13 @@ const JobDetail = () => {
               </button>
 
               <Box >
-                <Fab color="red" 
-                  aria-label="add" 
-                  className="ml-4"
-                  onClick={() => handleAddFavorite(jobId)}>
-                  < FavoriteBorderIcon />
-
-                </Fab>
+              <Fab
+              sx={{ backgroundColor: isFavorite ? 'red' : 'white' }}
+               aria-label="like"
+               onClick={handleToggleFavorite}
+              >
+                {isFavorite ? <FavoriteBorderIcon />  : <FavoriteIcon />}
+              </Fab>
               </Box>
             </div>
           </div>
