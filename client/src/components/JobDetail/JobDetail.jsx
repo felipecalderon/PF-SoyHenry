@@ -41,7 +41,6 @@ const JobDetail = () => {
   const url = `/jobs/${id}?title=${title}`;
   const { data, isLoading } = useFetch(url);
   const [empresa, setEmpresa] = useState(null);
-  
   const jobBenefitsHTML = { __html: jobId?.benefits };
   const jobFunctionsHTML = { __html: jobId?.functions };
   const jobRequerimentsHTML = { __html: jobId?.requeriments }
@@ -52,19 +51,30 @@ const JobDetail = () => {
   useEffect(() => {
     window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
     if (data) dispatch(getDataPostulacion(data))
-  }, [data, dispatch])
+  }, [])
   
   const [isFavorite, setIsFavorite] = useState("");
-  const favFilter = axios.get(`/fav_company/${dataUser.id}`)
-  .then( (res)=> res.data.filter((cb) => cb.offerId === jobId.id ))
   
+  const [favFilter, setFavFilter]  = useState()
+  useEffect(()=>{
+    axios.get(`/fav_company/${dataUser.id}`)
+    .then( (res)=> res.data.filter((cb) => cb.offerId === jobId.id ))
+    .then((res)=> setFavFilter(res))
+
+    console.log(favFilter)
+    
+  },[favFilter])
   !favFilter ? setIsFavorite("save") : setIsFavorite("unsave")
+  
   const offersFav = {offerId: jobId&&jobId.id , fav: isFavorite}
+
+
   // obtener perks en español desde la api getonbrd
   const [perksApi, setPerksApi] = useState([])
     useEffect(() => {
         axios.get('https://www.getonbrd.com/api/v0/perks')
             .then(res => setPerksApi(res.data.data))
+            console.log(perksApi)
     }, [])
 
   if (!jobId) return spinnerPurple()
