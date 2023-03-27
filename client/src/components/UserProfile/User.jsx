@@ -1,5 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import  {useSelector} from "react-redux"
+
 import user from "../../assets/user.png";
 const skills = [
   "Desarrollo web",
@@ -41,7 +43,39 @@ function User() {
     github:""
     
   });
-
+  const {user}= useSelector(state=>state.userRegisterSlice)
+/**
+ * Postulants
+: 
+[{…}]
+active
+: 
+true
+createdAt
+: 
+"2023-03-27T01:45:55.276Z"
+email
+: 
+"francovz@live.com.ar"
+id
+: 
+"6e7c1fdb-657a-48f2-8e1f-440912f08426"
+password
+: 
+"$2b$10$tzKXgn0Zt.LZR40NsXLtHeZR4YlT.Y2BR9sQiq0lDLktX/j0pJIhe"
+rol
+: 
+"Postulante"
+state_aplication
+: 
+null
+updatedAt
+: 
+"2023-03-27T01:45:55.276Z"
+username
+: 
+"franco"
+ */
   useEffect(() => {
     const dataUserLocal = localStorage.getItem("userLogin");
     const dataUser = JSON.parse(dataUserLocal);
@@ -64,7 +98,7 @@ function User() {
       </li>
 
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        {data.username} {data.apellido} , {data.edad}
+        {data.username} {user?.Postulants[0].lastnames} , {data.edad}
       </li>
       <hr className="border border-b-gray-100  w-full " />
 
