@@ -60,6 +60,12 @@ const JobDetail = () => {
   
   !favFilter ? setIsFavorite("save") : setIsFavorite("unsave")
   const offersFav = {offerId: jobId&&jobId.id , fav: isFavorite}
+  // obtener perks en español desde la api getonbrd
+  const [perksApi, setPerksApi] = useState([])
+    useEffect(() => {
+        axios.get('https://www.getonbrd.com/api/v0/perks')
+            .then(res => setPerksApi(res.data.data))
+    }, [])
 
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
@@ -78,13 +84,7 @@ const JobDetail = () => {
     alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
   };
 
-  // obtener perks en español desde la api getonbrd
-  const [perksApi, setPerksApi] = useState([])
-    useEffect(() => {
-        axios.get('https://www.getonbrd.com/api/v0/perks')
-            .then(res => setPerksApi(res.data.data))
-    }, [])
-
+  
   // filtrar según las perks que tenga la oferta de trabajo
   const cleanPerks = perksApi?.filter((perk) => jobId?.perks?.includes(perk.id)).map(perk => perk.attributes.name)
   
