@@ -12,13 +12,14 @@ const userRegisterSlice = createSlice({
             descripcion:"",
             idioma:"",
             habilidades:[],
+            favorites: [],
             tel:"",
             mail:"",
             linkedin:"",
             facebook:"",
             github:""
         },
-        favorites: []
+        
 
     },
     reducers: {
