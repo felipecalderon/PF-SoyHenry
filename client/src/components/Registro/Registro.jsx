@@ -8,6 +8,11 @@ import { useDispatch } from "react-redux";
 import { postFetchNewUsers } from "../../redux/actions/postFetchNewUser";
 import fbapp from "../../firebaseConfig"
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
+import axios from "axios";
+
+// Mui core;
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 export const Registro = () => {
     const auth = getAuth(fbapp);
@@ -40,15 +45,16 @@ export const Registro = () => {
         })
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const errorsNew = validationsRegister(form);
         console.log(form)
         setErrors(errorsNew);
         if (Object.keys(errorsNew).length === 0) {
-            dispatch(postFetchNewUsers(form));
-            signInWithEmailAndPassword(auth, form.email, form.password)
-            const objetoJSON = JSON.stringify(form)
+            await axios.post('/auth/register', form)
+            // signInWithEmailAndPassword(auth, form.email, form.password)
+            const userdata = await axios.post(`/user/email`, { email: form.email })
+            const objetoJSON = JSON.stringify(userdata.data)
             localStorage.setItem('userLogin', objetoJSON)
             alert("Gracias por unirte a FusionaJob! Por favor continúa completando tu perfíl");
             navigate('/profile');
@@ -77,45 +83,31 @@ export const Registro = () => {
 
                 <form className='relative' onSubmit={(event) => handleSubmit(event)}>
 
-                    <div className='relative ml-[1.5rem]'>
-                        <label className='dark:text-text-dark'>Nombres:</label>
-                    </div>
-                    <div className='relative ml-[1rem] mb-[2rem]'>
-                        <input type='text' name='username' value={form.username} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
-                        {errors.username && <p className='absolute text-red-500' >{errors.username}</p>}
-                    </div>
-
-                    <div className='relative ml-[1.5rem]'>
-                        <label className='dark:text-text-dark'>Email:</label>
-                    </div>
-                    <div className='relative ml-[1rem] mb-[2rem]'>
-                        <input type='text' name='email' value={form.email} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
-                        {errors.email && <p className='absolute mt-15 text-red-500' >{errors.email}</p>}
-                    </div>
-
-                    <div className='absolute ml-[15.5rem] top-0'>
-                        <label className='dark:text-text-dark'>Apellidos:</label>
-                    </div>
-                    <div className='absolute ml-[15rem] mt-[1.5rem] top-0'>
-                        <input type='text' name='lastnames' value={form.lastnames} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
-                        {errors.lastnames && <p className='absolute mt-15 text-red-500' >{errors.lastnames}</p>}
-                    </div>
-
-                    <div className='absolute ml-[15.5rem] mt-[5.2rem] top-0'>
-                        <label className='dark:text-text-dark'>Contraseña:</label>
-                    </div>
-                    <div className='absolute ml-[15rem] mt-[6.8rem] top-0'>
-                        <input type='password' name='password' value={form.password} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
-                        {errors.password && <p className='absolute mt-15 text-red-500' >{errors.password}</p>}
-                    </div>
-
-                    <div className='relative ml-[1.5rem]'>
-                        <label className='dark:text-text-dark'>Documento:</label>
-                    </div>
-                    <div className='relative ml-[1rem] mb-[1rem]'>
-                        <input type='text' pattern="^[0-9]\d*$" name='documento' value={form.documento} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
-                        {errors.documento && <p className='absolute mt-15 text-red-500' >{errors.documento}</p>}
-                    </div>
+                    <Box
+                        className="grid grid-cols-2"
+                        component="form"
+                        sx={{
+                            '& > :not(style)': { m: 1, width: '25ch' },
+                        }}
+                        noValidate
+                        autoComplete="on"
+                    >
+                        <div>
+                            <TextField label="Nombres" value={form.username} onChange={handleChange} error={!!errors.username} helperText={errors.username} variant="standard" name='username' />
+                        </div>
+                        <div>
+                            <TextField label="Apellidos" value={form.lastnames} onChange={handleChange} error={!!errors.lastnames} helperText={errors.lastnames} variant="standard" name='lastnames' />
+                        </div>
+                        <div>
+                            <TextField label="Email" value={form.email} onChange={handleChange} error={!!errors.email} helperText={errors.email} variant="standard" name='email' />
+                        </div>
+                        <div>
+                            <TextField label="Contraseña" value={form.password} onChange={handleChange} error={!!errors.password} helperText={errors.password} variant="standard" name='password' type="password" />
+                        </div>
+                        <div>
+                            <TextField label="Documento" value={form.documento} onChange={handleChange} error={!!errors.documento} helperText={errors.documento} variant="standard" name='documento' />
+                        </div>
+                    </Box>
 
                     <div className='relative mt-[6rem] ml-[20rem] font-bold pb-[3rem]'>
                         <button type='submit' className="text-gray-900 border border-gray-800 hover:bg-secondary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-[1rem] py-[.5rem] dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800 disabled:opacity-50">Crear cuenta</button>
@@ -125,7 +117,7 @@ export const Registro = () => {
 
             </div>
 
-            <div className='absolute ml-[15rem] mt-[31rem] top-0'>
+            <div className='absolute ml-[15rem] mt-[30rem] top-0'>
                 <p className='text-black dark:text-text-dark'>Al hacer click en Crear Cuenta, acepto las Condiciones de uso y las Políticas de privacidad de Fusionajob.</p>
             </div>
 
