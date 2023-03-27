@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { postFetchNewUsers } from "../../redux/actions/postFetchNewUser";
 import fbapp from "../../firebaseConfig"
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
+import axios from "axios";
 
 export const Registro = () => {
     const auth = getAuth(fbapp);
@@ -40,15 +41,16 @@ export const Registro = () => {
         })
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const errorsNew = validationsRegister(form);
         console.log(form)
         setErrors(errorsNew);
         if (Object.keys(errorsNew).length === 0) {
-            dispatch(postFetchNewUsers(form));
-            signInWithEmailAndPassword(auth, form.email, form.password)
-            const objetoJSON = JSON.stringify(form)
+            await axios.post('/auth/register', form)
+            // signInWithEmailAndPassword(auth, form.email, form.password)
+            const userdata = await axios.post(`/user/email`, { email: form.email })
+            const objetoJSON = JSON.stringify(userdata.data)
             localStorage.setItem('userLogin', objetoJSON)
             alert("Gracias por unirte a FusionaJob! Por favor continúa completando tu perfíl");
             navigate('/profile');

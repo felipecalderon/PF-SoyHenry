@@ -16,6 +16,16 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
     const navigate = useNavigate()
     const auth = getAuth(fbapp)
 
+    const [form, setForm] = useState({
+        email: '',
+        password: ''
+    })
+
+    const [errors, setErrors] = useState({
+        email: '',
+        password: ''
+    })
+
     const authWithGoogle = async () => {
         const provider = new GoogleAuthProvider()
         try {
@@ -34,7 +44,8 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
         }
     }
 
-    const handleLoginGoogle = async () => {
+    const handleLoginGoogle = async (e) => {
+        e.preventDefault();
         try {
             const { email } = await authWithGoogle()
             const verifyUsrExist = await axios.post(`/user/email`, { email })
@@ -54,16 +65,6 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
             alert("Hubo un error en el acceso, intente nuevamente")
         }
     }
-
-    const [form, setForm] = useState({
-        email: '',
-        password: ''
-    })
-
-    const [errors, setErrors] = useState({
-        email: '',
-        password: ''
-    })
 
     const closeModal = () => {
         setOpen(false)

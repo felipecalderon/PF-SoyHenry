@@ -58,5 +58,8 @@ const Offers = sequelize.define('Offers', {
     state_aplication: {
         type: DataTypes.INTEGER,
     },
+    description:{
+        type: DataTypes.STRING,
+    }
 });
 module.exports = Offers

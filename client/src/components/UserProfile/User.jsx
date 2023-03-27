@@ -1,5 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import  {useSelector} from "react-redux"
+
 import user from "../../assets/user.png";
 const skills = [
   "Desarrollo web",
@@ -41,6 +43,7 @@ function User() {
     github:""
     
   });
+  const {user}= useSelector(state=>state.userRegisterSlice)
 
   useEffect(() => {
     const dataUserLocal = localStorage.getItem("userLogin");
@@ -64,7 +67,7 @@ function User() {
       </li>
 
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        {data.username} {data.apellido} , {data.edad}
+        {data.username} {user?.Postulants[0].lastnames} , {data.edad}
       </li>
       <hr className="border border-b-gray-100  w-full " />
 
@@ -81,10 +84,7 @@ function User() {
           Descripcion
         </h2>
         <p className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-          consequatur nisi perspiciatis earum neque aspernatur recusandae
-          numquam, corrupti quasi explicabo alias placeat libero cumque ad
-          repellat adipisci aut! Obcaecati, quasi!
+        Describa sus habilidades, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos.
         </p>
       </li>
       <hr className="border border-b-gray-100  w-full " />

@@ -7,7 +7,7 @@ import Favoritos from "./Favoritos";
 import Configuracion from "./Configuracion";
 import User from "./User";
 import { NavCards } from "../Cards/Nav/NavCards";
-
+import  {useSelector} from "react-redux"
 // Validacion del usuario
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getAuth } from "firebase/auth";
@@ -18,14 +18,13 @@ import { spinnerPurple } from "../Cards/spinner";
 function UserProfile() {
   // Obtenemos la instancia de Firebase Auth
   const auth = getAuth(fbapp);
-  const [user] = useAuthState(auth);
+//   const [user] = useAuthState(auth);
   const navigate = useNavigate();
   const [isLogin, SetIsLogin] = useState(true);
   const [inConfig, SetInConfig] = useState(false);
   const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
     valorSeleccionado: "curriculum",
   });
-
   const handleBarraPerfil = (event) => {
     const { value } = event.target;
     SetSelectedValueBarraPerfil({
@@ -43,6 +42,8 @@ function UserProfile() {
         return <Favoritos />;
     }
   };
+
+ 
 
   if (isLogin) {
     return (

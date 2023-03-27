@@ -6,6 +6,7 @@ import Footer from "../Footer/Footer";
 import { postFetchNewCompany } from '../../redux/actions/postFetchNewCompany'
 import validationsRegisterCompany from "./validationsRegisterCompany";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 
 export const RegistroEmpresa = () => {
 
@@ -45,15 +46,16 @@ export const RegistroEmpresa = () => {
         })
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const errorsNew = validationsRegisterCompany(form);
         setErrors(errorsNew);
         if(Object.keys(errorsNew).length === 0) {
-            dispatch(postFetchNewCompany(form));
-            const objetoJSON = JSON.stringify(form)
+            await axios.post('/auth/register', form)
+            const userdata = await axios.post(`/user/email`, { email: form.email })
+            console.log(userdata);
+            const objetoJSON = JSON.stringify(userdata.data)
             localStorage.setItem('userLogin', objetoJSON)
-            alert("Gracias por unirte a FusionaJob! Por favor continúa completando tu perfíl");
             navigate('/dashboardempresa');
         }
     };

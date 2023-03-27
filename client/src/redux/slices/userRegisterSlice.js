@@ -4,21 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const userRegisterSlice = createSlice({
     name: 'userRegisterSlice',
     initialState: {
-        user: {
-            nombre:"",
-            apellido:"",
-            edad:"",
-            ubicacion:"",
-            descripcion:"",
-            idioma:"",
-            habilidades:[],
-            favorites: [],
-            tel:"",
-            mail:"",
-            linkedin:"",
-            facebook:"",
-            github:""
-        },
+        user: null,
         
 
     },
