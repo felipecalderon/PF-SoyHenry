@@ -82,7 +82,7 @@ export default function OffersCreate () {
             .then((response) => {
                  setTechnologies(response.data)
             })
-    },[technologies])
+    },[])
 
     function handleChange(event){
         
