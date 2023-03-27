@@ -20,6 +20,7 @@ import fbapp from '../../firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 
 
+
 const JobDetail = () => {
   // Obtenemos la instancia de Firebase Auth
   const auth = getAuth(fbapp);
@@ -40,32 +41,34 @@ const JobDetail = () => {
   const url = `/jobs/${id}?title=${title}`;
   const { data, isLoading } = useFetch(url);
   const [empresa, setEmpresa] = useState(null);
-
+  
   const jobBenefitsHTML = { __html: jobId?.benefits };
   const jobFunctionsHTML = { __html: jobId?.functions };
   const jobRequerimentsHTML = { __html: jobId?.requeriments }
-
+  
   
   useEffect(() => {
     window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
     if (data) dispatch(getDataPostulacion(data))
   }, [data, dispatch])
-  const [isFavorite, setIsFavorite] = useState(false);
   
+  const [isFavorite, setIsFavorite] = useState("");
+  const favoritos = axios.get(`/fav_company/${dataUser.id}`)
+  const favFilter = favoritos.filter((cb) => cb.offerId === jobId.id )
+  !favFilter ? setIsFavorite("save") : setIsFavorite("unsave")
+  const offersFav = {offerId: jobId?.id , fav: isFavorite}
+
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
   
   const dataUserLocal = localStorage.getItem("userLogin"); 
   const dataUser = JSON.parse(dataUserLocal);
-  
+   
+
   const handleToggleFavorite = () => {
-    setIsFavorite(!isFavorite)
-    if(isFavorite){
-      axios(`/fav_company/${dataUser.id}`)
-    }
+    axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=${isFavorite}`) // guarda favorito o desmarca favorito
   };
-  
-  
+
 
   const handlePostulate = () => {
     const offerId = jobId.id
@@ -150,7 +153,7 @@ const JobDetail = () => {
               }
                <Box >
               <Fab
-              sx={{ backgroundColor: isFavorite ? 'red' : 'white' }}
+              sx={{ backgroundColor: isFavorite === "save" ? 'red' : 'white' }}
                aria-label="like"
                onClick={handleToggleFavorite}
               >
