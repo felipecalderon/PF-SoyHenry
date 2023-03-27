@@ -20,11 +20,11 @@ import { spinnerPurple } from '../Cards/spinner'
 
 function UserProfile() {
     // Obtenemos la instancia de Firebase Auth
-    const auth = getAuth(fbapp);
-    const [user] = useAuthState(auth);
-    const navigate = useNavigate()
+    // const auth = getAuth(fbapp);
+    // const [user] = useAuthState(auth);
+    // const navigate = useNavigate()
 
-    const [isLogin, SetIsLogin] = useState(true)
+    // const [isLogin, SetIsLogin] = useState(true)
     const [inConfig, SetInConfig] = useState(false)
     const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
         valorSeleccionado: "curriculum"
@@ -77,7 +77,6 @@ function UserProfile() {
     // useEffect(()=>{
     //     displayComponente(selectedValueBarraPerfil)
     // },[selectedValueBarraPerfil])
-    if (user) {
         return (
             <>
                 <NavCards />
@@ -125,10 +124,6 @@ function UserProfile() {
                 <Footer />
             </>
         )
-    } else {
-        spinnerPurple()
-        navigate('/')
-    }
 }
 
 export default UserProfile
