@@ -215,7 +215,7 @@ function Configuracion() {
                             
                                   </div>
                            
-                            <div className='mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400'>
+                            <div className='mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 w-full'>
                               Datos de contacto 
                                 <div>
 
@@ -242,14 +242,14 @@ function Configuracion() {
                                   placeholder='juan.perez@gmail.com'
                                   className='form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm text-base'/>
                                 </div>
-                                <div className='mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex  w-full'>
+                                
                                   <label for="facebook">Facebook</label>
                                   <input
                                   type="url"
                                   id='facebook'
                                   name='facebook'
                                   value={form.facebook}
-                                  onChange={form.facebook}
+                                  onChange={actualizarData}
                                   placeholder='https://www.facebook.com/tu_nombre_de_usuario'
                                   className='w-full form-input mt-1 block rounded-md border-gray-300 shadow-sm text-base'
                                    
@@ -257,14 +257,16 @@ function Configuracion() {
                                   <label for="linkedin">Linkedin</label>
                                     <input
                                       type="url"
-
-
-                                    placeholder='https://www.linkedin.com/in/tu_nombre_de_usuario'
-                                    className='w-2/5 form-input mt-1 block rounded-md border-gray-300 shadow-sm text-base'
-                                    id='linkedin'
+                                      id="linkedin"
+                                      name='linkedin'
+                                      value={form.linkedin}
+                                      onChange={actualizarData}
+                                      placeholder='https://www.linkedin.com/in/tu_nombre_de_usuario'
+                                    className='w-full form-input mt-1 block rounded-md border-gray-300 shadow-sm text-base'
+                               
                                     />
                                     
-                                </div>
+                                
 
 
                                 
