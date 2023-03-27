@@ -1,5 +1,5 @@
 const firebase = require('firebase/app');
-
+const admin = require('firebase-admin');
 const { FBAPIKEY, FBID } = process.env
 const firebaseConfig = {
   apiKey: FBAPIKEY,
@@ -10,5 +10,11 @@ const firebaseConfig = {
   appId: FBID
   };
 
+const clavePrivada = require("./firebase.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(clavePrivada),
+    databaseURL: 'firebase-adminsdk-3drz5@pf-soyhenry.iam.gserviceaccount.com'
+});
 firebase.initializeApp(firebaseConfig);
-module.exports = firebase
+module.exports = {firebase, admin}
