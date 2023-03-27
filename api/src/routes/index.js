@@ -41,8 +41,25 @@ const {
     getUsersInactByIdControllers,
     getUsersByIdControllers,
 } = require("../controllers/userControllers");
+const { 
+    stateAplication, 
+    saveCompany,
+    getFavoriteComp,
+    getAplicates,
+    getSaveOffers
+} = require('./relationsRoutes');
+
+const { getTechnologies } = require('./technologiesRoute') 
 
 const route = Router();
+
+// users
+route.post('/auth/login', authUserLoginCredentials)
+route.post('/auth/register', authUserCreate)
+route.get('/auth/google/:token', authUserCreateGoogleBtn)
+route.get('/user', allUsers);
+route.post('/user/email', getUsersRouteByEmail);
+route.post('/userPk', getUsersRouteClaveForanea);
 
 // Offers
 route.post('/jobs' , createOffer);
@@ -62,16 +79,15 @@ route.get('/company/:id',companyById);//id de la api
 route.get('/companydb/:id',companyByIdDatBas);//id dela db
 route.put('/company/:id', putCompany);
 route.delete('/company/:id',deleteCompany);
-//
 
-route.post('/auth/login', authUserLoginCredentials)
-route.post('/auth/register', authUserCreate)
-route.get('/auth/google/:token', authUserCreateGoogleBtn)
+// relations
+route.put('/rel_offers/:idOffer/:idUser' , stateAplication);
+route.put('/rel_company/:idCompany/:idUser' , saveCompany);
+route.get('/aplicates/:id', getAplicates) // id del User o de offer
+route.get('/save_offers/:id', getSaveOffers) // id del User
+route.get('/fav_company/:id', getFavoriteComp) // id del User o de company
 
 // Gets
-route.get('/user', allUsers);
-route.post('/user/email', getUsersRouteByEmail);
-route.post('/userPk', getUsersRouteClaveForanea)
 // route.get('user/:id', getUsersByIdControllers );
 // route.get('user/:email', getUsersByIdControllers );
 // route.get('user/inact', getUsersInactControllers );
@@ -89,5 +105,8 @@ route.post('/userPk', getUsersRouteClaveForanea)
 // route.delete('/admin/:id', deleteadmin)
 // route.get('/admin/:id',getadminbyid)
 //
+
+//technologies
+route.get('/technologies', getTechnologies)
 
 module.exports = route;
