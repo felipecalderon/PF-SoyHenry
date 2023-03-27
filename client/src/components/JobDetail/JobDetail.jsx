@@ -48,7 +48,7 @@ const JobDetail = () => {
   },[favFilter])
   !favFilter ? setIsFavorite("save") : setIsFavorite("unsave")
   
-  const offersFav = {offerId: jobId&&jobId.id , fav: isFavorite}
+  const offersFav = {offerId: jobId.id , fav: isFavorite}
 
 
   // obtener perks en español desde la api getonbrd

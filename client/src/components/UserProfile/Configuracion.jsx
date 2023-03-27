@@ -3,6 +3,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import usuario from "../../assets/user.png";
 import validacionConfig from "./validacionconfig";
+import Tags from "./Habilidades";
+
 
 function Configuracion() {
   const [skills, setSkills] = useState([]);
