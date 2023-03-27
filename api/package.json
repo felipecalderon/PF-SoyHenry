@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node ./src/app.js",
+    "start": "node --max-old-space-size=4096 ./src/app.js",
     "dev": "nodemon ./src/app.js",
     "test": "mocha -w ./tests/**/*.js"
   },
