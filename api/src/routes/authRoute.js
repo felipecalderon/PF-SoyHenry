@@ -4,7 +4,7 @@ const { authCreatePostulant, authLoginGoogle, authLoginGoogleCB, authLoginCreden
 const authUserCreate = async (req, res) => {
     try {
       const data = await authCreatePostulant(req.body)
-      res.json({ message: 'Usuario creado exitosamente' });
+      res.json(data);
 
     } catch (error) {
       if(error.code === 'auth/email-already-in-use') return res.status(400).json({ message: 'El usuario ya existe' });
@@ -20,6 +20,8 @@ const authUserCreate = async (req, res) => {
   const authUserLoginCredentials = async (req, res) => {
     try {
       const {user, token} = await authLoginCredentials(req.body)
+      
+      
       res
       // .setHeader('token', token)
       .json({ message: 'Inicio de sesion exitoso',
@@ -29,7 +31,9 @@ const authUserCreate = async (req, res) => {
 
     } catch (error) {
       if(error.code === 'auth/email-already-in-use') return res.status(400).json({ message: 'El usuario ya existe' });
-      res.status(400).json({ message: 'Usuario inválido' });
+      if(error.code === 'auth/user-not-found') return res.status(400).json({ message: 'El usuario no existe' });
+      
+      res.status(400).json({ message: error });
 
     }
   };

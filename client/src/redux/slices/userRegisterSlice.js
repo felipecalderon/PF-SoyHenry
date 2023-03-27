@@ -7,11 +7,11 @@ const userRegisterSlice = createSlice({
         user: null
     },
     reducers: {
-        getUser: (state, action) => {
+        saveUser: (state, action) => {
             state.user = action.payload
         }
     }
 })
 
-export const { getUser } = userRegisterSlice.actions
+export const { saveUser } = userRegisterSlice.actions
 export default userRegisterSlice.reducer

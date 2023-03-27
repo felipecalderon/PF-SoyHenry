@@ -6,14 +6,17 @@ import working1 from '../../assets/working1.png';
 import Footer from "../Footer/Footer";
 import { useDispatch } from "react-redux";
 import { postFetchNewUsers } from "../../redux/actions/postFetchNewUser";
+import fbapp from "../../firebaseConfig"
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
 
 export const Registro = () => {
+    const auth = getAuth(fbapp);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
-        username: '',
+        names: '',
         lastnames: '',
         email: '',
         password: '',
@@ -23,7 +26,7 @@ export const Registro = () => {
     });
 
     const [errors, setErrors] = useState({
-        username: '',
+        names: '',
         lastnames: '',
         email: '',
         password: '',
@@ -36,15 +39,19 @@ export const Registro = () => {
             [event.target.name]: event.target.value
         })
     };
-    
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const errorsNew = validationsRegister(form);
+        console.log(form)
         setErrors(errorsNew);
-        if(Object.keys(errorsNew).length === 0) {
-        dispatch(postFetchNewUsers(form));
-            alert('Usuario registrado');
-            navigate('/cards');
+        if (Object.keys(errorsNew).length === 0) {
+            dispatch(postFetchNewUsers(form));
+            signInWithEmailAndPassword(auth, form.email, form.password)
+            const objetoJSON = JSON.stringify(form)
+            localStorage.setItem('userLogin', objetoJSON)
+            alert("Gracias por unirte a FusionaJob! Por favor continúa completando tu perfíl");
+            navigate('/profile');
         }
     };
 
@@ -52,7 +59,7 @@ export const Registro = () => {
         <div className='relative bg-primary-light dark:bg-secondary-dark'>
 
             <div className='bg-secondary-light dark:bg-primary-dark h-16'>
-                <img src={logofusionajob} alt='Fusionalogo' className='flex relative w-[16rem] ml-[32rem]'/>
+                <img src={logofusionajob} alt='Fusionalogo' className='flex relative w-[16rem] ml-[32rem]' />
                 <Link to='/'><button className='absolute top-3 left-14 py-[.1rem] px-2 h-[2.5rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>← Home</button></Link>
                 <Link to='/companyregister'><button className='absolute top-5 right-10 text-red-600 font-bold hover:text-xl transition-all'>Registrate como recruiter</button></Link>
             </div>
@@ -62,7 +69,7 @@ export const Registro = () => {
             </div>
 
             <div className='flex absolute right-0 mr-[5rem]'>
-                <img src={working1} alt='work1' className='w-[35rem] mt-[1rem]'/>
+                <img src={working1} alt='work1' className='w-[35rem] mt-[1rem]' />
             </div>
 
 
@@ -71,7 +78,7 @@ export const Registro = () => {
                 <form className='relative' onSubmit={(event) => handleSubmit(event)}>
 
                     <div className='relative ml-[1.5rem]'>
-                        <label className='dark:text-text-dark'>Nombre:</label>
+                        <label className='dark:text-text-dark'>Nombres:</label>
                     </div>
                     <div className='relative ml-[1rem] mb-[2rem]'>
                         <input type='text' name='username' value={form.username} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
@@ -87,7 +94,7 @@ export const Registro = () => {
                     </div>
 
                     <div className='absolute ml-[15.5rem] top-0'>
-                        <label className='dark:text-text-dark'>Apellido:</label>
+                        <label className='dark:text-text-dark'>Apellidos:</label>
                     </div>
                     <div className='absolute ml-[15rem] mt-[1.5rem] top-0'>
                         <input type='text' name='lastnames' value={form.lastnames} onChange={handleChange} className='border-2 rounded-2xl px-2'></input>
@@ -123,7 +130,7 @@ export const Registro = () => {
             </div>
 
             <div className='bottom-0'>
-                <Footer/>
+                <Footer />
             </div>
         </div>
     )

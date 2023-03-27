@@ -1,30 +1,35 @@
 const { createUsers } = require("../handlers/handlerUserModels")
-const firebase = require('../auth/firebase.config')
-const { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithCredential} = require("firebase/auth")
+const { admin, firebase } = require('../auth/firebase.config')
+const { getAuth, GoogleAuthProvider, signInWithCredential, getUserByEmail} = require("firebase/auth")
 const { getUsersByEmail } = require('../handlers/handlerUserModels')
+const {compareSync} = require('bcrypt')
+
 const authCreatePostulant = async (body) => {
     try {
-        const auth = getAuth();
-        const { email, password } = body
-          const usercreatedDB = await createUsers(body)
-          const userCredential = await createUserWithEmailAndPassword(auth, email, password, {
-            uid: usercreatedDB.userId
-          })
-          const user = userCredential.user
-        return `Inicio de sesion exitoso`
+      const auth = admin.auth();
+      const { email, password } = body
+      const newUsercreatedDB = await createUsers(body)
+      const newUserFirebase = await auth.createUser({
+        email,
+        password,
+        uid: newUsercreatedDB.id,
+      });
+        return newUsercreatedDB // `Inicio de sesion exitoso`
     } catch (error) {
       console.log(error);
         throw 'Error al iniciar sesión'
     }
 }
+
 const authLoginCredentials = async ({email, password}) => {
   try {
-    const auth = getAuth();
-    const userCredential = await signInWithEmailAndPassword(auth, email, password)
-    const {token} = userCredential.user.stsTokenManager
-    const user = await getUsersByEmail(email)
-    console.log(user, token);
-    return {token, user}
+    const auth = admin.auth();
+    const user = await getUsersByEmail({email})
+    const userCredential = await auth.getUserByEmail(email) //solo verifica que exista en firebase
+    if(!user) throw 'Usuario no existe en DB'
+    const passwordValid = compareSync(password, user.password) //verifica que clave sea la misma en BD
+    if(!passwordValid)  throw 'Contraseña incorrecta'
+    return {user}
   } catch (error) {
       throw error
   }

@@ -11,7 +11,7 @@ const Offers = sequelize.define('Offers', {
     title: {
         type: DataTypes.STRING,
     },
-    date_post : {
+    date_post: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
         get() {
@@ -19,41 +19,47 @@ const Offers = sequelize.define('Offers', {
             return DateTime.fromJSDate(value).toFormat('dd/MM/yyyy HH:mm:ss'); // usa la fecha actual y la guarda al hacer el post ( de esta forma se actualiza )
         },
     },
-    requeriments:{
-        type: DataTypes.STRING,
+    requeriments: {
+        type: DataTypes.TEXT,
     },
-    functions:{
-        type: DataTypes.STRING,
+    functions: {
+        type: DataTypes.TEXT,
     },
-    benefits:{
-        type: DataTypes.STRING,
+    benefits: {
+        type: DataTypes.TEXT,
     },
     modality: {
         type: DataTypes.ENUM('fully_remote', 'remote_local', 'hybrid', 'no_remote')
     },
-    perks:{
+    perks: {
         type: DataTypes.ARRAY(DataTypes.STRING),
     },
-    experience:{
+    experience: {
         type: DataTypes.ENUM('0', '1', '2-4', '5'),
     },
-    min_salary:{
+    min_salary: {
         type: DataTypes.INTEGER,
     },
-    max_salary:{
+    max_salary: {
         type: DataTypes.INTEGER,
     },
-    applications_count:{
+    applications_count: {
         type: DataTypes.INTEGER,
+        defaultValue: 0,
     },
-    bd_create:{
+    bd_create: {
         type: DataTypes.BOOLEAN,
         defaultValue: true
     },
-    active:{
+    active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true
+    },
+    state_aplication: {
+        type: DataTypes.INTEGER,
+    },
+    description:{
+        type: DataTypes.STRING,
     }
 });
-
 module.exports = Offers
