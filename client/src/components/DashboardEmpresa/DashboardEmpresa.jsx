@@ -3,10 +3,13 @@ import Footer from '../Footer/Footer'
 import { NavEmpresa } from '../NavEmpresa/NavEmpresa'
 import { useNavigate } from "react-router-dom";
 import Profile from "./Profile";
+import { ResumenOfertas } from "./ResumenOfertas";
 import { CardsOfertasDb } from "./CardsOfertasDb";
 import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { saveUser } from '../../redux/slices/userRegisterSlice'
+
+
 export const DashboardEmpresa = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -30,7 +33,7 @@ export const DashboardEmpresa = () => {
             <h2 className=' text-center pt-6 mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white'>Dashboard Empresa</h2>
             <div className="flex flex-row justify-center py-6">
                 <div className="w-1/2 pl-8"><Profile company={userdata?.Companies[0]}/></div>
-            
+                <div className="w-1/2 pt-[20rem]"><ResumenOfertas offers={offers}/></div>
                 <div className="w-1/2"><CardsOfertasDb offers={offers}/></div>
             </div>
         </div>

@@ -23,7 +23,7 @@ const Accordion = styled((props) => (
 
 const AccordionSummary = styled((props) => (
   <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }}/>}
     {...props}
   />
 ))(({ theme }) => ({
@@ -59,7 +59,7 @@ export const CardsOfertasDb = ({offers}) => {
        {offers.map((offer, index) => (
          <Accordion key={index} expanded={expanded === `panel${index + 1}`} onChange={handleChange(`panel${index + 1}`)}>
            <AccordionSummary aria-controls={`panel${index + 1}d-content`} id={`panel${index + 1}d-header`}>
-             <Typography>{offer.title}</Typography>
+             <Typography>{offer.title} Postulantes:{offer.applications_count}</Typography>
            </AccordionSummary>
            <AccordionDetails>
              <Typography>
@@ -72,8 +72,9 @@ export const CardsOfertasDb = ({offers}) => {
                <p>Experiencia: {offer.experience} Año/s</p>
                <p>Salario: ${offer.min_salary} - ${offer.max_salary}</p>
                <p>Fecha de creación: {offer.date_post}</p>
-               <p>Cantidad de aplicantes: {offer.applications_count}</p>
-               <Link><button>Ver aplicantes</button></Link>
+               <p>Fecha de finalización:</p>
+               <p>Postulantes: {offer.applications_count}</p>
+               <Link><button>Ver postulantes</button></Link>
                <br/><br/>
                <Link to={`/detail/${offer.id}?${offer.title}`}><button>Ver oferta</button></Link>
                <br/><br/>
