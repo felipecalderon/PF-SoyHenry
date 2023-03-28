@@ -6,7 +6,7 @@ import useFetch from '../Hooks/useFetch'
 import { NavCards } from "../Cards/Nav/NavCards";
 import Footer from "../Footer/Footer";
 import { spinnerPurple } from "../Cards/spinner";
-import {addFavorites} from "../../redux/slices/userRegisterSlice"
+import { addFavorites } from "../../redux/slices/userRegisterSlice"
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -22,7 +22,7 @@ const JobDetail = () => {
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
   const { data, isLoading } = useFetch(url);
-  const dataUserLocal = localStorage.getItem("userLogin") 
+  const dataUserLocal = localStorage.getItem("userLogin")
   const dataUserGoogle = localStorage.getItem("usergoogle")
   const dataUser = JSON.parse(dataUserLocal);
   console.log(dataUserLocal);
@@ -34,7 +34,7 @@ const JobDetail = () => {
     window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
     if (data) dispatch(getDataPostulacion(data))
   }, [data, dispatch])
-  
+
   const handlePostulateDb = () => {
     const offerId = jobId.id
     const userId = dataUser.id
@@ -44,17 +44,17 @@ const JobDetail = () => {
 
   // obtener perks en español desde la api getonbrd
   const [perksApi, setPerksApi] = useState([])
-    useEffect(() => {
-        axios.get('https://www.getonbrd.com/api/v0/perks')
-            .then(res => setPerksApi(res.data.data))
-    }, [])
+  useEffect(() => {
+    axios.get('https://www.getonbrd.com/api/v0/perks')
+      .then(res => setPerksApi(res.data.data))
+  }, [])
 
   // filtrar según las perks que tenga la oferta de trabajo
   const cleanPerks = perksApi?.filter((perk) => jobId?.perks?.includes(perk.id)).map(perk => perk.attributes.name)
   console.log(jobId?.perks);
   console.log(perksApi);
   useEffect(() => {
-    if(!dataUserLocal && !dataUserGoogle) navigate('/')
+    if (!dataUserLocal && !dataUserGoogle) navigate('/')
   }, [])
 
   if (!jobId) return spinnerPurple()
@@ -76,10 +76,10 @@ const JobDetail = () => {
           <div className="p-8">
             <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white mb-4">{jobId.title}</h1>
             <section className="flex my-4">
-            {jobId.modality &&
-                   <h3 className="text-gray-600 dark:text-gray-300">
-                   Modalidad: {jobId.modality?.split("_").join(" ")}
-                   </h3>
+              {jobId.modality &&
+                <h3 className="text-gray-600 dark:text-gray-300">
+                  Modalidad: {jobId.modality?.split("_").join(" ")}
+                </h3>
               }
               <h3 className="text-lg font-semibold dark:text-white">
                 Rango salarial:
@@ -91,23 +91,23 @@ const JobDetail = () => {
                 }
               </h3>
             </section>
-            { jobId.benefits && <>
+            {jobId.benefits && <>
               <h2 className="text-lg font-semibold dark:text-white"> Beneficios </h2>
-            <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobBenefitsHTML}></h3>
+              <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobBenefitsHTML}></h3>
             </>
             }
             <br />
-            { jobId.functions && <>
+            {jobId.functions && <>
               <h2 className="text-lg font-semibold dark:text-white"> Funciones a realizar </h2>
-            <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobFunctionsHTML}></h3>
+              <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobFunctionsHTML}></h3>
             </>
             }
             <br />
-            { jobId.requeriments && <>
-            <h2 className="text-lg font-semibold dark:text-white">Requisitos</h2>
-            <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobRequerimentsHTML}></h3>
+            {jobId.requeriments && <>
+              <h2 className="text-lg font-semibold dark:text-white">Requisitos</h2>
+              <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobRequerimentsHTML}></h3>
             </>}
-           
+
             <br />
             <h2 className="text-lg font-semibold dark:text-white py-3"> Ventajas </h2>
             <div className="flex flex-row flex-wrap gap-3">
@@ -140,6 +140,6 @@ const JobDetail = () => {
   );
 };
 
-             
+
 
 export default JobDetail;
