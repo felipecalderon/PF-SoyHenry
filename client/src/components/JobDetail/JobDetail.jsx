@@ -32,23 +32,29 @@ const JobDetail = () => {
   
   useEffect(() => {
     window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
-    if (data) dispatch(getDataPostulacion(data))
+    if (data){ 
+      dispatch(getDataPostulacion(data))
+    }
   }, [])
-  
-  const [isFavorite, setIsFavorite] = useState("");
-  
-  const [favFilter, setFavFilter]  = useState()
-  useEffect(()=>{
-    axios.get(`/fav_company/${dataUser.id}`)
-    .then( (res)=> res.data.filter((cb) => cb.offerId === jobId.id ))
-    .then((res)=> setFavFilter(res))
 
-    console.log(favFilter)
-    
-  },[favFilter])
-  !favFilter ? setIsFavorite("save") : setIsFavorite("unsave")
+  useEffect(()=>{
+    axios.get(`company/${jobId?.idEmpresa}`)
+  })
   
-  const offersFav = {offerId: jobId.id , fav: isFavorite}
+  // const [isFavorite, setIsFavorite] = useState("");
+  
+  // const [favFilter, setFavFilter]  = useState()
+  // useEffect(()=>{
+  //   axios.get(`/fav_company/${dataUser.id}`)
+  //   .then( (res)=> res.data.filter((cb) => cb.offerId === jobId.id ))
+  //   .then((res)=> setFavFilter(res))
+
+  //   console.log(favFilter)
+    
+  // },[favFilter])
+  // !favFilter ? setIsFavorite("save") : setIsFavorite("unsave")
+  
+  // const offersFav = {offerId: jobId.id , fav: isFavorite}
 
 
   // obtener perks en español desde la api getonbrd
@@ -64,15 +70,15 @@ const JobDetail = () => {
   
    
 
-  const handleToggleFavorite = () => {
-    axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=${isFavorite}`) // guarda favorito o desmarca favorito
-  };
+  // const handleToggleFavorite = () => {
+  //   axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=${isFavorite}`) // guarda favorito o desmarca favorito
+  // };
 
 
   const handlePostulate = () => {
     const offerId = jobId.id
     const userId = dataUser.id
-    axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
+    axios.put(`/rel_offers/${offerId}/${userId}?state=save&origin=${Number(offerId) ? "db" : "api"}`)
     alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
   };
 
@@ -90,13 +96,13 @@ const JobDetail = () => {
     <div className="bg-primary-light dark:bg-secondary-dark">
       <NavCards />
       {/* Datos de la empresa */}
-      {/* <div className="md:flex-shrink-0">
+      <div className="md:flex-shrink-0">
           <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa ? empresa.logo : null} alt="Job Posting" />
           <span className="material-symbols-outlined">star_rate</span> ver como medir el "valor/renking" de la empresa 
           <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">
             {empresa ? empresa.name : null}
           </div>
-        </div> */}
+        </div>
       {/* Detalles de la oferta */}
       <div className="flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-8 dark:bg-gray-800">
         <div className="md:flex">
@@ -158,7 +164,7 @@ const JobDetail = () => {
                     </button>
                   </a>
               }
-               <Box >
+               {/* <Box >
               <Fab
               sx={{ backgroundColor: isFavorite === "save" ? 'red' : 'white' }}
                aria-label="like"
@@ -166,7 +172,7 @@ const JobDetail = () => {
               >
                 {isFavorite ? <FavoriteBorderIcon />  : <FavoriteIcon />}
               </Fab>
-              </Box>
+              </Box> */}
             </div>
           </div>
         </div>
