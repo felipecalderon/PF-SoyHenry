@@ -9,10 +9,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   });
 
 const Profile = ({company}) => {
-  //eslint-disable-next-line no-unused-vars
   const [open, setOpen] = React.useState(false);
   if(!company) return "No hay info"
-
+  
+  //eslint-disable-next-line no-unused-vars
   const {companyname, description, logo, website, email} = company 
 
   const handleClickOpen = () => {
