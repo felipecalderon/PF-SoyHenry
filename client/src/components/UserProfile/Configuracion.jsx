@@ -46,7 +46,7 @@ function Configuracion() {
     apellido: "",
     edad: "",
     titulo: "",
-    genero: "",
+    genero: "",           
     experiencia: "",
     discapacidad: "",
     ciudad:"",
@@ -124,7 +124,7 @@ function Configuracion() {
         />
 
       <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400  w-full flex items-center justify-between">
-        <TextField
+        <input
           type="text"
           id="nombre"
           placeholder="Nombre"
@@ -134,7 +134,7 @@ function Configuracion() {
          onChange={actualizarData}
         />
 
-        <TextField
+        <input
           type="text"
           id="apellido"
           className="form-input mt-1 block  rounded-md border-gray-300 shadow-sm w-1/3 text-center mx-2 text-base"
@@ -145,7 +145,7 @@ function Configuracion() {
         />
         <label for="edad">Edad</label>
 
-        <TextField
+        <input
           type="number"
           id="edad"
           className="form-input mt-1 block rounded-md border-gray-300 shadow-sm mx-2 text-base"
@@ -237,10 +237,10 @@ function Configuracion() {
       {showErrors ? (
         <div className="flex justify-around w-full ">
           <span className=" select-none text-xs font-bold text-red-600">
-            {error?.ciudad}
+            {error?.pais}
           </span>
           <span className=" select-none text-xs font-bold text-red-600">
-            {error?.pais}
+            {error?.ciudad}
           </span>
         </div>
       ) : null}
@@ -250,7 +250,7 @@ function Configuracion() {
 
       <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full">
         <label for="titulo">Titulo</label>
-        <TextField
+        <input
           type="text"
           name="titulo"
           value={form.titulo}
@@ -278,7 +278,7 @@ function Configuracion() {
         >
           Descripcion
         </label>
-        <TextField
+        <textarea
           id="descripcion"
           name="descripcion"
           value={form.descripcion}
@@ -286,7 +286,7 @@ function Configuracion() {
           className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm text-base px-2 py-1 "
           style={{ maxHeight: "160px", minHeight: "160px" }}
           placeholder="Describa sus habilidades, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos."
-        ></TextField>
+        ></textarea>
       </div>
       {showErrors ? (
         <div className="flex justify-center w-full ">
@@ -318,7 +318,7 @@ function Configuracion() {
        
       <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full ">
         <label for="idioma">Idioma</label>
-        <TextField
+        <input
           type="text"
           placeholder="Ej: Inglés - Avanzado, Español - Nativo, Francés - Básico"
           id="idioma"
@@ -387,7 +387,7 @@ function Configuracion() {
             <option value={el.Technology}>{el.Technology}</option>
           ))}
         </select>
-        <Tags />
+        {/* <Tags /> */}
 
         <div
           className="flex flex-wrap justify-center overflow-y-auto"
@@ -422,7 +422,7 @@ function Configuracion() {
           <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full flex-wrap">
             <label for="tel">Telefono</label>
 
-            <TextField
+            <input
               id="tel"
               type="tel"
               name="tel"
@@ -441,7 +441,7 @@ function Configuracion() {
           </div>
 
           <label for="facebook">Facebook</label>
-          <TextField
+          <input
             type="url"
             id="facebook"
             name="facebook"
@@ -458,7 +458,7 @@ function Configuracion() {
             </div>
           ) : null}
           <label for="linkedin">Linkedin</label>
-          <TextField
+          <input
             type="url"
             id="linkedin"
             name="linkedin"

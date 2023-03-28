@@ -52,6 +52,16 @@ function UserProfile() {
         SetSelectedValueBarraPerfil({
             valorSeleccionado: value
         })
+    
+  };
+  const displayComponente = (selectedValueBarraPerfil) => {
+    switch (selectedValueBarraPerfil.valorSeleccionado) {
+      case "curriculum":
+        return <Curriculum />;
+      case "postulaciones":
+        return <Postulaciones />;
+      case "favoritos":
+        return <Favoritos />;
     }
   };
 
