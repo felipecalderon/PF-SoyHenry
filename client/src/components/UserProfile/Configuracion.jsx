@@ -14,7 +14,8 @@ function Configuracion() {
     genero: "",
     experiencia: "",
     discapacidad: "",
-    ubicacion: "",
+    ciudad:"",
+    pais:"",
     titulo: "",
     descripcion: "",
     idioma: "",
@@ -31,7 +32,8 @@ function Configuracion() {
     genero: "",
     experiencia: "",
     discapacidad: "",
-    ubicacion: "",
+    ciudad:"",
+    pais:"",
     descripcion: "",
     idiomas: "",
     habilidades: "",
@@ -130,7 +132,7 @@ function Configuracion() {
       </div>
 
       {showErrors ? (
-        <div className="flex justify-between w-full mb-3">
+        <div className="flex justify-evenly w-full mb-3">
           <span className=" select-none text-xs text-red-600">
             {error?.nombre}
           </span>
@@ -142,7 +144,7 @@ function Configuracion() {
           </span>
         </div>
       ) : null}
-      <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full">
+      <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full ">
       <label for="genero">Genero</label>
         <select
         className="w-full form-input mt-1 block  rounded-md border-gray-300 shadow-sm text-base justify-center mx-2"
@@ -168,7 +170,7 @@ function Configuracion() {
 
    
       {showErrors ? (
-        <div className="flex justify-around w-full ">
+        <div className="flex justify-between w-full ">
           <span className=" select-none text-xs text-red-600 ml-4">
       {error?.genero}
     </span>
@@ -179,29 +181,44 @@ function Configuracion() {
       ) : null}
 
       <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full">
-        <label for="ubicacion">Ubicacion </label>
+        <label for="ciudad">Ciudad</label>
         <input
-          placeholder=" Buenos Aires , Argentina"
-          id="ubicacion"
-          name="ubicacion"
-          type="text"
-          value={form.ubicacion}
-          onChange={actualizarData}
-          className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base"
+                placeholder=" Buenos Aires "
+                id="ciudad"
+                name="ciudad"
+                type="text"
+                value={form.ciudad}
+                onChange={actualizarData}
+                className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base"
         />
+        <label for="pais">Pais</label>
+        <input
+                placeholder="Argentina"
+                id="pais"
+                name="pais"
+                type="text"
+                value={form.pais}
+                onChange={actualizarData}
+                className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base"
+        />
+        
+
+
       </div>
      
 
-
-      
-      
- {showErrors ? (
-        <div className="flex justify-center w-full ">
+      {showErrors ? (
+        <div className="flex justify-around w-full ">
           <span className=" select-none text-xs text-red-600">
-            {error?.ubicacion}
+            {error?.ciudad}
+          </span>
+          <span className=" select-none text-xs text-red-600">
+            {error?.pais}
           </span>
         </div>
       ) : null}
+      
+      
 
 
       <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full">
@@ -304,7 +321,7 @@ function Configuracion() {
           name="skills"
           id=""
           onChange={handleSelectSkills}
-          className="w-2/3 form-input mt-1 block  rounded-md border-gray-300 shadow-sm text-base flex-grow"
+          className="w-2/3 form-input mt-1 block  rounded-md border-gray-300 shadow-sm text-base flex-grow mx-2"
         >
           <option value="">Seleccionar Habilidad</option>
 
