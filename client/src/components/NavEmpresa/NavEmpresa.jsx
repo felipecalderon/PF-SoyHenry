@@ -66,6 +66,8 @@ export const NavEmpresa = () => {
                     </div>
                     {/* Menú */}
                     <div className="flex dark:text-text-dark text-gray-900">
+                        <Link to='/'><button className='absolute top-3 left-14 py-[.1rem] px-2 h-[2.5rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>← Home</button></Link>
+                        {/* <Link to='/offers'  className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Ofertas</Link> */}
                         <Link to='/offersCreate' className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Crear ofertas</Link>
                         <Link to='/about' className="dark:hover:text-yellow-200 hover:text-xl transition-all inline-block font-medium px-4 py-2">Sobre nosotros</Link>
                         <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" className="w-10 h-10 rounded-full cursor-pointer" src={userGoogle? userGoogle.photo : "https://st2.depositphotos.com/1309454/5538/v/450/depositphotos_55380965-stock-illustration-avatars-characters.jpg"} alt="User dropdown" onClick={handleAvatarClick} />
