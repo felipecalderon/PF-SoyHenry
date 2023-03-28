@@ -6,7 +6,7 @@ import Postulaciones from "./Postulaciones";
 import Favoritos from "./Favoritos";
 import Configuracion from "./Configuracion";
 import User from "./User";
-import { NavCards } from "../Cards/Nav/NavCards";
+import { NavLanding } from "../NavLanding/NavLanding";
 import  {useSelector} from "react-redux"
 // Validacion del usuario
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -43,11 +43,23 @@ function UserProfile() {
     }
   };
 
+  const menu =[
+    {
+      name:"Ofertas",
+      link:"/offers"
+
+  },
+  {
+    name: "Sobre Nosotros",
+    link: "/about"
+  },
+]
+
 
   if (isLogin) {
     return (
       <>
-        <NavCards />
+        <NavLanding menu={menu} />
         <div className="flex justify-around bg-primary-light      dark:bg-secondary-dark ">
           <input
             className="invisible"
