@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Footer from '../Footer/Footer'
-import { NavEmpresa } from '../NavEmpresa/NavEmpresa'
 import { useNavigate } from "react-router-dom";
 import Profile from "./Profile";
 import { ResumenOfertas } from "./ResumenOfertas";
@@ -8,7 +7,6 @@ import { CardsOfertasDb } from "./CardsOfertasDb";
 import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { saveUser } from '../../redux/slices/userRegisterSlice'
-
 
 export const DashboardEmpresa = () => {
     const dispatch = useDispatch()
@@ -26,8 +24,8 @@ export const DashboardEmpresa = () => {
                 setOffers(res.data.Offers)
             })
     }, []) // eslint-disable-line
+
     return (
-        <>
         <div className="bg-primary-light dark:bg-secondary-dark">
             <NavEmpresa />
             <h2 className="text-center pt-6 mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">
@@ -48,9 +46,17 @@ export const DashboardEmpresa = () => {
                 </div>
                 </div>
                 <div className="col-span-2 row-span-1"></div>
+        <div className="bg-primary-light dark:bg-secondary-dark pt-20">
+            <NavLanding menu={menu}/>
+            <h2 className=' text-center pt-6 mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white'>Dashboard Empresa</h2>
+            <div className="flex flex-row justify-center py-6">
+                <div className="w-1/2 pl-8"><Profile company={userdata?.Companies[0]}/></div>
+            
+                <div className="w-1/2"><CardsOfertasDb offers={offers}/></div>
             </div>
         </div>
             <Footer />
-        </>
+        </div>
+        </div>
     )
 }

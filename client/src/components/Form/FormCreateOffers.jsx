@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import styles from './FormCreateOffers.module.css'
 import ModalConfirmChanges from './FormCreateOfferModal'
 import { Fragment } from "react";
-import { NavEmpresa } from "../NavEmpresa/NavEmpresa";
 import Footer from "../Footer/Footer";
 
 
@@ -162,7 +161,6 @@ export default function OffersCreate() {
 // className={styles.contenedor} // style por css
     return (
         <Fragment>
-            <NavEmpresa />
             <div className="flex flex-col bg-primary-light dark:bg-secondary-dark"  >
                 <h1 className={styles.titulo}>Publicacion oferta laboral</h1>
                 <form className="" onSubmit={(event) => handleSubmit(event)}>
