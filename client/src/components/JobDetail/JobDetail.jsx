@@ -3,11 +3,30 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { getDataPostulacion } from "../../redux/slices/postSlices";
 import useFetch from '../Hooks/useFetch'
-import { NavCards } from "../Cards/Nav/NavCards";
 import Footer from "../Footer/Footer";
 import { spinnerPurple } from "../Cards/spinner";
+import {addFavorites} from "../../redux/slices/userRegisterSlice"
+import Box from '@mui/material/Box';
+import Fab from '@mui/material/Fab';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import axios from "axios";
 import Perks from "./Perks";
+import {NavLanding} from '../NavLanding/NavLanding'
+
+export const menu = [
+  {
+    name: "Planes",
+    link: "#"
+  },
+  {
+    name: "Sobre Nosotros",
+    link: "/about"
+  },
+  {
+    name: "Registro",
+    link: "/registro"
+  },
+]
 
 const JobDetail = () => {
   const navigate = useNavigate()
@@ -56,8 +75,9 @@ const JobDetail = () => {
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
   return (
+  <>
+    <NavLanding menu={menu} />
     <div className="bg-primary-light dark:bg-secondary-dark">
-      <NavCards />
       {/* Datos de la empresa */}
       {/* <div className="md:flex-shrink-0">
           <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa ? empresa.logo : null} alt="Job Posting" />
@@ -72,10 +92,11 @@ const JobDetail = () => {
           <div className="p-8">
             <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white mb-4">{jobId.title}</h1>
             <section className="flex my-4">
-              <h3 className="text-lg font-semibold dark:text-white mr-4">
-                Modalidad:
-                <p className="inline mt-2 text-gray-800 dark:text-gray-400 text-base font-normal"> {jobId.modality?.split("_").join(" ")} </p>
-              </h3>
+            {jobId.modality &&
+                   <h3 className="text-gray-600 dark:text-gray-300">
+                   Modalidad: {jobId.modality?.split("_").join(" ")}
+                   </h3>
+              }
               <h3 className="text-lg font-semibold dark:text-white">
                 Rango salarial:
                 {
@@ -86,14 +107,23 @@ const JobDetail = () => {
                 }
               </h3>
             </section>
-            <h2 className="text-lg font-semibold dark:text-white"> Beneficios </h2>
+            { jobId.benefits && <>
+              <h2 className="text-lg font-semibold dark:text-white"> Beneficios </h2>
             <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobBenefitsHTML}></h3>
+            </>
+            }
             <br />
-            <h2 className="text-lg font-semibold dark:text-white"> Funciones a realizar </h2>
+            { jobId.functions && <>
+              <h2 className="text-lg font-semibold dark:text-white"> Funciones a realizar </h2>
             <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobFunctionsHTML}></h3>
+            </>
+            }
             <br />
+            { jobId.requeriments && <>
             <h2 className="text-lg font-semibold dark:text-white">Requisitos</h2>
             <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobRequerimentsHTML}></h3>
+            </>}
+           
             <br />
             <h2 className="text-lg font-semibold dark:text-white py-3"> Ventajas </h2>
             <div className="flex flex-row flex-wrap gap-3">
@@ -123,7 +153,10 @@ const JobDetail = () => {
       </div>
       <Footer />
     </div>
+  </>
   );
 };
+
+             
 
 export default JobDetail;

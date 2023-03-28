@@ -22,7 +22,7 @@ const Accordion = styled((props) => (
 
 const AccordionSummary = styled((props) => (
   <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }}/>}
     {...props}
   />
 ))(({ theme }) => ({
@@ -63,9 +63,10 @@ export const CardsOfertasDb = ({offers}) => {
       )
     })    
     setAplicantsModalList(aplicants)   
-  }         
+  }   
 
-  if (offers.length === 0) return <h3>Aún no creaste ninguna oferta.</h3>;
+ 
+  if (offers.length === 0) return <h3 className='flex justify-center font-semibold'>Aún no creaste ninguna oferta.</h3>;
   
   return (
      <Fragment>
@@ -73,11 +74,10 @@ export const CardsOfertasDb = ({offers}) => {
        {offers.map((offer, index) => (
          <Accordion key={index} expanded={expanded === `panel${index + 1}`} onChange={handleChange(`panel${index + 1}`)}>
            <AccordionSummary aria-controls={`panel${index + 1}d-content`} id={`panel${index + 1}d-header`}>
-             <Typography>{offer.title}</Typography>
+             <Typography>{offer.title} Postulantes:{offer.applications_count}</Typography>
            </AccordionSummary>
            <AccordionDetails>
              <Typography>
-               <p>Descripción: {offer.offerDescription}</p>
                <p>Requisitos: {offer.requeriments}</p>
                <p>Beneficios: {offer.benefits}</p>
                <p>Funciones: {offer.functions}</p>
@@ -86,11 +86,12 @@ export const CardsOfertasDb = ({offers}) => {
                <p>Experiencia: {offer.experience} Año/s</p>
                <p>Salario: ${offer.min_salary} - ${offer.max_salary}</p>
                <p>Fecha de creación: {offer.date_post}</p>
-               <p>Cantidad de aplicantes: {offer.applications_count}</p>
-               <Link><button onClick={() => {
+               <p>Fecha de finalización:</p>
+               <p>Postulantes: {offer.applications_count}</p>
+               <Link><button  onClick={() => {
                   setShowModal(true)
                   handleAplicants(offer)
-                  } }>Ver aplicantes</button></Link>
+                  } }>Ver postulantes</button></Link>
                <br/><br/>
                <Link to={`/detail/${offer.id}?${offer.title}`}><button>Ver oferta</button></Link>
                <br/><br/>
