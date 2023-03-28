@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import { useSelector } from 'react-redux';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import ModalConfirmChanges from '../Form/FormCreateOfferModal';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -47,14 +46,29 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export const CardsOfertasDb = ({offers}) => {
   const [expanded, setExpanded] = useState('panel1');
+  const [showModal, setShowModal] = useState(false);
+  const [aplicantsModalList, setAplicantsModalList ] = useState(null)
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
+  const handleAplicants = (offer) => {
+    const aplicants = offer.Aplications.map(Apply => {
+      return(
+        {
+          name: Apply.User.Postulants[0].lastnames,
+          technologies: Apply.User.Postulants[0].tecnology          
+        }
+      )
+    })    
+    setAplicantsModalList(aplicants)   
+  }         
+
   if (offers.length === 0) return <h3>Aún no creaste ninguna oferta.</h3>;
   
   return (
+     <Fragment>
      <div>
        {offers.map((offer, index) => (
          <Accordion key={index} expanded={expanded === `panel${index + 1}`} onChange={handleChange(`panel${index + 1}`)}>
@@ -73,7 +87,10 @@ export const CardsOfertasDb = ({offers}) => {
                <p>Salario: ${offer.min_salary} - ${offer.max_salary}</p>
                <p>Fecha de creación: {offer.date_post}</p>
                <p>Cantidad de aplicantes: {offer.applications_count}</p>
-               <Link><button>Ver aplicantes</button></Link>
+               <Link><button onClick={() => {
+                  setShowModal(true)
+                  handleAplicants(offer)
+                  } }>Ver aplicantes</button></Link>
                <br/><br/>
                <Link to={`/detail/${offer.id}?${offer.title}`}><button>Ver oferta</button></Link>
                <br/><br/>
@@ -85,5 +102,30 @@ export const CardsOfertasDb = ({offers}) => {
          </Accordion>
        ))}
      </div>
+     <ModalConfirmChanges isVisible={showModal} onClose={() => setShowModal(false)} >
+        <div>          
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Tecnologias</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {aplicantsModalList?.map(aplicant => {
+                return(
+                  <tr>
+                    <td>{aplicant.name}</td>  
+                    <td>{aplicant.technologies}</td>  
+                    <td><button>ver CV</button><button> ver perfil</button> </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>           
+        </div>
+     </ModalConfirmChanges>
+     </Fragment>
    );
 };
