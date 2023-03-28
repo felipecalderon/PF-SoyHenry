@@ -60,7 +60,7 @@ function UserProfile() {
     return (
       <>
         <NavLanding menu={menu} />
-        <div className="flex justify-around bg-primary-light      dark:bg-secondary-dark ">
+        <div className="flex justify-around bg-primary-light      dark:bg-secondary-dark pt-20">
           <input
             className="invisible"
             type="radio"
