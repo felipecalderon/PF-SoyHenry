@@ -8,7 +8,7 @@ export const NavLanding = ({menu}) => {
   const user = JSON.parse(localStorage.getItem('userLogin'))
   const userGoogle = JSON.parse(localStorage.getItem('usergoogle'))
     return (
-      <nav className="bg-secondary-light dark:bg-primary-dark fixed top-0 w-full transition-all">
+      <nav className="z-50 bg-secondary-light dark:bg-primary-dark fixed top-0 w-full transition-all">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="flex items-center justify-between h-16">
       {/* Logo y Menú */}

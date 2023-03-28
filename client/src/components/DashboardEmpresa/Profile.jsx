@@ -10,7 +10,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const Profile = ({company}) => {
   //eslint-disable-next-line no-unused-vars
-  console.log(company);
   const [open, setOpen] = React.useState(false);
   if(!company) return "No hay info"
 
