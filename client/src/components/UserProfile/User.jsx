@@ -27,7 +27,7 @@ const skills = [
 ];
 function User() {
   const [data, SetData] = useState({
-    username:"",
+    nombre:"",
     apellido:"",
     edad:"",
     ubicacion:"",
@@ -43,23 +43,31 @@ function User() {
     github:""
     
   });
+  const [dataUser,SetDataUser]=useState({
+    email: "",
+name: "",
+photo: ""
+  })
   const {user}= useSelector(state=>state.userRegisterSlice)
 
   useEffect(() => {
-    const dataUserLocal = localStorage.getItem("userLogin");
-    const dataUser = JSON.parse(dataUserLocal);
-    SetData({
+    const dataUserLocal = localStorage.getItem("usergoogle")?localStorage.getItem("usergoogle"):localStorage.getItem("userLogin")
+    const dataUserlocal = JSON.parse(dataUserLocal);
+ 
     
-      ...dataUser
-    });
-    console.log(dataUser);
+    SetDataUser({
+      
+      ...dataUserlocal,
+    })
+    
+  
   }, []);
 
   return (
     <ul className="flex flex-col justify-between items-start p-8 h-full ">
       <li>
         <img
-          src={usuario}
+          src={dataUser.photo || usuario}
           alt=""
           width="150px"
           className="border rounded-full m-1 "
@@ -67,12 +75,12 @@ function User() {
       </li>
 
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        {data.username} {user?.Postulants[0].lastnames} , {data.edad}
+        {dataUser?dataUser.name:"Nombre Apellido"} , {data.edad}
       </li>
       <hr className="border border-b-gray-100  w-full " />
 
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        Ubicacion{" "}
+        Ubicacion
       </li>
       <hr className="border border-b-gray-100  w-full " />
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
