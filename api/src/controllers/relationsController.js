@@ -4,12 +4,15 @@ const {
     putState,
     getfavorites,
     getAplications,
-    getSavedOffers
+    getSavedOffers,
+    putSaveApi
 } = require("../handlers/handlerRelation");
 
-const stateAplicationController = async ({ idOffer, idUser }, { state, save }) => {
+const stateAplicationController = async ({ idOffer, idUser }, { state, save, origin, title }) => {
     try {
-        const response = state ? await putState(idOffer, idUser, state) : await putSave(idOffer, idUser, save);
+        const response = state ? await putState(idOffer, idUser, state)
+            : origin === 'db' ? await putSave(idOffer, idUser, save)
+                : await putSaveApi(idOffer, idUser, save, title);
         return response
     } catch (error) {
         throw error
