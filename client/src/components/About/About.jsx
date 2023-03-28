@@ -9,13 +9,26 @@ import Leandrodev from '../../assets/Leandrodev.jpg';
 import Santiagodev from '../../assets/Santiagodev.jpg';
 import Ericdev from '../../assets/Ericdev.jpeg';
 import { NavLanding } from "../NavLanding/NavLanding";
-
+export const menu = [
+    {
+      name: "Planes",
+      link: "#"
+    },
+    {
+      name: "Sobre Nosotros",
+      link: "/about"
+    },
+    {
+      name: "Registro",
+      link: "/registro"
+    },
+  ]
 export const About = () => {
 
     return (
     <>
-        <NavLanding />
-        <div className='bg-primary-light dark:bg-primary-dark'>
+        <NavLanding menu={menu}/>
+        <div className='bg-primary-light dark:bg-primary-dark pt-20'>
             <Link to='/'><button className='absolute top-3 left-14 py-[.1rem] px-2 h-[2.5rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>← Home</button></Link>
             <div>
                 <div className=''>

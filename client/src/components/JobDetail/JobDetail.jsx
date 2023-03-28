@@ -3,11 +3,26 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { getDataPostulacion } from "../../redux/slices/postSlices";
 import useFetch from '../Hooks/useFetch'
-import { NavCards } from "../Cards/Nav/NavCards";
 import Footer from "../Footer/Footer";
 import { spinnerPurple } from "../Cards/spinner";
 import axios from "axios";
 import Perks from "./Perks";
+import {NavLanding} from '../NavLanding/NavLanding'
+
+export const menu = [
+  {
+    name: "Planes",
+    link: "#"
+  },
+  {
+    name: "Sobre Nosotros",
+    link: "/about"
+  },
+  {
+    name: "Registro",
+    link: "/registro"
+  },
+]
 
 const JobDetail = () => {
   const navigate = useNavigate()
@@ -56,8 +71,9 @@ const JobDetail = () => {
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
   return (
+  <>
+    <NavLanding menu={menu} />
     <div className="bg-primary-light dark:bg-secondary-dark">
-      <NavCards />
       {/* Datos de la empresa */}
       {/* <div className="md:flex-shrink-0">
           <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa ? empresa.logo : null} alt="Job Posting" />
@@ -123,6 +139,7 @@ const JobDetail = () => {
       </div>
       <Footer />
     </div>
+  </>
   );
 };
 

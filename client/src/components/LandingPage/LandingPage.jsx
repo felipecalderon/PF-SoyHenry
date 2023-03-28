@@ -5,7 +5,6 @@ import Maria from "../../assets/Maria.png"
 import Footer from '../Footer/Footer'
 import { useNavigate } from 'react-router-dom'
 import { NavLanding } from '../NavLanding/NavLanding'
-import ModalNewUser from '../ModalLogin/ModalNewUser'
 
 export const menu = [
   {
@@ -25,7 +24,7 @@ export const menu = [
 function LandingPage() {
   const navigate = useNavigate()
   return (
-    <div>
+    <>
       <NavLanding menu={menu} />
       <section className="pt-20 pb-10 w-full flex flex-row flex-wrap bg-primary-light dark:bg-secondary-dark">
         <div className="w-full sm:w-1/2">
@@ -214,7 +213,7 @@ function LandingPage() {
       </section>
 
       <Footer />
-    </div>
+    </>
   )
 }
 
