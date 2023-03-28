@@ -48,7 +48,7 @@ function UserProfile() {
     return (
       <>
         <NavCards />
-        <div className="flex justify-around bg-primary-light      dark:bg-secondary-dark ">
+        <div className="flex justify-evenly bg-primary-light      dark:bg-secondary-dark ">
           <input
             className="invisible"
             type="radio"
