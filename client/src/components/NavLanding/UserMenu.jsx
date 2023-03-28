@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import ProfileButton from "./ProfileButton"
 import {AccountCircle} from '@mui/icons-material'
+import Dropdown from "./DropdownUser"
 
 const UserMenu = ({ user, userGoogle }) => {
     const ref = useRef(null)
@@ -38,28 +39,15 @@ const UserMenu = ({ user, userGoogle }) => {
         </button>
   
         {showMenu && (
-          <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200">
-            <div className="py-1">
-              <Link
-                to={'/offersCreate'}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              >
-                Crear Ofertas
-              </Link>
-              <Link
-                to={'/dashboardempresa'}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              >
-                Perfil
-              </Link>
-            </div>
+          <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200">
+            { user && <Dropdown rol={user.rol}/> }
             <div className="py-1">
               <Link
                 to={"/"}
                 onClick={() => localStorage.clear()}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
               >
-                Salir
+                Cerrar sesión
               </Link>
             </div>
           </div>
