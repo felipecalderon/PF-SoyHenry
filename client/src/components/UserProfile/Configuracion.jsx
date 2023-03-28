@@ -8,6 +8,12 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Stack from '@mui/material/Stack';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import { Chip } from "@mui/material";
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import FormHelperText from '@mui/material/FormHelperText';
 
 
 function Configuracion() {
@@ -321,6 +327,37 @@ function Configuracion() {
           </div>
         ) : null}
 
+{/* <div> ESTO SE ROMPE CON LOS ESTILOS
+  <FormControl sx={{ m: 1, minWidth: 120 }}>
+    <InputLabel id="skills-label">Habilidades</InputLabel>
+    <Select
+      labelId="skills-label"
+      id="skills-select"
+      value={form.habilidades}
+      label="Habilidades"
+      multiple
+      onChange={handleSelectSkills}
+      renderValue={(selected) => (
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {selected.map((value) => (
+            <Chip key={value} label={value} style={{ margin: 2 }} />
+          ))}
+        </div>
+      )}
+    >
+      {skills?.map((el) => (
+        <MenuItem key={el.Technology} value={el.Technology}>
+          {el.Technology}
+        </MenuItem>
+      ))}
+    </Select>
+    {showErrors && (
+      <FormHelperText error>{error?.habilidades}</FormHelperText>
+    )}
+  </FormControl>
+</div> */}
+
+
         <h2 className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 ">
           Habilidades:
         </h2>
@@ -337,6 +374,7 @@ function Configuracion() {
             <option value={el.Technology}>{el.Technology}</option>
           ))}
         </select>
+        <Tags />
 
         <div
           className="flex flex-wrap justify-start overflow-y-auto"
@@ -346,7 +384,7 @@ function Configuracion() {
             alignContent: "start",
           }}
         >
-          {form.habilidades.length
+          {form.habilidades?.length
             ? form.habilidades.map((skill, index) => (
                 <button
                   className="m-2 p-1 rounded-xl bg-white border text-sm text-center flex justify-between items-center hover:bg-gray-100 active:bg-gray-200 focus:outline-none flex-shrink"
