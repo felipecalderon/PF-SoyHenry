@@ -126,7 +126,7 @@ photo: ""
             Telefono
           </li>
           <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-            Fabook
+            Facebook
           </li>
           <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
      Linkedin

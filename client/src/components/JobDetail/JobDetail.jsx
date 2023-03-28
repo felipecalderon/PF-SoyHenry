@@ -9,6 +9,7 @@ import { addFavorites } from "../../redux/slices/userRegisterSlice"
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
 import axios from "axios";
 import Perks from "./Perks";
 import {NavLanding} from '../NavLanding/NavLanding'
@@ -37,40 +38,72 @@ const JobDetail = () => {
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
   const { data, isLoading } = useFetch(url);
-  const dataUserLocal = localStorage.getItem("userLogin")
-  const dataUserGoogle = localStorage.getItem("usergoogle")
-  const dataUser = JSON.parse(dataUserLocal);
-  console.log(dataUserLocal);
+  const [empresa, setEmpresa] = useState(null);
   const jobBenefitsHTML = { __html: jobId?.benefits };
   const jobFunctionsHTML = { __html: jobId?.functions };
   const jobRequerimentsHTML = { __html: jobId?.requeriments }
-
+    const dataUserLocal = localStorage.getItem("userLogin"); 
+  const dataUser = JSON.parse(dataUserLocal);
+  
   useEffect(() => {
     window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
-    if (data) dispatch(getDataPostulacion(data))
-  }, [data, dispatch])
+    if (data){ 
+      dispatch(getDataPostulacion(data))
+    }
+  }, [])
 
-  const handlePostulateDb = () => {
-    const offerId = jobId.id
-    const userId = dataUser.id
-    axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
-    alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
-  };
+  useEffect(()=>{
+    axios.get(`company/${jobId?.idEmpresa}`)
+  })
+  
+  // const [isFavorite, setIsFavorite] = useState("");
+  
+  // const [favFilter, setFavFilter]  = useState()
+  // useEffect(()=>{
+  //   axios.get(`/fav_company/${dataUser.id}`)
+  //   .then( (res)=> res.data.filter((cb) => cb.offerId === jobId.id ))
+  //   .then((res)=> setFavFilter(res))
+
+  //   console.log(favFilter)
+    
+  // },[favFilter])
+  // !favFilter ? setIsFavorite("save") : setIsFavorite("unsave")
+  
+  // const offersFav = {offerId: jobId.id , fav: isFavorite}
+
 
   // obtener perks en español desde la api getonbrd
   const [perksApi, setPerksApi] = useState([])
-  useEffect(() => {
-    axios.get('https://www.getonbrd.com/api/v0/perks')
-      .then(res => setPerksApi(res.data.data))
-  }, [])
+    useEffect(() => {
+        axios.get('https://www.getonbrd.com/api/v0/perks')
+            .then(res => setPerksApi(res.data.data))
+            console.log(perksApi)
+    }, [])
 
+  if (!jobId) return spinnerPurple()
+  if (isLoading) return spinnerPurple()
+  
+   
+
+  // const handleToggleFavorite = () => {
+  //   axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=${isFavorite}`) // guarda favorito o desmarca favorito
+  // };
+
+
+  const handlePostulate = () => {
+    const offerId = jobId.id
+    const userId = dataUser.id
+    axios.put(`/rel_offers/${offerId}/${userId}?state=save&origin=${Number(offerId) ? "db" : "api"}`)
+    alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
+  };
+
+  
   // filtrar según las perks que tenga la oferta de trabajo
   const cleanPerks = perksApi?.filter((perk) => jobId?.perks?.includes(perk.id)).map(perk => perk.attributes.name)
-  console.log(jobId?.perks);
-  console.log(perksApi);
-  useEffect(() => {
-    if (!dataUserLocal && !dataUserGoogle) navigate('/')
-  }, [])
+  
+  // useEffect(() => {
+  //   if(!dataUserLocal && !dataUserGoogle) navigate('/')
+  // }, [])
 
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
@@ -79,13 +112,13 @@ const JobDetail = () => {
     <NavLanding menu={menu} />
     <div className="bg-primary-light dark:bg-secondary-dark">
       {/* Datos de la empresa */}
-      {/* <div className="md:flex-shrink-0">
+      <div className="md:flex-shrink-0">
           <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa ? empresa.logo : null} alt="Job Posting" />
           <span className="material-symbols-outlined">star_rate</span> ver como medir el "valor/renking" de la empresa 
           <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">
             {empresa ? empresa.name : null}
           </div>
-        </div> */}
+        </div>
       {/* Detalles de la oferta */}
       <div className="flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-8 dark:bg-gray-800">
         <div className="md:flex">
@@ -127,14 +160,14 @@ const JobDetail = () => {
             <br />
             <h2 className="text-lg font-semibold dark:text-white py-3"> Ventajas </h2>
             <div className="flex flex-row flex-wrap gap-3">
-              {cleanPerks?.map((ventajas) => {
+              {cleanPerks?.map((ventajas) => { 
                 return <Perks perk={ventajas} />
               })}
             </div>
             <div className="mt-8 flex justify-center">
               {
                 Number(jobId.id)
-                  ? <button onClick={handlePostulateDb} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+                  ? <button onClick={handlePostulate} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
                     <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                       Aplicar
                     </span>
@@ -147,6 +180,15 @@ const JobDetail = () => {
                     </button>
                   </a>
               }
+               {/* <Box >
+              <Fab
+              sx={{ backgroundColor: isFavorite === "save" ? 'red' : 'white' }}
+               aria-label="like"
+               onClick={handleToggleFavorite}
+              >
+                {isFavorite ? <FavoriteBorderIcon />  : <FavoriteIcon />}
+              </Fab>
+              </Box> */}
             </div>
           </div>
         </div>

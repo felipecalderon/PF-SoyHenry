@@ -3,6 +3,18 @@ import React from "react";
 import { useState, useEffect } from "react";
 import usuario from "../../assets/user.png";
 import validacionConfig from "./validacionconfig";
+import Tags from "./Habilidades";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import Stack from '@mui/material/Stack';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import { Chip } from "@mui/material";
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import FormHelperText from '@mui/material/FormHelperText';
+
 
 function Configuracion() {
   const [skills, setSkills] = useState([]);
@@ -75,7 +87,7 @@ function Configuracion() {
         SetShowErrors(true);
       }
     }
-    console.log(form)
+   
   };
   const actualizarData = (event) => {
     const { name, value } = event.target;
@@ -83,7 +95,6 @@ function Configuracion() {
       ...form,
       [name]: value,
     });
-    console.log(form);
     
   };
   // const dataUserLocal = localStorage.getItem("usergoogle")? localStorage.getItem("usergoogle"):localStorage.getItem("userLogin")
@@ -103,15 +114,17 @@ function Configuracion() {
       onSubmit={handleSubmit}
       className="flex flex-col justify-between items-start p-4"
     >
+      <Box>
+
       <img
         src={profile.photo || usuario}
         alt=""
         width="150px"
         className="border rounded-full m-4"
-      />
+        />
 
       <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400  w-full flex items-center justify-between">
-        <input
+        <TextField
           type="text"
           id="nombre"
           placeholder="Nombre"
@@ -121,7 +134,7 @@ function Configuracion() {
          onChange={actualizarData}
         />
 
-        <input
+        <TextField
           type="text"
           id="apellido"
           className="form-input mt-1 block  rounded-md border-gray-300 shadow-sm w-1/3 text-center mx-2 text-base"
@@ -132,7 +145,7 @@ function Configuracion() {
         />
         <label for="edad">Edad</label>
 
-        <input
+        <TextField
           type="number"
           id="edad"
           className="form-input mt-1 block rounded-md border-gray-300 shadow-sm mx-2 text-base"
@@ -237,7 +250,7 @@ function Configuracion() {
 
       <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full">
         <label for="titulo">Titulo</label>
-        <input
+        <TextField
           type="text"
           name="titulo"
           value={form.titulo}
@@ -265,7 +278,7 @@ function Configuracion() {
         >
           Descripcion
         </label>
-        <textarea
+        <TextField
           id="descripcion"
           name="descripcion"
           value={form.descripcion}
@@ -273,7 +286,7 @@ function Configuracion() {
           className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm text-base px-2 py-1 "
           style={{ maxHeight: "160px", minHeight: "160px" }}
           placeholder="Describa sus habilidades, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos."
-        ></textarea>
+        ></TextField>
       </div>
       {showErrors ? (
         <div className="flex justify-center w-full ">
@@ -305,7 +318,7 @@ function Configuracion() {
        
       <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full ">
         <label for="idioma">Idioma</label>
-        <input
+        <TextField
           type="text"
           placeholder="Ej: Inglés - Avanzado, Español - Nativo, Francés - Básico"
           id="idioma"
@@ -327,6 +340,37 @@ function Configuracion() {
           </div>
         ) : null}
 
+{/* <div> ESTO SE ROMPE CON LOS ESTILOS
+  <FormControl sx={{ m: 1, minWidth: 120 }}>
+    <InputLabel id="skills-label">Habilidades</InputLabel>
+    <Select
+      labelId="skills-label"
+      id="skills-select"
+      value={form.habilidades}
+      label="Habilidades"
+      multiple
+      onChange={handleSelectSkills}
+      renderValue={(selected) => (
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {selected.map((value) => (
+            <Chip key={value} label={value} style={{ margin: 2 }} />
+          ))}
+        </div>
+      )}
+    >
+      {skills?.map((el) => (
+        <MenuItem key={el.Technology} value={el.Technology}>
+          {el.Technology}
+        </MenuItem>
+      ))}
+    </Select>
+    {showErrors && (
+      <FormHelperText error>{error?.habilidades}</FormHelperText>
+    )}
+  </FormControl>
+</div> */}
+
+
         <h2 className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 ">
           Habilidades:
         </h2>
@@ -343,6 +387,7 @@ function Configuracion() {
             <option value={el.Technology}>{el.Technology}</option>
           ))}
         </select>
+        <Tags />
 
         <div
           className="flex flex-wrap justify-center overflow-y-auto"
@@ -352,7 +397,7 @@ function Configuracion() {
             alignContent: "start",
           }}
         >
-          {form.habilidades.length
+          {form.habilidades?.length
             ? form.habilidades.map((skill, index) => (
                 <button
                   className="m-2 p-1 rounded-xl bg-white border text-sm text-center flex justify-between items-center hover:bg-gray-100 active:bg-gray-200 focus:outline-none flex-shrink"
@@ -377,7 +422,7 @@ function Configuracion() {
           <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full flex-wrap">
             <label for="tel">Telefono</label>
 
-            <input
+            <TextField
               id="tel"
               type="tel"
               name="tel"
@@ -396,7 +441,7 @@ function Configuracion() {
           </div>
 
           <label for="facebook">Facebook</label>
-          <input
+          <TextField
             type="url"
             id="facebook"
             name="facebook"
@@ -413,7 +458,7 @@ function Configuracion() {
             </div>
           ) : null}
           <label for="linkedin">Linkedin</label>
-          <input
+          <TextField
             type="url"
             id="linkedin"
             name="linkedin"
@@ -446,6 +491,7 @@ function Configuracion() {
           Descartar Cambios
         </button>
       </div>
+          </Box>
     </form>
   );
 }
