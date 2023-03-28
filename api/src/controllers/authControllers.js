@@ -9,14 +9,16 @@ const authCreatePostulant = async (body) => {
       const auth = admin.auth();
       const { email, password } = body
       const newUsercreatedDB = await createUsers(body)
-      const newUserFirebase = await auth.createUser({
+      const verifyUserExistFB = await auth.getUserByEmail(email)
+      if(!verifyUserExistFB){
+      await auth.createUser({
         email,
         password,
         uid: newUsercreatedDB.id,
       });
+    }
         return newUsercreatedDB // `Inicio de sesion exitoso`
     } catch (error) {
-      console.log(error);
         throw 'Error al iniciar sesión'
     }
 }
