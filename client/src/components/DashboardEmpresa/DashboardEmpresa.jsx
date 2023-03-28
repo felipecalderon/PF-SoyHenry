@@ -49,14 +49,14 @@ export const DashboardEmpresa = () => {
             </h2>
             <div className="grid grid-cols-2 grid-rows-2 gap-4 py-6">
                 <div className="col-span-1 row-span-1 w-full md:w-1/2 pl-8">
-                <Profile company={userdata?.Companies[0]} />
+                <Profile company={userdata?.Companies[0]}/>
                 </div>
                 <div className="col-span-1 row-span-2 flex md:block">
                 <div className="w-full h-full px-4">
                     <CardsOfertasDb offers={offers} />
                 </div>
                 </div>
-                <div className="col-span-1 row-span-1 md:col-span-1 md:row-span-1 px-4">
+                <div className="col-span-1 row-span-1 md:col-span-1 md:row-span-1 px-12">
                 <div className="pt-1">
                     <ResumenOfertas offers={offers} />
                 </div>
