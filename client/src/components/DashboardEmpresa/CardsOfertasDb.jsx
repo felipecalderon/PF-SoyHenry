@@ -52,7 +52,7 @@ export const CardsOfertasDb = ({offers}) => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  if (offers.length === 0) return <h3>Aún no creaste ninguna oferta.</h3>;
+  if (offers.length === 0) return <h3 className='flex justify-center font-semibold'>Aún no creaste ninguna oferta.</h3>;
   
   return (
      <div>
@@ -63,7 +63,6 @@ export const CardsOfertasDb = ({offers}) => {
            </AccordionSummary>
            <AccordionDetails>
              <Typography>
-               <p>Descripción: {offer.offerDescription}</p>
                <p>Requisitos: {offer.requeriments}</p>
                <p>Beneficios: {offer.benefits}</p>
                <p>Funciones: {offer.functions}</p>
