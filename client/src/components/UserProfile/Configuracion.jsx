@@ -6,6 +6,8 @@ import validacionConfig from "./validacionconfig";
 import Tags from "./Habilidades";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import Stack from '@mui/material/Stack';
 
 
 function Configuracion() {
@@ -69,7 +71,7 @@ function Configuracion() {
         SetShowErrors(true);
       }
     }
-    console.log(form)
+   
   };
   const actualizarData = (event) => {
     const { name, value } = event.target;
@@ -77,7 +79,7 @@ function Configuracion() {
       ...form,
       [name]: value,
     });
-    console.log(form);
+    
   };
  
 
@@ -188,7 +190,7 @@ function Configuracion() {
 
       <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full">
         <label for="ciudad">Ciudad</label>
-        <input
+        <TextField
                 placeholder=" Buenos Aires "
                 id="ciudad"
                 name="ciudad"
@@ -198,7 +200,7 @@ function Configuracion() {
                 className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base"
         />
         <label for="pais">Pais</label>
-        <input
+        <TextField
                 placeholder="Argentina"
                 id="pais"
                 name="pais"
