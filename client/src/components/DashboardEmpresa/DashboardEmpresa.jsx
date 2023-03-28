@@ -1,12 +1,27 @@
 import React, { useEffect, useState } from "react";
 import Footer from '../Footer/Footer'
-import { NavEmpresa } from '../NavEmpresa/NavEmpresa'
 import { useNavigate } from "react-router-dom";
 import Profile from "./Profile";
 import { CardsOfertasDb } from "./CardsOfertasDb";
 import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { saveUser } from '../../redux/slices/userRegisterSlice'
+import {NavLanding} from '../NavLanding/NavLanding'
+const menu = [
+    {
+        link: "/",
+        name: "Inicio"
+    },
+    {
+        name: "Planes",
+        link: "#"
+    },
+    {
+        name: "Sobre Nosotros",
+        link: "/about"
+    },
+]
+
 export const DashboardEmpresa = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -25,8 +40,8 @@ export const DashboardEmpresa = () => {
     }, []) // eslint-disable-line
     return (
         <>
-        <div className="bg-primary-light dark:bg-secondary-dark">
-            <NavEmpresa/>
+        <div className="bg-primary-light dark:bg-secondary-dark pt-20">
+            <NavLanding menu={menu}/>
             <h2 className=' text-center pt-6 mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white'>Dashboard Empresa</h2>
             <div className="flex flex-row justify-center py-6">
                 <div className="w-1/2 pl-8"><Profile company={userdata?.Companies[0]}/></div>

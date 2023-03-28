@@ -6,7 +6,7 @@ import { spinnerPurple } from './spinner';
 import useFetch from '../Hooks/useFetch';
 import ReactPaginate from 'react-paginate'; // libreria para hacer el paginado
 import Footer from "../Footer/Footer";
-import { NavCards } from "./Nav/NavCards";
+import { NavLanding } from "../NavLanding/NavLanding";
 
 import { useNavigate } from 'react-router-dom';
 
@@ -140,10 +140,17 @@ const Cards = () => {
   }, [])
 
   if (isLoading) return spinnerPurple()
-
+  const menuOffers = [
+    {
+      name: "Inicio",
+      link: "/"
+    },
+  ]
     return (
-      <div className="bg-primary-light dark:bg-secondary-dark">
-        < NavCards />
+      <>
+      <NavLanding menu={menuOffers}/>
+      <div className="bg-primary-light dark:bg-secondary-dark pt-20">
+        
         {/* Muestra la Searchbar */}
         <form onSubmit={handleSearch}>
           <div className="relative mx-10 my-4">
@@ -202,9 +209,9 @@ const Cards = () => {
                 salario_minimo={card.min_salary}
                 salario_maximo={card.max_salary}
                 modality={card.modality}
-  
-              />
-            ))
+                
+                />
+                ))
           }
         </div>
         {/* Muestra el paginado */}
@@ -231,6 +238,7 @@ const Cards = () => {
         </div>
         < Footer />
       </div>
+    </>
     )
 }
 

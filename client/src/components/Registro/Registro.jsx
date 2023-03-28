@@ -13,7 +13,21 @@ import axios from "axios";
 // Mui core;
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-
+import { NavLanding } from "../NavLanding/NavLanding";
+export const menu = [
+    {
+      name: "Planes",
+      link: "#"
+    },
+    {
+      name: "Sobre Nosotros",
+      link: "/about"
+    },
+    {
+      name: "Registrarme como recruiter",
+      link: "/companyregister"
+    },
+  ]
 export const Registro = () => {
     const auth = getAuth(fbapp);
 
@@ -62,27 +76,13 @@ export const Registro = () => {
     };
 
     return (
-        <div className='relative bg-primary-light dark:bg-secondary-dark'>
-
-            <div className='bg-secondary-light dark:bg-primary-dark h-16'>
-                <img src={logofusionajob} alt='Fusionalogo' className='flex relative w-[16rem] ml-[32rem]' />
-                <Link to='/'><button className='absolute top-3 left-14 py-[.1rem] px-2 h-[2.5rem] bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>← Home</button></Link>
-                <Link to='/companyregister'><button className='absolute top-5 right-10 text-red-600 font-bold hover:text-xl transition-all'>Registrate como recruiter</button></Link>
-            </div>
-
-            <div className='flex relative justify-center mt-[2rem] mb-[2rem] text-4xl'>
-                <h2 className='font-bold dark:text-text-dark'>¡Crea tu cuenta y encuentra ese empleo IT deseado!</h2>
-            </div>
-
-            <div className='flex absolute right-0 mr-[5rem]'>
-                <img src={working1} alt='work1' className='w-[35rem] mt-[1rem]' />
-            </div>
-
-
-            <div className='flex relative w-[27.5rem] ml-[14rem] mt-[5rem] pt-[.5rem]'>
-
-                <form className='relative' onSubmit={(event) => handleSubmit(event)}>
-
+        <>
+        <NavLanding menu={menu}/>
+        <div className='container mx-auto px-4 py-8 mt-14 bg-primary-light dark:bg-secondary-dark'>
+            <h2 className='text-3xl md:text-4xl font-bold mb-8 text-center dark:text-white'>¡Crea tu cuenta y encuentra ese empleo IT deseado!</h2>
+            <div className='flex flex-col md:flex-row items-center justify-center mb-12'>
+              <img src={working1} alt='work1' className='w-full md:w-3/5 lg:w-2/5 mb-8 md:mb-0' />
+              <form className='w-full md:w-2/5 lg:w-3/5 md:ml-8' onSubmit={(event) => handleSubmit(event)}>
                     <Box
                         className="grid grid-cols-2"
                         component="form"
@@ -91,7 +91,7 @@ export const Registro = () => {
                         }}
                         noValidate
                         autoComplete="on"
-                    >
+                        >
                         <div>
                             <TextField label="Nombres" value={form.username} onChange={handleChange} error={!!errors.username} helperText={errors.username} variant="standard" name='username' />
                         </div>
@@ -108,22 +108,19 @@ export const Registro = () => {
                             <TextField label="Documento" value={form.documento} onChange={handleChange} error={!!errors.documento} helperText={errors.documento} variant="standard" name='documento' />
                         </div>
                     </Box>
-
-                    <div className='relative mt-[6rem] ml-[20rem] font-bold pb-[3rem]'>
-                        <button type='submit' className="text-gray-900 border border-gray-800 hover:bg-secondary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-[1rem] py-[.5rem] dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800 disabled:opacity-50">Crear cuenta</button>
-                    </div>
-
-                </form>
-
+                    <div className='flex items-center justify-center'>
+                <button type='submit' className="bg-secondary-light hover:bg-yellow-500 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Crear cuenta
+                </button>
             </div>
-
-            <div className='absolute ml-[15rem] mt-[30rem] top-0'>
-                <p className='text-black dark:text-text-dark'>Al hacer click en Crear Cuenta, acepto las Condiciones de uso y las Políticas de privacidad de Fusionajob.</p>
+            <div className='mt-4 text-center'>
+                <p className='text-gray-700 dark:text-white text-sm'>Al hacer click en Crear Cuenta, aceptas las <a href='#'>Condiciones de uso</a> y las <a href='#'>Políticas de privacidad</a> de Fusionajob.</p>
             </div>
+        </form>
+    </div>
+</div>
 
-            <div className='bottom-0'>
-                <Footer />
-            </div>
-        </div>
+  <Footer />
+    </>
     )
 }
