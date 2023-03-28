@@ -16,30 +16,42 @@ import { useNavigate } from "react-router-dom";
 import { spinnerPurple } from "../Cards/spinner";
 
 function UserProfile() {
-  // Obtenemos la instancia de Firebase Auth
-  const auth = getAuth(fbapp);
-//   const [user] = useAuthState(auth);
-  const navigate = useNavigate();
-  const [isLogin, SetIsLogin] = useState(true);
-  const [inConfig, SetInConfig] = useState(true);
-  const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
-    valorSeleccionado: "curriculum",
-  });
-  const handleBarraPerfil = (event) => {
-    const { value } = event.target;
-    SetSelectedValueBarraPerfil({
-      valorSeleccionado: value,
-    });
-  };
+    // Obtenemos la instancia de Firebase Auth
+    const auth = getAuth(fbapp);
+    const [user] = useAuthState(auth);
+    const navigate = useNavigate()
 
-  const displayComponente = (selectedValueBarraPerfil) => {
-    switch (selectedValueBarraPerfil.valorSeleccionado) {
-      case "curriculum":
-        return <Curriculum />;
-      case "postulaciones":
-        return <Postulaciones />;
-      case "favoritos":
-        return <Favoritos />;
+    const [isLogin, SetIsLogin] = useState(true)
+    const [inConfig, SetInConfig] = useState(false)
+    const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
+        valorSeleccionado: "curriculum"
+    })
+    const [data, SetData] = useState({
+        nombre: "nombre",
+        apellido: "apellido",
+        edad: 20,
+        ubicacion: "",
+        titulo: "Titulo",
+        descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem consequatur nisi perspiciatis earum neque aspernatur recusandae numquam, corrupti quasi explicabo alias placeat libero cumque ad repellat adipisci aut! Obcaecati, quasi!",
+        idioma: "",
+        habilidades: ["javascript", "css"],
+        contacto: {
+            tel: "123456789",
+            mail: "hola@gmail.com",
+            redes_sociales: {
+                linkedin: "",
+                facebook: "",
+                instagram: ""
+            },
+            direccion: "calle falsa 123"
+        }
+    })
+
+    const handleBarraPerfil = (event) => {
+        const { value } = event.target
+        SetSelectedValueBarraPerfil({
+            valorSeleccionado: value
+        })
     }
   };
 
