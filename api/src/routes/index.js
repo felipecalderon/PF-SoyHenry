@@ -31,7 +31,7 @@ const{allCompany,
     }=require('./companyRoute');
 const { getUsersByEmail } = require('../handlers/handlerUserModels');
 //
-
+const{allReview,newReview,putReviews,deleteReviews}=require('./reviewRoute')
 
 const route = Router();
 
@@ -66,6 +66,8 @@ route.put('/admin/:id', putAdmin)
 route.delete('/admin/:id', deleteadmin)
 route.get('/admin/:id',getadminbyid)*/
 //
-
-
+route.get('/review',allReview);
+route.post('/review',newReview);
+route.put('/review/:id', putReviews);
+route.delete('/review/:id',deleteReviews);
 module.exports = route;
