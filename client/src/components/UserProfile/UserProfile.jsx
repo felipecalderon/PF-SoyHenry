@@ -71,7 +71,8 @@ function UserProfile() {
     // useEffect(()=>{
     //     displayComponente(selectedValueBarraPerfil)
     // },[selectedValueBarraPerfil])
-    if (userData) {
+
+    if (userData && userData.rol === 'Postulante') {
         return (
             <>
                 <div className='flex justify-around bg-primary-light '>

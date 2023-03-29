@@ -45,7 +45,7 @@ function User() {
       </li>
 
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        {data.names} {data.lastnames} , {data?.Companies instanceof Array ? data.Postulants[0].age : data.Postulants.age}
+        {data.names} {data.lastnames} , {data?.Postulants instanceof Array ? data.Postulants[0].age : data.Postulants.age}
       </li>
       <hr className="border border-b-gray-100  w-full " />
 

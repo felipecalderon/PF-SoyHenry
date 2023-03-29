@@ -4,24 +4,33 @@ const { getAuth, GoogleAuthProvider, signInWithCredential, getUserByEmail } = re
 const { getUsersByEmail } = require('../handlers/handlerUserModels')
 const { compareSync } = require('bcrypt')
 
+const authVerifyFb = async (email) => {
+  try {
+    await auth.getUserByEmail(email)
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
 const authCreatePostulant = async (body) => {
   try {
     const auth = admin.auth();
-    const { email, password } = body;
-    const userExists = await getUsersByEmail(email);
-    if (userExists) {
-      return await createUsers(body);
+      const { email, password } = body
+      const newUsercreatedDB = await createUsers(body)
+      const verifyUserExistFB = authVerifyFb(email)
+      if(verifyUserExistFB){
+      await auth.createUser({
+        email,
+        password,
+        uid: newUsercreatedDB.id,
+      });
     }
-    const newUsercreatedDB = await createUsers(body);
-    await auth.createUser({
-      email,
-      password,
-      uid: newUsercreatedDB.id,
-    });
-    return newUsercreatedDB; // `Inicio de sesion exitoso`
-  } catch (error) {
-    throw error;
-  }
+        return newUsercreatedDB // Inicio de sesion exitoso
+    } catch (error) {
+      console.log(error)
+        throw 'Error al iniciar sesión'
+    }
 }
 
 const authLoginCredentials = async ({ email, password }) => {

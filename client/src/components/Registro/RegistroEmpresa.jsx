@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
@@ -15,6 +15,10 @@ import Box from '@mui/material/Box';
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { saveUser } from "../../redux/slices/userRegisterSlice";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 export const menu = [
@@ -66,6 +70,11 @@ export const RegistroEmpresa = () => {
         logo: '',
     });
 
+    // useEffect(() => {
+    //     dispatch(fetchCountries())
+    //         .then((response) => setCountryData(response.payload));
+    // }, [dispatch]);
+
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => {
@@ -95,6 +104,15 @@ export const RegistroEmpresa = () => {
             });
         setErrors({ ...errors, ...validationErrors });
     };
+
+    const handleChangeCountry = (event) => {
+        setForm({
+            ...form,
+            [event.target.name]: event.target.value
+        })
+    }
+
+    console.log(form)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -159,8 +177,24 @@ export const RegistroEmpresa = () => {
                                 <TextField label="Website" value={form.website} onChange={handleChange} error={!!errors.website} helperText={errors.website} variant="standard" name='website' />
                             </div>
                             <div>
-                                <TextField label="País" value={form.country} onChange={handleChange} error={!!errors.country} helperText={errors.country} variant="standard" name='country' />
+                                {/* <TextField label="País" value={form.country} onChange={handleChange} error={!!errors.country} helperText={errors.country} variant="standard" name='country' /> */}
                             </div>
+                            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                                <InputLabel id="demo-simple-select-standard-label"> País </InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-standard-label"
+                                    id="demo-simple-select-standard"
+                                    value={form.country}
+                                    onChange={handleChangeCountry}
+                                    label="País"
+                                    name='country'
+                                >
+                                    <MenuItem value=""> <em>None</em> </MenuItem>
+                                    <MenuItem value={'Argentina'}>Argentina</MenuItem>
+                                    <MenuItem value={'Colombia'}>Colombia</MenuItem>
+                                    <MenuItem value={'Chile'}>Chile</MenuItem>
+                                </Select>
+                            </FormControl>
                             <div>
                                 <TextField label="Ciudad" value={form.city} onChange={handleChange} error={!!errors.city} helperText={errors.city} variant="standard" name='city' />
                             </div>
