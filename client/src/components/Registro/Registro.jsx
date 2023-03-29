@@ -14,6 +14,7 @@ import Footer from "../Footer/Footer";
 import Box from '@mui/material/Box';
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { saveUser } from "../../redux/slices/userRegisterSlice";
 
 export const menu = [
     {
@@ -30,6 +31,7 @@ export const menu = [
     },
 ]
 export const Registro = () => {
+    const dispatch = useDispatch()
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -86,14 +88,14 @@ export const Registro = () => {
         event.preventDefault();
 
         // Crea el usuario en la base de datos
-        await axios.post('/auth/register', form)
-
-        // Crea el usuario en Firebase
-        const userdata = await axios.post(`/user/email`, { email: form.email })
+        const userDbData = await axios.post('/auth/register', form)
 
         // Guarda los datos en localStorage 
-        const objetoJSON = JSON.stringify(userdata.data)
+        const objetoJSON = JSON.stringify(userDbData.data)
         localStorage.setItem('userLogin', objetoJSON)
+
+        // Guarda los datos en Redux
+        dispatch(saveUser(userDbData.data))
 
         // Mensaje y redirige si todo fue exitoso
         alert("!Gracias por unirte a FusionaJob! Por favor continúa completando tu perfíl para !aplicar a las ofertas!");
@@ -112,7 +114,7 @@ export const Registro = () => {
             <div className='container mx-auto px-4 py-8 mt-14'>
                 <h2 className='text-3xl md:text-4xl font-bold mb-8 text-center dark:text-white'>¡Crea tu cuenta y encuentra ese empleo IT deseado!</h2>
                 <div className='flex flex-col md:flex-row items-center justify-center mb-12'>
-                    <img src={working1} alt='work1' className='w-full md:w-3/5 lg:w-2/5 mb-8 md:mb-0' />
+                    <img src={working1} alt='work1' className='w-full md:w-3/5 lg:w-2/5 mb-8 md:mb-0 rounded-lg' />
                     <form className='flex flex-col items-center' onSubmit={(event) => handleSubmit(event)}>
                         <Box
                             className="grid grid-cols-2"

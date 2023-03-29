@@ -26,11 +26,6 @@ const validationsRegister = (validar) => {
         if (validar?.password?.length < 6 || validar?.password?.length > 12) return { ...errors, password: "La contraseña debe contener entre 6 y 12 caracteres" }
         if (validar.password.length) return { ...errors, password: '' };
     }
-    if (validar.hasOwnProperty('confpassword')) {
-        if (validar.confpassword === '') return { ...errors, confpassword: 'Se requiere validar la contraseña *' };
-        if (validar.password !== validar.confpassword) return { ...errors, confpassword: 'Las contraseñas no son' }
-        if (validar.password === validar.confpassword) return { ...errors, confpassword: '' };
-    }
 
     return { ...errors }
 }

@@ -18,9 +18,9 @@ export const DashboardEmpresa = () => {
     useEffect(() => {
         if(!userdata){
             alert('Por favor inicie sesión')
-            navigate('/')
+            navigate('/notfound')
         }
-        axios.get(`/jobsdb/${userdata.Companies[0].id}`)
+        axios.get(`/jobsdb/${userdata?.Companies instanceof Array ? userdata.Companies[0].id : userdata.Companies.id }`)
             .then(res => {
                 setOffers(res.data.Offers)
             })
@@ -41,6 +41,7 @@ export const DashboardEmpresa = () => {
         }
     ]
 
+
     return (
         <div className="bg-primary-light dark:bg-secondary-dark pt-20">
             <NavLanding menu={menuUserProfile}/>
@@ -49,7 +50,7 @@ export const DashboardEmpresa = () => {
             </h2>
             <div className="grid grid-cols-2 grid-rows-2 gap-4 py-6">
                 <div className="col-span-1 row-span-1 w-full md:w-1/2 pl-8">
-                <Profile company={userdata?.Companies[0]} />
+                <Profile company={userdata?.Companies instanceof Array ? userdata.Companies[0] : userdata.Companies } />
                 </div>
                 <div className="col-span-1 row-span-2 flex md:block">
                 <div className="w-full h-full px-4">

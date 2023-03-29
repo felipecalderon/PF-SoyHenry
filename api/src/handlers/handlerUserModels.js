@@ -14,36 +14,40 @@ const createUsers = async ({ photo, names, lastnames, email, city, country, pass
         if (creado) {
             switch (rol) {
                 case 'Postulante':
-                    const postulant = await Postulant.create({
+                    const Postulants = await Postulant.create({
                         document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook,
                         userId: usuario.id
                     });
-                    return { ...usuario.dataValues, postulant }
+                    return { ...usuario.dataValues, Postulants }
                 case 'Empresa':
-                    const company = await Company.create({
-                        companyname, email_company, description, phone_company, website, logo,
+                    const Companies = await Company.create({
+                        companyname, email_company, description, phone_company, website, logo, 
                         userId: usuario.id
                     });
-                    return { ...usuario.dataValues, company }
+                    return { ...usuario.dataValues, Companies }
                 default:
                     throw 'Tipo de usuario no válido'
             }
         }
         if (!creado) {
-            const updatedUser = await User.update({ photo, names, lastnames, email, city, country, password, rol, active, phone }, { id: usuario.id });
+            const updatedUser = await User.update({ photo, names, lastnames, email, city, country, password, rol, active, phone }, { where: { id: usuario.id } });
             switch (rol) {
                 case 'Postulante':
-                    const upPostulant = await Postulant.update({
+                    const postulant = await Postulant.update({
                         document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook,
-                        userId: usuario.id
-                    });
-                    return { ...updatedUser.dataValues, upPostulant }
+                    },
+                        {
+                            where: { userId: usuario.id }
+                        });
+                    return { ...updatedUser.dataValues, ...postulant.dataValues }
                 case 'Empresa':
-                    const upCompany = await Company.update({
+                    const company = await Company.update({
                         companyname, email_company, description, phone_company, website, logo,
-                        userId: usuario.id
-                    });
-                    return { ...updatedUser.dataValues, upCompany }
+                    },
+                        {
+                            where: { userId: usuario.id }
+                        });
+                    return { ...updatedUser.dataValues, ...company.dataValues }
                 default:
                     throw 'Tipo de usuario no válido'
             }
@@ -95,7 +99,8 @@ const getUsersByName = async (name) => {
     return users;
 };
 
-const getUsersByEmail = async ({ email }) => {
+const getUsersByEmail = async ( data ) => {
+    const email = typeof data === 'object' && data.email ? data.email : typeof data === 'string' ? data : null;
     try {
         const user = await User.findOne({
             where: { email },

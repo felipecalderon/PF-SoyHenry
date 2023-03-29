@@ -10,6 +10,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import axios from 'axios'
 import { saveUser } from '../../redux/slices/userRegisterSlice'
 import ModalNewUser from "./ModalNewUser"
+import { Link } from "react-router-dom"
 export const ModalLogin = ({ isOpen, setOpen }) => {
     const dispatch = useDispatch()
     const [error, setError] = useState(null)
@@ -125,7 +126,7 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
 
                         <div className='flex flex-col w-auto pb-3'>
                             <button type="submit" className='bg-primary-dark dark:bg-secondary-light hover:text-lg transition-all text-white dark:text-gray-800 font-medium py-2 px-4 rounded-md my-2 duration-200'>Ingresar</button>
-                            <button className='border-2 border-gray-400 hover:border-gray-500 text-gray-400 hover:text-gray-500 font-medium py-2 px-4 rounded-md my-2 transition duration-200'>Crear cuenta</button>
+                            <Link to={'/newuser'} > <button className='w-full border-2 border-gray-400 hover:border-gray-500 text-gray-400 hover:text-gray-500 font-medium py-2 px-4 rounded-md my-2 transition duration-200'>Crear cuenta</button>  </Link>
                         </div>
                         <div className='flex justify-center items-center text-sm'>
                             <button onClick={handleLoginGoogle} className='w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md mr-4'>

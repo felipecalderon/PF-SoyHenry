@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import  {useSelector} from "react-redux"
+import { useSelector } from "react-redux"
 import usuario from "../../assets/user.png";
 
 const skills = [
@@ -26,35 +26,13 @@ const skills = [
   "Gestión de la información",
 ];
 function User() {
-  const [data, SetData] = useState({
-    username:"",
-    apellido:"",
-    edad:"",
-    ubicacion:"",
-    descripcion:"",
-    idioma:"",
-    habilidades:[],
-    favoritos:[],
-    postulaciones:[],
-    tel:"",
-    mail:"",
-    linkedin:"",
-    facebook:"",
-    github:""
-    
-  });
-  const {user}= useSelector(state=>state.userRegisterSlice)
-
-  useEffect(() => {
-    const dataUserLocal = localStorage.getItem("userLogin");
-    const dataUser = JSON.parse(dataUserLocal);
-    SetData({
-    
-      ...dataUser
-    });
-    console.log(dataUser);
-  }, []);
-
+  const { user } = useSelector(state => state.userRegisterSlice)
+  const dataUserLocal = localStorage.getItem("userLogin");
+  const dataUser = JSON.parse(dataUserLocal);
+  const [data, SetData] = useState(dataUser);
+  console.log(data)
+  // useEffect(() => {
+  // }, []);
   return (
     <ul className="flex flex-col justify-between items-start p-8 h-full ">
       <li>
@@ -67,7 +45,7 @@ function User() {
       </li>
 
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        {data.username} {user?.Postulants[0].lastnames} , {data.edad}
+        {data.names} {data.lastnames} , {data?.Companies instanceof Array ? data.Postulants[0].age : data.Postulants.age}
       </li>
       <hr className="border border-b-gray-100  w-full " />
 
@@ -84,7 +62,7 @@ function User() {
           Descripcion
         </h2>
         <p className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        Describa sus habilidades, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos.
+          Describa sus habilidades, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos.
         </p>
       </li>
       <hr className="border border-b-gray-100  w-full " />
@@ -112,7 +90,7 @@ function User() {
       </li>
       <hr className="border border-b-gray-100  w-full " />
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        Datos de contacto 
+        Datos de contacto
         <ul>
           <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
             Telefono
@@ -121,7 +99,7 @@ function User() {
             Fabook
           </li>
           <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-     Linkedin
+            Linkedin
           </li>
         </ul>
       </li>

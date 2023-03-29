@@ -8,22 +8,17 @@ import Configuracion from "./Configuracion"
 import User from './User'
 
 // Validacion del usuario 
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { getAuth } from 'firebase/auth';
-import fbapp from '../../firebaseConfig'
 import { useNavigate } from 'react-router-dom'
 import { spinnerPurple } from '../Cards/spinner'
-
-
-
+import { useDispatch } from 'react-redux'
+import NotFound from '../NotFound/NotFound'
 
 function UserProfile() {
-    // Obtenemos la instancia de Firebase Auth
-    const auth = getAuth(fbapp);
-    const [user] = useAuthState(auth);
+    const dispatch = useDispatch()
     const navigate = useNavigate()
+    const userData = JSON.parse(localStorage.getItem('userLogin'))
 
-    const [isLogin, SetIsLogin] = useState(true)
+    // const [isLogin, SetIsLogin] = useState(true)
     const [inConfig, SetInConfig] = useState(false)
     const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
         valorSeleccionado: "curriculum"
@@ -76,7 +71,7 @@ function UserProfile() {
     // useEffect(()=>{
     //     displayComponente(selectedValueBarraPerfil)
     // },[selectedValueBarraPerfil])
-    if (user) {
+    if (userData) {
         return (
             <>
                 <div className='flex justify-around bg-primary-light '>
@@ -124,8 +119,9 @@ function UserProfile() {
             </>
         )
     } else {
-        spinnerPurple()
-        navigate('/')
+        return (
+            <NotFound/>
+        )
     }
 }
 

@@ -14,7 +14,6 @@ const Company = sequelize.define('Company', {
   },
   email_company: {
     type: DataTypes.STRING,
-    allowNull: false,
     unique: true,
   },
   description: {
@@ -27,7 +26,6 @@ const Company = sequelize.define('Company', {
   },
   website: {
     type: DataTypes.STRING,
-    allowNull: false,
     validate: {
       isUrl: true,
     },
