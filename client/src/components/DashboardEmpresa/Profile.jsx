@@ -15,19 +15,17 @@ const Profile = ({company}) => {
   const [open, setOpen] = useState(false);
   
   //eslint-disable-next-line no-unused-vars
-  const {companyname, description, logo, website} = company
+  const {id, companyname, logo, website, phone, likes_count} = company
   
   const [info, setInfo] = useState({
-    username: company.username,
-    companyname: company.companyname,
-    lastnames: company.lastnames,
-    email: company.email,
-    description: company.description,
-    location: company.location,
-    website: company.website,
-    logo: company.logo,
-    rol: 'Empresa',
-    active: true
+    id: company.id,
+		companyname: company.companyname,
+		description: company.description,
+		location: company.location,
+		phone: company.phone,
+		website: company.website,
+		logo: company.logo,
+		likes_count: company.likes_count
   });
 
 //   const [errors, setErrors] = useState({
@@ -67,7 +65,7 @@ const Profile = ({company}) => {
 const handleSubmit = async (event) => {
   event.preventDefault();
   await axios.put('/jobsdb/:id', info);
-  await axios.put('/', info);
+  // newInfo(info)
   alert('Los datos se han actualizado.');
   setOpen(false);
 };
@@ -114,15 +112,15 @@ const handleSubmit = async (event) => {
             Editar datos de usuario
           </DialogContentText>
           <form>
-          <div>
-              <TextField label="Nombres" value={info.username} onChange={handleChange} /*error={!!errors.username} helperText={errors.username}*/ variant="standard" name='username' />
-          </div>
-          <div>
-              <TextField label="Apellidos" value={info.lastnames} onChange={handleChange} /*error={!!errors.lastnames} helperText={errors.lastnames}*/ variant="standard" name='lastnames' />
-          </div>
-          <div>
-              <TextField label="Email" value={info.email} onChange={handleChange} /*error={!!errors.email} helperText={errors.email}*/ variant="standard" name='email' />
-          </div>
+          {/* <div>
+              <TextField label="Nombres" value={info.username} onChange={handleChange} error={!!errors.username} helperText={errors.username} variant="standard" name='username' />
+          </div> */}
+          {/* <div>
+              <TextField label="Apellidos" value={info.lastnames} onChange={handleChange} error={!!errors.lastnames} helperText={errors.lastnames} variant="standard" name='lastnames' />
+          </div> */}
+          {/* <div>
+              <TextField label="Email" value={info.email} onChange={handleChange} error={!!errors.email} helperText={errors.email} variant="standard" name='email' />
+          </div> */}
           <div>
               <TextField label="Nombre de la empresa" value={info.companyname} onChange={handleChange} /*error={!!errors.companyname} helperText={errors.companyname}*/ variant="standard" name='companyname' />
           </div>
@@ -135,9 +133,9 @@ const handleSubmit = async (event) => {
           <div>
               <TextField label="Ubicación" value={info.location} onChange={handleChange} /*error={!!errors.location} helperText={errors.location}*/ variant="standard" name='location' />
           </div>
-          <div>
-              <TextField label="Descripción" value={info.description} onChange={handleChange} /*error={!!errors.description} helperText={errors.description}*/ variant="standard" name='description' />
-          </div>
+          {/* <div>
+              <TextField label="Descripción" value={info.description} onChange={handleChange} error={!!errors.description} helperText={errors.description} variant="standard" name='description' />
+          </div> */}
           </form>
         </DialogContent>
         <DialogActions>
