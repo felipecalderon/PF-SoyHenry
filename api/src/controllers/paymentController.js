@@ -7,7 +7,7 @@ const crearPlan = async ({email}) => {
         auto_recurring: {
           frequency: 1,
           frequency_type: "months",
-          transaction_amount: 10000,
+          transaction_amount: 1000,
           currency_id: "CLP",
         },
         payer_email: email,
@@ -21,6 +21,7 @@ const crearPlan = async ({email}) => {
   
  const crearSuscripcion = async ({idPlan, email}) => {
     try {
+        console.log({idPlan});
         const suscripcion = await mercadopago.preapproval.create({
         reason: "Plan Premium",
         auto_recurring: {
