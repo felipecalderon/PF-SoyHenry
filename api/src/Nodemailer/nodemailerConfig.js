@@ -10,7 +10,6 @@ const transporter = nodemailer.createTransport({
 		pass: GOOGLE_MAIL_PASS//"jvocooswsqcttbmg",
 	},
 });
-
 transporter.verify().then(() => {
 	console.log("Lista la configuracion para enviar correos");
 });

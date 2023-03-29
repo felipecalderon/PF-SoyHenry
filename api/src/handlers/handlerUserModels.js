@@ -24,6 +24,7 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
         // if(usuario) {
         // return usuario.dataValues
         // }
+        
         mailRegisterUser(email,username); //envia correo de registro al mail registrado,le paso el usuario.
         
         if (usuario) {
