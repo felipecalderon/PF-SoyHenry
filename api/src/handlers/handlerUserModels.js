@@ -1,7 +1,7 @@
 // const{ Users } = require('../database.js')
 const { Op } = require("sequelize");
 const { User, Admin, Postulant, Company, Offers } = require("../models/relations.js");
-
+const{mailRegisterUser}=require('./Utils/sendMail');
 // Post
 const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, gender, password, companyname, description, location, website, logo, experience, tecnology }) => {
     try {
@@ -24,6 +24,8 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
         // if(usuario) {
         // return usuario.dataValues
         // }
+        mailRegisterUser(email,username);//envia correo de registro al mail registrado,le paso el usuario.
+        
         if (usuario) {
         switch (rol) {
             case 'Postulante':
@@ -31,6 +33,7 @@ const createUsers = async ({ username, email, rol, names, lastnames, phone, disa
                     names, lastnames, phone, disability, gender, experience, tecnology,
                     userId: usuario.id
                 });
+               
                 return { ...usuario.dataValues, postulant }
             case 'Empresa':
                 const company = await Company.create({
