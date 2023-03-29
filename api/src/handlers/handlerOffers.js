@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { Op } = require('sequelize');
-const { Offers, User, Company } = require("../models/relations.js");
+const { Offers, User, Company, Technologies, Aplications, Postulant } = require("../models/relations.js");
 const { cleaningGetonbrd } = require('./Utils/offersCleaning');
 const paginate = require('./Utils/paginate');
 
@@ -12,6 +12,13 @@ const createOfferHandler = async ({ title, requeriments, functions, benefits, pe
             title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create,
             userId: by, idRecruiterOfferCreate, idAplicants
         });
+        const technologiesDb = await Technologies.findAll({
+            where: {
+                Technology: perks
+            }
+        })
+
+        newOffer.addTechnologies(technologiesDb)       
 
         return newOffer
     } catch (err) {
@@ -63,7 +70,18 @@ const getAllOffersDbId = async (id) => {
                 id
             },
             include: {
-                model: Offers,
+                model: Offers, 
+                include: {
+                    model: Aplications,
+                    include: {
+                        model: User,
+                        include: {
+                            model: Postulant,
+                        }
+                    }
+                }
+
+                
             },
         })
         return offerts_dbid;
