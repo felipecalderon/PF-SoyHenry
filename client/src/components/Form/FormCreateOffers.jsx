@@ -12,19 +12,20 @@ import Footer from "../Footer/Footer";
 
 export default function OffersCreate() {
 
+    const dispatch = useDispatch();
     const { user } = useSelector((state) => state.userRegisterSlice)
     const [showModal, setShowModal] = useState(false);
-    const dispatch = useDispatch();
     const [technologies, setTechnologies] = useState(null)
+    const [perksApi, setPerksApi] = useState([])
     const [errors, setErrors] = useState({});
     const [inputs, setInputs] = useState({
 
-        title: '',
-        description: '',
+        title: '',        
         requeriments: '',
         benefits: '',
         functions: '',
         perks: [],
+        technologies: [],
         min_salary: '',
         max_salary: '',
         modality: '',
@@ -62,6 +63,7 @@ export default function OffersCreate() {
             if (validar.experience.length) return { ...errors, experience: '' };
         }
         if (validar.hasOwnProperty('min_salary')) {
+            if (validar.min_salary === '') return { ...errors, min_salary: '', min_salary_0: '' };
             if (Number(validar.min_salary) <= 0) return { ...errors, min_salary_0: 'corregir salario minimo o reingresarlo *' };
             if (Number(validar.min_salary) > Number(inputs.max_salary)) return { ...errors, min_salary: 'salario minimo mayor a maximo *' };
             if (Number(validar.min_salary) <= Number(inputs.max_salary) && Number(validar.min_salary) > 0) return { ...errors, min_salary: '', max_salary: '', min_salary_0: '' };
@@ -69,6 +71,7 @@ export default function OffersCreate() {
             if (Number(validar.min_salary) <= Number(inputs.max_salary)) return { ...errors, min_salary: '', max_salary: '' }
         }
         if (validar.hasOwnProperty('max_salary')) {
+            if (validar.max_salary === '') return { ...errors, max_salary: '', max_salary_0: '' };
             if (Number(validar.max_salary) <= 0) return { ...errors, max_salary_0: 'corregir salario maximo o reingresarlo *' };
             if (Number(validar.max_salary) < Number(inputs.min_salary)) return { ...errors, max_salary: 'salario minimo mayor a maximo *' };
             if (Number(validar.max_salary) >= Number(inputs.min_salary) && Number(validar.max_salary) > 0) return { ...errors, min_salary: '', max_salary: '', max_salary_0: '' };
@@ -83,7 +86,11 @@ export default function OffersCreate() {
             .then((response) => {
                 setTechnologies(response.data)
             })
-    }, [technologies])
+        axios('https://www.getonbrd.com/api/v0/perks')
+            .then(res => setPerksApi(res.data.data))
+    }, [])
+    
+ 
 
     function handleChange(event) {
 
@@ -108,9 +115,14 @@ export default function OffersCreate() {
             acumulador += errors[key]
         }
         for (const key in inputs) {
-            if (inputs[key] === '') acumulador2 = true
+            console.log(key)
+            if (inputs[key].length === 0  ) acumulador2 = true
+            if (key === 'min_salary' && inputs[key].length === 0) acumulador2 = false
+            if (key === 'max_salary' && inputs[key].length === 0) acumulador2 = false            
         }
 
+        if (inputs.min_salary.length && !inputs.max_salary.length ) acumulador2 = true
+        if (inputs.max_salary.length && !inputs.min_salary.length ) acumulador2 = true
 
         if (acumulador === '' && acumulador2 === false) {
             acumulador = false
@@ -124,17 +136,33 @@ export default function OffersCreate() {
 
 
     function handleSelect(event) {
-        if (inputs.perks.includes(event.target.value)) return
+        console.log(event)
+        if (inputs.perks.includes(event.target.value) || event.target.value === 'Seleccione') return
         setInputs({
             ...inputs,
             perks: [...inputs.perks, event.target.value]
         })
     }
 
+    function handleSelectTechnologies(event) {
+        if (inputs.technologies.includes(event.target.value) || event.target.value === 'Seleccione') return
+        setInputs({
+            ...inputs,
+            technologies: [...inputs.technologies, event.target.value]
+        })
+    }
+
     function handleDelete(event) {
         setInputs({
             ...inputs,
-            perks: inputs.perks.filter(techno => techno !== event)
+            perks: inputs.perks.filter(perk => perk !== event)
+        })
+    }
+
+    function handleDeleteTechnologies(event) {
+        setInputs({
+            ...inputs,
+            technologies: inputs.technologies.filter(techno => techno !== event)
         })
     }
 
@@ -144,12 +172,12 @@ export default function OffersCreate() {
         alert('oferta creada')
         setShowModal(false)
         setInputs({
-            title: '',
-            description: '',
+            title: '',        
             requeriments: '',
             benefits: '',
             functions: '',
             perks: [],
+            technologies: [],
             min_salary: '',
             max_salary: '',
             modality: '',
@@ -169,13 +197,7 @@ export default function OffersCreate() {
                         <label >Titulo: </label>
                         <input className={styles.inputs_strings} type='text' onChange={(event) => handleChange(event)} value={inputs.title} name='title' placeholder="Ingrese un titulo de la oferta" />
                     </div>
-
-                    <div className={styles.contenedor_inputs}>
-                        {errors.description && <p className={styles.p_formulario_error}>{errors.description} </p>}
-                        <label >Descripcion: </label>
-                        <textarea className={styles.inputs_strings} type='text' onChange={(event) => handleChange(event)} value={inputs.description} name='description' placeholder="Describa la oferta laboral" />
-                    </div>
-
+                   
                     <div className={styles.contenedor_inputs}>
                         {errors.requeriments && <p className={styles.p_formulario_error}>{errors.requeriments} </p>}
                         <label >Requisitos: </label>
@@ -195,18 +217,17 @@ export default function OffersCreate() {
                     </div>
 
                     <div className={styles.contenedor_inputs}>
-                        {errors.perks && <p className={styles.p_formulario_error}>{errors.perks}</p>}
-                        <label >Tecnologias requeridas:</label>
-                        <select className={styles.perks_select} onChange={(event) => handleSelect(event)} >
-                            <option id="perks_select" >Seleccione</option>
-                            {technologies?.map(techno => {
+                        <label >Ventajas:</label>
+                        <select className={styles.perks_select} onChange={(event) => handleSelect(event)}>
+                            <option value={'Seleccione'} >Seleccione</option>
+                            {perksApi?.map(perks => {
                                 return (
-                                    <option value={techno.Technology}>{techno.Technology}</option>
+                                    <option value={perks.attributes.name}>{perks.attributes.name}</option>
                                 )
                             })}
                         </select>
                     </div>
-
+                    
                     <div className={styles.contenedor_inputs}>
 
                         <span className={styles.perks_information}> {inputs.perks.map(techno => {
@@ -219,6 +240,32 @@ export default function OffersCreate() {
                         })} </span>
 
                     </div>
+
+                    <div className={styles.contenedor_inputs}>
+                        {errors.perks && <p className={styles.p_formulario_error}>{errors.perks}</p>}
+                        <label >Tecnologias requeridas:</label>
+                        <select className={styles.perks_select} onChange={(event) => handleSelectTechnologies(event)} >
+                            <option value={'Seleccione'} >Seleccione</option>
+                            {technologies?.map(techno => {
+                                return (
+                                    <option value={techno.Technology}>{techno.Technology}</option>
+                                )
+                            })}
+                        </select>
+                    </div>
+
+                     <div className={styles.contenedor_inputs}>
+
+                        <span className={styles.perks_information}> {inputs.technologies.map(techno => {
+                            return (
+                                <span>
+                                    <span className={styles.technologies_selected} onClick={() => handleDeleteTechnologies(techno)} >{techno}</span>
+                                    <button className={styles.technologies_selected_btn} type='button' onClick={() => handleDeleteTechnologies(techno)}>x</button>
+                                </span>
+                            )
+                        })} </span>
+
+                    </div>          
 
                     <div className={styles.contenedor_inputs}>
                         {errors.modality && <p className={styles.p_formulario_error}>{errors.modality} </p>}
@@ -246,10 +293,13 @@ export default function OffersCreate() {
 
                     <div className={styles.contenedor_inputs}>
                         {(errors.min_salary || errors.max_salary || errors.min_salary_0 || errors.max_salary_0) && <p className={styles.p_formulario_error}>{errors.min_salary} {errors.max_salary} {errors.min_salary_0}{errors.max_salary_0}</p>}
-                        <label >Salario: </label>
+                        <label >Salario en dolares americanos: </label>
                         <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.min_salary} name='min_salary' id="min_salary" placeholder="minimo" />
                         <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.max_salary} name='max_salary' id="max_salary" placeholder="maximo" />
                     </div>
+                    <div className={styles.contenedor_inputs}>                        
+                        <p className={styles.p_formulario_error}>El salario no es obligatorio, dejar en blanco en caso de no querer informarlo</p>
+                    </div>    
 
                     <div className={styles.contenedor_inputs}>
                         <button className={styles.boton_submit} type='button' disabled={controlarValoresErrors(errors, inputs)} onClick={() => setShowModal(true)}> Publicar oferta</button>
@@ -260,16 +310,16 @@ export default function OffersCreate() {
             </div>
             <ModalConfirmChanges isVisible={showModal} onClose={() => setShowModal(false)} >
                 <h1 className={styles.titulo_confirmacion}>Antes de confirmar la oferta, verifique los datos</h1>
-                <h1>Titulo: {inputs.title}</h1>
-                <h1>Descripcion: {inputs.description}</h1>
+                <h1>Titulo: {inputs.title}</h1>                
                 <h1>Requisitos: {inputs.requeriments}</h1>
                 <h1>Beneficios: {inputs.benefits}</h1>
                 <h1>Funciones: {inputs.functions}</h1>
-                <h1>Tecnologias: {inputs.perks}</h1>
+                <h1>Ventajas: {inputs.perks} </h1>
+                <h1>Tecnologias: {inputs.technologies}</h1>
                 <h1>Modalidad: {inputs.modality}</h1>
-                <h1>Experiencia requerida: {inputs.experience} años</h1>
-                <h1>Salario minimo: {inputs.min_salary} dolares</h1>
-                <h1>Salario maximo: {inputs.max_salary} dolares</h1>
+                <h1>Experiencia requerida: {inputs.experience} años</h1>                
+                <h1>Salario minimo: {!inputs.min_salary.length? 'Sin informar': inputs.min_salary + ' dolares' } </h1>
+                <h1>Salario maximo: {!inputs.max_salary.length? 'Sin informar': inputs.max_salary + ' dolares' } </h1>
                 <button className={styles.boton_confirmacion} type='submit' onClick={handleSubmit}>confirmar</button>
 
             </ModalConfirmChanges>
