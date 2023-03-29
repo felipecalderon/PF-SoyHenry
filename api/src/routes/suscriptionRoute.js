@@ -6,6 +6,7 @@ const planRoute = async (req, res) => {
           res.json(suscripcion);
       } catch (error) {
         console.log(error);
+        res.status(404).json('No se pudo crear el plan')
       }
 }
 
@@ -15,6 +16,7 @@ const subscriptionRoute = async (req, res) => {
           res.json(suscripcion);
       } catch (error) {
         console.log(error);
+        res.status(404).json('No se pudo crear la suscripción')
       }
 }
 
@@ -23,6 +25,7 @@ const respuestasMP = async (req, res) => {
         res.json(req.body)
     } catch (error) {
         console.log(error);
+        res.status(404).json('Hubo un error en el pago')
     }
   }
 
