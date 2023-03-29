@@ -6,7 +6,6 @@ import Postulaciones from "./Postulaciones"
 import Favoritos from './Favoritos'
 import Configuracion from "./Configuracion"
 import User from './User'
-import { NavCards } from '../Cards/Nav/NavCards'
 
 // Validacion del usuario 
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -79,7 +78,6 @@ function UserProfile() {
     // },[selectedValueBarraPerfil])
         return (
             <>
-                <NavCards />
                 <div className='flex justify-around bg-primary-light '>
                     <input
                         className='invisible'
@@ -126,8 +124,4 @@ function UserProfile() {
         )
 }
 
-export default UserProfile
-
-
-
-
+export default UserProfile;
