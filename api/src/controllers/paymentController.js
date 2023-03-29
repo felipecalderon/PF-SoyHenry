@@ -11,7 +11,7 @@ const crearPlan = async ({id}) => {
 
         console.log({fechaInicial, fechaFinal});
         const plan = await mercadopago.preapproval.create({
-        reason: "Yoga classes",
+        reason: "MP Testing",
         auto_recurring: {
           frequency: 1,
           frequency_type: "months",
