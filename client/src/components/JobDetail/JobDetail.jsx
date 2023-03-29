@@ -1,33 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getDataPostulacion } from "../../redux/slices/postSlices";
+import { getDataPostulacion, getDataEmpresa } from "../../redux/slices/postSlices";
 import useFetch from '../Hooks/useFetch'
+import { NavLanding } from "../NavLanding/NavLanding"; 
 import Footer from "../Footer/Footer";
 import { spinnerPurple } from "../Cards/spinner";
-import {addFavorites} from "../../redux/slices/userRegisterSlice"
+import { addFavorites } from "../../redux/slices/userRegisterSlice"
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
 import axios from "axios";
 import Perks from "./Perks";
-import {NavLanding} from '../NavLanding/NavLanding'
-
-export const menu = [
-  {
-    name: "Planes",
-    link: "#"
-  },
-  {
-    name: "Sobre Nosotros",
-    link: "/about"
-  },
-  {
-    name: "Registro",
-    link: "/registro"
-  },
-]
 
 const JobDetail = () => {
   const navigate = useNavigate()
@@ -35,82 +19,64 @@ const JobDetail = () => {
   const query = new URLSearchParams(window.location.search);
   const title = query.get('title');
   const { jobId } = useSelector((state) => state.postSlice);
+  const {empresaId} = useSelector((state)=> state.postSlice)
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
   const { data, isLoading } = useFetch(url);
-  const [empresa, setEmpresa] = useState(null);
+  const dataUserLocal = localStorage.getItem("userLogin")
+  const dataUserGoogle = localStorage.getItem("usergoogle")
+  const dataUser = JSON.parse(dataUserLocal);
   const jobBenefitsHTML = { __html: jobId?.benefits };
   const jobFunctionsHTML = { __html: jobId?.functions };
   const jobRequerimentsHTML = { __html: jobId?.requeriments }
-    const dataUserLocal = localStorage.getItem("userLogin"); 
-  const dataUser = JSON.parse(dataUserLocal);
-  
+  const menu =[
+    {
+      name:"Ofertas",
+      link:"/offers"
+
+  },
+  {
+    name: "Sobre Nosotros",
+    link: "/about"
+  },
+]
+
   useEffect(() => {
     window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
-    if (data){ 
-      dispatch(getDataPostulacion(data))
-    }
-  }, [])
+    if (data) dispatch(getDataPostulacion(data))
+  }, [data, dispatch])
 
-  useEffect(()=>{
-    axios.get(`company/${jobId?.idEmpresa}`)
-  })
+  const handlePostulateDb = () => {
+    const offerId = jobId.id
+    const userId = dataUser.id
+    axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
+    alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
+  };
   
-  // const [isFavorite, setIsFavorite] = useState("");
+  const [empresa, setEmpresa] = useState(null);
   
-  // const [favFilter, setFavFilter]  = useState()
-  // useEffect(()=>{
-  //   axios.get(`/fav_company/${dataUser.id}`)
-  //   .then( (res)=> res.data.filter((cb) => cb.offerId === jobId.id ))
-  //   .then((res)=> setFavFilter(res))
-
-  //   console.log(favFilter)
-    
-  // },[favFilter])
-  // !favFilter ? setIsFavorite("save") : setIsFavorite("unsave")
+    axios.get(`/company/${id}`)
   
-  // const offersFav = {offerId: jobId.id , fav: isFavorite}
-
 
   // obtener perks en español desde la api getonbrd
   const [perksApi, setPerksApi] = useState([])
-    useEffect(() => {
-        axios.get('https://www.getonbrd.com/api/v0/perks')
-            .then(res => setPerksApi(res.data.data))
-            console.log(perksApi)
-    }, [])
+  useEffect(() => {
+    axios.get('https://www.getonbrd.com/api/v0/perks')
+      .then(res => setPerksApi(res.data.data))
+  }, [])
 
-  if (!jobId) return spinnerPurple()
-  if (isLoading) return spinnerPurple()
-  
-   
-
-  // const handleToggleFavorite = () => {
-  //   axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=${isFavorite}`) // guarda favorito o desmarca favorito
-  // };
-
-
-  const handlePostulate = () => {
-    const offerId = jobId.id
-    const userId = dataUser.id
-    axios.put(`/rel_offers/${offerId}/${userId}?state=save&origin=${Number(offerId) ? "db" : "api"}`)
-    alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
-  };
-
-  
   // filtrar según las perks que tenga la oferta de trabajo
   const cleanPerks = perksApi?.filter((perk) => jobId?.perks?.includes(perk.id)).map(perk => perk.attributes.name)
   
-  // useEffect(() => {
-  //   if(!dataUserLocal && !dataUserGoogle) navigate('/')
-  // }, [])
+  useEffect(() => {
+    if (!dataUserLocal && !dataUserGoogle) navigate('/')
+  }, [])
 
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
   return (
-  <>
-    <NavLanding menu={menu} />
-    <div className="bg-primary-light dark:bg-secondary-dark">
+    <div className="bg-primary-light dark:bg-secondary-dark pt-20">
+      <NavLanding menu={menu}/>
       {/* Datos de la empresa */}
       <div className="md:flex-shrink-0">
           <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa ? empresa.logo : null} alt="Job Posting" />
@@ -125,10 +91,10 @@ const JobDetail = () => {
           <div className="p-8">
             <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white mb-4">{jobId.title}</h1>
             <section className="flex my-4">
-            {jobId.modality &&
-                   <h3 className="text-gray-600 dark:text-gray-300">
-                   Modalidad: {jobId.modality?.split("_").join(" ")}
-                   </h3>
+              {jobId.modality &&
+                <h3 className="text-gray-600 dark:text-gray-300">
+                  Modalidad: {jobId.modality?.split("_").join(" ")}
+                </h3>
               }
               <h3 className="text-lg font-semibold dark:text-white">
                 Rango salarial:
@@ -140,34 +106,36 @@ const JobDetail = () => {
                 }
               </h3>
             </section>
-            { jobId.benefits && <>
+            {jobId.benefits && <>
               <h2 className="text-lg font-semibold dark:text-white"> Beneficios </h2>
-            <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobBenefitsHTML}></h3>
+              <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobBenefitsHTML}></h3>
             </>
             }
             <br />
-            { jobId.functions && <>
+            {jobId.functions && <>
               <h2 className="text-lg font-semibold dark:text-white"> Funciones a realizar </h2>
-            <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobFunctionsHTML}></h3>
+              <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobFunctionsHTML}></h3>
             </>
             }
             <br />
-            { jobId.requeriments && <>
-            <h2 className="text-lg font-semibold dark:text-white">Requisitos</h2>
-            <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobRequerimentsHTML}></h3>
+            {jobId.requeriments && <>
+              <h2 className="text-lg font-semibold dark:text-white">Requisitos</h2>
+              <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={jobRequerimentsHTML}></h3>
             </>}
-           
+
             <br />
-            <h2 className="text-lg font-semibold dark:text-white py-3"> Ventajas </h2>
+            {jobId.perks &&
+              <h2 className="text-lg font-semibold dark:text-white py-3"> Ventajas </h2>}
             <div className="flex flex-row flex-wrap gap-3">
-              {cleanPerks?.map((ventajas) => { 
+              {cleanPerks?.map((ventajas) => {
                 return <Perks perk={ventajas} />
               })}
             </div>
+      
             <div className="mt-8 flex justify-center">
               {
                 Number(jobId.id)
-                  ? <button onClick={handlePostulate} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+                  ? <button onClick={handlePostulateDb} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
                     <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                       Aplicar
                     </span>
@@ -180,25 +148,15 @@ const JobDetail = () => {
                     </button>
                   </a>
               }
-               {/* <Box >
-              <Fab
-              sx={{ backgroundColor: isFavorite === "save" ? 'red' : 'white' }}
-               aria-label="like"
-               onClick={handleToggleFavorite}
-              >
-                {isFavorite ? <FavoriteBorderIcon />  : <FavoriteIcon />}
-              </Fab>
-              </Box> */}
             </div>
           </div>
         </div>
       </div>
       <Footer />
     </div>
-  </>
   );
 };
 
-             
+
 
 export default JobDetail;

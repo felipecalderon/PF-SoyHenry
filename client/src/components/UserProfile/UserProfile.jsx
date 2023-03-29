@@ -52,6 +52,16 @@ function UserProfile() {
         SetSelectedValueBarraPerfil({
             valorSeleccionado: value
         })
+    
+  };
+  const displayComponente = (selectedValueBarraPerfil) => {
+    switch (selectedValueBarraPerfil.valorSeleccionado) {
+      case "curriculum":
+        return <Curriculum />;
+      case "postulaciones":
+        return <Postulaciones />;
+      case "favoritos":
+        return <Favoritos />;
     }
   };
 
@@ -72,7 +82,7 @@ function UserProfile() {
     return (
       <>
         <NavLanding menu={menu} />
-        <div className="flex justify-around bg-primary-light      dark:bg-secondary-dark pt-20">
+        <div className="flex justify-around bg-primary-light  dark:bg-secondary-dark pt-20">
           <input
             className="invisible"
             type="radio"
