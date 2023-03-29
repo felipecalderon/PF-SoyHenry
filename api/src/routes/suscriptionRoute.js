@@ -22,6 +22,7 @@ const subscriptionRoute = async (req, res) => {
 
 const respuestasMP = async (req, res) => {
     try {
+        console.log(req.body);
         res.json(req.body)
     } catch (error) {
         console.log(error);
