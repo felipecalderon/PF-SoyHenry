@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getDataPostulacion } from "../../redux/slices/postSlices";
+import { getDataPostulacion, getDataEmpresa } from "../../redux/slices/postSlices";
 import useFetch from '../Hooks/useFetch'
+import { NavLanding } from "../NavLanding/NavLanding"; 
 import Footer from "../Footer/Footer";
 import { spinnerPurple } from "../Cards/spinner";
 import { addFavorites } from "../../redux/slices/userRegisterSlice"
@@ -11,22 +12,7 @@ import Fab from '@mui/material/Fab';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import axios from "axios";
 import Perks from "./Perks";
-import {NavLanding} from '../NavLanding/NavLanding'
-
-export const menu = [
-  {
-    name: "Planes",
-    link: "#"
-  },
-  {
-    name: "Sobre Nosotros",
-    link: "/about"
-  },
-  {
-    name: "Registro",
-    link: "/registro"
-  },
-]
+import { fetchEmpresaData } from "../../redux/actions/fetchEmpresa";
 
 const JobDetail = () => {
   const navigate = useNavigate()
@@ -34,21 +20,40 @@ const JobDetail = () => {
   const query = new URLSearchParams(window.location.search);
   const title = query.get('title');
   const { jobId } = useSelector((state) => state.postSlice);
+  const {empresaId} = useSelector((state)=> state.postSlice)
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
+  const url1=`/company/${id}`
   const { data, isLoading } = useFetch(url);
   const dataUserLocal = localStorage.getItem("userLogin")
   const dataUserGoogle = localStorage.getItem("usergoogle")
   const dataUser = JSON.parse(dataUserLocal);
-  console.log(dataUserLocal);
   const jobBenefitsHTML = { __html: jobId?.benefits };
   const jobFunctionsHTML = { __html: jobId?.functions };
   const jobRequerimentsHTML = { __html: jobId?.requeriments }
+  const menu =[
+    {
+      name:"Ofertas",
+      link:"/offers"
 
-  useEffect(() => {
-    window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
-    if (data) dispatch(getDataPostulacion(data))
-  }, [data, dispatch])
+  },
+  {
+    name: "Sobre Nosotros",
+    link: "/about"
+  },
+]
+const [empresa, setEmpresa] = useState(null);
+
+useEffect(() => {
+  window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
+  if (data) {
+    dispatch(getDataPostulacion(data));
+    dispatch(fetchEmpresaData(jobId?.companyId, (response) => {
+      setEmpresa(response.payload);
+    }));
+  }
+}, [data, dispatch, jobId?.companyId]);
+
 
   const handlePostulateDb = () => {
     const offerId = jobId.id
@@ -56,6 +61,8 @@ const JobDetail = () => {
     axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
     alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
   };
+  
+  
 
   // obtener perks en español desde la api getonbrd
   const [perksApi, setPerksApi] = useState([])
@@ -66,8 +73,7 @@ const JobDetail = () => {
 
   // filtrar según las perks que tenga la oferta de trabajo
   const cleanPerks = perksApi?.filter((perk) => jobId?.perks?.includes(perk.id)).map(perk => perk.attributes.name)
-  console.log(jobId?.perks);
-  console.log(perksApi);
+  
   useEffect(() => {
     if (!dataUserLocal && !dataUserGoogle) navigate('/')
   }, [])
@@ -75,17 +81,16 @@ const JobDetail = () => {
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
   return (
-  <>
-    <NavLanding menu={menu} />
-    <div className="bg-primary-light dark:bg-secondary-dark">
-      {/* Datos de la empresa */}
-      {/* <div className="md:flex-shrink-0">
-          <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa ? empresa.logo : null} alt="Job Posting" />
-          <span className="material-symbols-outlined">star_rate</span> ver como medir el "valor/renking" de la empresa 
-          <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">
-            {empresa ? empresa.name : null}
-          </div>
-        </div> */}
+    <div className="bg-primary-light dark:bg-secondary-dark pt-20">
+    <NavLanding menu={menu}/>
+    {/* Datos de la empresa */}
+    <div className="md:flex-shrink-0">
+      <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresaId ? empresaId.logo : null} alt="Job Posting" />
+      <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">
+        {empresaId ? empresaId.name : null}
+      </div>
+      
+    </div>
       {/* Detalles de la oferta */}
       <div className="flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-8 dark:bg-gray-800">
         <div className="md:flex">
@@ -125,12 +130,14 @@ const JobDetail = () => {
             </>}
 
             <br />
-            <h2 className="text-lg font-semibold dark:text-white py-3"> Ventajas </h2>
+            {jobId.perks &&
+              <h2 className="text-lg font-semibold dark:text-white py-3"> Ventajas </h2>}
             <div className="flex flex-row flex-wrap gap-3">
               {cleanPerks?.map((ventajas) => {
                 return <Perks perk={ventajas} />
               })}
             </div>
+      
             <div className="mt-8 flex justify-center">
               {
                 Number(jobId.id)
@@ -153,7 +160,6 @@ const JobDetail = () => {
       </div>
       <Footer />
     </div>
-  </>
   );
 };
 

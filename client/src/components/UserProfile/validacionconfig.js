@@ -30,11 +30,20 @@ if (form.discapacidad) {
     obj.discapacidad="¿Posee alguna discapacidad?.Sí/No."
 }
 
-if (regexUbicacion.test(form.ubicacion)) {obj.ubicacion=""
-} else obj.ubicacion="Debes ingresar tu ubicacion"
-    
 if(regexTituloOIdioma.test(form.titulo)){obj.titulo=""
 }else obj.titulo ="Ingrese titulo Valido"
+
+if (regexUbicacion.test(form.ciudad)) {
+    obj.ciudad=""
+} else {
+    obj.ciudad="ingrese ciudad valida"
+}
+if (regexUbicacion.test(form.pais)) {
+    obj.ciudad=""
+} else {
+    obj.pais="ingrese pais valido"
+}
+
 
 if (form.genero) {
     obj.genero=""
@@ -74,7 +83,7 @@ if (form.facebook) {
     } else {
         obj.facebook="Debe ser una URL valida a tu perfil de facebook"
     }
-} 
+}
 
 if (form.linkedin) {
     if (regexLinkedin.test(form.linkedin)) {
