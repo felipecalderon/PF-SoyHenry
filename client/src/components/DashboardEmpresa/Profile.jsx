@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
 import validationsDatosEmpresa from './validationsDatosEmpresa';
+import ModalConfirmChangesCompany from './ModalConfirmChangesCompany';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -13,12 +14,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const Profile = ({company}) => {
   const [open, setOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   
   //eslint-disable-next-line no-unused-vars
-  const {id, companyname, logo, website, phone, likes_count} = company
+  const {id, companyname, logo, location, website, phone, likes_count} = company
   
   const [info, setInfo] = useState({
-    id: company.id,
 		companyname: company.companyname,
 		description: company.description,
 		location: company.location,
@@ -28,25 +29,16 @@ const Profile = ({company}) => {
 		likes_count: company.likes_count
   });
 
-//   const [errors, setErrors] = useState({
-//     username: '',
-//     companyname: '',
-//     lastnames: '',
-//     email: '',
-//     description: '',
-//     location: '',
-//     website: '',
-//     logo: '',
-// });
+  const [errors, setErrors] = useState({
+    companyname: '',
+    description: '',
+    location: '',
+    phone: '',
+    website: '',
+    logo: '',
+    likes_count: '',
+});
 
-  // const newInfo = (event) => {
-  //   const { name, value } = event.target;
-  //   setInfo({
-  //     ...info,
-  //     [name]: value
-  //   })
-  // };
-  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -59,15 +51,21 @@ const Profile = ({company}) => {
     setInfo({
         ...info,
         [event.target.name]: event.target.value
-    })
+    });
 };
+
 
 const handleSubmit = async (event) => {
   event.preventDefault();
-  await axios.put('/jobsdb/:id', info);
-  // newInfo(info)
-  alert('Los datos se han actualizado.');
-  setOpen(false);
+  const errorsNew = validationsDatosEmpresa(info);
+  console.log(info);
+  setErrors(errorsNew);
+  if (Object.keys(errorsNew).length === 0) {
+    await axios.put(`/company/${id}`, info);
+    alert('Los datos se han actualizado.');
+    setShowModal(false);
+    setOpen(false);
+  }
 };
   
   if(!company) return "No hay info";
@@ -75,6 +73,7 @@ const handleSubmit = async (event) => {
     <>
       <Box className="flex flex-row">
         <CardMedia
+          className='rounded-3xl ml-[3rem]'
           component="img"
           sx={{ width: 200, objectFit: 'contain' }}
           image={logo}
@@ -84,10 +83,19 @@ const handleSubmit = async (event) => {
           <Typography component="div" variant="h5" className='text-gray-900 dark:text-white'>
             {companyname}
           </Typography>
-          <Typography component="div" variant="subtitle1" className='text-blue-600 dark:text-white'>
+          <Typography component="div" variant="subtitle1" className='text-blue-600'>
             <a href={website} target="_blank" rel="noopener noreferrer">{website}</a>
           </Typography>
           <Rating name="ratingCompany" value={4} readOnly />
+          <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
+            <p target="_blank" rel="noopener noreferrer">{location}</p>
+          </Typography>
+          <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
+            <p target="_blank" rel="noopener noreferrer">{phone}</p>
+          </Typography>
+          <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
+            <p target="_blank" rel="noopener noreferrer">Likes: {likes_count}</p>
+          </Typography>
         </CardContent>
       </Box>
       <Box className="flex flex-row gap-3 w-[29.5rem] pt-[1rem]">   
@@ -112,36 +120,38 @@ const handleSubmit = async (event) => {
             Editar datos de usuario
           </DialogContentText>
           <form>
-          {/* <div>
-              <TextField label="Nombres" value={info.username} onChange={handleChange} error={!!errors.username} helperText={errors.username} variant="standard" name='username' />
-          </div> */}
-          {/* <div>
-              <TextField label="Apellidos" value={info.lastnames} onChange={handleChange} error={!!errors.lastnames} helperText={errors.lastnames} variant="standard" name='lastnames' />
-          </div> */}
-          {/* <div>
-              <TextField label="Email" value={info.email} onChange={handleChange} error={!!errors.email} helperText={errors.email} variant="standard" name='email' />
-          </div> */}
           <div>
-              <TextField label="Nombre de la empresa" value={info.companyname} onChange={handleChange} /*error={!!errors.companyname} helperText={errors.companyname}*/ variant="standard" name='companyname' />
+              <TextField label="Nombre de la empresa" value={info.companyname} onChange={handleChange} error={!!errors.companyname} helperText={errors.companyname} variant="standard" name='companyname' />
           </div>
           <div>
-              <TextField label="Logo" value={info.logo} onChange={handleChange} /*error={!!errors.logo} helperText={errors.logo}*/ variant="standard" name='logo' />
+              <TextField label="Logo" value={info.logo} onChange={handleChange} error={!!errors.logo} helperText={errors.logo} variant="standard" name='logo' />
           </div>
           <div>
-              <TextField label="Website" value={info.website} onChange={handleChange} /*error={!!errors.website} helperText={errors.website}*/ variant="standard" name='website' />
+              <TextField label="Website" value={info.website} onChange={handleChange} error={!!errors.website} helperText={errors.website} variant="standard" name='website' />
           </div>
           <div>
-              <TextField label="Ubicación" value={info.location} onChange={handleChange} /*error={!!errors.location} helperText={errors.location}*/ variant="standard" name='location' />
+              <TextField label="Ubicación" value={info.location} onChange={handleChange} error={!!errors.location} helperText={errors.location} variant="standard" name='location' />
           </div>
-          {/* <div>
+          <div>
               <TextField label="Descripción" value={info.description} onChange={handleChange} error={!!errors.description} helperText={errors.description} variant="standard" name='description' />
-          </div> */}
+          </div>
           </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancelar</Button>
-          <Button onClick={handleSubmit}>Aceptar</Button>
+          <Button onClick={() => setShowModal(true)}>Aceptar</Button>
         </DialogActions>
+        <ModalConfirmChangesCompany isVisible={showModal} onClose={() => setShowModal(false)} >
+                <h1 className='flex font-bold justify-center p-3 dark:text-text-dark'>Antes de confirmar, verifique los datos</h1>
+                <h1 className='p-1 dark:text-text-dark'><strong>Nombre de la empresa:</strong> {info.companyname}</h1>                
+                <h1 className='p-1 dark:text-text-dark'><strong>Logo:</strong> {info.logo}</h1>
+                <h1 className='p-1 dark:text-text-dark'><strong>Website:</strong> {info.website}</h1>
+                <h1 className='p-1 dark:text-text-dark'><strong>Ubicacion:</strong> {info.location}</h1>
+                <h1 className='p-1 dark:text-text-dark'><strong>Descripción:</strong> {info.description} </h1>
+                <div className='flex justify-center p-5'>
+                  <button className='h-10 w-24 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2' type='submit' onClick={handleSubmit}>Confirmar</button>
+                </div>            
+            </ModalConfirmChangesCompany>
       </Dialog>
     </>
     )

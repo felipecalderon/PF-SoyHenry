@@ -35,7 +35,7 @@ export const Registro = () => {
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
-        names: '',
+        username: '',
         lastnames: '',
         email: '',
         password: '',
@@ -45,7 +45,7 @@ export const Registro = () => {
     });
 
     const [errors, setErrors] = useState({
-        names: '',
+        username: '',
         lastnames: '',
         email: '',
         password: '',
