@@ -34,6 +34,9 @@ const Offers = sequelize.define('Offers', {
     perks: {
         type: DataTypes.ARRAY(DataTypes.STRING),
     },
+    technologies: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+    },
     experience: {
         type: DataTypes.ENUM('0', '1', '2-4', '5'),
     },
