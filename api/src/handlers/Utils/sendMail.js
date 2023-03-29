@@ -20,7 +20,7 @@ const mailRegisterUser = async (email,username) => {
 		});
 	} catch (error) {
 		console.log("Error en nodemailer activate account", error);
-		return error
+		return error 
 	}
 };
 

@@ -31,9 +31,7 @@ const{allCompany,
     }=require('./companyRoute');
 const { getUsersByEmail } = require('../handlers/handlerUserModels');
 //
-const{paymentSub}=require('./paymentRoute')
-//////
-const{paymentMP}=require('./SubcriptionRoute')//este hace suscripcion
+
 
 const route = Router();
 
@@ -69,15 +67,5 @@ route.delete('/admin/:id', deleteadmin)
 route.get('/admin/:id',getadminbyid)*/
 //
 
-//a modo de ejemplo
-route.get('/payment',paymentSub)
 
-//
-
-
-
-//////////////////////////pago suscripcion
-route.post('/subscription',paymentMP);
-
-////////////////////
 module.exports = route;
