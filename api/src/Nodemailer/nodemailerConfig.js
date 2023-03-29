@@ -14,4 +14,5 @@ transporter.verify().then(() => {
 	console.log("Lista la configuracion para enviar correos");
 });
 
+
 module.exports={transporter}
