@@ -12,6 +12,7 @@ import Fab from '@mui/material/Fab';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import axios from "axios";
 import Perks from "./Perks";
+import { fetchEmpresaData } from "../../redux/actions/fetchEmpresa";
 
 const JobDetail = () => {
   const navigate = useNavigate()
@@ -22,6 +23,7 @@ const JobDetail = () => {
   const {empresaId} = useSelector((state)=> state.postSlice)
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
+  const url1=`/company/${id}`
   const { data, isLoading } = useFetch(url);
   const dataUserLocal = localStorage.getItem("userLogin")
   const dataUserGoogle = localStorage.getItem("usergoogle")
@@ -40,11 +42,18 @@ const JobDetail = () => {
     link: "/about"
   },
 ]
+const [empresa, setEmpresa] = useState(null);
 
-  useEffect(() => {
-    window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
-    if (data) dispatch(getDataPostulacion(data))
-  }, [data, dispatch])
+useEffect(() => {
+  window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
+  if (data) {
+    dispatch(getDataPostulacion(data));
+    dispatch(fetchEmpresaData(jobId?.companyId, (response) => {
+      setEmpresa(response.payload);
+    }));
+  }
+}, [data, dispatch, jobId?.companyId]);
+
 
   const handlePostulateDb = () => {
     const offerId = jobId.id
@@ -53,9 +62,6 @@ const JobDetail = () => {
     alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
   };
   
-  const [empresa, setEmpresa] = useState(null);
-  
-    axios.get(`/company/${id}`)
   
 
   // obtener perks en español desde la api getonbrd
@@ -76,15 +82,15 @@ const JobDetail = () => {
   if (isLoading) return spinnerPurple()
   return (
     <div className="bg-primary-light dark:bg-secondary-dark pt-20">
-      <NavLanding menu={menu}/>
-      {/* Datos de la empresa */}
-      <div className="md:flex-shrink-0">
-          <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa ? empresa.logo : null} alt="Job Posting" />
-          <span className="material-symbols-outlined">star_rate</span> ver como medir el "valor/renking" de la empresa 
-          <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">
-            {empresa ? empresa.name : null}
-          </div>
-        </div>
+    <NavLanding menu={menu}/>
+    {/* Datos de la empresa */}
+    <div className="md:flex-shrink-0">
+      <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresaId ? empresaId.logo : null} alt="Job Posting" />
+      <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">
+        {empresaId ? empresaId.name : null}
+      </div>
+      
+    </div>
       {/* Detalles de la oferta */}
       <div className="flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-8 dark:bg-gray-800">
         <div className="md:flex">
