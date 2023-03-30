@@ -1,17 +1,25 @@
 const axios = require('axios');
 const { Op } = require('sequelize');
-const { Offers, User, Company } = require("../models/relations.js");
+const { Offers, User, Company, Technologies, Aplications, Postulant } = require("../models/relations.js");
 const { cleaningGetonbrd } = require('./Utils/offersCleaning');
 const paginate = require('./Utils/paginate');
 
 //post
-const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create, by, idRecruiterOfferCreate, idAplicants }) => {
+const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, technologies, min_salary, max_salary, modality, experience, applications_count, bd_create, by, idRecruiterOfferCreate, idAplicants }) => {
     try {
-
+        if(min_salary === '') min_salary = 0
+        if(max_salary === '') max_salary = 0
         const newOffer = await Offers.create({
-            title, requeriments, functions, benefits, perks, min_salary, max_salary, modality, experience, applications_count, bd_create,
+            title, requeriments, functions, benefits, perks, technologies, min_salary, max_salary, modality, experience, applications_count, bd_create,
             userId: by, idRecruiterOfferCreate, idAplicants
         });
+        const technologiesDb = await Technologies.findAll({
+            where: {
+                Technology: technologies
+            }
+        })
+
+        newOffer.addTechnologies(technologiesDb)       
 
         return newOffer
     } catch (err) {
@@ -25,7 +33,7 @@ const getOffersDb = async () => {
         const offerts_db = await Offers.findAll({
             include: {
                 model: User,
-                attributes: ["id", "username"],
+                attributes: ["id", "names"],
                 include: [
                     {
                         model: Company,
@@ -63,7 +71,18 @@ const getAllOffersDbId = async (id) => {
                 id
             },
             include: {
-                model: Offers,
+                model: Offers, 
+                include: {
+                    model: Aplications,
+                    include: {
+                        model: User,
+                        include: {
+                            model: Postulant,
+                        }
+                    }
+                }
+
+                
             },
         })
         return offerts_dbid;

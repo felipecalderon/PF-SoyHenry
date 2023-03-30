@@ -14,6 +14,8 @@ import { Chip } from "@mui/material";
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import FormHelperText from '@mui/material/FormHelperText';
+import { useDispatch } from "react-redux";
+import { fetchCountries } from "../../redux/slices/countriesSlices";
 
 
 function Configuracion() {
@@ -59,6 +61,81 @@ function Configuracion() {
     facebook: "",
   });
 
+  const [inConfig, SetInConfig] = useState(false);
+
+
+    const dispatch = useDispatch();
+    const [selectedCountry, setSelectedCountry] = useState('');
+    const [selectedCity, setSelectedCity] = useState('');
+    const [countryData, setCountryData] = useState([]);
+    
+  //   const [skillsApi, setSkillsApi] = useState()
+  // const config = {
+  //   headers: {
+  //     'Content-Type': 'application/x-www-form-urlencoded'
+  //   }
+  // };
+
+  // const dataL = new URLSearchParams();
+  // dataL.append('client_id', 'lmc3m1kw7b4l1zw4');
+  // dataL.append('client_secret', 'fo1GRwJt');
+  // dataL.append('grant_type', 'client_credentials');
+  // dataL.append('scope', 'emsi_open');
+
+  // useEffect(() => {
+  //   axios.post('https://auth.emsicloud.com/connect/token', dataL, config)
+  //     .then(response => {
+  //       const token = response.data.access_token
+  //       console.log(token);
+
+  //       const options = {
+  //         method: 'GET',
+  //         url: 'https://emsiservices.com/skills/versions/latest/skills',
+  //         headers: {
+  //           Authorization: Bearer ${token},
+  //         }
+  //       },
+
+  //       axios.request(options)
+  //         .then(response => {
+  //           // Aquí puedes hacer lo que quieras con la respuesta, como imprimir las habilidades en la consola
+  //           const skills = response.data.data.map((skill) => {
+  //             return {
+  //               id: skill.id,
+  //               name: skill.name,
+  //               info: skill.infoUrl,
+  //             }
+  //           })
+  //           setSkillsApi(skills)
+  //         })
+  //         .catch(error => {
+  //           console.error(error);
+  //         })
+      
+  // }, [])
+
+  // const objetoJSON = JSON.stringify(skillsApi)
+  // localStorage.setItem('skills', objetoJSON)
+
+    useEffect(() => {
+      dispatch(fetchCountries())
+        .then((response) => setCountryData(response.payload));
+    }, [dispatch]);
+  
+    const handleCountryChange = (event) => {
+      const country = event.target.value;
+      setSelectedCountry(country);
+      setSelectedCity('');
+    };
+    const handleCityChange = (event) => {
+      setSelectedCity(event.target.value);
+    };
+  
+    const filteredCities = selectedCountry
+      ? countryData.find((country) => country.country === selectedCountry)?.cities
+      : [];
+
+
   const handleSelectSkills = (event) => {
     const { value } = event.target;
     if (form.habilidades.includes(value)) {
@@ -97,10 +174,8 @@ function Configuracion() {
     });
     
   };
-  // const dataUserLocal = localStorage.getItem("usergoogle")? localStorage.getItem("usergoogle"):localStorage.getItem("userLogin")
-  // const dataUserlocalstorage = JSON.parse(dataUserLocal);
-  // const [nombre, apellido] =dataUserLocal.name? dataUserlocalstorage.name.split(" "):[dataUserlocalstorage.names,dataUserlocalstorage.lastnames]
 
+  
 
   useEffect(() => {
     if (skills.length === 0) {
@@ -207,6 +282,38 @@ function Configuracion() {
       ) : null}
 
       <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full">
+
+      
+      <select value={selectedCountry} name= "pais" onChange={handleCountryChange}className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base">
+        <option value="">Selecciona pais</option>
+        {countryData.map((country) => (
+          <option key={country.country} value={country.country}>
+            {country.country}
+          </option>
+        ))}
+      </select>
+      <select value={selectedCity} name="ciudad" onChange={handleCityChange} disabled={!selectedCountry}className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base">
+        <option value="">Selecciona ciudad</option>
+        {filteredCities.map((city) => (
+          <option key={city} value={city}>
+            {city}
+          </option>
+        ))}
+      </select>
+
+
+        {/* <label for="ciudad">Ciudad</label>
+        <TextField
+                placeholder=" Buenos Aires "
+                id="ciudad"
+                name="ciudad"
+                type="text"
+                value={form.ciudad}
+                onChange={actualizarData}
+                className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base"
+        />
+        <label for="pais">Pais</label>
+        <TextField
       <label for="pais">Pais</label>
         <input
                 placeholder="Argentina"
@@ -216,9 +323,9 @@ function Configuracion() {
                 value={form.pais}
                 onChange={actualizarData}
                 className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base"
-        />
+        /> */}
         
-        <label for="ciudad">Ciudad</label>
+        {/* <label for="ciudad">Ciudad</label>
         <input
                 placeholder=" Buenos Aires "
                 id="ciudad"
@@ -227,7 +334,7 @@ function Configuracion() {
                 value={form.ciudad}
                 onChange={actualizarData}
                 className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base"
-        />
+        /> */}
         
 
 
@@ -240,6 +347,9 @@ function Configuracion() {
             {error?.pais}
           </span>
           <span className=" select-none text-xs font-bold text-red-600">
+            {error?.pais}
+          </span>
+          <span className=" select-none text-xs text-red-600">
             {error?.ciudad}
           </span>
         </div>
