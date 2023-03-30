@@ -31,7 +31,7 @@ const{
     companyByIdDatBas,
     putCompany,
     deleteCompany
-<<<<<<< HEAD
+
 }=require('./companyRoute');
 const { 
     getUsersControllers, 
@@ -113,7 +113,7 @@ route.get('/fav_company/:id', getFavoriteComp) // id del User o de company
 // route.get('/admin/:id',getadminbyid)
 //
 
-<<<<<<< HEAD
+
 //technologies
 route.get('/technologies', getTechnologies)
 
