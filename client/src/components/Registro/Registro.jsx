@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { saveUser } from "../../redux/slices/userRegisterSlice";
 import axios from "axios";
 
@@ -16,6 +16,7 @@ import Box from '@mui/material/Box';
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import LoadingButton from '@mui/lab/LoadingButton';
+import Modal from '@mui/material/Modal';
 
 export const menu = [
     {
@@ -34,7 +35,7 @@ export const menu = [
 
 export const Registro = () => {
     const dispatch = useDispatch()
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const [form, setForm] = useState({
         names: '',
@@ -68,7 +69,7 @@ export const Registro = () => {
                 email: userData.email,
             })
         }
-    }, [])
+    }, []) // eslint-disable-line 
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -102,6 +103,8 @@ export const Registro = () => {
 
 
     const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
 
     const handleClick = async () => {
         // bloquea el boton
@@ -125,8 +128,7 @@ export const Registro = () => {
         dispatch(saveUser(userDbData.data))
 
         // Mensaje y redirige si todo fue exitoso
-        alert("!Gracias por unirte a FusionaJob! Por favor continúa completando tu perfíl para !aplicar a las ofertas!");
-        navigate('/profile');
+        handleOpen()
     };
 
     // validacion para habilitar el boton
@@ -222,6 +224,37 @@ export const Registro = () => {
                             <p className='text-gray-700 dark:text-white text-sm'>Al hacer click en Crear Cuenta, aceptas las <a className="text-secondary-light dark:text-primary-dark" href='#'>Condiciones de uso</a> y las <a className="text-secondary-light dark:text-primary-dark" href='#'>Políticas de privacidad</a> de Fusionajob.</p>
                         </div>
                     </form>
+                </div>
+                <div>
+                    <Modal
+                        open={open}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box class="flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 bg-primary-light dark:bg-primary-dark border-2 shadow-24 p-4 h-1/2 rounded-2xl flex-col justify-center items-center">
+                            <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center dark:text-white">
+                                !Gracias por unirte a FusionaJob!
+                            </h1>
+                            <h2 className="text-2xl  text-center dark:text-white">
+                                Por favor continúa completando tu perfíl para...
+                            </h2>
+                            <h3 className="mb-8 text-2xl font-bold text-center dark:text-white">
+                                !Aplicar a las ofertas!
+                            </h3>
+                            <div w-full flex flex-wrap justify-center >
+                                <Link to={'/profile'}>
+                                    <button className="m-3 h-16 w-40 bg-primary-dark hover:bg-purple-900  dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                        Completar Perfil
+                                    </button>
+                                </Link>
+                                <Link to={'/offers'}>
+                                    <button className=" m-3 h-16 w-40 bg-primary-dark hover:bg-purple-900  dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                        Ver ofertas
+                                    </button>
+                                </Link>
+                            </div>
+                        </Box>
+                    </Modal>
                 </div>
             </div>
             <Footer />

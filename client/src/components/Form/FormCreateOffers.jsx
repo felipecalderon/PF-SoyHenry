@@ -7,11 +7,12 @@ import styles from './FormCreateOffers.module.css'
 import ModalConfirmChanges from './FormCreateOfferModal'
 import { Fragment } from "react";
 import Footer from "../Footer/Footer";
+import NotFound from "../NotFound/NotFound";
 
 
 
 export default function OffersCreate() {
-
+    const userData = JSON.parse(localStorage.getItem('userLogin'))
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.userRegisterSlice)
     const [showModal, setShowModal] = useState(false);
@@ -19,8 +20,7 @@ export default function OffersCreate() {
     const [perksApi, setPerksApi] = useState([])
     const [errors, setErrors] = useState({});
     const [inputs, setInputs] = useState({
-
-        title: '',        
+        title: '',
         requeriments: '',
         benefits: '',
         functions: '',
@@ -31,7 +31,7 @@ export default function OffersCreate() {
         modality: '',
         applications_count: 0,
         experience: '',
-        idRecruiterOfferCreate: user.Companies[0].id,
+        idRecruiterOfferCreate: user?.Companies instanceof Array ? user?.Companies[0].id : user?.Companies?.id,
     })
 
     function validate(validar) {
@@ -89,8 +89,8 @@ export default function OffersCreate() {
         axios('https://www.getonbrd.com/api/v0/perks')
             .then(res => setPerksApi(res.data.data))
     }, [])
-    
- 
+
+
 
     function handleChange(event) {
 
@@ -116,13 +116,13 @@ export default function OffersCreate() {
         }
         for (const key in inputs) {
             console.log(key)
-            if (inputs[key].length === 0  ) acumulador2 = true
+            if (inputs[key].length === 0) acumulador2 = true
             if (key === 'min_salary' && inputs[key].length === 0) acumulador2 = false
-            if (key === 'max_salary' && inputs[key].length === 0) acumulador2 = false            
+            if (key === 'max_salary' && inputs[key].length === 0) acumulador2 = false
         }
 
-        if (inputs.min_salary.length && !inputs.max_salary.length ) acumulador2 = true
-        if (inputs.max_salary.length && !inputs.min_salary.length ) acumulador2 = true
+        if (inputs.min_salary.length && !inputs.max_salary.length) acumulador2 = true
+        if (inputs.max_salary.length && !inputs.min_salary.length) acumulador2 = true
 
         if (acumulador === '' && acumulador2 === false) {
             acumulador = false
@@ -172,7 +172,7 @@ export default function OffersCreate() {
         alert('oferta creada')
         setShowModal(false)
         setInputs({
-            title: '',        
+            title: '',
             requeriments: '',
             benefits: '',
             functions: '',
@@ -186,144 +186,150 @@ export default function OffersCreate() {
             idRecruiterOfferCreate: user.Companies[0].id,
         })
     }
-// className={styles.contenedor} // style por css
-    return (
-        <Fragment>
-            <div className="flex flex-col bg-primary-light dark:bg-secondary-dark"  >
-                <h1 className={styles.titulo}>Publicacion oferta laboral</h1>
-                <form className="" onSubmit={(event) => handleSubmit(event)}>
-                    <div className={styles.contenedor_inputs}>
-                        {errors.title && <p className={styles.p_formulario_error}>{errors.title} </p>}
-                        <label >Titulo: </label>
-                        <input className={styles.inputs_strings} type='text' onChange={(event) => handleChange(event)} value={inputs.title} name='title' placeholder="Ingrese un titulo de la oferta" />
-                    </div>
-                   
-                    <div className={styles.contenedor_inputs}>
-                        {errors.requeriments && <p className={styles.p_formulario_error}>{errors.requeriments} </p>}
-                        <label >Requisitos: </label>
-                        <textarea className={styles.inputs_strings} type='text' onChange={(event) => handleChange(event)} value={inputs.requeriments} name='requeriments' placeholder="Describa los requesitos necesarios para aplicar" />
-                    </div>
+    // className={styles.contenedor} // style por css
+    if (userData && userData.rol === 'Empresa') {
+        return (
+            <Fragment>
+                <div className="flex flex-col bg-primary-light dark:bg-secondary-dark"  >
+                    <h1 className={styles.titulo}>Publicacion oferta laboral</h1>
+                    <form className="" onSubmit={(event) => handleSubmit(event)}>
+                        <div className={styles.contenedor_inputs}>
+                            {errors.title && <p className={styles.p_formulario_error}>{errors.title} </p>}
+                            <label >Titulo: </label>
+                            <input className={styles.inputs_strings} type='text' onChange={(event) => handleChange(event)} value={inputs.title} name='title' placeholder="Ingrese un titulo de la oferta" />
+                        </div>
 
-                    <div className={styles.contenedor_inputs}>
-                        {errors.benefits && <p className={styles.p_formulario_error}>{errors.benefits} </p>}
-                        <label >Beneficios: </label>
-                        <textarea className={styles.inputs_strings} type='text' onChange={(event) => handleChange(event)} value={inputs.benefits} name='benefits' placeholder="ingrese los benefecios de pertenecer a la empresa" />
-                    </div>
+                        <div className={styles.contenedor_inputs}>
+                            {errors.requeriments && <p className={styles.p_formulario_error}>{errors.requeriments} </p>}
+                            <label >Requisitos: </label>
+                            <textarea className={styles.inputs_strings} type='text' onChange={(event) => handleChange(event)} value={inputs.requeriments} name='requeriments' placeholder="Describa los requesitos necesarios para aplicar" />
+                        </div>
 
-                    <div className={styles.contenedor_inputs}>
-                        {errors.functions && <p className={styles.p_formulario_error}>{errors.functions} </p>}
-                        <label >Funciones: </label>
-                        <textarea className={styles.inputs_strings} type='text' onChange={(event) => handleChange(event)} value={inputs.functions} name='functions' placeholder="ingrese las funciones a cumplir" />
-                    </div>
+                        <div className={styles.contenedor_inputs}>
+                            {errors.benefits && <p className={styles.p_formulario_error}>{errors.benefits} </p>}
+                            <label >Beneficios: </label>
+                            <textarea className={styles.inputs_strings} type='text' onChange={(event) => handleChange(event)} value={inputs.benefits} name='benefits' placeholder="ingrese los benefecios de pertenecer a la empresa" />
+                        </div>
 
-                    <div className={styles.contenedor_inputs}>
-                        <label >Ventajas:</label>
-                        <select className={styles.perks_select} onChange={(event) => handleSelect(event)}>
-                            <option value={'Seleccione'} >Seleccione</option>
-                            {perksApi?.map(perks => {
+                        <div className={styles.contenedor_inputs}>
+                            {errors.functions && <p className={styles.p_formulario_error}>{errors.functions} </p>}
+                            <label >Funciones: </label>
+                            <textarea className={styles.inputs_strings} type='text' onChange={(event) => handleChange(event)} value={inputs.functions} name='functions' placeholder="ingrese las funciones a cumplir" />
+                        </div>
+
+                        <div className={styles.contenedor_inputs}>
+                            <label >Ventajas:</label>
+                            <select className={styles.perks_select} onChange={(event) => handleSelect(event)}>
+                                <option value={'Seleccione'} >Seleccione</option>
+                                {perksApi?.map(perks => {
+                                    return (
+                                        <option value={perks.attributes.name}>{perks.attributes.name}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
+
+                        <div className={styles.contenedor_inputs}>
+
+                            <span className={styles.perks_information}> {inputs.perks.map(techno => {
                                 return (
-                                    <option value={perks.attributes.name}>{perks.attributes.name}</option>
+                                    <span>
+                                        <span className={styles.technologies_selected} onClick={() => handleDelete(techno)} >{techno}</span>
+                                        <button className={styles.technologies_selected_btn} type='button' onClick={() => handleDelete(techno)}>x</button>
+                                    </span>
                                 )
-                            })}
-                        </select>
-                    </div>
-                    
-                    <div className={styles.contenedor_inputs}>
+                            })} </span>
 
-                        <span className={styles.perks_information}> {inputs.perks.map(techno => {
-                            return (
-                                <span>
-                                    <span className={styles.technologies_selected} onClick={() => handleDelete(techno)} >{techno}</span>
-                                    <button className={styles.technologies_selected_btn} type='button' onClick={() => handleDelete(techno)}>x</button>
-                                </span>
-                            )
-                        })} </span>
+                        </div>
 
-                    </div>
+                        <div className={styles.contenedor_inputs}>
+                            {errors.perks && <p className={styles.p_formulario_error}>{errors.perks}</p>}
+                            <label >Tecnologias requeridas:</label>
+                            <select className={styles.perks_select} onChange={(event) => handleSelectTechnologies(event)} >
+                                <option value={'Seleccione'} >Seleccione</option>
+                                {technologies?.map(techno => {
+                                    return (
+                                        <option value={techno.Technology}>{techno.Technology}</option>
+                                    )
+                                })}
+                            </select>
+                        </div>
 
-                    <div className={styles.contenedor_inputs}>
-                        {errors.perks && <p className={styles.p_formulario_error}>{errors.perks}</p>}
-                        <label >Tecnologias requeridas:</label>
-                        <select className={styles.perks_select} onChange={(event) => handleSelectTechnologies(event)} >
-                            <option value={'Seleccione'} >Seleccione</option>
-                            {technologies?.map(techno => {
+                        <div className={styles.contenedor_inputs}>
+
+                            <span className={styles.perks_information}> {inputs.technologies.map(techno => {
                                 return (
-                                    <option value={techno.Technology}>{techno.Technology}</option>
+                                    <span>
+                                        <span className={styles.technologies_selected} onClick={() => handleDeleteTechnologies(techno)} >{techno}</span>
+                                        <button className={styles.technologies_selected_btn} type='button' onClick={() => handleDeleteTechnologies(techno)}>x</button>
+                                    </span>
                                 )
-                            })}
-                        </select>
-                    </div>
+                            })} </span>
 
-                     <div className={styles.contenedor_inputs}>
+                        </div>
 
-                        <span className={styles.perks_information}> {inputs.technologies.map(techno => {
-                            return (
-                                <span>
-                                    <span className={styles.technologies_selected} onClick={() => handleDeleteTechnologies(techno)} >{techno}</span>
-                                    <button className={styles.technologies_selected_btn} type='button' onClick={() => handleDeleteTechnologies(techno)}>x</button>
-                                </span>
-                            )
-                        })} </span>
+                        <div className={styles.contenedor_inputs}>
+                            {errors.modality && <p className={styles.p_formulario_error}>{errors.modality} </p>}
+                            <label >Modalidad: </label>
+                            <select name="modality" onChange={(event) => handleChange(event)} >
+                                <option value="">Seleccione</option>
+                                <option value="no_remote">Presencial</option>
+                                <option value="hybrid">Hybrido</option>
+                                <option value="fully_remote">Remoto</option>
+                                <option value="remote_local">Remoto local</option>
+                            </select>
+                        </div>
 
-                    </div>          
+                        <div className={styles.contenedor_inputs}>
+                            {errors.experience && <p className={styles.p_formulario_error}>{errors.experience} </p>}
+                            <label >Experiencia requerida: </label>
+                            <select name="experience" onChange={(event) => handleChange(event)} >
+                                <option value="">Seleccione</option>
+                                <option value="0">sin experiencia</option>
+                                <option value="1">1 año</option>
+                                <option value="2-4">2 a 4 años</option>
+                                <option value="5">5 años</option>
+                            </select>
+                        </div>
 
-                    <div className={styles.contenedor_inputs}>
-                        {errors.modality && <p className={styles.p_formulario_error}>{errors.modality} </p>}
-                        <label >Modalidad: </label>
-                        <select name="modality" onChange={(event) => handleChange(event)} >
-                            <option value="">Seleccione</option>
-                            <option value="no_remote">Presencial</option>
-                            <option value="hybrid">Hybrido</option>
-                            <option value="fully_remote">Remoto</option>
-                            <option value="remote_local">Remoto local</option>
-                        </select>
-                    </div>
+                        <div className={styles.contenedor_inputs}>
+                            {(errors.min_salary || errors.max_salary || errors.min_salary_0 || errors.max_salary_0) && <p className={styles.p_formulario_error}>{errors.min_salary} {errors.max_salary} {errors.min_salary_0}{errors.max_salary_0}</p>}
+                            <label >Salario en dolares americanos: </label>
+                            <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.min_salary} name='min_salary' id="min_salary" placeholder="minimo" />
+                            <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.max_salary} name='max_salary' id="max_salary" placeholder="maximo" />
+                        </div>
+                        <div className={styles.contenedor_inputs}>
+                            <p className={styles.p_formulario_error}>El salario no es obligatorio, dejar en blanco en caso de no querer informarlo</p>
+                        </div>
 
-                    <div className={styles.contenedor_inputs}>
-                        {errors.experience && <p className={styles.p_formulario_error}>{errors.experience} </p>}
-                        <label >Experiencia requerida: </label>
-                        <select name="experience" onChange={(event) => handleChange(event)} >
-                            <option value="">Seleccione</option>
-                            <option value="0">sin experiencia</option>
-                            <option value="1">1 año</option>
-                            <option value="2-4">2 a 4 años</option>
-                            <option value="5">5 años</option>
-                        </select>
-                    </div>
+                        <div className={styles.contenedor_inputs}>
+                            <button className={styles.boton_submit} type='button' disabled={controlarValoresErrors(errors, inputs)} onClick={() => setShowModal(true)}> Publicar oferta</button>
+                            <Link to='/dashboardempresa'> <button className={styles.boton_volver}> Volver a dashboard</button></Link>
 
-                    <div className={styles.contenedor_inputs}>
-                        {(errors.min_salary || errors.max_salary || errors.min_salary_0 || errors.max_salary_0) && <p className={styles.p_formulario_error}>{errors.min_salary} {errors.max_salary} {errors.min_salary_0}{errors.max_salary_0}</p>}
-                        <label >Salario en dolares americanos: </label>
-                        <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.min_salary} name='min_salary' id="min_salary" placeholder="minimo" />
-                        <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.max_salary} name='max_salary' id="max_salary" placeholder="maximo" />
-                    </div>
-                    <div className={styles.contenedor_inputs}>                        
-                        <p className={styles.p_formulario_error}>El salario no es obligatorio, dejar en blanco en caso de no querer informarlo</p>
-                    </div>    
+                        </div>
+                    </form>
+                </div>
+                <ModalConfirmChanges isVisible={showModal} onClose={() => setShowModal(false)} >
+                    <h1 className={styles.titulo_confirmacion}>Antes de confirmar la oferta, verifique los datos</h1>
+                    <h1>Titulo: {inputs.title}</h1>
+                    <h1>Requisitos: {inputs.requeriments}</h1>
+                    <h1>Beneficios: {inputs.benefits}</h1>
+                    <h1>Funciones: {inputs.functions}</h1>
+                    <h1>Ventajas: {inputs.perks} </h1>
+                    <h1>Tecnologias: {inputs.technologies}</h1>
+                    <h1>Modalidad: {inputs.modality}</h1>
+                    <h1>Experiencia requerida: {inputs.experience} años</h1>
+                    <h1>Salario minimo: {!inputs.min_salary.length ? 'Sin informar' : inputs.min_salary + ' dolares'} </h1>
+                    <h1>Salario maximo: {!inputs.max_salary.length ? 'Sin informar' : inputs.max_salary + ' dolares'} </h1>
+                    <button className={styles.boton_confirmacion} type='submit' onClick={handleSubmit}>confirmar</button>
 
-                    <div className={styles.contenedor_inputs}>
-                        <button className={styles.boton_submit} type='button' disabled={controlarValoresErrors(errors, inputs)} onClick={() => setShowModal(true)}> Publicar oferta</button>
-                        <Link to='/dashboardempresa'> <button className={styles.boton_volver}> Volver a dashboard</button></Link>
-
-                    </div>
-                </form>
-            </div>
-            <ModalConfirmChanges isVisible={showModal} onClose={() => setShowModal(false)} >
-                <h1 className={styles.titulo_confirmacion}>Antes de confirmar la oferta, verifique los datos</h1>
-                <h1>Titulo: {inputs.title}</h1>                
-                <h1>Requisitos: {inputs.requeriments}</h1>
-                <h1>Beneficios: {inputs.benefits}</h1>
-                <h1>Funciones: {inputs.functions}</h1>
-                <h1>Ventajas: {inputs.perks} </h1>
-                <h1>Tecnologias: {inputs.technologies}</h1>
-                <h1>Modalidad: {inputs.modality}</h1>
-                <h1>Experiencia requerida: {inputs.experience} años</h1>                
-                <h1>Salario minimo: {!inputs.min_salary.length? 'Sin informar': inputs.min_salary + ' dolares' } </h1>
-                <h1>Salario maximo: {!inputs.max_salary.length? 'Sin informar': inputs.max_salary + ' dolares' } </h1>
-                <button className={styles.boton_confirmacion} type='submit' onClick={handleSubmit}>confirmar</button>
-
-            </ModalConfirmChanges>
-            <Footer />
-        </Fragment>
-    )
+                </ModalConfirmChanges>
+                <Footer />
+            </Fragment>
+        )
+    } else {
+        return (
+            <NotFound />
+        )
+    }
 }

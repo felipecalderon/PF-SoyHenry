@@ -17,7 +17,7 @@ export const DashboardEmpresa = () => {
     dispatch(saveUser(userData))
     const [offers, setOffers] = useState([])
     useEffect(() => {
-        axios.get(`/jobsdb/${userData?.Companies instanceof Array ? userData?.Companies[0].id : userData?.Companies.id}`)
+        axios.get(`/jobsdb/${userData?.Companies instanceof Array ? userData?.Companies[0].id : userData?.Companies?.id}`)
             .then(res => {
                 setOffers(res.data.Offers)
             })
