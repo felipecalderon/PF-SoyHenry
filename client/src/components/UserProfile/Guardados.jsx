@@ -14,7 +14,8 @@ function Favoritos() {
   const dataUserGoogle = localStorage.getItem("usergoogle");
   const dataUser = JSON.parse(dataUserLocal);
   const [saveOffers, setSavedOffers] = useState([]);
-  
+  const { jobId } = useSelector((state) => state.postSlice);
+  const [ setIsFavorite] = useState(false);
 
   useEffect(() => {
     axios
@@ -23,17 +24,23 @@ function Favoritos() {
       .catch((err) => console.log(err));
   }, [dataUser.id]);
 
-  const handleRemoveOffer = (offerId) => {
+  const handleRemoveOffer = (offerId, offerTitle) => {
+    const apiUrl = `/rel_offers/${offerId}/${dataUser.id}?save=unsave&title=${offerTitle}&origin=api`;
+    const dbUrl = `/rel_offers/${offerId}/${dataUser.id}?save=unsave&title=${offerTitle}&origin=db`;
+    const url = Number(offerId) ? dbUrl : apiUrl;
+  
     if (window.confirm("¿Estás seguro que deseas eliminar esta oferta de tus favoritos?")) {
       axios
-        .put(`/rel_offers/${offerId}/${dataUser.id}?save=unsave&origin=api`)
+        .put(url)
         .then(() => {
           const newSavedOffers = saveOffers.filter(offer => offer.offerId !== offerId);
           setSavedOffers(newSavedOffers);
+          setIsFavorite(false);
         })
         .catch((err) => console.log(err));
     }
   };
+  
   
   return (
     <>
