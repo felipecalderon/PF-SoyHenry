@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom";
+// import { useDispatch } from "react-redux"
+// import { useNavigate } from "react-router-dom";
 
 // Componentes
 import Curriculum from "./Curriculum";
@@ -14,8 +14,8 @@ import Footer from "../Footer/Footer";
 import NotFound from "../NotFound/NotFound";
 
 function UserProfile() {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+    // const dispatch = useDispatch()
+    // const navigate = useNavigate()
     const userData = JSON.parse(localStorage.getItem('userLogin'))
 
     // const [isLogin, SetIsLogin] = useState(true)
@@ -23,26 +23,26 @@ function UserProfile() {
     const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
         valorSeleccionado: "curriculum"
     })
-    const [data, SetData] = useState({
-        nombre: "nombre",
-        apellido: "apellido",
-        edad: 20,
-        ubicacion: "",
-        titulo: "Titulo",
-        descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem consequatur nisi perspiciatis earum neque aspernatur recusandae numquam, corrupti quasi explicabo alias placeat libero cumque ad repellat adipisci aut! Obcaecati, quasi!",
-        idioma: "",
-        habilidades: ["javascript", "css"],
-        contacto: {
-            tel: "123456789",
-            mail: "hola@gmail.com",
-            redes_sociales: {
-                linkedin: "",
-                facebook: "",
-                instagram: ""
-            },
-            direccion: "calle falsa 123"
-        }
-    })
+    // const [data, SetData] = useState({
+    //     nombre: "nombre",
+    //     apellido: "apellido",
+    //     edad: 20,
+    //     ubicacion: "",
+    //     titulo: "Titulo",
+    //     descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem consequatur nisi perspiciatis earum neque aspernatur recusandae numquam, corrupti quasi explicabo alias placeat libero cumque ad repellat adipisci aut! Obcaecati, quasi!",
+    //     idioma: "",
+    //     habilidades: ["javascript", "css"],
+    //     contacto: {
+    //         tel: "123456789",
+    //         mail: "hola@gmail.com",
+    //         redes_sociales: {
+    //             linkedin: "",
+    //             facebook: "",
+    //             instagram: ""
+    //         },
+    //         direccion: "calle falsa 123"
+    //     }
+    // })
 
     const handleBarraPerfil = (event) => {
         const { value } = event.target
@@ -52,6 +52,7 @@ function UserProfile() {
 
     };
     const displayComponente = (selectedValueBarraPerfil) => {
+        // eslint-disable-next-line default-case
         switch (selectedValueBarraPerfil.valorSeleccionado) {
             case "curriculum":
                 return <Curriculum />;
