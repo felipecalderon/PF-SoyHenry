@@ -52,7 +52,9 @@ const {
 const { getTechnologies } = require('./technologiesRoute'); 
 const { planRoute, 
     subscriptionRoute,
-    respuestasMP
+    respuestasMP,
+    pagoStripe,
+    recepcionPago
 } = require('./suscriptionRoute');
 
 const route = Router();
@@ -114,6 +116,7 @@ route.get('/fav_company/:id', getFavoriteComp) // id del User o de company
 route.get('/technologies', getTechnologies)
 
 route.post('/plan', planRoute)
-route.post('/pago', subscriptionRoute)
 route.post('/mercadopago', respuestasMP)
+route.post('/stripe', pagoStripe)
+route.get('/pago', recepcionPago)
 module.exports = route;
