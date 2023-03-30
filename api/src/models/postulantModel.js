@@ -8,34 +8,35 @@ const Postulant = sequelize.define('Postulant', {
         allowNull: false,
         primaryKey: true,
     },
-    names:{
+    document: {
         type: DataTypes.STRING,
-        isAlpha:true,
     },
-    lastnames:{
+    age:{
         type: DataTypes.STRING,
-        isAlpha:true,
     },
-    phone:{
+    disability: {
         type: DataTypes.STRING,
-        isNumeric: true, 
-        unique: true,
+        isAlpha: true,
     },
-    disability:{
-        type: DataTypes.STRING,
-        isAlpha:true,
-    },
-    gender:{
+    gender: {
         type: DataTypes.ENUM('Femenino', 'Masculino', 'Prefiero no decirlo'),
     },
-    experience:{
+    experience: {
+        type: DataTypes.ENUM('0', '1', '2-4', '5'),
+    },
+    curriculum_pdf: {
         type: DataTypes.STRING,
-        isAlpha:true,
     },
-    tecnology:{
+    tecnology: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        isAlpha:true,
+        isAlpha: true,
     },
+    linkedin: {
+        type: DataTypes.TEXT,
+    },
+    facebook: {
+        type: DataTypes.TEXT,
+    }
 })
 
 module.exports = Postulant;

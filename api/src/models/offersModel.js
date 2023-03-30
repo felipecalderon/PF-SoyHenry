@@ -40,6 +40,12 @@ const Offers = sequelize.define('Offers', {
     experience: {
         type: DataTypes.ENUM('0', '1', '2-4', '5'),
     },
+    city: {
+        type: DataTypes.STRING,
+    },
+    country: {
+        type: DataTypes.STRING,
+    },
     min_salary: {
         type: DataTypes.INTEGER,
     },

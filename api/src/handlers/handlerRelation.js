@@ -1,5 +1,5 @@
-const { application } = require("express");
-const { User, Offers, Company, FavoritesComp, SaveOffer, Aplications } = require("../models/relations.js");
+const { User, Offers, Company, FavoritesComp, SaveOffer, Aplications, Postulant } = require("../models/relations.js");
+const SaveOfferApi = require("../models/SaveOffersApiModel.js");
 
 const putState = async (offerId, userId, status) => { // Aplicacion
     try {
@@ -37,7 +37,12 @@ const getAplications = async (id) => {
             if (offerid) {
                 const OffersAplicated = await Aplications.findAll({
                     include: {
-                        model: User
+                        model: User,
+                        include: [
+                            {
+                                model: Postulant,
+                            }
+                        ]
                     },
                     where: {
                         offerId: id
@@ -69,7 +74,7 @@ const putSave = async (offerId, userId, save) => { // Guardar la oferta
         // Buscar al usuario y la oferta en la base de datos
         const offer = await Offers.findByPk(offerId);
         const user = await User.findByPk(userId);
-        console.log(offer)
+
         if (!user || !offer) {
             throw Error('Usuario u Oferta no encontrada');
         }
@@ -81,6 +86,31 @@ const putSave = async (offerId, userId, save) => { // Guardar la oferta
         if (save === 'unsave') {
             const offert = await SaveOffer.findOne({ where: { userId, offerId } });
             await offert.destroy();
+            return 'Oferta eliminada'
+        }
+        return 'Estado no valido'
+    } catch (error) {
+        throw error
+    }
+};
+
+const putSaveApi = async (offerId, userId, save, title) => {
+    try {
+        // Buscar al usuario y la oferta en la base de datos
+        const user = await User.findByPk(userId);
+
+        if (!user) {
+            throw Error('Usuario no encontrada');
+        }
+
+        // se guarda o elimina la oferta de SaveOfferApi
+        if (save === "save") {
+            await SaveOfferApi.create({ userId, offerId, title });
+            return 'Oferta guardada'
+        }
+        if (save === 'unsave') {
+            const offertApiSave = await SaveOfferApi.findOne({ where: { userId, offerId } });
+            await offertApiSave.destroy();
             return 'Oferta eliminada'
         }
         return 'Estado no valido'
@@ -102,10 +132,14 @@ const getSavedOffers = async (id) => {
                     userId: id
                 },
             })
-            return offersSaveByUser
-        }
-
-        throw Error('Usuario no encontrado')
+            const offersSaveApi = await SaveOfferApi.findAll({
+                where: {
+                    userId: id
+                },
+            })
+            return [...offersSaveByUser, ...offersSaveApi]
+        };
+        throw Error('Usuario no encontrada');
     } catch (error) {
         throw error
     }
@@ -175,6 +209,7 @@ const getfavorites = async (id) => {
 module.exports = {
     putState,
     putSave,
+    putSaveApi,
     putSaveCompany,
     getfavorites,
     getAplications,

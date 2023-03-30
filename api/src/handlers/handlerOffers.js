@@ -33,7 +33,7 @@ const getOffersDb = async () => {
         const offerts_db = await Offers.findAll({
             include: {
                 model: User,
-                attributes: ["id", "username"],
+                attributes: ["id", "names"],
                 include: [
                     {
                         model: Company,
