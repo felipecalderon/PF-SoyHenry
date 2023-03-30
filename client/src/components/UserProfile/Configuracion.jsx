@@ -107,7 +107,7 @@ function Configuracion() {
   //           console.error(error);
   //         })
       
-  // }, [])
+  // }, []))}
 
   // const objetoJSON = JSON.stringify(skillsApi)
   // localStorage.setItem('skills', objetoJSON)
@@ -424,7 +424,7 @@ function Configuracion() {
         ) : null}
 
 {/* <div> ESTO SE ROMPE CON LOS ESTILOS
-  <FormControl sx={{ m: 1, minWidth: 120 }}>
+  <FormControl sx={{ m: 1, minWidth: 120 }} style={{ height:"90px", overflowY:"auto", minWidth: "120px"}}>
     <InputLabel id="skills-label">Habilidades</InputLabel>
     <Select
       labelId="skills-label"
@@ -434,7 +434,7 @@ function Configuracion() {
       multiple
       onChange={handleSelectSkills}
       renderValue={(selected) => (
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', height:"90px", overflowY:"auto" }}>
           {selected.map((value) => (
             <Chip key={value} label={value} style={{ margin: 2 }} />
           ))}

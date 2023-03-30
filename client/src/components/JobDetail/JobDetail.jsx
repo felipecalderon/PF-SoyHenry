@@ -9,10 +9,13 @@ import { spinnerPurple } from "../Cards/spinner";
 import { addFavorites } from "../../redux/slices/userRegisterSlice"
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
+import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import axios from "axios";
 import Perks from "./Perks";
 import { fetchEmpresaData } from "../../redux/actions/fetchEmpresa";
+import { async } from "@firebase/util";
+import { ClassSharp } from "@mui/icons-material";
 
 const JobDetail = () => {
   const navigate = useNavigate()
@@ -40,9 +43,48 @@ const JobDetail = () => {
   {
     name: "Sobre Nosotros",
     link: "/about"
-  },
+  }, 
 ]
 const [empresa, setEmpresa] = useState(null);
+//FAVORITOS AHORA ES GUARDADOS
+const [isFavorite, setIsFavorite] = useState(false);
+const [favFilter, setFavFilter]  = useState([]);
+const [savedOffers, setSavedOffers] = useState([]);
+
+const OffersSave = async() => {
+const get = await axios.get(`/save_offers/${dataUser.id}`)
+.then((res)=>res.data.find(cb => cb.offerId === jobId.id))
+if(get !== undefined) {
+  return setIsFavorite(true)
+}
+return setIsFavorite(false)
+}
+
+OffersSave()
+
+useEffect(()=>{
+  axios.get(`/fav_company/${dataUser?.id}`)
+  .then( (res)=> res.data.filter((cb) => cb.offerId === jobId?.id ))
+  .then((res)=> setFavFilter(res))
+},[dataUser?.id, jobId?.id]);
+
+
+const handleToggleFavorite = () => {
+  if(!isFavorite){
+    Number(jobId.id) ? 
+  axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=db`)
+  : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=api`)
+  setIsFavorite(true)
+return alert("Se ha guardado la oferta")
+}Number(jobId.id) ? 
+axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=db`)
+: axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=api`) 
+setIsFavorite(false)
+return alert("Se ha eliminado la oferta de tu lista guardados")// guarda favorito o desmarca favorito
+}
+
+
+
 
 useEffect(() => {
   window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
@@ -154,6 +196,16 @@ useEffect(() => {
                     </button>
                   </a>
               }
+
+              <Box >
+              <Fab
+              sx={{ backgroundColor:  'lightblue'  }}
+               aria-label="like"
+               onClick={handleToggleFavorite}
+              >
+                {isFavorite ? <TurnedInIcon/> : <TurnedInNotIcon  />}
+              </Fab>
+              </Box>
             </div>
           </div>
         </div>

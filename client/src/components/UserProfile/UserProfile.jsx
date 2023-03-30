@@ -3,7 +3,7 @@ import Footer from "../Footer/Footer";
 import { useState, useEffect } from "react";
 import Curriculum from "./Curriculum";
 import Postulaciones from "./Postulaciones";
-import Favoritos from "./Favoritos";
+import Favoritos from "./Guardados";
 import Configuracion from "./Configuracion";
 import User from "./User";
 import { NavLanding } from "../NavLanding/NavLanding";
@@ -119,7 +119,7 @@ function UserProfile() {
             onChange={handleBarraPerfil}
           />
           <label for="favoritos" className={`cursor-pointer select-none rounded-md mt-3 py-2 px-3 ${selectedValueBarraPerfil.valorSeleccionado==="favoritos"?"bg-secondary-light text-white  dark:bg-primary-dark ":""}`}>
-            Favoritos
+            Guardados
           </label>
         </div>
 

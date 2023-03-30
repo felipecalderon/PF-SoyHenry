@@ -1,20 +1,19 @@
 import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
-import FavoriteIcon from '@mui/icons-material/FavoriteBorder';
+import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import logofusionajob from '../../assets/logofusionajob.png'
 
 
-function Favoritos({ favorites, onDeleteFavorite }) {
+function Favoritos() {
 
-    const [favoritos, setFavoritos] = useState(favorites);
+    const [favoritos, setFavoritos] = useState();
 
-    const handleDelete = (id) => {
-      const updatedFavorites = favoritos.filter((favorito) => favorito.id !== id);
-      setFavoritos(updatedFavorites);
-      onDeleteFavorite(id);
-    };
-  
+//     Number(jobId.id) ? 
+// axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=db`)
+// : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=api`) 
+// setIsFavorite(false)
+// return alert("Se ha eliminado la oferta de tu lista guardados")
 
     
   return (
@@ -26,13 +25,13 @@ function Favoritos({ favorites, onDeleteFavorite }) {
         <Box key={favorito.id}>
           <h2 className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-between">
             <Fab
-              sx={{ backgroundColor: 'red' }}
+              sx={{ backgroundColor: 'lightblue' }}
               aria-label="like"
-              onClick={() => handleDelete(favorito.id)}
+              
             >
-              <FavoriteIcon />
+              <TurnedInIcon />
             </Fab>
-            {favorito.nombre}
+            {favorito.title}
           </h2>
         </Box>
       ))}

@@ -110,6 +110,7 @@ const putSaveApi = async (offerId, userId, save, title) => {
         }
         if (save === 'unsave') {
             const offertApiSave = await SaveOfferApi.findOne({ where: { userId, offerId } });
+            console.log(offertApiSave)
             await offertApiSave.destroy();
             return 'Oferta eliminada'
         }
