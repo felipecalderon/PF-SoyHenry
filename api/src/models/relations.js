@@ -7,6 +7,7 @@ const Aplications = require('./applicationModel');
 const SaveOffer = require('./saveOfferModel');
 const FavoritesComp = require('./favoritesCompModel');
 const Technologies = require('./technologiesModel')
+const Review= require('./reviewModel');
 
 Postulant.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
 User.hasMany(Postulant, { foreignKey: 'userId' });
@@ -19,6 +20,9 @@ User.hasMany(Company, { foreignKey: 'userId' });
 
 Offers.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
 User.hasMany(Offers, { foreignKey: 'userId' });
+
+Review.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
+User.hasMany(Review, { foreignKey: 'userId' });
 
 Offers.belongsTo(Company, { foreignKey: 'idRecruiterOfferCreate', onDelete: 'CASCADE' });
 Company.hasMany(Offers, { foreignKey: 'idRecruiterOfferCreate' });
@@ -55,9 +59,11 @@ module.exports = {
     Postulant,
     Admin,
     Company,
+    
     Offers,
     Technologies,
     Aplications,
     SaveOffer,
     FavoritesComp,
+    Review
 }

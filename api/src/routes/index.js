@@ -31,6 +31,7 @@ const{
     companyByIdDatBas,
     putCompany,
     deleteCompany
+<<<<<<< HEAD
 }=require('./companyRoute');
 const { 
     getUsersControllers, 
@@ -53,6 +54,12 @@ const {postImagepostulante,
     postCvpostulante}=require("./uploadImagesRoute")
 
 const { getTechnologies } = require('./technologiesRoute') 
+=======
+    }=require('./companyRoute');
+const { getUsersByEmail } = require('../handlers/handlerUserModels');
+//
+const{allReview,newReview,putReviews,deleteReviews}=require('./reviewRoute')
+>>>>>>> 14febcf5552150ec0d0e8060d4ff5ffc6595750f
 
 const route = Router();
 
@@ -109,6 +116,7 @@ route.get('/fav_company/:id', getFavoriteComp) // id del User o de company
 // route.get('/admin/:id',getadminbyid)
 //
 
+<<<<<<< HEAD
 //technologies
 route.get('/technologies', getTechnologies)
 
@@ -120,4 +128,22 @@ route.post("/upload-cv-user/:idPostulante",upload.single("pdf"),postCvpostulante
 
 
 
+=======
+route.get('/user', allUsers);
+// route.get('/user/:id', getUserById )
+route.post('/auth/login', authUserLoginCredentials)
+route.post('/auth/register', authUserCreate)
+route.get('/auth/google/:token', authUserCreateGoogleBtn)
+//admin
+/*route.get('/admin',allAdmin )
+route.post('/admin',createAdmin )
+route.put('/admin/:id', putAdmin)
+route.delete('/admin/:id', deleteadmin)
+route.get('/admin/:id',getadminbyid)*/
+//
+route.get('/review',allReview);
+route.post('/review',newReview);
+route.put('/review/:id', putReviews);
+route.delete('/review/:id',deleteReviews);
+>>>>>>> 14febcf5552150ec0d0e8060d4ff5ffc6595750f
 module.exports = route;
