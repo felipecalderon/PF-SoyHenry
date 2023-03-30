@@ -3,44 +3,54 @@ const { Op } = require("sequelize");
 const { User, Admin, Postulant, Company, Offers } = require("../models/relations.js");
 
 // Post
-const createUsers = async ({ username, email, rol, names, lastnames, phone, disability, active, gender, password, companyname, description, location, website, logo, experience, tecnology }) => {
+const createUsers = async ({ photo, names, lastnames, email, city, country, password, rol, active, phone, document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook, companyname, email_company, description, phone_company, website, logo }) => {
     try {
-        const [usuario, created] = await User.findOrCreate({
+        const [usuario, creado] = await User.findOrCreate({
             where: { email },
             defaults: {
-                username,
-                lastnames,
-                rol,
-                active,
-                password,
-                companyname,
-                logo,
-                website,
-                description,
-                location,
-                email
+                photo, names, lastnames, email, city, country, password, rol, active, phone
             }
         });
-        // if(usuario) {
-        // return usuario.dataValues
-        // }
-        if (usuario) {
-        switch (rol) {
-            case 'Postulante':
-                const postulant = await Postulant.create({      //nueva modificacion experiencia y tecnologia modelo postulant
-                    names, lastnames, phone, disability, gender, experience, tecnology,
-                    userId: usuario.id
-                });
-                return { ...usuario.dataValues, postulant }
-            case 'Empresa':
-                const company = await Company.create({
-                    username, companyname, lastnames, password, email, description, location, website, logo,
-                    userId: usuario.id
-                });
-                return { ...usuario.dataValues, company }
-            default:
-                throw 'Tipo de usuario no válido'
+        if (creado) {
+            switch (rol) {
+                case 'Postulante':
+                    const Postulants = await Postulant.create({
+                        document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook,
+                        userId: usuario.id
+                    });
+                    return { ...usuario.dataValues, Postulants }
+                case 'Empresa':
+                    const Companies = await Company.create({
+                        companyname, email_company, description, phone_company, website, logo, 
+                        userId: usuario.id
+                    });
+                    return { ...usuario.dataValues, Companies }
+                default:
+                    throw 'Tipo de usuario no válido'
+            }
         }
+        if (!creado) {
+            const updatedUser = await User.update({ photo, names, lastnames, email, city, country, password, rol, active, phone }, { where: { id: usuario.id } });
+            switch (rol) {
+                case 'Postulante':
+                    const postulant = await Postulant.update({
+                        document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook,
+                    },
+                        {
+                            where: { userId: usuario.id }
+                        });
+                    return { ...updatedUser.dataValues, ...postulant.dataValues }
+                case 'Empresa':
+                    const company = await Company.update({
+                        companyname, email_company, description, phone_company, website, logo,
+                    },
+                        {
+                            where: { userId: usuario.id }
+                        });
+                    return { ...updatedUser.dataValues, ...company.dataValues }
+                default:
+                    throw 'Tipo de usuario no válido'
+            }
         }
     } catch (err) {
         console.log(err)
@@ -89,11 +99,13 @@ const getUsersByName = async (name) => {
     return users;
 };
 
-const getUsersByEmail = async ({email}) => {
+const getUsersByEmail = async ( data ) => {
+    const email = typeof data === 'object' && data.email ? data.email : typeof data === 'string' ? data : null;
     try {
-        const user = await User.findOne({ where: {email}, 
-            include: [{ model: Company}, {model: Postulant}]        
-        });        
+        const user = await User.findOne({
+            where: { email },
+            include: [{ model: Company }, { model: Postulant }]
+        });
         return user
     } catch (error) {
         throw error
@@ -109,10 +121,11 @@ const getUsersById = async (id) => {
     return user;
 };
 
-const getUsersByIdCforanea = async ({id}) => {
-    const user = await User.findOne({ where: {id: id} , 
-        
-        include: [{ model: Company}, {model: Postulant}]        
+const getUsersByIdCforanea = async ({ id }) => {
+    const user = await User.findOne({
+        where: { id: id },
+
+        include: [{ model: Company }, { model: Postulant }]
     });
     return user;
 };
@@ -153,14 +166,15 @@ const putUsers = async (id, nombres, apellidos, celular, correo, discapacidad, g
     )
     return `${nombres} has been updated`;
 };
-const putState = async (id, estado) => {
+
+const putState = async (id, active) => {
     // Comprueba si existe el usuario
     const user = await User.findByPk(id);
     if (!user) throw Error(`El id: ${id} no existe`);
 
     // Actualiza el estado
-    await Users.update(
-        { estado },
+    await User.update(
+        { active },
         {
             where: { id }
         }
