@@ -1,8 +1,10 @@
 .contenedor {
+    display: flex;
+    flex-direction: column;
     padding: 1rem;
     padding-left: 4rem;
     background-color:#c8cab4;
-    height: 100dvh;
+    /* height: 75dvh; */
     
 }
 
@@ -70,4 +72,29 @@
     border: 1px black solid;
     border-radius: 5px;
     padding: 3px;    
+}
+
+.technologies_selected{
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.technologies_selected_btn{
+    vertical-align: super;
+}
+
+.titulo_confirmacion{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.boton_confirmacion{
+    border: 1px black solid;
+    border-radius: 5px;
+    padding: 2px;
+    width: 150px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }

@@ -8,14 +8,6 @@ const Admin = sequelize.define('Admin', {
     allowNull: false,
     primaryKey: true,
   },
-  names:{
-    type: DataTypes.STRING,
-    isAlpha:true,
-  },
-  lastnames:{
-      type: DataTypes.STRING,
-      isAlpha:true,
-  },
 }); 
 
 module.exports = Admin

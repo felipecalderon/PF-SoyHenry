@@ -10,20 +10,13 @@ import { About } from './components/About/About'
 import UserProfile from './components/UserProfile/UserProfile'
 import Pdf from './components/UserProfile/Pdf'
 import NotFound from './components/NotFound/NotFound'
+import ModalNewUser from './components/ModalLogin/ModalNewUser'
 
 
 export const rutas = createBrowserRouter([
     {
       path: '/',
       element: <LandingPage />
-    },
-    {
-      path: '/cards',
-      element: <Cards />
-    },
-    {
-      path: '/offersCreate',
-      element: <FormCreateOffers />
     },
     {
       path: '/registro',
@@ -34,8 +27,30 @@ export const rutas = createBrowserRouter([
       element: <RegistroEmpresa />
     },
     {
+      path:"*",
+      element: <NotFound/>
+    },
+    // Postulant
+    {
+      path: '/offers',
+      element: <Cards />
+    },
+    {
       path:'/detail/:id',
       element: <JobDetail />
+    },
+    {
+      path:"/profile",
+      element: <UserProfile/>
+    },
+    {
+      path:"/profile/pdf",
+      element: <Pdf/>
+    },
+    // Company
+    {
+      path: '/offersCreate',
+      element: <FormCreateOffers />
     },
     {
       path: '/dashboardempresa',
@@ -46,15 +61,7 @@ export const rutas = createBrowserRouter([
       element: <About />
     },
     {
-      path:"/profile",
-      element: <UserProfile/>
-    },
-    {
-      path:"/profile/pdf",
-      element: <Pdf/>
-    },
-    {
-      path:"*",
-      element: <NotFound/>
+      path: '/newuser',
+      element: <ModalNewUser />
     },
 ])

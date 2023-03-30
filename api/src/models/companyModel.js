@@ -8,51 +8,38 @@ const Company = sequelize.define('Company', {
     allowNull: false,
     primaryKey: true,
   },
-  username:{
+  companyname: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  lastnames:{
+  email_company: {
     type: DataTypes.STRING,
-    allowNull: false,
-  },
-  companyname:{
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  email:{
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  password:{
-    type: DataTypes.STRING,
-    allowNull: false,
     unique: true,
   },
-  description:{
+  description: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  location:{
+  phone_company: {
     type: DataTypes.STRING,
-    allowNull: false,
+    unique: true,
   },
-  phone:{
-    type: DataTypes.STRING,
-  },
-  website:{
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      isUrl: true,
-    },
-  },
-  logo:{
+  website: {
     type: DataTypes.STRING,
     validate: {
       isUrl: true,
     },
   },
+  logo: {
+    type: DataTypes.STRING,
+    validate: {
+      isUrl: true,
+    },
+  },
+  likes_count: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  }
 });
 
 module.exports = Company
