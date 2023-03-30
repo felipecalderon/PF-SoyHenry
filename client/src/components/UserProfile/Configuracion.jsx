@@ -327,6 +327,17 @@ function Configuracion() {
                 className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base"
         /> */}
         
+        {/* <label for="ciudad">Ciudad</label>
+        <input
+                placeholder=" Buenos Aires "
+                id="ciudad"
+                name="ciudad"
+                type="text"
+                value={form.ciudad}
+                onChange={actualizarData}
+                className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base"
+        /> */}
+        
         <label for="ciudad">Ciudad</label>
         <input
                 placeholder=" Buenos Aires "
