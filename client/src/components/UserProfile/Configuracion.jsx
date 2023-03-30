@@ -87,7 +87,7 @@ function Configuracion() {
   //         method: 'GET',
   //         url: 'https://emsiservices.com/skills/versions/latest/skills',
   //         headers: {
-  //           Authorization: Bearer ${token},
+  //           Authorization: Bearer `${token}`,
   //         }
   //       },
 
