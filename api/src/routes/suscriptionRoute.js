@@ -1,5 +1,5 @@
-const {crearPlan, crearSuscripcion} = require('../controllers/paymentController')
-
+const {crearPlan, crearSuscripcion, controlarPagoStripe} = require('../controllers/paymentController')
+const stripe = require('../configs/stripe/stripeConfig')
 const planRoute = async (req, res) => {
     try {
         const suscripcion = await crearPlan(req.body)
@@ -30,4 +30,36 @@ const respuestasMP = async (req, res) => {
     }
   }
 
-module.exports = {planRoute, subscriptionRoute, respuestasMP}
+  const pagoStripe = async (req, res) => {
+    try {
+      const { customerEmail } = req.body;
+      const product = await stripe.products.retrieve('prod_NcONWlS4sUtxG6');
+      console.log(product);
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [{
+          price: product.default_price,
+          quantity: 1,
+        }],
+        mode: 'subscription',
+        customer_email: customerEmail,
+        success_url: `https://fusionajobs-back-production.up.railway.app/pago?estado=pagado&email=${customerEmail}`,
+        cancel_url: 'https://fusionajobs-back-production.up.railway.app/pago?estado=fallido',
+      });
+      res.json({ url: session.url });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(error.message);
+    }
+  }
+
+  const recepcionPago = async (req, res) => {
+    try {
+      const estadoDelPago = await controlarPagoStripe(req.query)
+      res.json(estadoDelPago)
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(error);
+    }
+  }
+module.exports = {planRoute, subscriptionRoute, respuestasMP, pagoStripe, recepcionPago}
