@@ -16,6 +16,16 @@ const validationsRegisterCompany = (validar) => {
         if (validar.companyname === '') return { ...errors, companyname: 'Se requiere el nombre de la empresa *' };
         if (validar.companyname.length) return { ...errors, companyname: '' };
     }
+    if (validar.hasOwnProperty('email_company')) {
+        if (validar.email_company === '') return { ...errors, email_company: 'Se requiere un correo de la empresa *' };
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(validar.email_company)) return { ...errors, email_company: 'El email es inválido.' }
+        if (validar.email_company.length) return { ...errors, email_company: '' };
+    }
+    if (validar.hasOwnProperty('phone_company')) {
+        if (validar.phone_company === '') return { ...errors, phone_company: 'Se requiere un número de celular para contactar con la empresa *' };
+        if (!/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im.test(validar.phone_company)) return { ...errors, phone_company: 'El número de celular es inválido.' }
+        if (validar.phone_company.length) return { ...errors, phone_company: '' };
+    }
     if (validar.hasOwnProperty('email')) {
         if (validar.email === '') return { ...errors, email: 'Se requiere un email *' };
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(validar.email)) return { ...errors, email: 'El email es inválido.' }

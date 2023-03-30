@@ -16,9 +16,10 @@ const validationsRegister = (validar) => {
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(validar.email)) return { ...errors, email: 'El email es inválido.' }
         if (validar.email.length) return { ...errors, email: '' };
     }
-    if (validar.hasOwnProperty('document')) {
-        if (!/^[1-9]\d*$/.test(validar.document)) return { ...errors, document: 'El documento es inválido.' }
-        if (validar.document === '' || validar.document.length) return { ...errors, document: '' };
+    if (validar.hasOwnProperty('phone')) {
+        if (validar.phone === '') return { ...errors, phone: 'Se requiere un número de celular *' };
+        if (!/^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im.test(validar.phone)) return { ...errors, phone: 'El número de celular es inválido.' }
+        if (validar.phone.length) return { ...errors, phone: '' };
     }
     if (validar.hasOwnProperty('password')) {
         if (validar.password === '') return { ...errors, password: 'Se requiere una contraseña *' };

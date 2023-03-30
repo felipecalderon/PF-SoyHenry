@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { saveUser } from "../../redux/slices/userRegisterSlice";
 import axios from "axios";
 
 import working1 from '../../assets/working1.png';
@@ -14,7 +15,7 @@ import Footer from "../Footer/Footer";
 import Box from '@mui/material/Box';
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { saveUser } from "../../redux/slices/userRegisterSlice";
+import LoadingButton from '@mui/lab/LoadingButton';
 
 export const menu = [
     {
@@ -30,6 +31,7 @@ export const menu = [
         link: "/companyregister"
     },
 ]
+
 export const Registro = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate();
@@ -40,7 +42,7 @@ export const Registro = () => {
         email: '',
         password: '',
         confpassword: '',
-        document: '',
+        phone: '',
         rol: 'Postulante',
         active: true
     });
@@ -51,8 +53,22 @@ export const Registro = () => {
         email: '',
         password: '',
         confpassword: '',
-        document: ''
+        phone: ''
     });
+
+    const userData = JSON.parse(localStorage.getItem('usergoogle'))
+
+    useEffect(() => {
+        if (userData) {
+            const [names, lastnames] = userData.name.split(" ");
+            setForm({
+                ...form,
+                names,
+                lastnames,
+                email: userData.email,
+            })
+        }
+    }, [])
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -84,11 +100,22 @@ export const Registro = () => {
         setErrors({ ...errors, ...validationErrors });
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+
+    const [loading, setLoading] = useState(false);
+
+    const handleClick = async () => {
+        // bloquea el boton
+        setLoading(true);
 
         // Crea el usuario en la base de datos
         const userDbData = await axios.post('/auth/register', form)
+            .catch(() => {
+                setErrors({
+                    ...errors,
+                    email: '¡Este correo ya esta registrado!'
+                })
+                setLoading(false);
+            })
 
         // Guarda los datos en localStorage 
         const objetoJSON = JSON.stringify(userDbData.data)
@@ -109,18 +136,18 @@ export const Registro = () => {
     const isErrorsEmpty = errorsValue.every(value => value === '');
 
     return (
-        <div className="h-screen flex flex-col justify-between bg-primary-light dark:bg-secondary-dark">
+        <div className="w-full h-screen flex flex-col justify-between bg-primary-light dark:bg-secondary-dark">
             <NavLanding menu={menu} />
-            <div className='container mx-auto px-4 py-8 mt-14'>
+            <div className='w-full mx-auto px-4 py-8 mt-14 bg-primary-light dark:bg-secondary-dark'>
                 <h2 className='text-3xl md:text-4xl font-bold mb-8 text-center dark:text-white'>¡Crea tu cuenta y encuentra ese empleo IT deseado!</h2>
                 <div className='flex flex-col md:flex-row items-center justify-center mb-12'>
                     <img src={working1} alt='work1' className='w-full md:w-3/5 lg:w-2/5 mb-8 md:mb-0 rounded-lg' />
-                    <form className='flex flex-col items-center' onSubmit={(event) => handleSubmit(event)}>
+                    <form className='w-full flex flex-col m-4'>
                         <Box
-                            className="grid grid-cols-2"
+                            className="flex flex-col"
                             component="form"
                             sx={{
-                                '& > :not(style)': { m: 1, width: '30ch' },
+                                '& > :not(style)': { m: 1 },
                                 '& .MuiInputBase-input': { color: 'darkorange' },
                                 "& .MuiInput-underline:before": {
                                     borderBottomColor: "darkorange",
@@ -129,53 +156,67 @@ export const Registro = () => {
                             noValidate
                             autoComplete="on"
                         >
-                            <div>
-                                <TextField label="Nombres" value={form.names} onChange={handleChange} error={!!errors.names} helperText={errors.names} variant="standard" name='names' />
+                            <div className="w-full flex flex-wrap justify-center">
+                                <div className="mr-4 my-4">
+                                    <TextField label="Nombres" value={form.names} onChange={handleChange} error={!!errors.names} helperText={errors.names} variant="standard" name='names' />
+                                </div>
+                                <div className="mr-4 my-4">
+                                    <TextField label="Apellidos" value={form.lastnames} onChange={handleChange} error={!!errors.lastnames} helperText={errors.lastnames} variant="standard" name='lastnames' />
+                                </div>
+                                <div className="mr-4 my-4">
+                                    <TextField label="Email" value={userData ? userData.email : form.email} onChange={handleChange} error={!!errors.email} helperText={userData ? 'No puedes modificar el correo' : errors.email ? errors.email : 'Ej. correo@gmail.com'} variant="standard" name='email' />
+                                </div>
+                                <div className="mr-4 my-4">
+                                    <TextField label="Phone" value={form.phone} onChange={handleChange} error={!!errors.phone} helperText={errors.phone ? errors.phone : 'Ej. +573215894786'} variant="standard" name='phone' />
+                                </div>
                             </div>
-                            <div>
-                                <TextField label="Apellidos" value={form.lastnames} onChange={handleChange} error={!!errors.lastnames} helperText={errors.lastnames} variant="standard" name='lastnames' />
-                            </div>
-                            <div>
-                                <TextField label="Email" value={form.email} onChange={handleChange} error={!!errors.email} helperText={errors.email} variant="standard" name='email' />
-                            </div>
-                            <div>
-                                <TextField label="Document" value={form.document} onChange={handleChange} error={!!errors.document} helperText={errors.document} variant="standard" name='document' />
-                            </div>
-                            <div>
-                                <TextField
-                                    label="Contraseña" value={form.password} onChange={handleChange} error={!!errors.password} helperText={errors.password} variant="standard" name='password'
-                                    type={showPassword ? "text" : "password"}
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton onClick={handleClickShowPassword}>
-                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        )
-                                    }}
-                                />
-                            </div>
-                            <div>
-                                <TextField
-                                    label="Confirmar contraseña" onChange={handleChange} error={!!errors.confpassword} helperText={errors.confpassword} variant="standard" name='confpassword'
-                                    type={showPassword ? "text" : "password"}
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton onClick={handleClickShowPassword}>
-                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        )
-                                    }}
-                                />
+                            <div className="w-full flex flex-wrap justify-center">
+                                <div className="mr-4 my-4">
+                                    <TextField
+                                        label="Contraseña" value={form.password} onChange={handleChange} error={!!errors.password} helperText={errors.password} variant="standard" name='password'
+                                        type={showPassword ? "text" : "password"}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton onClick={handleClickShowPassword}>
+                                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            )
+                                        }}
+                                    />
+                                </div>
+                                <div className="mr-4 my-4">
+                                    <TextField
+                                        label="Confirmar contraseña" onChange={handleChange} error={!!errors.confpassword} helperText={errors.confpassword} variant="standard" name='confpassword'
+                                        type={showPassword ? "text" : "password"}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton onClick={handleClickShowPassword}>
+                                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            )
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </Box>
-                        <div className='flex items-center justify-center mt-4'>
-                            <button type='submit' className={`${ isErrorsEmpty && isFormComplete ? "" : "opacity-50 cursor-not-allowed pointer-events-none"} bg-secondary-light dark:bg-primary-dark dark:text-white hover:bg-yellow-500 dark:hover:bg-purple-900 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50 dark:focus:ring-white`}>
-                                Crear cuenta
-                            </button>
+                        <div className='flex items-center justify-center'>
+                            <Box sx={{ '& > button': { m: 1, width: '150px', height: '60px', fontWeight: '700' } }}>
+                                <LoadingButton
+                                    className={`${isErrorsEmpty && isFormComplete ? "" : "opacity-50 cursor-not-allowed pointer-events-none"}`}
+                                    onClick={handleClick}
+                                    loading={loading}
+                                    color="warning"
+                                    loadingPosition="center"
+                                    variant="contained"
+                                    type='submit'
+                                >
+                                    <span>Crear cuenta</span>
+                                </LoadingButton>
+                            </Box>
                         </div>
                         <div className='mt-4 text-center'>
                             <p className='text-gray-700 dark:text-white text-sm'>Al hacer click en Crear Cuenta, aceptas las <a className="text-secondary-light dark:text-primary-dark" href='#'>Condiciones de uso</a> y las <a className="text-secondary-light dark:text-primary-dark" href='#'>Políticas de privacidad</a> de Fusionajob.</p>
@@ -183,7 +224,6 @@ export const Registro = () => {
                     </form>
                 </div>
             </div>
-
             <Footer />
         </div>
     )

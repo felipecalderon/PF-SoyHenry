@@ -9,7 +9,7 @@ import fbapp from "../../firebaseConfig"
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import axios from 'axios'
 import { saveUser } from '../../redux/slices/userRegisterSlice'
-import ModalNewUser from "./ModalNewUser"
+// import ModalNewUser from "./ModalNewUser"
 import { Link } from "react-router-dom"
 export const ModalLogin = ({ isOpen, setOpen }) => {
     const dispatch = useDispatch()
