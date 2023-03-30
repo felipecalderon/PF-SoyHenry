@@ -1,37 +1,58 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect  } from 'react'
+import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
+import axios from "axios";
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import logofusionajob from '../../assets/logofusionajob.png'
 
 
+
 function Favoritos() {
+  const dataUserLocal = localStorage.getItem("userLogin");
+  const dataUserGoogle = localStorage.getItem("usergoogle");
+  const dataUser = JSON.parse(dataUserLocal);
+  const [saveOffers, setSavedOffers] = useState([]);
+  
 
-    const [favoritos, setFavoritos] = useState();
+  useEffect(() => {
+    axios
+      .get(`/save_offers/${dataUser.id}`)
+      .then((res) => setSavedOffers(res.data))
+      .catch((err) => console.log(err));
+  }, [dataUser.id]);
 
-//     Number(jobId.id) ? 
-// axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=db`)
-// : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=api`) 
-// setIsFavorite(false)
-// return alert("Se ha eliminado la oferta de tu lista guardados")
-
-    
+  const handleRemoveOffer = (offerId) => {
+    if (window.confirm("¿Estás seguro que deseas eliminar esta oferta de tus favoritos?")) {
+      axios
+        .put(`/rel_offers/${offerId}/${dataUser.id}?save=unsave&origin=api`)
+        .then(() => {
+          const newSavedOffers = saveOffers.filter(offer => offer.offerId !== offerId);
+          setSavedOffers(newSavedOffers);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+  
   return (
     <>
     {
-      favoritos?.length?
+      saveOffers?.length?
     <>
-     { favoritos.map((favorito) => (
-        <Box key={favorito.id}>
+     { saveOffers.map((offer) => (
+        <Box key={offer.offerId}>
           <h2 className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-between">
             <Fab
               sx={{ backgroundColor: 'lightblue' }}
               aria-label="like"
-              
+              onClick={() => handleRemoveOffer(offer.offerId)}
             >
               <TurnedInIcon />
             </Fab>
-            {favorito.title}
+            <Link to={`/detail/${offer.offerId}?title=${offer.title}`}>
+                {offer.title}
+              </Link>
           </h2>
         </Box>
       ))}
