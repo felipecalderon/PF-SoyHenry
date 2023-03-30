@@ -5,10 +5,14 @@ dotenv.config();
 // Configuration 
 //pasarlo a procees env
 cloudinary.config({
-    cloud_name: "dlxlac365",
-    api_key: "882976543797725",
-    api_secret: "M_dOsQu90E7tqvtDGAPlB1jLpB0"
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+    secure:true
   });
 
-module.exports = { cloudinary };
+
+ module.exports= cloudinary
+ 
+
 
