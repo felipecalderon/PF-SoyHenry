@@ -347,9 +347,6 @@ function Configuracion() {
             {error?.pais}
           </span>
           <span className=" select-none text-xs font-bold text-red-600">
-            {error?.pais}
-          </span>
-          <span className=" select-none text-xs text-red-600">
             {error?.ciudad}
           </span>
         </div>
