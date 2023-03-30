@@ -17,23 +17,33 @@ const {  User, Postulant } = require("../models/relations");
 }
  */
 const SendPhotoToUser=async(idUser,cloudinary_image)=>{
-const { secure_url}=cloudinary_image
-let results =await User.findByPk(idUser)
-if (!results) {
-    throw Error("No se reconoce el id ingresado")
+    
+    try {
+        const { secure_url}=cloudinary_image
+        let results =await User.findByPk(idUser)
+        if (!results) {
+            throw Error("No se reconoce el id ingresado")}
+        
+            await User.update({ photo: secure_url }, { where: { id: idUser } });
+             results =await User.findByPk(idUser)
+              
+                return results
+} catch (error) {
+    throw error 
+}
 }
 
 
-await User.update({ photo: secure_url }, { where: { id: idUser } });
- results =await User.findByPk(idUser)
-  
-    return results
 
-}
+
 
 
 
 const SendPdfToPostulante=async(idPostulante,cloudinary_pdf)=>{
+
+
+
+try {
     const { secure_url}=cloudinary_pdf
     let results =await Postulant.findByPk(idPostulante)
     if (!results) {
@@ -44,6 +54,10 @@ const SendPdfToPostulante=async(idPostulante,cloudinary_pdf)=>{
     results=await Postulant.findByPk(idPostulante)
 
     return results
+} catch (error) {
+    throw error
+}
+
 }
 
 

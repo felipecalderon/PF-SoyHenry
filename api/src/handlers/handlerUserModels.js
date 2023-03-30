@@ -1,7 +1,7 @@
 // const{ Users } = require('../database.js')
 const { Op } = require("sequelize");
 const { User, Admin, Postulant, Company, Offers } = require("../models/relations.js");
-const{mailRegisterUser}=require('./Utils/sendMail');
+
 // Post
 const createUsers = async ({ photo, names, lastnames, email, city, country, password, rol, active, phone, document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook, companyname, email_company, description, phone_company, website, logo }) => {
     try {
@@ -11,7 +11,6 @@ const createUsers = async ({ photo, names, lastnames, email, city, country, pass
                 photo, names, lastnames, email, city, country, password, rol, active, phone
             }
         });
-<<<<<<< HEAD
         if (creado) {
             switch (rol) {
                 case 'Postulante':
@@ -29,30 +28,6 @@ const createUsers = async ({ photo, names, lastnames, email, city, country, pass
                 default:
                     throw 'Tipo de usuario no válido'
             }
-=======
-        // if(usuario) {
-        // return usuario.dataValues
-        // }
-        mailRegisterUser(email,username); //envia correo de registro al mail registrado,le paso el usuario.
-        
-        if (usuario) {
-        switch (rol) {
-            case 'Postulante':
-                const postulant = await Postulant.create({      //nueva modificacion experiencia y tecnologia modelo postulant
-                    names, lastnames, phone, disability, gender, experience, tecnology,
-                    userId: usuario.id
-                });
-               
-                return { ...usuario.dataValues, postulant }
-            case 'Empresa':
-                const company = await Company.create({
-                    username, companyname, lastnames, password, email, description, location, website, logo,
-                    userId: usuario.id
-                });
-                return { ...usuario.dataValues, company }
-            default:
-                throw 'Tipo de usuario no válido'
->>>>>>> 14febcf5552150ec0d0e8060d4ff5ffc6595750f
         }
         if (!creado) {
             const updatedUser = await User.update({ photo, names, lastnames, email, city, country, password, rol, active, phone }, { where: { id: usuario.id } });
