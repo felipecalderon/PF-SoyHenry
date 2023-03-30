@@ -11,7 +11,9 @@ const createUsers = async ({ photo, names, lastnames, email, city, country, pass
                 photo, names, lastnames, email, city, country, password, rol, active, phone
             }
         });
+       
         if (creado) {
+            mailRegisterUser(email,names)//cuando te registras envie un mail
             switch (rol) {
                 case 'Postulante':
                     const Postulants = await Postulant.create({
