@@ -21,9 +21,14 @@ import { fetchCountries } from "../../redux/slices/countriesSlices";
 function Configuracion() {
   const [skills, setSkills] = useState([]);
   const [showErrors, SetShowErrors] = useState(false);
-  const [form, SetForm] = useState({
+  const [profile,setProfile]=useState({
     nombre: "",
     apellido: "",
+    photo:"",
+  })
+  const [form, SetForm] = useState({
+  nombre:"",
+  apellido:"",
     edad: "",
     genero: "",
     experiencia: "",
@@ -43,7 +48,7 @@ function Configuracion() {
     apellido: "",
     edad: "",
     titulo: "",
-    genero: "",
+    genero: "",           
     experiencia: "",
     discapacidad: "",
     ciudad:"",
@@ -144,6 +149,13 @@ function Configuracion() {
       SetForm({ ...form, habilidades: [...form.habilidades, value] });
     }
   };
+  const handleButtonSkill=(event) =>{
+  SetForm({
+    ...form,
+    habilidades: [...form.habilidades].filter(
+      (el) => el !== event.target.value
+    ),
+  });}
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -162,14 +174,15 @@ function Configuracion() {
     });
     
   };
+  // const dataUserLocal = localStorage.getItem("usergoogle")? localStorage.getItem("usergoogle"):localStorage.getItem("userLogin")
+  // const dataUserlocalstorage = JSON.parse(dataUserLocal);
+  // const [nombre, apellido] =dataUserLocal.name? dataUserlocalstorage.name.split(" "):[dataUserlocalstorage.names,dataUserlocalstorage.lastnames]
 
-  
 
   useEffect(() => {
     if (skills.length === 0) {
       axios("/technologies").then((res) => setSkills(res.data));
     }
-
     validacionConfig(form, SetError);
   }, [form, skills]);
 
@@ -181,24 +194,24 @@ function Configuracion() {
       <Box>
 
       <img
-        src={usuario}
+        src={profile.photo || usuario}
         alt=""
         width="150px"
         className="border rounded-full m-4"
         />
 
       <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400  w-full flex items-center justify-between">
-        <TextField
+        <input
           type="text"
           id="nombre"
           placeholder="Nombre"
           className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-1/3 text-center mx-2 text-base "
           name="nombre"
           value={form.nombre}
-          onChange={actualizarData}
+         onChange={actualizarData}
         />
 
-        <TextField
+        <input
           type="text"
           id="apellido"
           className="form-input mt-1 block  rounded-md border-gray-300 shadow-sm w-1/3 text-center mx-2 text-base"
@@ -209,7 +222,7 @@ function Configuracion() {
         />
         <label for="edad">Edad</label>
 
-        <TextField
+        <input
           type="number"
           id="edad"
           className="form-input mt-1 block rounded-md border-gray-300 shadow-sm mx-2 text-base"
@@ -222,14 +235,14 @@ function Configuracion() {
       </div>
 
       {showErrors ? (
-        <div className="flex justify-evenly w-full mb-3">
-          <span className=" select-none text-xs text-red-600">
+        <div className="flex justify-between w-full mb-3">
+          <span className=" select-none text-xs font-bold text-red-600">
             {error?.nombre}
           </span>
-          <span className="  select-none text-xs text-red-600">
+          <span className="  select-none text-xs font-bold text-red-600">
             {error?.apellido}
           </span>
-          <span className="  select-none text-xs text-red-600">
+          <span className="  select-none text-xs font-bold text-red-600">
             {error?.edad}
           </span>
         </div>
@@ -260,11 +273,11 @@ function Configuracion() {
 
    
       {showErrors ? (
-        <div className="flex justify-between w-full ">
-          <span className=" select-none text-xs text-red-600 ml-4">
+        <div className="flex justify-around w-full  ">
+          <span className=" select-none text-xs font-bold text-red-600 ml-4">
       {error?.genero}
     </span>
-          <span className=" select-none text-xs text-red-600">
+          <span className=" select-none text-xs font-bold text-red-600">
             {error?.discapacidad}
           </span>
         </div>
@@ -303,6 +316,8 @@ function Configuracion() {
         />
         <label for="pais">Pais</label>
         <TextField
+      <label for="pais">Pais</label>
+        <input
                 placeholder="Argentina"
                 id="pais"
                 name="pais"
@@ -312,6 +327,28 @@ function Configuracion() {
                 className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base"
         /> */}
         
+        <label for="ciudad">Ciudad</label>
+        <input
+                placeholder=" Buenos Aires "
+                id="ciudad"
+                name="ciudad"
+                type="text"
+                value={form.ciudad}
+                onChange={actualizarData}
+                className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base"
+        />
+        
+        <label for="ciudad">Ciudad</label>
+        <input
+                placeholder=" Buenos Aires "
+                id="ciudad"
+                name="ciudad"
+                type="text"
+                value={form.ciudad}
+                onChange={actualizarData}
+                className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base"
+        />
+        
 
 
       </div>
@@ -319,8 +356,12 @@ function Configuracion() {
 
       {showErrors ? (
         <div className="flex justify-around w-full ">
-          <span className=" select-none text-xs text-red-600">
+          
+          <span className=" select-none text-xs font-bold text-red-600">
             {error?.pais}
+          </span>
+          <span className=" select-none text-xs font-bold text-red-600">
+            {error?.ciudad}
           </span>
           <span className=" select-none text-xs text-red-600">
             {error?.ciudad}
@@ -333,7 +374,7 @@ function Configuracion() {
 
       <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full">
         <label for="titulo">Titulo</label>
-        <TextField
+        <input
           type="text"
           name="titulo"
           value={form.titulo}
@@ -346,7 +387,7 @@ function Configuracion() {
       </div>
       {showErrors ? (
         <div className="flex justify-center w-full ">
-          <span className=" select-none text-xs text-red-600">
+          <span className=" select-none text-xs font-bold text-red-600">
             {error?.titulo}
           </span>
         </div>
@@ -361,7 +402,7 @@ function Configuracion() {
         >
           Descripcion
         </label>
-        <TextField
+        <textarea
           id="descripcion"
           name="descripcion"
           value={form.descripcion}
@@ -369,11 +410,11 @@ function Configuracion() {
           className="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm text-base px-2 py-1 "
           style={{ maxHeight: "160px", minHeight: "160px" }}
           placeholder="Describa sus habilidades, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos."
-        ></TextField>
+        ></textarea>
       </div>
       {showErrors ? (
         <div className="flex justify-center w-full ">
-          <span className=" select-none text-xs text-red-600">
+          <span className=" select-none text-xs font-bold text-red-600">
             {error?.descripcion}
           </span>
         </div>
@@ -392,8 +433,8 @@ function Configuracion() {
         
       </div>
       {showErrors ? (
-        <div className="flex justify-center w-full ">
-            <span className=" select-none text-xs text-red-600">
+          <div className="flex justify-center w-full ">
+            <span className=" select-none text-xs font-bold text-red-600">
               {error?.experiencia}
             </span>
           </div>
@@ -401,7 +442,7 @@ function Configuracion() {
        
       <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full ">
         <label for="idioma">Idioma</label>
-        <TextField
+        <input
           type="text"
           placeholder="Ej: Inglés - Avanzado, Español - Nativo, Francés - Básico"
           id="idioma"
@@ -417,7 +458,7 @@ function Configuracion() {
       >
         {showErrors ? (
           <div className="flex justify-center w-full ">
-            <span className=" select-none text-xs text-red-600">
+            <span className=" select-none text-xs font-bold text-red-600">
               {error?.idiomas}
             </span>
           </div>
@@ -471,9 +512,10 @@ function Configuracion() {
           ))}
         </select>
         {/* <Tags /> */}
+        {/* <Tags /> */}
 
         <div
-          className="flex flex-wrap justify-start overflow-y-auto"
+          className="flex flex-wrap justify-center overflow-y-auto"
           style={{
             height: " 50%",
             width: "100%",
@@ -484,14 +526,7 @@ function Configuracion() {
             ? form.habilidades.map((skill, index) => (
                 <button
                   className="m-2 p-1 rounded-xl bg-white border text-sm text-center flex justify-between items-center hover:bg-gray-100 active:bg-gray-200 focus:outline-none flex-shrink"
-                  onClick={(event) =>
-                    SetForm({
-                      ...form,
-                      habilidades: [...form.habilidades].filter(
-                        (el) => el !== event.target.value
-                      ),
-                    })
-                  }
+                  onClick={handleButtonSkill}
                   value={skill}
                   key={skill}
                   id={index}
@@ -499,15 +534,10 @@ function Configuracion() {
                   {skill}
                 </button>
               ))
-            : null}
+            : <>
+              <p className={` select-none font-bold  mb-1 ${showErrors && error.habilidades?"text-red-600":"text-white"} text-xl text-center`}>La lista de habilidades está vacía.</p><br/><p className="select-none text-gray-400 text-sm text-center"> Seleccione una habilidad para continuar</p>
+            </>}
 
-          {showErrors ? (
-            <div className="flex justify-center w-full ">
-              <span className=" select-none text-xs text-red-600">
-                {error?.habilidades}
-              </span>
-            </div>
-          ) : null}
         </div>
       </div>
 
@@ -517,7 +547,7 @@ function Configuracion() {
           <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full flex-wrap">
             <label for="tel">Telefono</label>
 
-            <TextField
+            <input
               id="tel"
               type="tel"
               name="tel"
@@ -528,7 +558,7 @@ function Configuracion() {
             />
             {showErrors ? (
               <div className="flex justify-center w-full ">
-                <span className=" select-none text-xs text-red-600">
+                <span className=" select-none text-xs font-bold text-red-600">
                   {error?.tel}
                 </span>
               </div>
@@ -536,7 +566,7 @@ function Configuracion() {
           </div>
 
           <label for="facebook">Facebook</label>
-          <TextField
+          <input
             type="url"
             id="facebook"
             name="facebook"
@@ -547,13 +577,13 @@ function Configuracion() {
           />
           {showErrors ? (
             <div className="flex justify-center w-full ">
-              <span className=" select-none text-xs text-red-600">
+              <span className=" select-none text-xs font-bold text-red-600">
                 {error?.facebook}
               </span>
             </div>
           ) : null}
           <label for="linkedin">Linkedin</label>
-          <TextField
+          <input
             type="url"
             id="linkedin"
             name="linkedin"
@@ -564,7 +594,7 @@ function Configuracion() {
           />
           {showErrors ? (
             <div className="flex justify-center w-full ">
-              <span className=" select-none text-xs text-red-600">
+              <span className=" select-none text-xs font-bold text-red-600">
                 {error?.linkedin}
               </span>
             </div>
@@ -581,7 +611,7 @@ function Configuracion() {
         </button>
         <button
           className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded  "
-          onClick={() => SetInConfig(!inConfig)}
+          onClick={()=>{}}
         >
           Descartar Cambios
         </button>

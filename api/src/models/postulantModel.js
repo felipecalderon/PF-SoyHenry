@@ -8,27 +8,11 @@ const Postulant = sequelize.define('Postulant', {
         allowNull: false,
         primaryKey: true,
     },
-    photo: {
-        type: DataTypes.TEXT,
-    },
-    names: {
+    document: {
         type: DataTypes.STRING,
-        isAlpha: true,
-    },
-    Document: {
-        type: DataTypes.STRING,
-    },
-    lastnames: {
-        type: DataTypes.STRING,
-        isAlpha: true,
     },
     age:{
         type: DataTypes.STRING,
-    },
-    phone: {
-        type: DataTypes.STRING,
-        isNumeric: true,
-        unique: true,
     },
     disability: {
         type: DataTypes.STRING,
