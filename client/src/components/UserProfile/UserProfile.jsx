@@ -17,10 +17,12 @@ import { spinnerPurple } from "../Cards/spinner";
 
 //mui
 import EditIcon from '@mui/icons-material/Edit';
-// import { IconButton } from "@mui/material";
+
+import { IconButton } from "@mui/material";
+import PremiumButtonComponent from "../BotonPremium/BotonPremium";
 
 function UserProfile() {
-    const dataUserLocalStorage = JSON.parse(localStorage.getItem("userLogin"))
+
     const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userLogin')));
     const [loading, setLoading] = useState(true)
     useEffect(() => {
@@ -34,7 +36,8 @@ function UserProfile() {
     }, [])
 
 
-    const [inConfig, SetInConfig] = useState(!dataUserLocalStorage?.Postulants[0]?.description_postulant)
+    const [inConfig, SetInConfig] = useState(false)
+
     const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
         valorSeleccionado: "curriculum"
     })
@@ -70,6 +73,7 @@ function UserProfile() {
             name: "Sobre Nosotros",
             link: "/about"
         },
+        
     ]
 
 
@@ -78,6 +82,7 @@ function UserProfile() {
             <>
                 <NavLanding menu={menu} />
                 <div className="flex justify-around bg-primary-light  dark:bg-secondary-dark pt-20">
+                < PremiumButtonComponent/>
                     <input
                         className="invisible"
                         type="radio"
@@ -120,7 +125,8 @@ function UserProfile() {
 
                 <section className="bg-primary-light flex  w-full dark:bg-secondary-dark flex-wrap justify-center ">
                     <section
-                        className=" bg-secondary-light dark:bg-primary-dark m-4 border rounded-xl w-full flex flex-col"
+                        className="w-full bg-secondary-light dark:bg-primary-dark m-4 border rounded-xl w-full flex flex-col"
+
                         style={{ minHeight: " 1200px", minWidth: "330px", maxWidth: "616px" }}>
                         <div className="w-full flex flex-col  items-end">
                             {

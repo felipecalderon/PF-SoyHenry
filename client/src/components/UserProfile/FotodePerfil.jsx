@@ -3,6 +3,7 @@ import usuario from "../../assets/user.png";
 import axios from "axios"
 
 function FotodePerfil({photo}) {
+
   const [imageToRender, setImageToRender] = useState(null);
   const [imagetosend,setImageTosend]=useState(null)
   const [notValidImage, setNotValidImage] = useState(true);

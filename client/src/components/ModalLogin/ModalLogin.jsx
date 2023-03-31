@@ -72,7 +72,7 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
             if (verifyUsrExist.data.rol === 'Postulante') navigate('/offers')
         } catch (error) {
             console.log(error)
-            setError(error.response.data.message)
+            setError(error.response.data)
             alert("Hubo un error en el acceso, intente nuevamente")
         }
     }

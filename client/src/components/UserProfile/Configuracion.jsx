@@ -60,6 +60,7 @@ function Configuracion() {
     phone: dataUserLocalStorage.phone || '',
     linkedin: dataUserLocalStorage.Postulants[0].linkedin || '',
     facebook: dataUserLocalStorage.Postulants[0].facebook || '',
+
   });
   const [error, SetError] = useState({
     names: "",
@@ -112,10 +113,12 @@ function Configuracion() {
     : [];
 
   const handleSelectSkills = (event) => {
+
     const value = event.target.value;
     if (!form.tecnology.includes(value)) {
       SetForm({ ...form, tecnology: [...form.tecnology, value] });
     } 
+
   };
   const handleButtonSkill = (event) => {
     SetForm({
@@ -160,6 +163,7 @@ function Configuracion() {
     <>
       <form className="w-full flex flex-col justify-between items-start px-3 pb-5">
         <div className="w-full flex flex-col mb-8">
+
           <FotodePerfil photo={dataUserLocalStorage?.photo || dataUserGoogle?.photo || usuario} />
         </div>
 
@@ -184,6 +188,7 @@ function Configuracion() {
             <TextField id="names" label="Nombre" className="w-1/3" name="names" value={form.names} onChange={actualizarData} error={!!error.names} helperText={error.names} />
             <TextField id="lastnames" label="Apellido" className="w-1/3 " name="lastnames" value={form.lastnames} onChange={actualizarData} error={!!error.lastnames} helperText={error.lastnames} />
             <TextField id="age" name="age" label='Edad' type="number" className="w-1/4" value={form.age} onChange={actualizarData} error={!!error.age} helperText={error.age}
+
               inputProps={{
                 min: "18",
                 max: "120",
