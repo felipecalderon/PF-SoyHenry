@@ -1,13 +1,13 @@
 const{transporter}=require('../../Nodemailer/nodemailerConfig')
 //aca van el cuerpo de lo que seria el mail que se envia...
-const mailRegisterUser = async (email,username) => {
+const mailRegisterUser = async (email,names) => {
 	try {
 		await transporter.sendMail({
 			from: "Fusionajobs <fusionajobs@gmail.com>",
 			to: email,
 			subject: `Gracias  por registrarte!!!`,
 			html: `
-				<h2>Hola ${username}  </h2>
+				<h2>Hola ${names}  </h2>
 				<h4>Gracias por registrarte en nuestra pagina. </h4>
 				<hr />
 				<div>
