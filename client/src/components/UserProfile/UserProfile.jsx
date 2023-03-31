@@ -142,9 +142,7 @@ function UserProfile() {
                         {displayComponente(selectedValueBarraPerfil)}
                     </section>
                 </section>
-                <div>
-      <PremiumButton />
-    </div>
+
                 <Footer />
             </>
         );

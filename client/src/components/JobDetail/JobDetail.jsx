@@ -27,8 +27,8 @@ const JobDetail = () => {
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
   const empresaId = query.get('empresa');
-  const url1=`/api/v0/companies/${empresaId?.id}`
-  const url2=`/jobs/${empresa?.id}`
+  // const url1=`/api/v0/companies/${empresaId?.id}`
+  // const url2=`/jobs/${empresa?.id}`
   const { data, isLoading } = useFetch(url);
   const dataUserLocal = localStorage.getItem("userLogin")
   const dataUserGoogle = localStorage.getItem("usergoogle")
@@ -48,13 +48,21 @@ const JobDetail = () => {
   }, 
 ]
 const [empresa, setEmpresa] = useState(null);
+
 useEffect(() => {
   if (empresaId) {
-    dispatch(fetchEmpresaData(empresaId, (response) => {
-      setEmpresa(response.payload);
-    }));
+    axios.get(`/api/v0/companies/${empresaId}`)
+      .then((response) => {
+        setEmpresa(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
-}, [dispatch, empresaId]);
+}, [empresaId]);
+
+console.log(empresa)
+console.log(empresaId)
 
 //FAVORITOS AHORA ES GUARDADOS
 const [isFavorite, setIsFavorite] = useState(false);
@@ -100,9 +108,7 @@ useEffect(() => {
   window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
   if (data) {
     dispatch(getDataPostulacion(data));
-    dispatch(fetchEmpresaData(jobId?.companyId, (response) => {
-      setEmpresa(response.payload);
-    }));
+    
   }
 }, [data, dispatch, jobId?.companyId]);
 

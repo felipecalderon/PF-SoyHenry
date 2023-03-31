@@ -1,41 +1,36 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
-import { selectIsPremium } from './premiumSlice';
+// import { useState } from "react";
+// import { styled } from "@mui/material/styles";
+// import Button from "@mui/material/Button";
+// import { gold } from "@mui/material/colors";
+// import { keyframes } from "@emotion/react";
+// import { configureStore } from "@reduxjs/toolkit";
+// import { Provider } from "react-redux";
 
-const PremiumButtonStyled = styled(Button)(({ theme }) => ({
-  backgroundColor: '#F59E0B',
-  color: '#fff',
-  '&:hover': {
-    backgroundColor: '#D97706',
-  },
-}));
 
-const LoadingStyled = styled(CircularProgress)(({ theme }) => ({
-  color: '#F59E0B',
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  marginTop: '-12px',
-  marginLeft: '-12px',
-}));
+// const pulse = keyframes`
+//   0% {
+//     transform: scale(1);
+//   }
+//   50% {
+//     transform: scale(1.05);
+//   }
+//   100% {
+//     transform: scale(1);
+//   }
+// `;
 
-export default function PremiumButton() {
-  const isPremium = useSelector(selectIsPremium);
+// const PremiumButton = styled(Button)(({ theme }) => ({
+//   backgroundColor: gold[500],
+//   color: theme.palette.common.white,
+//   "&:hover": {
+//     backgroundColor: gold[700],
+//   },
+//   "&:active": {
+//     backgroundColor: gold[900],
+//   },
+//   animation: `${pulse} 1s ease-in-out infinite`,
+//   borderRadius: "20px", // Add Material UI styles
+//   padding: "10px 20px", // Add Material UI styles
+// }));
 
-  const buttonContent = isPremium ? 'Usuario premium' : 'Convertirse en premium';
 
-  return (
-    <PremiumButtonStyled
-      variant="contained"
-      disableElevation
-      disabled={isPremium}
-      startIcon={isPremium ? null : <i className="fas fa-crown"></i>}
-    >
-      {buttonContent}
-      {isPremium && <LoadingStyled size={24} thickness={5} />}
-    </PremiumButtonStyled>
-  );
-}
