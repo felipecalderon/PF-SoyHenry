@@ -164,7 +164,7 @@ function Configuracion() {
     <>
       <form className="w-full flex flex-col justify-between items-start px-3 pb-5">
         <div className="w-full flex flex-col mb-8">
-          <FotodePerfil photo={dataUserLocalStorage?.photo || dataUserGoogle?.photo || usuario } />
+          <FotodePerfil photo={dataUserLocalStorage?.photo || dataUserGoogle?.photo || usuario} />
         </div>
 
         <Box
