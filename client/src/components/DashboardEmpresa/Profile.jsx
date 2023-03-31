@@ -55,7 +55,6 @@ import Select from '@mui/material/Select';
   });
 
   const [errors, setErrors] = useState({
-    companyname: '',
     email_company: '',
     description: '',
     phone_company: '',
@@ -102,18 +101,21 @@ const filteredCities = selectedCountry
         ...info,
         [event.target.name]: event.target.value
     });
+  //   setErrors(validationsDatosEmpresa({
+  //     [event.target.name]: event.target.value
+  // }));
   };
 
 
 const handleSubmit = (event) => {
-  // const errorsNew = validationsDatosEmpresa(info);
-  // setErrors(errorsNew);
-  // if (Object.keys(errorsNew).length === 0) {
+  const errorsNew = validationsDatosEmpresa(info);
+  setErrors(errorsNew);
+  if (Object.keys(errorsNew).length === 0) {
     axios.put(`/company/${id}`, info);
     setShowModal(false);
     setOpen(false);
     window.location.reload();
-  // }
+  }
 };
   
   if(!company) return "No hay info";
@@ -173,8 +175,8 @@ const handleSubmit = (event) => {
                 label="Nombre de la empresa" 
                 value={info.companyname} 
                 onChange={handleChange} 
-                error={!!errors.companyname} 
-                helperText={errors.companyname} 
+                // error={!!errors.companyname} 
+                // helperText={errors.companyname} 
                 variant="standard" 
                 name='companyname'/>
           </div>
@@ -207,6 +209,16 @@ const handleSubmit = (event) => {
                 helperText={errors.website} 
                 variant="standard" 
                 name='website'/>
+          </div>
+          <div>
+              <TextField 
+                label="Teléfono de la empresa" 
+                value={info.phone_company} 
+                onChange={handleChange} 
+                error={!!errors.phone_company} 
+                helperText={errors.phone_company} 
+                variant="standard" 
+                name='phone_company'/>
           </div>
           <div>
           <FormControl variant="standard" sx={{ '& > :not(style)': { m: 1, width: '30ch' } }} >
@@ -253,7 +265,14 @@ const handleSubmit = (event) => {
             </FormControl>
           </div>  
           <div>
-              <TextField label="Descripción" value={info.description} onChange={handleChange} error={!!errors.description} helperText={errors.description} variant="standard" name='description' />
+              <TextField 
+                label="Descripción" 
+                value={info.description} 
+                onChange={handleChange} 
+                // error={!!errors.description} 
+                // helperText={errors.description} 
+                variant="standard" 
+                name='description'/>
           </div>
           </info>
         </DialogContent>
@@ -269,6 +288,7 @@ const handleSubmit = (event) => {
           <h1 className='p-1 dark:text-text-dark'><strong>Website:</strong> {info.website}</h1>
           <h1 className='p-1 dark:text-text-dark'><strong>País:</strong> {info.company_country}</h1>
           <h1 className='p-1 dark:text-text-dark'><strong>Ciudad:</strong> {info.company_city}</h1>
+          <h1 className='p-1 dark:text-text-dark'><strong>Teléfono:</strong> {info.phone_company}</h1>
           <h1 className='p-1 dark:text-text-dark'><strong>Descripción:</strong> {info.description} </h1>
           <div className='flex justify-center p-5'>
             <button className='h-10 w-24 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2' 
