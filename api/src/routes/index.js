@@ -1,6 +1,8 @@
 //ACA IMPORTAN Y SE DEFINEN LAS RUTAS
 const { Router } = require('express')
-
+const {postImagepostulante,
+    postCvpostulante}=require("./uploadImagesRoute")
+const upload =require("../handlers/Utils/multer")
 const { 
     allUsers, 
     createUser,
@@ -31,6 +33,7 @@ const{
     companyByIdDatBas,
     putCompany,
     deleteCompany
+
 }=require('./companyRoute');
 const { 
     getUsersControllers, 
@@ -112,8 +115,16 @@ route.get('/fav_company/:id', getFavoriteComp) // id del User o de company
 // route.get('/admin/:id',getadminbyid)
 //
 
+
 //technologies
 route.get('/technologies', getTechnologies)
+
+
+//Subir y Actualizar imagenes usuario
+route.post("/upload-photo-user/:idUser",upload.single("imagenes"),postImagepostulante)
+
+//Subir y Actualizar pdf
+route.post("/upload-cv-user/:idPostulante",upload.single("pdf"),postCvpostulante)
 
 route.post('/plan', planRoute)
 route.post('/mercadopago', respuestasMP)

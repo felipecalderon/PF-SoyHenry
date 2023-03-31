@@ -2,8 +2,34 @@ import React from 'react'
 import logofusionajob from '../../assets/logofusionajob.png'
 
 function Postulaciones() {
-    const data = [
-        ];
+    // const data = [
+    //     "Desarrollador Frontend",
+    //     "Desarrollador Backend",
+    //     "Diseñador UX/UI",
+    //     "Desarrollador Fullstack",
+    //     "Ingeniero de Software",
+    //     "Analista de Datos",
+    //     "Arquitecto de Software",
+    //     "Desarrollador de Aplicaciones Móviles",
+    //     "Ingeniero DevOps",
+    //     "Desarrollador Frontend",
+    //     "Desarrollador Backend",
+    //     "Diseñador UX/UI",
+    //     "Desarrollador Fullstack",
+    //     "Ingeniero de Software",
+    //     "Analista de Datos",
+    //     "Arquitecto de Software",
+    //     "Desarrollador de Aplicaciones Móviles",
+    //     "Ingeniero DevOps",  "Desarrollador Frontend",
+    //     "Desarrollador Backend",
+    //     "Diseñador UX/UI",
+    //     "Desarrollador Fullstack",
+    //     "Ingeniero de Software",
+    //     "Analista de Datos",
+    //     "Arquitecto de Software",
+    //     "Desarrollador de Aplicaciones Móviles",
+    //     "Ingeniero DevOps",];
+    const data=[]
 return (
 
     <>

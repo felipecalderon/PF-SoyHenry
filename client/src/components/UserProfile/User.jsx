@@ -37,7 +37,7 @@ function User() {
     <ul className="flex flex-col justify-between items-start p-8 h-full ">
       <li>
         <img
-          src={usuario}
+          src={dataUser.photo || usuario}
           alt=""
           width="150px"
           className="border rounded-full m-1 "
@@ -50,7 +50,7 @@ function User() {
       <hr className="border border-b-gray-100  w-full " />
 
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        Ubicacion{" "}
+        Ubicacion
       </li>
       <hr className="border border-b-gray-100  w-full " />
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
