@@ -6,7 +6,7 @@ import { useState } from "react";
 // Componentes
 import Curriculum from "./Curriculum";
 import Postulaciones from "./Postulaciones";
-import Favoritos from "./Favoritos";
+import Favoritos from "./Guardados";
 import Configuracion from "./Configuracion";
 import User from "./User";
 import { NavLanding } from "../NavLanding/NavLanding";
