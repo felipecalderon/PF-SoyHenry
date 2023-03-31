@@ -22,6 +22,7 @@ const JobDetail = () => {
   const dispatch = useDispatch();
   const query = new URLSearchParams(window.location.search);
   const title = query.get('title');
+  const empresa = query.get("empresa")
   const { jobId } = useSelector((state) => state.postSlice);
   const {empresaId} = useSelector((state)=> state.postSlice)
   const { id } = useParams();
@@ -46,7 +47,7 @@ const JobDetail = () => {
     link: "/about"
   }, 
 ]
-const [empresa, setEmpresa] = useState(null);
+const [ setEmpresa] = useState(null);
 //FAVORITOS AHORA ES GUARDADOS
 const [isFavorite, setIsFavorite] = useState(false);
 const [favFilter, setFavFilter]  = useState([]);
@@ -127,13 +128,13 @@ useEffect(() => {
     <div className="bg-primary-light dark:bg-secondary-dark pt-20">
     <NavLanding menu={menu}/>
     {/* Datos de la empresa */}
-    <div className="md:flex-shrink-0">
+    {/* <div className="md:flex-shrink-0">
       <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresaId ? empresaId.logo : null} alt="Job Posting" />
       <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">
         {empresaId ? empresaId.name : null}
       </div>
       
-    </div>
+    </div> */}
       {/* Detalles de la oferta */}
       <div className="flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-8 dark:bg-gray-800">
         <div className="md:flex">

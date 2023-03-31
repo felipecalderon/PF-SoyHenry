@@ -40,7 +40,7 @@ function Favoritos() {
         .catch((err) => console.log(err));
     }
   };
-  
+  console.log(saveOffers)
   
   return (
     <>
@@ -48,6 +48,7 @@ function Favoritos() {
       saveOffers?.length?
     <>
      { saveOffers.map((offer) => (
+       <Link to={`/detail/${offer.offerId}?title=${offer.title}`}>
         <Box key={offer.offerId}>
           <h2 className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-between">
             <Fab
@@ -57,11 +58,14 @@ function Favoritos() {
             >
               <TurnedInIcon />
             </Fab>
-            <Link to={`/detail/${offer.offerId}?title=${offer.title}`}>
-                {offer.title}
-              </Link>
+           
+               { offer.hasOwnProperty("Offer") ? offer.Offer?.title : offer.title}
+              
           </h2>
         </Box>
+        
+        </Link>
+
       ))}
     </>:
     <div className='flex flex-col justify-around w-full h-2/3'>
