@@ -34,7 +34,7 @@ function UserProfile() {
     }, [])
 
 
-    const [inConfig, SetInConfig] = useState(dataUserLocalStorage?.Postulants[0]?.description_postulant!=="")
+    const [inConfig, SetInConfig] = useState(!dataUserLocalStorage?.Postulants[0]?.description_postulant)
     const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
         valorSeleccionado: "curriculum"
     })

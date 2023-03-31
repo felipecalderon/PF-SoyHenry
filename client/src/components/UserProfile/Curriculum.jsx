@@ -74,7 +74,7 @@ const handleSubmit=(event)=>{
           <object
             data={pdf ? pdf : null }
             type="application/pdf"
-            style={{ width: "100%", height: "600px" }}
+            style={{ width: "100%", height: "700px" }}
           >
           </object>
 

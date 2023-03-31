@@ -86,13 +86,13 @@ const Cards = () => {
     dateFilter?.addEventListener('change', (event) => {
       localStorage.setItem('dateFilterSelect', event.target.value);
     });
-    experienceFilter.addEventListener('change', (event) => {
+    experienceFilter?.addEventListener('change', (event) => {
       localStorage.setItem('expFilterSelect', event.target.value);
     });
-    modalityFilter.addEventListener('change', (event) => {
+    modalityFilter?.addEventListener('change', (event) => {
       localStorage.setItem('mtyFilterSelect', event.target.value);
     });
-    salaryFilter.addEventListener('change', (event) => {
+    salaryFilter?.addEventListener('change', (event) => {
       localStorage.setItem('slyFilterSelect', event.target.value);
     });
   }
@@ -117,7 +117,13 @@ const Cards = () => {
   const botonEliminarFiltros = document.getElementById('btn-reset');
   if (botonEliminarFiltros) {
     botonEliminarFiltros.addEventListener('click', () => {
-      localStorage.clear();
+      localStorage.removeItem("dateFilterSelect");
+      localStorage.removeItem('expFilterSelect');
+      localStorage.removeItem("slyFilterSelect");
+      localStorage.removeItem("filtersLocalStorage");
+      localStorage.removeItem("mtyFilterSelect");
+      localStorage.removeItem("currentPage");
+      localStorage.removeItem("title");
       setFilters({})
       setTitle('a')
     });

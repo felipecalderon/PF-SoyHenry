@@ -10,7 +10,7 @@ const UserMenu = ({ user, userGoogle }) => {
     const [showMenu, setShowMenu] = useState(false)
 
     const dataUserLocalStorage = JSON.parse(localStorage.getItem("userLogin"));
-    const photo =dataUserLocalStorage ? dataUserLocalStorage.photo : usuario
+    const photo =dataUserLocalStorage ? dataUserLocalStorage.photo : null
 
 
     useEffect(() => {

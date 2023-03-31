@@ -111,17 +111,14 @@ function Configuracion() {
     ? countryData?.find((country) => country.country === selectedCountry)?.cities
     : [];
 
-  const handleSelectSkills = (event) => {
-    const { value } = event.target;
-    if (form.tecnology.includes(value)) {
-      SetForm({
-        ...form,
-        tecnology: [...form.tecnology].filter((element) => element !== value),
-      });
-    } else if (value !== "") {
-      SetForm({ ...form, tecnology: [...form.tecnology, value] });
-    }
-  };
+    const handleSelectSkills = (event) => {
+      const value = event.target.value;
+      console.log(event.target)
+      if (!form.tecnology.includes(value)) {
+        SetForm({ ...form, tecnology: [...form.tecnology, value] });
+      } 
+    };
+
   const handleButtonSkill = (event) => {
     SetForm({
       ...form,
