@@ -27,7 +27,7 @@ function User() {
     <ul className="w-full flex flex-col justify-between items-start px-8 py-4 h-full ">
       <li className="w-full flex flex-col items-center">
         <img
-          src={dataUser.photo || dataUserGoogle.photo || usuario}
+          src={dataUser.photo || dataUserGoogle?.photo || usuario}
           alt=""
           width="150px"
           className="border rounded-full m-1 "
