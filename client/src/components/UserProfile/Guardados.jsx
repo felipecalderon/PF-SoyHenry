@@ -41,7 +41,6 @@ function Favoritos() {
     }
   };
 
-
   return (
     <>
       {
@@ -72,6 +71,7 @@ function Favoritos() {
 
       }
     </>
+
   )
 }
 
