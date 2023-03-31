@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Modal from '@mui/material/Modal';
+import usuario from "../../assets/user.png";
 // import Autocomplete from "@mui/material/Autocomplete";
 // import Stack from "@mui/material/Stack";
 // import { Chip, Grid } from "@mui/material";
@@ -163,7 +164,7 @@ function Configuracion() {
     <>
       <form className="w-full flex flex-col justify-between items-start px-3 pb-5">
         <div className="w-full flex flex-col mb-8">
-          <FotodePerfil photo={dataUserGoogle.photo} />
+          <FotodePerfil photo={dataUserLocalStorage?.photo || dataUserGoogle?.photo || usuario} />
         </div>
 
         <Box

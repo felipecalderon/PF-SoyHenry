@@ -9,6 +9,8 @@ const UserMenu = ({ user, userGoogle }) => {
     const ref = useRef(null)
     const [showMenu, setShowMenu] = useState(false)
 
+    const dataUserLocalStorage = JSON.parse(localStorage.getItem('userLogin'))
+
     useEffect(() => {
         const handleOutsideClick = (event) => {
           if (ref.current && !ref.current.contains(event.target)) {
@@ -32,7 +34,7 @@ const UserMenu = ({ user, userGoogle }) => {
         {
             !userGoogle
                 ? <AccountCircle sx={{ fontSize: "2em"}}  className="text-black dark:text-gray-300" />
-                : <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" className="w-8 h-8 rounded-full cursor-pointer" src={userGoogle.photo } alt="User dropdown" />    
+                : <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" className="w-8 h-8 rounded-full cursor-pointer" src={ dataUserLocalStorage?.photo || userGoogle?.photo || usuario } alt="User dropdown" />    
         }
           <span className="text-gray-700 px-1 dark:text-white text-sm font-medium">
             {userGoogle && userGoogle.email ? userGoogle.email : user.email}
