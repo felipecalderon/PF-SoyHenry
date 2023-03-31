@@ -37,12 +37,13 @@ const authLoginCredentials = async ({ email, password }) => {
   try {
     const auth = admin.auth();
     const user = await getUsersByEmail({ email })
-    const userCredential = await auth.getUserByEmail(email) //solo verifica que exista en firebase
+    const userCredential = await authVerifyFb(email) //solo verifica que exista en firebase
     if (!user) throw 'Usuario no existe en DB'
     const passwordValid = compareSync(password, user.password) //verifica que clave sea la misma en BD
     if (!passwordValid) throw 'Contraseña incorrecta'
     return { user }
   } catch (error) {
+    console.log(error)
     throw error
   }
 }

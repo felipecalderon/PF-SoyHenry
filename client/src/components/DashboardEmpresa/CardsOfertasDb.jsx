@@ -116,7 +116,7 @@ export const CardsOfertasDb = () => {
   return (
      <Fragment>
      <div>
-       {offers.map((offer, index) => (
+       {offers?.map((offer, index) => (
          <Accordion 
           key={index} 
           expanded={expanded === `panel${index + 1}`} 
@@ -129,7 +129,7 @@ export const CardsOfertasDb = () => {
                   {offer.title.slice(0, 35)}{offer.title.length > 35 ? '...' : ''} 
                 </div>
                 <div>
-                  <p className='relative ml-5 border-l-black h-0 font-bold'>| Postulantes:{offer.applications_count}</p>
+                  <p className='relative ml-5 border-l-black h-0 font-bold'>| Postulantes: {offer.applications_count}</p>
                 </div>
               </Typography>
            </AccordionSummary>

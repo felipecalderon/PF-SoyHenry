@@ -97,6 +97,7 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
         event.preventDefault()
         const { email, password } = form
         try {
+            console.log(form);
             const response = await axios.post('/auth/login', {
                 email,
                 password

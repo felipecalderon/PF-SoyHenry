@@ -18,13 +18,16 @@ import Select from '@mui/material/Select';
     return <Slide direction="up" ref={ref} {...props} />;
   });
 
-  const Profile = ({company}) => {
+  const Profile = () => {
   const [open, setOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [countryData, setCountryData] = useState()
   const [selectedCountry, setSelectedCountry] = useState()
   const [selectedCity, setSelectedCity] = useState()
   const dispatch = useDispatch();
+
+  const user = JSON.parse(localStorage.getItem('userLogin'))
+  const company = user.Companies[0]
 
       // Ajustes para selects
       const ITEM_HEIGHT = 48;
@@ -40,18 +43,16 @@ import Select from '@mui/material/Select';
   
   //eslint-disable-next-line no-unused-vars
   const {id, companyname, email_company , company_city, company_country, logo, website, phone_company} = company;
-  
-  // const dataCompany = JSON.parse(localStorage.getItem('dataCompany'));
 
   const [info, setInfo] = useState({
-    companyname: company.companyname,
-    email_company: company.email_company,
-    description: company.description,
-    company_city: company.company_city,
-    company_country: company.company_country,
-    phone_company: company.phone_company,
-    website: company.website,
-    logo: company.logo
+    companyname: '',
+    email_company: '',
+    description: '',
+    company_city: '',
+    company_country: '',
+    phone_company: '',
+    website: '',
+    logo: ''
   });
 
   const [errors, setErrors] = useState({
@@ -104,14 +105,19 @@ const filteredCities = selectedCountry
   };
 
 
-const handleSubmit = (event) => {
-  const errorsNew = validationsDatosEmpresa(info);
-  setErrors(errorsNew);
-  if (Object.keys(errorsNew).length === 0) {
-    axios.put(`/jobsdb/${id}`, info);
-    setShowModal(false);
-    setOpen(false);
-    window.location.reload();
+const handleSubmit = async (event) => {
+  try {
+    const errorsNew = validationsDatosEmpresa(info);
+    setErrors(errorsNew);
+    if (Object.keys(errorsNew).length === 0) {
+      await axios.put(`/company/${id}`, info);
+      const verifyUsrExist = await axios.post(`/user/email`, { email: user.email })
+      localStorage.setItem('userLogin', JSON.stringify(verifyUsrExist.data))
+      setShowModal(false);
+      setOpen(false);
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
   
