@@ -18,7 +18,7 @@ const authCreatePostulant = async (body) => {
     const auth = admin.auth();
       const { email, password } = body
       const newUsercreatedDB = await createUsers(body)
-      const verifyUserExistFB = authVerifyFb(email)
+      const verifyUserExistFB = await authVerifyFb(email)
       if(!verifyUserExistFB){
       await auth.createUser({
         email,

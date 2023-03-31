@@ -39,7 +39,7 @@ export const DashboardEmpresa = () => {
         }
     ]
 
-    if (userData && userData.rol === 'Empresa') {
+    if(!userData) return <NotFound/>
         return (
             <div className="bg-primary-light dark:bg-secondary-dark pt-20 h-full">
                 <NavLanding menu={menuUserProfile} />
@@ -65,9 +65,4 @@ export const DashboardEmpresa = () => {
                 <Footer />
             </div>
         )
-    } else {
-        return (
-            <NotFound />
-        )
     }
-}
