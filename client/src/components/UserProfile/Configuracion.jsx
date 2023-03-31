@@ -20,47 +20,41 @@ import FotodePerfil from "./FotodePerfil";
 function Configuracion() {
   const [skills, setSkills] = useState([]);
   const [showErrors, SetShowErrors] = useState(false);
-  const [profile, setProfile] = useState({
-    nombre: "",
-    apellido: "",
-    photo: "",
-  });
   const [form, SetForm] = useState({
-    nombre: "",
-    apellido: "",
-    edad: "",
-    genero: "",
-    experiencia: "",
-    discapacidad: "",
-    ciudad: "",
-    pais: "",
-    titulo: "",
-    descripcion: "",
-    idioma: "",
+    names: "",
+    lastnames: "",
+    age: "18",
+    gender: "",
+    experience: "",
+    disability: "",
+    city: "",
+    country: "",
+    title: "",
+    description_postulant: "",
+    languages: "",
     habilidades: [],
-    tel: "",
+    phone: "",
     linkedin: "",
     facebook: "",
   });
   const [error, SetError] = useState({
-    nombre: "",
-    apellido: "",
-    edad: "",
-    titulo: "",
-    genero: "",
-    experiencia: "",
-    discapacidad: "",
-    ciudad: "",
-    pais: "",
-    descripcion: "",
+    names: "",
+    lastnames: "",
+    age: "",
+    title: "",
+    gender: "",
+    experience: "",
+    disability: "",
+    city: "",
+    country: "",
+    description_postulant: "",
     idiomas: "",
     habilidades: "",
-    tel: "",
+    phone: "",
     linkedin: "",
     facebook: "",
   });
 
-  const [inConfig, SetInConfig] = useState(false);
 
   const dispatch = useDispatch();
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -125,7 +119,7 @@ function Configuracion() {
   };
   // const dataUserLocal = localStorage.getItem("usergoogle")? localStorage.getItem("usergoogle"):localStorage.getItem("userLogin")
   // const dataUserlocalstorage = JSON.parse(dataUserLocal);
-  // const [nombre, apellido] =dataUserLocal.name? dataUserlocalstorage.name.split(" "):[dataUserlocalstorage.names,dataUserlocalstorage.lastnames]
+  // const [nombre, lastnames] =dataUserLocal.name? dataUserlocalstorage.name.split(" "):[dataUserlocalstorage.names,dataUserlocalstorage.lastnames]
 
   useEffect(() => {
     if (skills.length === 0) {
@@ -141,63 +135,63 @@ function Configuracion() {
         className="flex flex-col justify-between items-start p-4"
       >
         <Box>
-          <div className="flex flex-col ">
+          <div className="flex flex-col mb-2">
             <FotodePerfil />
           </div>
 
           <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400  w-full flex items-center justify-between">
             <TextField
-              id="nombre"
+              id="names"
               label="Nombre"
               className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-1/3 text-center mx-2 text-base "
-              name="nombre"
-              value={form.nombre}
+              name="names"
+              value={form.names}
               onChange={actualizarData}
             />
 
             <TextField
-              id="apellido"
+              id="lastnames"
               label="Apellido"
               className="form-input mt-1 block  rounded-md border-gray-300 shadow-sm w-1/3 text-center mx-2 text-base"
-              name="apellido"
-              value={form.apellido}
+              name="lastnames"
+              value={form.lastnames}
               onChange={actualizarData}
             />
-            <InputLabel htmlFor="edad">Edad</InputLabel>
+            <InputLabel htmlFor="age">Edad</InputLabel>
 
             <TextField
-              id="edad"
+              id="age"
               className="form-input mt-1 block rounded-md border-gray-300 shadow-sm mx-2 text-base"
               type="number"
               inputProps={{
                 min: "18",
                 max: "120",
-                name: "edad",
+                name: "age",
               }}
-              value={form.edad}
+              value={form.age}
               onChange={actualizarData}
             />
           </div>
-          {showErrors ? (
+          { 
             <div className="flex justify-between w-full mb-3">
               <span className=" select-none text-xs font-bold text-red-600">
-                {error?.nombre}
+                {showErrors && error?.names}
               </span>
               <span className="  select-none text-xs font-bold text-red-600">
-                {error?.apellido}
+                {showErrors && error?.lastnames}
               </span>
               <span className="  select-none text-xs font-bold text-red-600">
-                {error?.edad}
+                {showErrors && error?.age}
               </span>
             </div>
-          ) : null}
+    }
           <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full ">
             <FormControl fullWidth>
-              <InputLabel id="genero-label">Genero</InputLabel>
+              <InputLabel id="gender-label">Genero</InputLabel>
               <Select
-                labelId="genero-label"
-                name="genero"
-                id="genero"
+                labelId="gender-label"
+                name="gender"
+                id="gender"
                 label="Genero"
                 onChange={actualizarData}
               >
@@ -211,22 +205,22 @@ function Configuracion() {
             </FormControl>
 
             <FormControl fullWidth>
-              <InputLabel id="discapacidad-label">
+              <InputLabel id="disability-label">
                 ¿Posee alguna discapacidad?
               </InputLabel>
               <Select
-                labelId="discapacidad-label"
-                id="discapacidad"
-                label="¿Posee alguna discapacidad?"
-                name="discapacidad"
+                labelId="disability-label"
+                id="disability"
+                label="¿Posee alguna disability?"
+                name="disability"
                 onChange={actualizarData}
               >
-                <MenuItem value="">¿Posee alguna discapacidad?</MenuItem>
+                <MenuItem value="">¿Posee alguna disability?</MenuItem>
                 <MenuItem value="No">No</MenuItem>
                 <MenuItem value="Visual">Visual</MenuItem>
                 <MenuItem value="Auditiva">Auditiva</MenuItem>
                 <MenuItem value="Física">Física</MenuItem>
-                <MenuItem value="Intelectual">Intelectual</MenuItem>
+                <MenuItem value="Inphoneectual">Inphoneectual</MenuItem>
               </Select>
             </FormControl>
           </div>
@@ -234,10 +228,10 @@ function Configuracion() {
           {showErrors ? (
             <div className="flex justify-around w-full  ">
               <span className=" select-none text-xs font-bold text-red-600 ml-4">
-                {error?.genero}
+                {error?.gender}
               </span>
               <span className=" select-none text-xs font-bold text-red-600">
-                {error?.discapacidad}
+                {error?.disability}
               </span>
             </div>
           ) : null}
@@ -247,7 +241,7 @@ function Configuracion() {
             <Select
               labelId="country-label"
               id="country-select"
-              name="pais"
+              name="country"
               value={selectedCountry}
               label="Pais"
               onChange={handleCountryChange}
@@ -265,13 +259,13 @@ function Configuracion() {
             <Select
               labelId="city-label"
               id="city-select"
-              name="ciudad"
+              name="city"
               value={selectedCity}
               label="Ciudad"
               onChange={handleCityChange}
               disabled={!selectedCountry}
             >
-              <MenuItem value="">Seleccione ciudad</MenuItem>
+              <MenuItem value="">Seleccione city</MenuItem>
               {filteredCities.map((city) => (
                 <MenuItem key={city} value={city}>
                   {city}
@@ -283,10 +277,10 @@ function Configuracion() {
           {showErrors ? (
             <div className="flex justify-around w-full ">
               <span className=" select-none text-xs font-bold text-red-600">
-                {error?.pais}
+                {error?.country}
               </span>
               <span className=" select-none text-xs font-bold text-red-600">
-                {error?.ciudad}
+                {error?.city}
               </span>
             </div>
           ) : null}
@@ -294,11 +288,11 @@ function Configuracion() {
           <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full">
             <TextField
               type="text"
-              name="titulo"
+              name="title"
               label="Titulo"
               onChange={actualizarData}
               placeholder="Por ejemplo: Desarrollador Web Full Stack con experiencia en React y Node.js"
-              id="titulo"
+              id="title"
               variant="outlined"
               fullWidth
               size="medium"
@@ -307,15 +301,15 @@ function Configuracion() {
           {showErrors ? (
             <div className="flex justify-center w-full">
               <span className="select-none text-xs font-bold text-red-600">
-                {error?.titulo}
+                {error?.title}
               </span>
             </div>
           ) : null}
 
           <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full flex-col">
             <TextField
-              id="descripcion"
-              name="descripcion"
+              id="description_postulant"
+              name="description_postulant"
               label="Descripcion"
               onChange={actualizarData}
               placeholder="Describa sus habilidades, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos."
@@ -329,38 +323,36 @@ function Configuracion() {
           {showErrors ? (
             <div className="flex justify-center w-full">
               <span className="select-none text-xs font-bold text-red-600">
-                {error?.descripcion}
+                {error?.description_postulant}
               </span>
             </div>
           ) : null}
           <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full justify-center">
             <FormControl fullWidth>
-              <InputLabel id="experiencia-label">
+              <InputLabel id="experience-label">
                 Experiencia en el sector IT
               </InputLabel>
               <Select
-                labelId="experiencia-label"
-                id="experiencia"
-                name="experiencia"
+                labelId="experience-label"
+                id="experience"
+                name="experience"
                 label="Experiencia en el sector IT"
                 onChange={actualizarData}
                 variant="outlined"
                 size="medium"
               >
-                <MenuItem value="0">Sin experiencia</MenuItem>
+                <MenuItem value="0">Sin experience</MenuItem>
                 <MenuItem value="1">1 año</MenuItem>
                 <MenuItem value="2-4">2 a 4 años</MenuItem>
                 <MenuItem value="5">más de 5 años</MenuItem>
               </Select>
-              {showErrors && (
-                <FormHelperText error>{error?.experiencia}</FormHelperText>
-              )}
+           
             </FormControl>
           </div>
           {showErrors ? (
             <div className="flex justify-center w-full">
               <span className="select-none text-xs font-bold text-red-600">
-                {error?.experiencia}
+                {error?.experience}
               </span>
             </div>
           ) : null}
@@ -368,11 +360,11 @@ function Configuracion() {
           <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-col flex-grow w-full ">
             <TextField
               type="text"
-              name="idioma"
+              name="languages"
               label="Idioma"
               onChange={actualizarData}
               placeholder="Ej: Inglés - Avanzado, Español - Nativo, Francés - Básico"
-              id="idioma"
+              id="languages"
               variant="outlined"
               fullWidth
               size="medium"
@@ -381,7 +373,7 @@ function Configuracion() {
             {showErrors ? (
               <div className="flex justify-center w-full ">
                 <span className=" select-none text-xs font-bold text-red-600">
-                  {error?.idiomas}
+                  {error?.languages}
                 </span>
               </div>
             ) : null}
@@ -447,12 +439,12 @@ function Configuracion() {
             <div>
               <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full flex-wrap">
                 <TextField
-                  type="tel"
-                  name="tel"
+                  type="phone"
+                  name="phone"
                   label="Telefono"
                   onChange={actualizarData}
                   placeholder="Por ejemplo: +1 555-123-4567"
-                  id="tel"
+                  id="phone"
                   variant="outlined"
                   fullWidth
                   size="medium"
@@ -460,7 +452,7 @@ function Configuracion() {
                 {showErrors ? (
                   <div className="flex justify-center w-full ">
                     <span className=" select-none text-xs font-bold text-red-600">
-                      {error?.tel}
+                      {error?.phone}
                     </span>
                   </div>
                 ) : null}

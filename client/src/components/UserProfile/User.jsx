@@ -10,6 +10,7 @@ function User() {
   const { user } = useSelector(state => state.userRegisterSlice)
   const dataUserLocal = localStorage.getItem("userLogin");
   const dataUser = JSON.parse(dataUserLocal);
+  const dataUserGoogle=JSON.parse(localStorage.getItem('usergoogle'))
   const [data, SetData] = useState(dataUser);
   console.log(data)
   // useEffect(() => {
@@ -19,7 +20,7 @@ function User() {
     <ul className="flex flex-col justify-between items-start p-8 h-full ">
       <li>
         <img
-          src={dataUser.photo || usuario}
+          src={dataUser.photo ||  dataUserGoogle.photo  || usuario}
           alt=""
           width="150px"
           className="border rounded-full m-1 "
