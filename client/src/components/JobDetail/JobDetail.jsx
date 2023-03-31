@@ -22,13 +22,13 @@ const JobDetail = () => {
   const dispatch = useDispatch();
   const query = new URLSearchParams(window.location.search);
   const title = query.get('title');
-  const empresa = query.get("empresa")
   const { jobId } = useSelector((state) => state.postSlice);
-  const {empresaId} = useSelector((state)=> state.postSlice)
+  // const {empresaId} = useSelector((state)=> state.postSlice)
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
-  const url1=`/api/v0/companies/${empresa.id}`
-  const url2=`/jobs/${empresa.id}`
+  const empresaId = query.get('empresa');
+  const url1=`/api/v0/companies/${empresaId?.id}`
+  const url2=`/jobs/${empresa?.id}`
   const { data, isLoading } = useFetch(url);
   const dataUserLocal = localStorage.getItem("userLogin")
   const dataUserGoogle = localStorage.getItem("usergoogle")
@@ -47,7 +47,15 @@ const JobDetail = () => {
     link: "/about"
   }, 
 ]
-const [ setEmpresa] = useState(null);
+const [empresa, setEmpresa] = useState(null);
+useEffect(() => {
+  if (empresaId) {
+    dispatch(fetchEmpresaData(empresaId, (response) => {
+      setEmpresa(response.payload);
+    }));
+  }
+}, [dispatch, empresaId]);
+
 //FAVORITOS AHORA ES GUARDADOS
 const [isFavorite, setIsFavorite] = useState(false);
 const [favFilter, setFavFilter]  = useState([]);
@@ -128,13 +136,13 @@ useEffect(() => {
     <div className="bg-primary-light dark:bg-secondary-dark pt-20">
     <NavLanding menu={menu}/>
     {/* Datos de la empresa */}
-    {/* <div className="md:flex-shrink-0">
-      <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresaId ? empresaId.logo : null} alt="Job Posting" />
+    <div className="md:flex-shrink-0">
+      <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa?.logo} alt="Job Posting" />
       <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">
-        {empresaId ? empresaId.name : null}
+        {empresa?.name}
       </div>
-      
-    </div> */}
+    </div>
+
       {/* Detalles de la oferta */}
       <div className="flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-8 dark:bg-gray-800">
         <div className="md:flex">

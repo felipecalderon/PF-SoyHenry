@@ -12,6 +12,7 @@ import User from "./User";
 import { NavLanding } from "../NavLanding/NavLanding";
 import Footer from "../Footer/Footer";
 import NotFound from "../NotFound/NotFound";
+import PremiumButton from '../BotonPremium/BotonPremium';
 
 function UserProfile() {
     // const dispatch = useDispatch()
@@ -132,7 +133,9 @@ function UserProfile() {
                         {displayComponente(selectedValueBarraPerfil)}
                     </section>
                 </section>
-
+                <div>
+      <PremiumButton />
+    </div>
                 <Footer />
             </>
         );
