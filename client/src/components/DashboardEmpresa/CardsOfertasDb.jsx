@@ -1,4 +1,5 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
@@ -7,6 +8,8 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import ModalConfirmChanges from '../Form/FormCreateOfferModal';
+import axios from 'axios';
+import { saveOffers } from '../../redux/slices/recruiterSlice';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -48,29 +51,67 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
-export const CardsOfertasDb = ({offers}) => {
+export const CardsOfertasDb = () => {
+  
+  const dispatch = useDispatch();
   const [expanded, setExpanded] = useState('panel1');
   const [showModal, setShowModal] = useState(false);
   const [aplicantsModalList, setAplicantsModalList ] = useState(null)
-
+  const  {offers} = useSelector((state) => state.recruiterSlice) 
+  
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem('userLogin'))
+    axios.get(`/jobsdb/${userData?.Companies instanceof Array ? userData?.Companies[0].id : userData?.Companies?.id}`)
+            .then(res => {
+                dispatch( saveOffers(res.data.Offers))
+            })
+  },[showModal,dispatch])
+ 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
   const handleAplicants = (offer) => {
-    const aplicants = offer.Aplications.map(Apply => {
+    const aplicants = offer.Aplications.map(Apply => {          
       return(
         {
-          name: Apply.User.Postulants[0].lastnames,
-          technologies: Apply.User.Postulants[0].tecnology          
+          userId: Apply.userId,
+          offerId: Apply.offerId,           
+          name: Apply.User.names,
+          technologies: Apply.User.Postulants[0].tecnology,
+          status: Apply.status
         }
       )
     })    
     setAplicantsModalList(aplicants)   
-  }   
+  }
+  
+  const handleViewCV = (event) => {
+    //if (event.target.attributes.status.value === 'viewed' || event.target.attributes.status.value === 'select' || event.target.attributes.status.value === 'no_select' ) return
+
+    const userid = event.target.attributes.userid.value
+    const offerid = event.target.attributes.offerid.value
+
+    axios.put(`/rel_offers/${offerid}/${userid}?state=viewed`).then((res) => console.log(res))
+    
+  }  
+
+  const handleSelected = (event) => {
+    
+    const userid = event.target.attributes.userid.value
+    const offerid = event.target.attributes.offerid.value
+    
+    if (event.target.checked ) {
+      axios.put(`/rel_offers/${offerid}/${userid}?state=${event.target.value}`).then((res) => console.log(res))
+      if (event.target.name === 'select') document.getElementById(event.target.index).checked = false;
+      if (event.target.name === 'no_select') document.getElementById('select').checked = false;
+      
+    } 
+  }
+
 
  
-  if (offers.length === 0) return <h3 className='flex justify-center font-semibold'>Aún no creaste ninguna oferta.</h3>;
+  if (offers?.length === 0) return <h3 className='flex justify-center font-semibold'>Aún no creaste ninguna oferta.</h3>;
   
   return (
      <Fragment>
@@ -133,16 +174,20 @@ export const CardsOfertasDb = ({offers}) => {
               <tr>
                 <th>Nombre</th>
                 <th>Tecnologias</th>
-                <th>Acciones</th>
+                <th>informacion del postulante</th>
+                <th>Acciones sobre el postulante </th>
               </tr>
             </thead>
             <tbody>
-              {aplicantsModalList?.map(aplicant => {
+              {aplicantsModalList?.map((aplicant, index) => {
                 return(
-                  <tr>
+                  <tr>                                 
                     <td>{aplicant.name}</td>  
                     <td>{aplicant.technologies}</td>  
-                    <td><button>ver CV</button><button> ver perfil</button> </td>
+                    <td><button onClick={(event)=>handleViewCV(event)} offerid={aplicant.offerId} userid={aplicant.userId} status={aplicant.status}>ver CV</button><button> ver perfil</button> </td>
+                    <label ><input type='checkbox' value={'viewed'} disabled='disabled' defaultChecked={aplicant.status !== 'send' ? true : false} /> perfil o CV visto</label>
+                    <label ><input type='radio'  defaultChecked={aplicant.status === 'no_select' ? true : false} name={index} onChange={(event) => handleSelected(event)} value={'no_select'} offerid={aplicant.offerId} userid={aplicant.userId}/> postulante rechazado</label>
+                    <label ><input type='radio' defaultChecked={aplicant.status === 'select' ? true : false} name={index} onChange={(event) => handleSelected(event)} value={'select'} offerid={aplicant.offerId} userid={aplicant.userId}/> postulante preseleccionado</label>
                   </tr>
                 )
               })}
@@ -150,6 +195,7 @@ export const CardsOfertasDb = ({offers}) => {
           </table>           
         </div>
      </ModalConfirmChanges>
+
      </Fragment>
    );
 };

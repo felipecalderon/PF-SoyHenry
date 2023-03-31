@@ -11,7 +11,10 @@ const Postulant = sequelize.define('Postulant', {
     document: {
         type: DataTypes.STRING,
     },
-    age:{
+    description_postulant:{
+        type: DataTypes.TEXT,
+    },
+    age: {
         type: DataTypes.STRING,
     },
     disability: {
@@ -25,6 +28,12 @@ const Postulant = sequelize.define('Postulant', {
         type: DataTypes.ENUM('0', '1', '2-4', '5'),
     },
     curriculum_pdf: {
+        type: DataTypes.STRING,
+    },
+    title: {
+        type: DataTypes.STRING,
+    },
+    languages: {
         type: DataTypes.STRING,
     },
     tecnology: {

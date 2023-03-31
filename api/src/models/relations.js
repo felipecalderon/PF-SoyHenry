@@ -9,6 +9,7 @@ const FavoritesComp = require('./favoritesCompModel');
 const Technologies = require('./technologiesModel');
 const Payment = require('./paymentModel');
 
+
 Postulant.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
 User.hasMany(Postulant, { foreignKey: 'userId' });
 
@@ -60,6 +61,7 @@ module.exports = {
     Postulant,
     Admin,
     Company,
+    
     Offers,
     Technologies,
     Aplications,

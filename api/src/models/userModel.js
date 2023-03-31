@@ -40,6 +40,10 @@ const User = sequelize.define('User', {
     type: DataTypes.ENUM("Admin", "Postulante", "Empresa"),
     allowNull: false,
   },
+  premium:{
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
   active: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,

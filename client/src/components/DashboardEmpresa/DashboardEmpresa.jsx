@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Footer from '../Footer/Footer'
 // import { useNavigate } from "react-router-dom";
 import Profile from "./Profile";
@@ -6,22 +6,26 @@ import { ResumenOfertas } from "./ResumenOfertas";
 import { NavLanding } from '../NavLanding/NavLanding';
 import { CardsOfertasDb } from "./CardsOfertasDb";
 import axios from 'axios';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { saveUser } from '../../redux/slices/userRegisterSlice'
+import { saveOffers } from "../../redux/slices/recruiterSlice";
 import NotFound from "../NotFound/NotFound";
 
 export const DashboardEmpresa = () => {
-    const dispatch = useDispatch()
+       
+    // const navigate = useNavigate()
+    const dispatch = useDispatch()   
     // const navigate = useNavigate()
     const userData = JSON.parse(localStorage.getItem('userLogin'))
-    dispatch(saveUser(userData))
-    const [offers, setOffers] = useState([])
+    dispatch(saveUser(userData))    
+    const {offers} = useSelector((state) => state.recruiterSlice)
+    
     useEffect(() => {
             axios.get(`/jobsdb/${userData?.Companies instanceof Array ? userData?.Companies[0].id : userData?.Companies?.id}`)
             .then(res => {
-                setOffers(res.data.Offers)
+                dispatch( saveOffers(res.data.Offers))
             })
-    }, []) // eslint-disable-line
+    }, [offers]) // eslint-disable-line
 
     const menuUserProfile = [
         {
@@ -51,12 +55,12 @@ export const DashboardEmpresa = () => {
                     </div>
                     <div className="col-span-1 row-span-2 flex md:block">
                         <div className="w-full h-full px-4">
-                            <CardsOfertasDb offers={offers} />
+                            <CardsOfertasDb  />
                         </div>
                     </div>
                     <div className="col-span-1 row-span-1 md:col-span-1 md:row-span-1 px-4 ml-[2.5rem]">
                         <div className="pt-1">
-                            <ResumenOfertas offers={offers} />
+                            {/* <ResumenOfertas offers={offers} /> */}
                         </div>
                     </div>
                     <div className="col-span-2 row-span-1"></div>

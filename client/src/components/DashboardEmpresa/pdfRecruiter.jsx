@@ -1,16 +1,16 @@
 import React from 'react'
-function Pdf() {
+function pdfRecruiter() {
   return (
     <>
         <object 
         data={require("./curriculumejemplo.pdf")}
         type="application/pdf"
-         style={{width: "100%",
-           height: "100vh"}}>
+      style={{width: "100%",
+        height: "100vh"}}>
             
         </object>
     </>
   )
 }
 
-export default Pdf
+export default pdfRecruiter

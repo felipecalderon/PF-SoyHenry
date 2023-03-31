@@ -60,8 +60,8 @@ export const rutas = createBrowserRouter([
       path: '/about',
       element: <About />
     },
-    {
-      path: '/newuser',
-      element: <ModalNewUser />
-    },
+    // {
+    //   path: '/newuser',
+    //   element: <ModalNewUser />
+    // },
 ])
