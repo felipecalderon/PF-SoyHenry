@@ -20,6 +20,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from "@mui/material";
 
 function UserProfile() {
+    const dataUserLocalStorage = JSON.parse(localStorage.getItem("userLogin"))
     const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userLogin')));
     const [loading, setLoading] = useState(true)
     useEffect(() => {
@@ -33,7 +34,7 @@ function UserProfile() {
     }, [])
 
 
-    const [inConfig, SetInConfig] = useState(false)
+    const [inConfig, SetInConfig] = useState(dataUserLocalStorage?.Postulants[0]?.description_postulant!=="")
     const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
         valorSeleccionado: "curriculum"
     })

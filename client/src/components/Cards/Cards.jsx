@@ -83,7 +83,7 @@ const Cards = () => {
 
   //  Escucha cambios en el select del filtro y guardar el valor seleccionado en localStorage si existen los select
   if (dateFilter || experienceFilter || modalityFilter || salaryFilter) {
-    dateFilter.addEventListener('change', (event) => {
+    dateFilter?.addEventListener('change', (event) => {
       localStorage.setItem('dateFilterSelect', event.target.value);
     });
     experienceFilter.addEventListener('change', (event) => {
