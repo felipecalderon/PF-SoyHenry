@@ -8,6 +8,7 @@ const passport = require('passport')
 const axios = require('axios')
 const morgan = require('morgan')
 
+
 axios.defaults.baseURL = 'https://www.getonbrd.com';
 const port = process.env.PORT || 3001
 // middlewares
@@ -20,7 +21,7 @@ app.use(cors({
     origin: '*',
     methods: '*'
   }))
-sequelize.sync({ force: true })
+sequelize.sync({ alter: true })
 
 app.use(morgan('dev'));
 app.use(route)

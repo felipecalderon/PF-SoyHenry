@@ -15,6 +15,7 @@ const stateAplicationController = async ({ idOffer, idUser }, { state, save, ori
                 : await putSaveApi(idOffer, idUser, save, title);
         return response
     } catch (error) {
+        console.log(error)
         throw error
     }
 };

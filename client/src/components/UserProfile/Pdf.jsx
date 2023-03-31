@@ -5,8 +5,8 @@ function Pdf() {
         <object 
         data={require("./curriculumejemplo.pdf")}
         type="application/pdf"
-      style={{width: "100%",
-        height: "100vh"}}>
+         style={{width: "100%",
+           height: "100vh"}}>
             
         </object>
     </>

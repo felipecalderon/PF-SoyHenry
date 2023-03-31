@@ -62,10 +62,6 @@ export const rutas = createBrowserRouter([
       element: <About />
     },
     {
-      path: '/newuser',
-      element: <ModalNewUser />
-    },
-    {
       path: '/admindashboard',
       element: <DashAdmin />
     },
