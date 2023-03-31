@@ -3,6 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchCountries } from "../../redux/slices/countriesSlices";
+import usuario from "../../assets/user.png"
 
 import validacionConfig from "./validacionconfig";
 import FotodePerfil from "./FotodePerfil";
@@ -187,7 +188,7 @@ function Configuracion() {
           <div className=" text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 w-full flex justify-between">
             <TextField id="names" label="Nombre" className="w-1/3" name="names" value={form.names} onChange={actualizarData} error={!!error.names} helperText={error.names} />
             <TextField id="lastnames" label="Apellido" className="w-1/3 " name="lastnames" value={form.lastnames} onChange={actualizarData} error={!!error.lastnames} helperText={error.lastnames} />
-            <TextField id="age" label='Edad' type="number" className="w-1/4" value={form.age} onChange={actualizarData} error={!!error.age} helperText={error.age}
+            <TextField id="age" name="age" label='Edad' type="number" className="w-1/4" value={form.age} onChange={actualizarData} error={!!error.age} helperText={error.age}
               inputProps={{
                 min: "18",
                 max: "120",
@@ -447,6 +448,7 @@ function Configuracion() {
                   variant="outlined"
                   fullWidth
                   size="medium"
+                  value={form.facebook}
                   error={!!error.facebook}
                 helperText={error.facebook}
                 />
@@ -462,6 +464,7 @@ function Configuracion() {
                   variant="outlined"
                   fullWidth
                   size="medium"
+                  value={form.linkedin}
                   error={!!error.linkedin}
                 helperText={error.linkedin}
                 />

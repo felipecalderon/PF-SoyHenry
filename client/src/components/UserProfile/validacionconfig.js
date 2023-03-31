@@ -20,7 +20,13 @@ else{
 }
 
 if(form.age){
+   if(parseInt(form.age)>=18 && parseInt(form.age)<120){
     obj.age=""
+   }else{
+    obj.age="Debes ingresar una edad valida"
+   }
+
+
 }else{ 
     obj.age="Debes ingresar una edad"
 }

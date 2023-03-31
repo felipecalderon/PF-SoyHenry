@@ -44,7 +44,7 @@ export const rutas = createBrowserRouter([
       element: <UserProfile/>
     },
     {
-      path:"/profile/pdf",
+      path:"/profile/micv",
       element: <Pdf/>
     },
     // Company
