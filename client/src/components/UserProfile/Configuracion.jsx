@@ -446,6 +446,7 @@ function Configuracion() {
                   variant="outlined"
                   fullWidth
                   size="medium"
+                  value={form.facebook}
                   error={!!error.facebook}
                 helperText={error.facebook}
                 />
@@ -461,6 +462,7 @@ function Configuracion() {
                   variant="outlined"
                   fullWidth
                   size="medium"
+                  value={form.linkedin}
                   error={!!error.linkedin}
                 helperText={error.linkedin}
                 />
