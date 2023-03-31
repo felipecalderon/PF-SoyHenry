@@ -14,7 +14,7 @@ function Favoritos() {
   const dataUserGoogle = localStorage.getItem("usergoogle");
   const dataUser = JSON.parse(dataUserLocal);
   const [saveOffers, setSavedOffers] = useState([]);
-  const { jobId } = useSelector((state) => state.postSlice);
+  
   const [ setIsFavorite] = useState(false);
 
   useEffect(() => {

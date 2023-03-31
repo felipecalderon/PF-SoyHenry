@@ -26,7 +26,8 @@ const JobDetail = () => {
   const {empresaId} = useSelector((state)=> state.postSlice)
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
-  const url1=`/company/${id}`
+  const url1=`/api/v0/companies/${empresa.id}`
+  const url2=`/jobs/${empresa.id}`
   const { data, isLoading } = useFetch(url);
   const dataUserLocal = localStorage.getItem("userLogin")
   const dataUserGoogle = localStorage.getItem("usergoogle")
