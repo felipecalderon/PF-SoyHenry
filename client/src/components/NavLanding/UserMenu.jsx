@@ -9,7 +9,6 @@ const UserMenu = ({ user, userGoogle }) => {
     const ref = useRef(null)
     const [showMenu, setShowMenu] = useState(false)
 
-    const dataUserLocalStorage = JSON.parse(localStorage.getItem('userLogin'))
     const dataUserLocalStorage = JSON.parse(localStorage.getItem("userLogin"));
     const photo =dataUserLocalStorage?.photo
 

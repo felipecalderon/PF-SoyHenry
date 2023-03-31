@@ -16,7 +16,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Modal from '@mui/material/Modal';
-import usuario from "../../assets/user.png";
 // import Autocomplete from "@mui/material/Autocomplete";
 // import Stack from "@mui/material/Stack";
 // import { Chip, Grid } from "@mui/material";
