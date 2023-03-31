@@ -215,6 +215,7 @@ export const RegistroEmpresa = () => {
                                 "& .MuiInput-underline:before": {
                                     borderBottomColor: "darkorange",
                                 },
+                                '& .MuiInputLabel-root': { color: 'darkorange' }
                             }}
                             noValidate
                             autoComplete="on"

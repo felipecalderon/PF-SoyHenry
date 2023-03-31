@@ -177,9 +177,7 @@ function Configuracion() {
                 borderColor: '#f5f5f5',
               },
             },
-            '& .MuiInput-underline:after': {
-              borderBottomColor: '#f5f5f5',
-            },
+            '& .MuiInputLabel-root': { color: '#f5f5f5' }
           }}
           noValidate
           autoComplete="on"
