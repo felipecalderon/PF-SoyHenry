@@ -50,7 +50,7 @@ function Favoritos() {
      { saveOffers.map((offer) => (
        <Link to={`/detail/${offer.offerId}?title=${offer.title}`}>
         <Box key={offer.offerId}>
-          <h2 className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-between">
+          <h2 className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-between z-0 items-center">
             <Fab
               sx={{ backgroundColor: 'lightblue' }}
               aria-label="like"

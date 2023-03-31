@@ -18,6 +18,7 @@ import { spinnerPurple } from "../Cards/spinner";
 //mui
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from "@mui/material";
+import PremiumButtonComponent from "../BotonPremium/BotonPremium";
 
 function UserProfile() {
     const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userLogin')));
@@ -69,6 +70,7 @@ function UserProfile() {
             name: "Sobre Nosotros",
             link: "/about"
         },
+        
     ]
 
 
@@ -77,6 +79,7 @@ function UserProfile() {
             <>
                 <NavLanding menu={menu} />
                 <div className="flex justify-around bg-primary-light  dark:bg-secondary-dark pt-20">
+                < PremiumButtonComponent/>
                     <input
                         className="invisible"
                         type="radio"
