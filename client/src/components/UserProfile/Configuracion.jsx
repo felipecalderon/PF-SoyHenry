@@ -15,6 +15,7 @@ import Select from '@mui/material/Select';
 import FormHelperText from '@mui/material/FormHelperText';
 import { useDispatch } from "react-redux";
 import { fetchCountries } from "../../redux/slices/countriesSlices";
+import FotodePerfil from "./FotodePerfil";
 
 function Configuracion() {
   const [skills, setSkills] = useState([]);
@@ -142,20 +143,8 @@ function Configuracion() {
       >
         <Box>
       <div className="flex flex-col ">
-        <img
-          src={profile.photo || usuario}
-          alt=""
-          width="150px"
-          className="border rounded-full m-4"
-        />
-        <div>
-          <input
-          type="file"
-          className="w-1/2"
-          
-          />
-          <button onClick={(event)=>{event.preventDefault()}} className=" w-1/2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Subir imagen</button>
-        </div>
+      
+        <FotodePerfil/>
       </div>
 
 <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400  w-full flex items-center justify-between">
@@ -387,7 +376,7 @@ function Configuracion() {
 ) : null}
 
        
-      <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full ">
+      <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-col flex-grow w-full ">
       
     <TextField
       type="text"
@@ -415,7 +404,8 @@ function Configuracion() {
           id="Habilidades"
           label="Habilidades"
           onChange={handleSelectSkills}
-          className="w-2/3 form-input mt-1 block  rounded-md border-gray-300 shadow-sm text-base flex-grow mx-2"
+          className="w-full form-input mt-1 block  rounded-md border-gray-300 shadow-sm text-base flex-grow "
+          size="medium"
         >
           <MenuItem value="">Seleccionar Habilidad</MenuItem>
 
