@@ -3,7 +3,7 @@ import usuario from "../../assets/user.png";
 
 function FotodePerfil() {
   const [image, setImage] = useState(null);
-  const [notValidImage, setNotValidImage] = useState(false);
+  const [notValidImage, setNotValidImage] = useState(true);
 
   const handleImageInputChange = (event) => {
     const selectedImage = event.target.files[0];
