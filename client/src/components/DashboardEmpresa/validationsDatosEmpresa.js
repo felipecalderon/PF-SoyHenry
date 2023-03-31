@@ -13,14 +13,14 @@ const validationsDatosEmpresa = (info) => {
         errors.website = 'La URL es inválida.'
     } 
     if(!info.email_company) {
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(info.email_company)) {
+        errors.email_company = 'Debe haber un Email'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(info.email_company)) {
             errors.email_company = 'El email es inválido'
-        }
     }
     if(!info.phone_company) {
-        if (!/^\+(?:\d{1,3})?(?:\d{9,15})$/.test(info.phone_company)) {
+        errors.phone_company = 'Debe haber un número telefónico'
+    } else if (!/\+?\d{5,15}$/.test(info.phone_company)) {
             errors.phone_company = 'El número es inválido'
-        }
     }
     return errors;
 }

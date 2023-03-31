@@ -12,12 +12,16 @@ const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
   border: `1px solid ${theme.palette.divider}`,
+  borderRadius: '1rem',
   '&:not(:last-child)': {
     borderBottom: 0,
   },
   '&:before': {
     display: 'none',
   },
+  marginBottom: '.5rem',
+  marginLeft: '1rem',
+  width: '35rem'
 }));
 
 const AccordionSummary = styled((props) => (
@@ -72,32 +76,51 @@ export const CardsOfertasDb = ({offers}) => {
      <Fragment>
      <div>
        {offers.map((offer, index) => (
-         <Accordion key={index} expanded={expanded === `panel${index + 1}`} onChange={handleChange(`panel${index + 1}`)}>
-           <AccordionSummary aria-controls={`panel${index + 1}d-content`} id={`panel${index + 1}d-header`}>
-             <Typography>{offer.title} Postulantes:{offer.applications_count}</Typography>
+         <Accordion 
+          key={index} 
+          expanded={expanded === `panel${index + 1}`} 
+          onChange={handleChange(`panel${index + 1}`)}>
+           <AccordionSummary 
+            aria-controls={`panel${index + 1}d-content`} 
+            id={`panel${index + 1}d-header`}>
+             <Typography className='flex'>
+                <div className='font-bold'>
+                  {offer.title.slice(0, 35)}{offer.title.length > 35 ? '...' : ''} 
+                </div>
+                <div>
+                  <p className='relative ml-5 border-l-black h-0 font-bold'>| Postulantes:{offer.applications_count}</p>
+                </div>
+              </Typography>
            </AccordionSummary>
            <AccordionDetails>
              <Typography>
-               <p>Requisitos: {offer.requeriments}</p>
-               <p>Beneficios: {offer.benefits}</p>
-               <p>Funciones: {offer.functions}</p>
-               <p>Modalidad: {offer.modality}</p>
-               <p>Tecnologias: {offer.perks.map((p) => p).join(', ')}</p>
-               <p>Experiencia: {offer.experience} Año/s</p>
-               <p>Salario: ${offer.min_salary} - ${offer.max_salary}</p>
-               <p>Fecha de creación: {offer.date_post}</p>
-               <p>Fecha de finalización:</p>
-               <p>Postulantes: {offer.applications_count}</p>
-               <Link><button  onClick={() => {
+               <p className='mb-[.5rem]'><strong>Requisitos: </strong>{offer.requeriments}</p>
+               <p className='mb-[.5rem]'><strong>Beneficios: </strong>{offer.benefits}</p>
+               <p className='mb-[.5rem]'><strong>Funciones: </strong>{offer.functions}</p>
+               <p className='mb-[.5rem]'><strong>Modalidad: </strong>{offer.modality}</p>
+               <p className='mb-[.5rem]'><strong>Tecnologias: </strong>{offer.perks.map((p) => p).join(', ')}</p>
+               <p className='mb-[.5rem]'><strong>Experiencia: </strong>{offer.experience} Año/s</p>
+               <p className='mb-[.5rem]'><strong>Salario: </strong>${offer.min_salary} - ${offer.max_salary}</p>
+               <p className='mb-[.5rem]'><strong>Fecha de creación: </strong>{offer.date_post}</p>
+               <p className='mb-[.5rem]'><strong>Fecha de finalización: </strong></p>
+               <p className='mb-[.5rem]'><strong>Postulantes: </strong>{offer.applications_count}</p>
+               <Link><button
+                className='py-2 px-2 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'
+                onClick={() => {
                   setShowModal(true)
                   handleAplicants(offer)
                   } }>Ver postulantes</button></Link>
-               <br/><br/>
-               <Link to={`/detail/${offer.id}?${offer.title}`}><button>Ver oferta</button></Link>
-               <br/><br/>
-               <Link><button>Cerrar oferta</button></Link>
-               <br/><br/>
-               <Link><button>Borrar oferta</button></Link>
+               <div className='flex justify-center pt-5'>
+                <Link to={`/detail/${offer.id}?${offer.title}`}>
+                  <button className='py-2 px-2 mx-2 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>Ver oferta</button>
+                </Link>
+                <Link>
+                  <button className='py-2 px-2 mx-2 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>Cerrar oferta</button>
+                </Link>
+                <Link>
+                  <button className='py-2 px-2 mx-2 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>Borrar oferta</button>
+                </Link>
+               </div>
              </Typography>
            </AccordionDetails>
          </Accordion>

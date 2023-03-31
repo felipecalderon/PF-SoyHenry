@@ -16,14 +16,10 @@ export const DashboardEmpresa = () => {
     const userData = JSON.parse(localStorage.getItem('userLogin'))
     dispatch(saveUser(userData))
     const [offers, setOffers] = useState([])
-    const [info, setInfo] = useState({})
     useEffect(() => {
             axios.get(`/jobsdb/${userData?.Companies instanceof Array ? userData?.Companies[0].id : userData?.Companies?.id}`)
             .then(res => {
                 setOffers(res.data.Offers)
-                setInfo(res.data)
-                const objetoJSON = JSON.stringify(res.data)
-                localStorage.setItem('dataCompany', objetoJSON)
             })
     }, []) // eslint-disable-line
 
@@ -51,7 +47,7 @@ export const DashboardEmpresa = () => {
                 </h2>
                 <div className="grid grid-cols-2 grid-rows-2 gap-4 py-6">
                     <div className="col-span-1 row-span-1 w-full md:w-1/2 pl-8">
-                        <Profile company={info}/>
+                        <Profile company={userData?.Companies instanceof Array ? userData?.Companies[0].id : userData?.Companies?.id}/>
                     </div>
                     <div className="col-span-1 row-span-2 flex md:block">
                         <div className="w-full h-full px-4">

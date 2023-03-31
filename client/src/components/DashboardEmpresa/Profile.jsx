@@ -41,17 +41,17 @@ import Select from '@mui/material/Select';
   //eslint-disable-next-line no-unused-vars
   const {id, companyname, email_company , company_city, company_country, logo, website, phone_company} = company;
   
-  const dataCompany = JSON.parse(localStorage.getItem('dataCompany'));
+  // const dataCompany = JSON.parse(localStorage.getItem('dataCompany'));
 
   const [info, setInfo] = useState({
-    companyname: dataCompany.companyname,
-    email_company: dataCompany.email_company,
-    description: dataCompany.description,
-    company_city: dataCompany.company_city,
-    company_country: dataCompany.company_country,
-    phone_company: dataCompany.phone_company,
-    website: dataCompany.website,
-    logo: dataCompany.logo
+    companyname: company.companyname,
+    email_company: company.email_company,
+    description: company.description,
+    company_city: company.company_city,
+    company_country: company.company_country,
+    phone_company: company.phone_company,
+    website: company.website,
+    logo: company.logo
   });
 
   const [errors, setErrors] = useState({
@@ -101,9 +101,6 @@ const filteredCities = selectedCountry
         ...info,
         [event.target.name]: event.target.value
     });
-  //   setErrors(validationsDatosEmpresa({
-  //     [event.target.name]: event.target.value
-  // }));
   };
 
 
@@ -111,7 +108,7 @@ const handleSubmit = (event) => {
   const errorsNew = validationsDatosEmpresa(info);
   setErrors(errorsNew);
   if (Object.keys(errorsNew).length === 0) {
-    axios.put(`/company/${id}`, info);
+    axios.put(`/jobsdb/${id}`, info);
     setShowModal(false);
     setOpen(false);
     window.location.reload();
@@ -134,16 +131,16 @@ const handleSubmit = (event) => {
             {companyname}
           </Typography>
           <Typography component="div" variant="h6" className='text-gray-900 dark:text-white'>
-            <p className='text-sm'>{company_city}, {company_country}</p>
+            <p>Ubicación: </p><p className='text-sm'>{company_city}, {company_country}</p>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-blue-600'>
             <a href={website} target="_blank" rel="noopener noreferrer">{website}</a>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
-            <p target="_blank" rel="noopener noreferrer">{email_company}</p>
+            <p>Email: </p><p target="_blank" rel="noopener noreferrer">{email_company}</p>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
-            <p target="_blank" rel="noopener noreferrer">{phone_company}</p>
+            <p><strong>Teléfono: </strong></p><p target="_blank" rel="noopener noreferrer">{phone_company}</p>
           </Typography>
           <Rating name="ratingCompany" value={4} readOnly />
         </CardContent>
