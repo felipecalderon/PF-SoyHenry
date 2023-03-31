@@ -86,7 +86,7 @@ const getCompanywithDbId = async (id) => {
     }
 }
 
-const putCompany = async ({ id }, { companyname, description, phone, likes_count, location, website, logo }) => {
+const putCompany = async ({ id }, { companyname, description, email_company, phone_company, website, logo, company_city, company_country }) => {
 
 
     try {
@@ -95,7 +95,7 @@ const putCompany = async ({ id }, { companyname, description, phone, likes_count
 
 
         await Company.update(
-            { companyname, description, phone, likes_count, location, website, logo },
+            { companyname, description, phone_company, website, logo, email_company, company_city, company_country },
             {
                 where: { id }
             }
