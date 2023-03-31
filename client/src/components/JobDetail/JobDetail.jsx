@@ -22,7 +22,7 @@ const JobDetail = () => {
   const query = new URLSearchParams(window.location.search);
   const title = query.get('title');
   const { jobId } = useSelector((state) => state.postSlice);
-  // const {empresaId} = useSelector((state)=> state.postSlice)
+  const {empresaId} = useSelector((state)=> state.postSlice)
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
 
@@ -58,8 +58,7 @@ useEffect(() => {
   }
 }, [empresaId]);
 
-console.log(empresa)
-console.log(empresaId)
+
 
 //FAVORITOS AHORA ES GUARDADOS
 const [isPremium, setIsPremium] = useState(localStorage.getItem("userLogin"));
