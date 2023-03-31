@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 // import { useDispatch } from "react-redux"
 // import { useNavigate } from "react-router-dom";
@@ -12,19 +12,34 @@ import User from "./User";
 import { NavLanding } from "../NavLanding/NavLanding";
 import Footer from "../Footer/Footer";
 import NotFound from "../NotFound/NotFound";
-import PremiumButton from '../BotonPremium/BotonPremium';
+import axios from "axios";
+import { spinnerPurple } from "../Cards/spinner";
+
+//mui
+import EditIcon from '@mui/icons-material/Edit';
+import { IconButton } from "@mui/material";
 
 function UserProfile() {
-    // const dispatch = useDispatch()
-    // const navigate = useNavigate()
-    const userData = JSON.parse(localStorage.getItem('userLogin'))
+    const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userLogin')));
+    const [loading, setLoading] = useState(true)
+    useEffect(() => {
+        axios.post('/user/email', { email: userData.email })
+            .then(res => {
+                const objetoJSON = JSON.stringify(res.data)
+                localStorage.setItem('userLogin', objetoJSON);
+                setUserData(res.data);
+                setLoading(false)
+            })
+    }, [])
 
-    // const [isLogin, SetIsLogin] = useState(true)
+
     const [inConfig, SetInConfig] = useState(false)
     const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
         valorSeleccionado: "curriculum"
     })
-    
+
+    if (loading) return spinnerPurple()
+
     const handleBarraPerfil = (event) => {
         const { value } = event.target
         SetSelectedValueBarraPerfil({
@@ -104,28 +119,22 @@ function UserProfile() {
 
                 <section className="bg-primary-light flex  w-full dark:bg-secondary-dark flex-wrap justify-center ">
                     <section
-                        className="bg-secondary-light dark:bg-primary-dark m-5 p-1 border rounded-xl w-full flex flex-col  items-end  "
+                        className="w-full bg-secondary-light dark:bg-primary-dark m-4 border rounded-xl w-full flex flex-col"
                         style={{ minHeight: " 1200px", minWidth: "330px", maxWidth: "616px" }}>
-                        {inConfig ? (
-                            <button
-                                className=" bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded "
-                                style={{
-                                    position: "relative",
-                                    top: "10%",
-                                    right: "15%",
-                                }}
-                                onClick={() => SetInConfig(!inConfig)} >Volver</button>) :
-                            (<button
-                                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                                style={{
-                                    position: "relative",
-                                    top: "10%",
-                                    right: "15%",
-                                }}
-                                onClick={() => SetInConfig(!inConfig)}>
-                                Configurar
-                            </button>
-                            )}
+                        <div className="w-full flex flex-col  items-end">
+                            {
+                                inConfig ? (
+                                    <button
+                                        className="m-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded items-end "
+                                        onClick={() => SetInConfig(!inConfig)} >Volver</button>) :
+                                    (<button
+                                        className="m-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                                        onClick={() => SetInConfig(!inConfig)}>
+                                        <EditIcon /> Editar
+                                    </button>
+                                    )
+                            }
+                        </div>
                         {inConfig ? <Configuracion /> : <User />}
                     </section>
 

@@ -1,5 +1,5 @@
 
-const {  User, Postulant } = require("../models/relations");
+const { User, Postulant } = require("../models/relations");
 /**
  * { 
   public_id: 'cr4mxeqx5zb8rlakpfkg',
@@ -16,52 +16,54 @@ const {  User, Postulant } = require("../models/relations");
   secure_url: 'https://res.cloudinary.com/demo/image/upload/v1571218330/cr4mxeqx5zb8rlakpfkg.jpg' 
 }
  */
-const SendPhotoToUser=async(idUser,cloudinary_image)=>{
-    
+const SendPhotoToUser = async (idUser, cloudinary_image) => {
+
     try {
-        const { secure_url}=cloudinary_image
-        let results =await User.findByPk(idUser)
+        const { secure_url } = cloudinary_image
+        let results = await User.findByPk(idUser)
         if (!results) {
-            throw Error("No se reconoce el id ingresado")}
-        
-            await User.update({ photo: secure_url }, { where: { id: idUser } });
-             results =await User.findByPk(idUser)
-              
-                return results
-} catch (error) {
-    throw error 
-}
-}
+            throw Error("No se reconoce el id ingresado")
+        }
 
+        await User.update({ photo: secure_url }, { where: { id: idUser } });
+        results = await User.findByPk(idUser)
 
-
-
-
-
-
-const SendPdfToPostulante=async(idPostulante,cloudinary_pdf)=>{
-
-
-
-try {
-    const { secure_url}=cloudinary_pdf
-    let results =await Postulant.findByPk(idPostulante)
-    if (!results) {
-        throw Error("No se reconoce el id ingresado del postulante")
+        return results
+    } catch (error) {
+        console.log(error)
+        throw error
     }
-    await Postulant.update({ curriculum_pdf: secure_url }, { where: { id: idPostulante } });
-
-    results=await Postulant.findByPk(idPostulante)
-
-    return results
-} catch (error) {
-    throw error
-}
-
 }
 
 
-module.exports={
+
+
+
+
+
+const SendPdfToPostulante = async (idPostulante, cloudinary_pdf) => {
+
+
+
+    try {
+        const { secure_url } = cloudinary_pdf
+        let results = await Postulant.findByPk(idPostulante)
+        if (!results) {
+            throw Error("No se reconoce el id ingresado del postulante")
+        }
+        await Postulant.update({ curriculum_pdf: secure_url }, { where: { id: idPostulante } });
+
+        results = await Postulant.findByPk(idPostulante)
+
+        return results
+    } catch (error) {
+        throw error
+    }
+
+}
+
+
+module.exports = {
     SendPhotoToUser
-,SendPdfToPostulante
+    , SendPdfToPostulante
 }
