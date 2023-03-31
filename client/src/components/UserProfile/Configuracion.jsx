@@ -44,22 +44,22 @@ function Configuracion() {
 
   const [form, SetForm] = useState({
     rol: "Postulante",
-    email: dataUserLocalStorage.email,
-    names: dataUserLocalStorage.names,
-    lastnames: dataUserLocalStorage.lastnames,
-    age: dataUserLocalStorage.Postulants[0].age,
-    gender: dataUserLocalStorage.Postulants[0].gender,
-    experience: dataUserLocalStorage.Postulants[0].experience,
-    disability: dataUserLocalStorage.Postulants[0].disability,
-    city: dataUserLocalStorage.city,
-    country: dataUserLocalStorage.country,
-    title: dataUserLocalStorage.Postulants[0].title,
-    description_postulant: dataUserLocalStorage.Postulants[0].description_postulant,
-    languages: dataUserLocalStorage.Postulants[0].languages,
-    tecnology: dataUserLocalStorage.Postulants[0].tecnology,
-    phone: dataUserLocalStorage.phone,
-    linkedin: dataUserLocalStorage.Postulants[0].linkedin,
-    facebook: dataUserLocalStorage.Postulants[0].facebook,
+    email: dataUserLocalStorage.email || '',
+    names: dataUserLocalStorage.names || '',
+    lastnames: dataUserLocalStorage.lastnames || '',
+    age: dataUserLocalStorage.Postulants[0].age || '',
+    gender: dataUserLocalStorage.Postulants[0].gender || '',
+    experience: dataUserLocalStorage.Postulants[0].experience || '',
+    disability: dataUserLocalStorage.Postulants[0].disability || '',
+    city: dataUserLocalStorage.city || '',
+    country: dataUserLocalStorage.country || '',
+    title: dataUserLocalStorage.Postulants[0].title || '',
+    description_postulant: dataUserLocalStorage.Postulants[0].description_postulant || '',
+    languages: dataUserLocalStorage.Postulants[0].languages || '',
+    tecnology: dataUserLocalStorage.Postulants[0].tecnology || '',
+    phone: dataUserLocalStorage.phone || '',
+    linkedin: dataUserLocalStorage.Postulants[0].linkedin || '',
+    facebook: dataUserLocalStorage.Postulants[0].facebook || '',
   });
   const [error, SetError] = useState({
     names: "",
@@ -112,15 +112,10 @@ function Configuracion() {
     : [];
 
   const handleSelectSkills = (event) => {
-    const { value } = event.target;
-    if (form.tecnology.includes(value)) {
-      SetForm({
-        ...form,
-        tecnology: [...form.tecnology].filter((element) => element !== value),
-      });
-    } else if (value !== "") {
+    const value = event.target.value;
+    if (!form.tecnology.includes(value)) {
       SetForm({ ...form, tecnology: [...form.tecnology, value] });
-    }
+    } 
   };
   const handleButtonSkill = (event) => {
     SetForm({
@@ -128,6 +123,7 @@ function Configuracion() {
       tecnology: [...form.tecnology].filter((el) => el !== event.target.value),
     });
   };
+  console.log(form.tecnology)
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
