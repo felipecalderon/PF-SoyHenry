@@ -11,6 +11,7 @@ import UserProfile from './components/UserProfile/UserProfile'
 import Pdf from './components/UserProfile/Pdf'
 import NotFound from './components/NotFound/NotFound'
 import ModalNewUser from './components/ModalLogin/ModalNewUser'
+import DashAdmin from './components/DashboardAdmin/DashboardAdmin'
 
 
 export const rutas = createBrowserRouter([
@@ -63,5 +64,9 @@ export const rutas = createBrowserRouter([
     {
       path: '/newuser',
       element: <ModalNewUser />
+    },
+    {
+      path: '/admindashboard',
+      element: <DashAdmin />
     },
 ])
