@@ -20,22 +20,27 @@ import FotodePerfil from "./FotodePerfil";
 function Configuracion() {
   const [skills, setSkills] = useState([]);
   const [showErrors, SetShowErrors] = useState(false);
+  const dataUserGoogle = JSON.parse(localStorage.getItem("usergoogle"));
+  const dataUserLocalStorage = JSON.parse(localStorage.getItem("userLogin"));
+
   const [form, SetForm] = useState({
-    names: "",
-    lastnames: "",
-    age: "18",
-    gender: "",
-    experience: "",
-    disability: "",
-    city: "",
-    country: "",
-    title: "",
-    description_postulant: "",
-    languages: "",
-    habilidades: [],
-    phone: "",
-    linkedin: "",
-    facebook: "",
+        rol:"Postulante",
+        email:dataUserLocalStorage.email,
+    names: dataUserLocalStorage.names,
+    lastnames: dataUserLocalStorage.lastnames,
+    age: dataUserLocalStorage.Postulants[0].age,
+    gender: dataUserLocalStorage.Postulants[0].gender,
+    experience: dataUserLocalStorage.Postulants[0].experience,
+    disability: dataUserLocalStorage.Postulants[0].disability,
+    city: dataUserLocalStorage.city,
+    country: dataUserLocalStorage.country,
+    title: dataUserLocalStorage.Postulants[0].title,
+    description_postulant:dataUserLocalStorage.Postulants[0].description_postulant,
+    languages: dataUserLocalStorage.Postulants[0].languages,
+    tecnology: dataUserLocalStorage.Postulants[0].tecnology,
+    phone: dataUserLocalStorage.phone,
+    linkedin: dataUserLocalStorage.Postulants[0].linkedin,
+    facebook: dataUserLocalStorage.Postulants[0].facebook,
   });
   const [error, SetError] = useState({
     names: "",
@@ -49,17 +54,17 @@ function Configuracion() {
     country: "",
     description_postulant: "",
     idiomas: "",
-    habilidades: "",
+    tecnology: "",
     phone: "",
     linkedin: "",
     facebook: "",
   });
 
-
   const dispatch = useDispatch();
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [countryData, setCountryData] = useState([]);
+  const [selectedSkills, setSelectedSkills] = useState([]);
 
   useEffect(() => {
     dispatch(fetchCountries()).then((response) =>
@@ -71,9 +76,17 @@ function Configuracion() {
     const country = event.target.value;
     setSelectedCountry(country);
     setSelectedCity("");
+    SetForm({
+      ...form,
+      country: event.target.value,
+    });
   };
   const handleCityChange = (event) => {
     setSelectedCity(event.target.value);
+    SetForm({
+      ...form,
+      city: event.target.value,
+    });
   };
 
   const filteredCities = selectedCountry
@@ -82,33 +95,38 @@ function Configuracion() {
 
   const handleSelectSkills = (event) => {
     const { value } = event.target;
-    if (form.habilidades.includes(value)) {
+    if (form.tecnology.includes(value)) {
       SetForm({
         ...form,
-        habilidades: [...form.habilidades].filter(
-          (element) => element !== value
-        ),
+        tecnology: [...form.tecnology].filter((element) => element !== value),
       });
     } else if (value !== "") {
-      SetForm({ ...form, habilidades: [...form.habilidades, value] });
+      SetForm({ ...form, tecnology: [...form.tecnology, value] });
     }
   };
   const handleButtonSkill = (event) => {
     SetForm({
       ...form,
-      habilidades: [...form.habilidades].filter(
-        (el) => el !== event.target.value
-      ),
+      tecnology: [...form.tecnology].filter((el) => el !== event.target.value),
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     for (let key in error) {
       if (error[key]) {
         SetShowErrors(true);
       }
     }
+    if (!showErrors) {
+      const updateData =  axios.post("/auth/register", form)
+      updateData.then(res=>{
+        const objetoJSON = JSON.stringify(res.data);
+        localStorage.setItem("userLogin", objetoJSON);
+
+        alert("Todo ok!!!")
+      })
+    } 
   };
   const actualizarData = (event) => {
     const { name, value } = event.target;
@@ -136,7 +154,7 @@ function Configuracion() {
       >
         <Box>
           <div className="flex flex-col mb-2">
-            <FotodePerfil />
+            <FotodePerfil photo={dataUserGoogle.photo} />
           </div>
 
           <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400  w-full flex items-center justify-between">
@@ -172,7 +190,7 @@ function Configuracion() {
               onChange={actualizarData}
             />
           </div>
-          { 
+          {
             <div className="flex justify-between w-full mb-3">
               <span className=" select-none text-xs font-bold text-red-600">
                 {showErrors && error?.names}
@@ -184,7 +202,7 @@ function Configuracion() {
                 {showErrors && error?.age}
               </span>
             </div>
-    }
+          }
           <div className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 flex flex-grow w-full ">
             <FormControl fullWidth>
               <InputLabel id="gender-label">Genero</InputLabel>
@@ -194,6 +212,7 @@ function Configuracion() {
                 id="gender"
                 label="Genero"
                 onChange={actualizarData}
+                value={form.gender}
               >
                 <MenuItem value="">Seleccione genero</MenuItem>
                 <MenuItem value="Prefiero no decirlo">
@@ -214,6 +233,7 @@ function Configuracion() {
                 label="¿Posee alguna disability?"
                 name="disability"
                 onChange={actualizarData}
+                value={form.disability}
               >
                 <MenuItem value="">¿Posee alguna disability?</MenuItem>
                 <MenuItem value="No">No</MenuItem>
@@ -245,6 +265,7 @@ function Configuracion() {
               value={selectedCountry}
               label="Pais"
               onChange={handleCountryChange}
+              value={form.country}
             >
               <MenuItem value="">Seleccione Pais</MenuItem>
               {countryData.map((country) => (
@@ -260,7 +281,7 @@ function Configuracion() {
               labelId="city-label"
               id="city-select"
               name="city"
-              value={selectedCity}
+              value={form.city}
               label="Ciudad"
               onChange={handleCityChange}
               disabled={!selectedCountry}
@@ -291,6 +312,7 @@ function Configuracion() {
               name="title"
               label="Titulo"
               onChange={actualizarData}
+              value={form.title}
               placeholder="Por ejemplo: Desarrollador Web Full Stack con experiencia en React y Node.js"
               id="title"
               variant="outlined"
@@ -310,9 +332,10 @@ function Configuracion() {
             <TextField
               id="description_postulant"
               name="description_postulant"
+              value={form.description_postulant}
               label="Descripcion"
               onChange={actualizarData}
-              placeholder="Describa sus habilidades, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos."
+              placeholder="Describa sus tecnology, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos."
               multiline
               rows={5}
               variant="outlined"
@@ -340,13 +363,13 @@ function Configuracion() {
                 onChange={actualizarData}
                 variant="outlined"
                 size="medium"
+                value={form.experience}
               >
                 <MenuItem value="0">Sin experience</MenuItem>
                 <MenuItem value="1">1 año</MenuItem>
                 <MenuItem value="2-4">2 a 4 años</MenuItem>
                 <MenuItem value="5">más de 5 años</MenuItem>
               </Select>
-           
             </FormControl>
           </div>
           {showErrors ? (
@@ -363,6 +386,7 @@ function Configuracion() {
               name="languages"
               label="Idioma"
               onChange={actualizarData}
+              value={form.languages}
               placeholder="Ej: Inglés - Avanzado, Español - Nativo, Francés - Básico"
               id="languages"
               variant="outlined"
@@ -377,17 +401,18 @@ function Configuracion() {
                 </span>
               </div>
             ) : null}
-
+            <InputLabel for="tecnology">Habilidades</InputLabel>
             <Select
-              name="skills"
-              id="Habilidades"
+              labelId="tecnology"
+              name="tecnology"
+              id="tecnology"
               label="Habilidades"
+              variant="outlined"
               onChange={handleSelectSkills}
               className="w-full form-input mt-1 block  rounded-md border-gray-300 shadow-sm text-base flex-grow "
               size="medium"
+          
             >
-              <MenuItem value="">Seleccionar Habilidad</MenuItem>
-
               {skills?.map((el) => (
                 <MenuItem value={el.Technology}>{el.Technology}</MenuItem>
               ))}
@@ -401,8 +426,8 @@ function Configuracion() {
                 alignContent: "start",
               }}
             >
-              {form.habilidades?.length ? (
-                form.habilidades.map((skill, index) => (
+              {form.tecnology?.length ? (
+                form.tecnology.map((skill, index) => (
                   <button
                     className="m-2 p-1 rounded-xl bg-white border text-sm text-center flex justify-between items-center hover:bg-gray-100 active:bg-gray-200 focus:outline-none flex-shrink"
                     onClick={handleButtonSkill}
@@ -417,12 +442,12 @@ function Configuracion() {
                 <>
                   <p
                     className={` select-none font-bold  mb-1 ${
-                      showErrors && error.habilidades
+                      showErrors && error.tecnology
                         ? "text-red-600"
                         : "text-white"
                     } text-xl text-center`}
                   >
-                    La lista de habilidades está vacía.
+                    La lista de tecnology está vacía.
                   </p>
                   <br />
                   <p className="select-none text-gray-400 text-sm text-center">
@@ -442,6 +467,7 @@ function Configuracion() {
                   type="phone"
                   name="phone"
                   label="Telefono"
+                  value={form.phone}
                   onChange={actualizarData}
                   placeholder="Por ejemplo: +1 555-123-4567"
                   id="phone"

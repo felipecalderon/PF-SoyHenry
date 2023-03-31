@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import usuario from "../../assets/user.png";
 
-function FotodePerfil() {
+function FotodePerfil({photo}) {
   const [image, setImage] = useState(null);
   const [notValidImage, setNotValidImage] = useState(true);
 
@@ -26,7 +26,7 @@ function FotodePerfil() {
 
   return (
     <div>
-      <img src={image || usuario} alt="" width="150px" className="border rounded-full m-4" />
+      <img src={image || photo || usuario} alt="" width="150px" className="border rounded-full m-4" />
       <input type="file" className="w-1/2" onChange={handleImageInputChange} />
       <button
         onClick={(event) => {

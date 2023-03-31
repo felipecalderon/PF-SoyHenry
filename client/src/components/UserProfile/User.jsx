@@ -11,6 +11,8 @@ function User() {
   const dataUserLocal = localStorage.getItem("userLogin");
   const dataUser = JSON.parse(dataUserLocal);
   const dataUserGoogle=JSON.parse(localStorage.getItem('usergoogle'))
+  const dataUserLocalStorage=JSON.parse(localStorage.getItem('userLogin'))
+
   const [data, SetData] = useState(dataUser);
   console.log(data)
   // useEffect(() => {
@@ -33,11 +35,11 @@ function User() {
       <hr className="border border-b-gray-100  w-full " />
 
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        Ubicacion
+        Ubicacion  {dataUserLocalStorage.city},{dataUserLocalStorage.country}
       </li>
       <hr className="border border-b-gray-100  w-full " />
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        Titulo
+        Titulo {dataUserLocalStorage.Postulants[0].title}
       </li>
 
       <li className="">
@@ -45,13 +47,13 @@ function User() {
           Descripcion
         </h2>
         <p className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400" style={{minHeight:"300px"}}>
-   
+        {dataUserLocalStorage.Postulants[0].description_postulant}
         </p>
       </li>
       <hr className="border border-b-gray-100  w-full " />
 
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        Idioma
+        Idioma {dataUserLocalStorage.Postulants[0].languages}
       </li>
 
       <hr className="border border-b-gray-100  w-full " />
@@ -64,7 +66,7 @@ function User() {
           className="flex flex-wrap justify-start overflow-y-auto"
           style={{ maxHeight: "90px" }}
         >
-          { skills.length ? 
+          { dataUserLocalStorage.Postulants[0].tecnology?.length ? 
           skills.map((el) => (
             <li className="m-2 p-2 rounded-xl bg-white border text-sm text-center flex justify-between items-center"> {el}</li>))
             :<><p className={` select-none font-bold  mb-1 text-white text-xl text-center`}>La lista de habilidades está vacía.</p><br/>
@@ -80,13 +82,13 @@ function User() {
         <ul>
           <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
             Telefono
-            <p>{data.phone}</p>
+            <p>{dataUserLocalStorage.phone}</p>
           </li>
           <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-            Facebook
+            <a href={dataUserLocalStorage.Postulants[0].facebook}>Facebook </a>
           </li>
           <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-            Linkedin
+            <a href={dataUserLocalStorage.Postulants[0].linkedin}>Linkedin</a>
           </li>
         </ul>
       </li>
