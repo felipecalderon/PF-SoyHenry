@@ -16,6 +16,12 @@ const Company = sequelize.define('Company', {
     type: DataTypes.STRING,
     unique: true,
   },
+  company_city: {
+    type: DataTypes.STRING,
+  },
+  company_country: {
+    type: DataTypes.STRING,
+  },
   description: {
     type: DataTypes.TEXT,
     allowNull: false,
