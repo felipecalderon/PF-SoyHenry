@@ -161,8 +161,8 @@ function Configuracion() {
 
   return (
     <>
-      <form className="w-full flex flex-col justify-between items-start px-3">
-        <div className="flex flex-col mb-2">
+      <form className="w-full flex flex-col justify-between items-start px-3 pb-5">
+        <div className="w-full flex flex-col mb-8">
           <FotodePerfil photo={dataUserGoogle.photo} />
         </div>
 
@@ -467,7 +467,7 @@ function Configuracion() {
               </div>
             </div>
           </div>
-          <div className="flex justify-around  w-full mt-6">
+          <div className="flex justify-evenly  w-full my-6">
             <button
             onClick={handleSubmit}
               type="submit"
@@ -479,7 +479,7 @@ function Configuracion() {
               className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded  "
               onClick={() => { }}
             >
-              Descartar Cambios
+              Cancelar
             </button>
           </div>
         </Box>
