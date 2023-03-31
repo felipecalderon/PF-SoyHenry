@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 const { User, Admin, Postulant, Company, Offers } = require("../models/relations.js");
 
 // Post
-const createUsers = async ({ photo, names, lastnames, email, city, country, password, rol, active, phone, document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook, companyname, email_company, description, phone_company, website, logo }) => {
+const createUsers = async ({ photo, names, lastnames, email, city, country, password, rol, active, phone, document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook, description_postulant, title, languages, companyname, email_company, description, phone_company, website, logo }) => {
     try {
         const [usuario, creado] = await User.findOrCreate({
             where: { email },
@@ -15,7 +15,7 @@ const createUsers = async ({ photo, names, lastnames, email, city, country, pass
             switch (rol) {
                 case 'Postulante':
                     const Postulants = await Postulant.create({
-                        document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook,
+                        document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook, description_postulant, title, languages,
                         userId: usuario.id
                     });
                     return { ...usuario.dataValues, Postulants }
@@ -34,7 +34,7 @@ const createUsers = async ({ photo, names, lastnames, email, city, country, pass
             switch (rol) {
                 case 'Postulante':
                     const postulant = await Postulant.update({
-                        document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook,
+                        document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook, description_postulant, title, languages,
                     },
                         {
                             where: { userId: usuario.id }
