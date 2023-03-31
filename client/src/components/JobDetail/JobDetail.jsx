@@ -7,8 +7,7 @@ import { NavLanding } from "../NavLanding/NavLanding";
 import Footer from "../Footer/Footer";
 import { spinnerPurple } from "../Cards/spinner";
 import { addFavorites } from "../../redux/slices/userRegisterSlice"
-import Box from '@mui/material/Box';
-import Fab from '@mui/material/Fab';
+import { Box, Fab, Snackbar } from "@mui/material";
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import axios from "axios";
@@ -23,11 +22,10 @@ const JobDetail = () => {
   const query = new URLSearchParams(window.location.search);
   const title = query.get('title');
   const { jobId } = useSelector((state) => state.postSlice);
-  const {empresaId} = useSelector((state)=> state.postSlice)
+  // const {empresaId} = useSelector((state)=> state.postSlice)
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
-  const url1=`/api/v0/companies/${empresa.id}`
-  const url2=`/jobs/${empresa.id}`
+
   const { data, isLoading } = useFetch(url);
   const dataUserLocal = localStorage.getItem("userLogin")
   const dataUserGoogle = localStorage.getItem("usergoogle")
@@ -47,14 +45,38 @@ const JobDetail = () => {
   }, 
 ]
 const [empresa, setEmpresa] = useState(null);
+
+useEffect(() => {
+  if (empresaId) {
+    axios.get(`/api/v0/companies/${empresaId}`)
+      .then((response) => {
+        setEmpresa(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+}, [empresaId]);
+
+console.log(empresa)
+console.log(empresaId)
+
 //FAVORITOS AHORA ES GUARDADOS
+const [isPremium, setIsPremium] = useState(localStorage.getItem("userLogin"));
+const [openSnackbar, setOpenSnackbar] = useState(false);
 const [isFavorite, setIsFavorite] = useState(false);
 const [favFilter, setFavFilter]  = useState([]);
 const [savedOffers, setSavedOffers] = useState([]);
 
+const handleCloseSnackbar = () => {
+  setOpenSnackbar(false);
+};
+
+
+
 const OffersSave = async() => {
 const get = await axios.get(`/save_offers/${dataUser.id}`)
-.then((res)=>res.data.find(cb => cb.offerId === jobId.id))
+.then((res)=>res.data.find(cb => cb.offerId === jobId?.id))
 if(get !== undefined) {
   return setIsFavorite(true)
 }
@@ -71,18 +93,28 @@ useEffect(()=>{
 
 
 const handleToggleFavorite = () => {
-  if(!isFavorite){
-    Number(jobId.id) ? 
-  axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=db`)
-  : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=api`)
-  setIsFavorite(true)
-return alert("Se ha guardado la oferta")
-}Number(jobId.id) ? 
-axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=db`)
-: axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=api`) 
-setIsFavorite(false)
-return alert("Se ha eliminado la oferta de tu lista guardados")// guarda favorito o desmarca favorito
-}
+  if (savedOffers.length >= 5 && isPremium === "false") {
+    setOpenSnackbar(true);
+   
+    return;
+  }
+  if (!isFavorite) {
+    Number(jobId.id)
+      ? axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=db`)
+      : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=api`);
+    setIsFavorite(true);
+    setSavedOffers([...savedOffers, jobId.id]);
+    alert('Se ha guardado la oferta');
+  } else {
+    Number(jobId.id)
+      ? axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=db`)
+      : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=api`);
+    setIsFavorite(false);
+    setSavedOffers(savedOffers.filter((savedId) => savedId !== jobId.id));
+    alert('Se ha eliminado la oferta de tu lista guardada');
+  }
+};
+
 
 
 
@@ -91,9 +123,7 @@ useEffect(() => {
   window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
   if (data) {
     dispatch(getDataPostulacion(data));
-    dispatch(fetchEmpresaData(jobId?.companyId, (response) => {
-      setEmpresa(response.payload);
-    }));
+    
   }
 }, [data, dispatch, jobId?.companyId]);
 
@@ -128,12 +158,12 @@ useEffect(() => {
     <NavLanding menu={menu}/>
     {/* Datos de la empresa */}
     <div className="md:flex-shrink-0">
-      <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresaId ? empresaId.logo : null} alt="Job Posting" />
+      <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa?.logo} alt="Job Posting" />
       <div className="uppercase tracking-wide text-xs text-gray-400 font-semibold">
-        {empresaId ? empresaId.name : null}
+        {empresa?.name}
       </div>
-      
     </div>
+
       {/* Detalles de la oferta */}
       <div className="flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-8 dark:bg-gray-800">
         <div className="md:flex">
@@ -198,15 +228,22 @@ useEffect(() => {
                   </a>
               }
 
-              <Box >
-              <Fab
-              sx={{ backgroundColor:  'lightblue'  }}
-               aria-label="like"
-               onClick={handleToggleFavorite}
-              >
-                {isFavorite ? <TurnedInIcon/> : <TurnedInNotIcon  />}
-              </Fab>
-              </Box>
+                <Box>
+                  <Fab
+                    sx={{ backgroundColor: "lightblue" }}
+                    aria-label="like"
+                    onClick={handleToggleFavorite}
+                  >
+                    {isFavorite ? <TurnedInIcon /> : <TurnedInNotIcon />}
+                  </Fab>
+                  <Snackbar
+                    open={openSnackbar}
+                    autoHideDuration={4000}
+                    onClose={handleCloseSnackbar}
+                    message="Solo puede guardar 5 ofertas de trabajo por tener el plan free"
+                  />
+                </Box>
+
             </div>
           </div>
         </div>

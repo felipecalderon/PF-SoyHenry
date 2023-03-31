@@ -53,6 +53,7 @@ export const RegistroEmpresa = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [userDbData, setUserDbData] = useState(null);
 
     const [form, setForm] = useState({
         names: '',
@@ -172,21 +173,15 @@ export const RegistroEmpresa = () => {
         setLoading(true);
 
         // Crea el usuario en la base de datos
-        const userDbData = await axios.post('/auth/register', form)
-            .catch(() => {
-                setErrors({
-                    ...errors,
-                    email: '¡Este correo ya esta registrado!'
-                })
-                setLoading(false);
-            })
+        const registroUsuario = await axios.post('/auth/register', form)
 
         // Guarda los datos en localStorage 
-        const objetoJSON = JSON.stringify(userDbData.data)
-        localStorage.setItem('userLogin', objetoJSON)
+        const verifyUsrExist = await axios.post(`/user/email`, { email: registroUsuario.data.email })
+        localStorage.setItem('userLogin', JSON.stringify(verifyUsrExist.data))
+
 
         // Guarda los datos en Redux
-        dispatch(saveUser(userDbData.data))
+        dispatch(saveUser(registroUsuario.data))
 
         // Mensaje y redirige si todo fue exitoso
         handleOpen()
@@ -215,6 +210,7 @@ export const RegistroEmpresa = () => {
                                 "& .MuiInput-underline:before": {
                                     borderBottomColor: "darkorange",
                                 },
+                                '& .MuiInputLabel-root': { color: 'darkorange' }
                             }}
                             noValidate
                             autoComplete="on"
