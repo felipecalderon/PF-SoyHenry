@@ -20,7 +20,13 @@ else{
 }
 
 if(form.age){
+   if(parseInt(form.age)>=18 && parseInt(form.age)<120){
     obj.age=""
+   }else{
+    obj.age="Debes ingresar una edad valida"
+   }
+
+
 }else{ 
     obj.age="Debes ingresar una edad"
 }
@@ -67,10 +73,10 @@ if (form.experience) {
     obj.experience="Por favor, seleccione si tiene o no experiencia previa en el sector IT "
 }
 
-if (form.habilidades.length===0) {
-    obj.habilidades="Debes Seleccionar al menos una habilidad"
+if ( form.tecnology?.length===0) {
+    obj.tecnology="Debes Seleccionar al menos una habilidad"
 } else {
-    obj.habilidades=""
+    obj.tecnology=""
 }
 if (regexTel.test(form.phone)) {
     obj.tel=""
