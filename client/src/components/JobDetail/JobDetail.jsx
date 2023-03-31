@@ -74,7 +74,7 @@ const handleCloseSnackbar = () => {
   setOpenSnackbar(false);
 };
 
-// console.log((isPremium.premium))
+
 
 const OffersSave = async() => {
 const get = await axios.get(`/save_offers/${dataUser.id}`)
