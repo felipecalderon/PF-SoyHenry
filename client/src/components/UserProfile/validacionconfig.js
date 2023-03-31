@@ -9,73 +9,79 @@ const validacionConfig=(form,setError)=>{
 
 let obj={}
 
-if (regexNombreApellido.test(form.nombre)){obj.nombre=""}
+if (regexNombreApellido.test(form.names)){obj.names=""}
 else{
- obj.nombre="Ingrese Nombre Valido"
+ obj.names="Ingrese Nombre Valido"
 }
 
-if (regexNombreApellido.test(form.apellido)){obj.apellido=""}
+if (regexNombreApellido.test(form.lastnames)){obj.lastnames=""}
 else{
- obj.apellido="Ingrese Apellido valido"
+ obj.lastnames="Ingrese Apellido valido"
 }
 
-if(form.edad){
-    obj.edad=""
+if(form.age){
+   if(parseInt(form.age)>=18 && parseInt(form.age)<120){
+    obj.age=""
+   }else{
+    obj.age="Debes ingresar una edad valida"
+   }
+
+
 }else{ 
-    obj.edad="Debes ingresar una edad"
+    obj.age="Debes ingresar una edad"
 }
-if (form.discapacidad) {
-    obj.discapacidad=""
+if (form.disability) {
+    obj.disability=""
 } else {
-    obj.discapacidad="¿Posee alguna discapacidad?.Sí/No."
+    obj.disability="¿Posee alguna discapacidad?.Sí/No."
 }
 
-if(regexTituloOIdioma.test(form.titulo)){obj.titulo=""
-}else obj.titulo ="Ingrese titulo Valido"
+if(regexTituloOIdioma.test(form.title)){obj.title=""
+}else obj.title ="Ingrese titulo Valido"
 
-if (regexUbicacion.test(form.ciudad)) {
-    obj.ciudad=""
+if (regexUbicacion.test(form.city)) {
+    obj.city=""
 } else {
-    obj.ciudad="ingrese ciudad valida"
+    obj.city="ingrese ciudad valida"
 }
-if (regexUbicacion.test(form.pais)) {
-    obj.ciudad=""
+if (regexUbicacion.test(form.country)) {
+    obj.country=""
 } else {
-    obj.pais="ingrese pais valido"
+    obj.country="ingrese pais valido"
 }
 
 
-if (form.genero) {
-    obj.genero=""
+if (form.gender) {
+    obj.gender=""
 } else {
-    obj.genero="ingrese genero"
+    obj.gender="ingrese genero"
 }
-if (regexTituloOIdioma.test(form.idioma)) {obj.idiomas=""
+if (regexTituloOIdioma.test(form.languages)) {obj.languages=""
     
 }else{
-    obj.idiomas="ingrese una descripcion de los idiomas que domina o tiene conocimientos"
+    obj.languages="ingrese una descripcion de los idiomas que domina o tiene conocimientos"
 }
-if (regexdescipcion.test(form.descripcion)) {
-    obj.descripcion=""
+if (regexdescipcion.test(form.description_postulant)) {
+    obj.description_postulant=""
 } else {
-    obj.descripcion="ingrese una descripcion maxima de 250 caracteres"
+    obj.description_postulant="ingrese una descripcion maxima de 250 caracteres"
 }
 
-if (form.experiencia) {
-    obj.experiencia=""
+if (form.experience) {
+    obj.experience=""
 } else {
-    obj.experiencia="Por favor, seleccione si tiene o no experiencia previa en el sector IT "
+    obj.experience="Por favor, seleccione si tiene o no experiencia previa en el sector IT "
 }
 
-if (form.habilidades.length===0) {
-    obj.habilidades="Debes Seleccionar al menos una habilidad"
+if ( form.tecnology?.length===0) {
+    obj.tecnology="Debes Seleccionar al menos una habilidad"
 } else {
-    obj.habilidades=""
+    obj.tecnology=""
 }
-if (regexTel.test(form.tel)) {
+if (regexTel.test(form.phone)) {
     obj.tel=""
 } else {
-    obj.tel="Ingrese un telefono valido"
+    obj.phone="Ingrese un telefono valido"
 }
 if (form.facebook) {
     if (regexFacebok.test(form.facebook)) {

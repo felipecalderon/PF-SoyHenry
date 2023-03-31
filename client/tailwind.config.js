@@ -19,6 +19,8 @@ module.exports = {
         "overlay-light": '#DDDDDD ',
         'text-light': '#4c4c4c',
 
+      
+
       },
     },
   },

@@ -1,6 +1,8 @@
 //ACA IMPORTAN Y SE DEFINEN LAS RUTAS
 const { Router } = require('express')
-
+const {postImagepostulante,
+    postCvpostulante}=require("./uploadImagesRoute")
+const upload =require("../handlers/Utils/multer")
 const { 
     allUsers, 
     createUser,
@@ -31,6 +33,7 @@ const{
     companyByIdDatBas,
     putCompany,
     deleteCompany
+
 }=require('./companyRoute');
 const { 
     getUsersControllers, 
@@ -93,6 +96,21 @@ route.get('/aplicates/:id', getAplicates) // id del User o de offer
 route.get('/save_offers/:id', getSaveOffers) // id del User
 route.get('/fav_company/:id', getFavoriteComp) // id del User o de company
 
+//technologies
+route.get('/technologies', getTechnologies)
+
+//Subir y Actualizar imagenes usuario
+route.post("/upload-photo-user/:idUser",upload.single("imagenes"),postImagepostulante)
+
+//Subir y Actualizar pdf
+route.post("/upload-cv-user/:idPostulante",upload.single("pdf"),postCvpostulante)
+
+route.post('/plan', planRoute)
+route.post('/mercadopago', respuestasMP)
+route.post('/stripe', pagoStripe)
+route.get('/pago', recepcionPago)
+module.exports = route;
+
 // Gets
 // route.get('user/:id', getUsersByIdControllers );
 // route.get('user/:email', getUsersByIdControllers );
@@ -111,12 +129,3 @@ route.get('/fav_company/:id', getFavoriteComp) // id del User o de company
 // route.delete('/admin/:id', deleteadmin)
 // route.get('/admin/:id',getadminbyid)
 //
-
-//technologies
-route.get('/technologies', getTechnologies)
-
-route.post('/plan', planRoute)
-route.post('/mercadopago', respuestasMP)
-route.post('/stripe', pagoStripe)
-route.get('/pago', recepcionPago)
-module.exports = route;

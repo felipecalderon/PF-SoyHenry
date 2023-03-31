@@ -1,22 +1,29 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
-import validations from './validations'
-import fblogo from '../../assets/fbwhite.png'
-import gglogo from '../../assets/ggwhite.png'
-import ghlogo from '../../assets/ghwhite.png'
 import { useNavigate } from "react-router"
-import fbapp from "../../firebaseConfig"
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-import axios from 'axios'
 import { saveUser } from '../../redux/slices/userRegisterSlice'
-// import ModalNewUser from "./ModalNewUser"
 import { Link } from "react-router-dom"
+import axios from 'axios'
+
+import validations from './validations'
+// import fblogo from '../../assets/fbwhite.png'
+import gglogo from '../../assets/ggwhite.png'
+// import ghlogo from '../../assets/ghwhite.png'
+import fbapp from "../../firebaseConfig"
+
+// Libreria mui
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import PostAddIcon from '@mui/icons-material/PostAdd';
+
 export const ModalLogin = ({ isOpen, setOpen }) => {
     const dispatch = useDispatch()
-    const [error, setError] = useState(null)
     const navigate = useNavigate()
     const auth = getAuth(fbapp)
 
+    const [error, setError] = useState(null)
     const [form, setForm] = useState({
         email: '',
         password: ''
@@ -44,6 +51,9 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
             setError(error.response.data.message)
         }
     }
+    // Da acceso al modal para escoger el tipo de perfil
+    const [openM, setOpenM] = useState(false);
+    const handleOpen = () => setOpenM(true);
 
     const handleLoginGoogle = async (e) => {
         e.preventDefault();
@@ -52,8 +62,9 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
             const verifyUsrExist = await axios.post(`/user/email`, { email })
 
             if (!verifyUsrExist.data) {
-                setOpen(false)
-                return navigate('/newuser')
+                handleOpen()
+                setOpen(true)
+                // return navigate('/newuser')
             }
             dispatch(saveUser(verifyUsrExist.data))
             localStorage.setItem('userLogin', JSON.stringify(verifyUsrExist.data))
@@ -65,6 +76,7 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
             alert("Hubo un error en el acceso, intente nuevamente")
         }
     }
+
 
     const closeModal = () => {
         setOpen(false)
@@ -85,6 +97,7 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
         event.preventDefault()
         const { email, password } = form
         try {
+            console.log(form);
             const response = await axios.post('/auth/login', {
                 email,
                 password
@@ -126,24 +139,55 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
 
                         <div className='flex flex-col w-auto pb-3'>
                             <button type="submit" className='bg-primary-dark dark:bg-secondary-light hover:text-lg transition-all text-white dark:text-gray-800 font-medium py-2 px-4 rounded-md my-2 duration-200'>Ingresar</button>
-                            <Link to={'/newuser'} > <button className='w-full border-2 border-gray-400 hover:border-gray-500 text-gray-400 hover:text-gray-500 font-medium py-2 px-4 rounded-md my-2 transition duration-200'>Crear cuenta</button>  </Link>
+                            <button onClick={()=>{setOpenM(true)}} className='w-full border-2 border-gray-400 hover:border-gray-500 text-gray-400 hover:text-gray-500 font-medium py-2 px-4 rounded-md my-2 transition duration-200'>Crear cuenta</button>
                         </div>
                         <div className='flex justify-center items-center text-sm'>
-                            <button onClick={handleLoginGoogle} className='w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md mr-4'>
+                            <button onClick={handleLoginGoogle} className='w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-md'>
                                 <img src={gglogo} className='w-6 h-6 inline-block align-middle mr-2' alt='Google' />Ingresar con Google
                             </button>
-                            <button className='w-full bg-blue-700 hover:bg-blue-800 text-white py-2 px-4 rounded-md mr-4'>
+                            {/* <button className='w-full bg-blue-700 hover:bg-blue-800 text-white py-2 px-4 rounded-md mr-4'>
                                 <img src={fblogo} className='w-6 h-6 inline-block align-middle mr-2' alt='Facebook' />Ingresar con Facebook
                             </button>
                             <button className='w-full bg-gray-800 hover:bg-gray-900 text-white py-2 px-4 rounded-md'>
                                 <img src={ghlogo} className='w-6 h-6 inline-block align-middle mr-2' alt='GitHub' />Ingresar con GitHub
-                            </button>
+                            </button> */}
                         </div>
                     </form>
                     <div>
                     </div>
                 </div>
             </article>
+            <div>
+                <Modal
+                    open={openM}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box class="flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 bg-primary-light dark:bg-primary-dark border-2 shadow-24 p-4 h-1/2 rounded-2xl flex-col justify-center items-center">
+                        <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center dark:text-white">
+                            ¡Bienvenido a FusionaJob!
+                        </h1>
+                        <h2 className="text-2xl  text-center dark:text-white">
+                            Continuemos con el registro de tus datos
+                        </h2>
+                        <h3 className="mb-8 text-2xl font-bold text-center dark:text-white">
+                            !Por favor selecciona la opción que más cumpla con tus necesidades!
+                        </h3>
+                        <div className='w-full flex flex-wrap justify-center' >
+                            <Link to={'/registro'}>
+                                <button className="m-3 h-16 bg-primary-dark hover:bg-purple-900  dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                    <ContentPasteSearchIcon /> Quiero buscar empleos
+                                </button>
+                            </Link>
+                            <Link to={'/companyregister'}>
+                                <button className=" m-3 h-16 bg-primary-dark hover:bg-purple-900  dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                    <PostAddIcon /> Quiero publicar ofertas de trabajo
+                                </button>
+                            </Link>
+                        </div>
+                    </Box>
+                </Modal>
+            </div>
         </div>
     )
 }

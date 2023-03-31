@@ -19,6 +19,7 @@
     "luxon": "^3.3.0",
     "mercadopago": "^1.5.15",
     "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.1",
     "passport": "^0.6.0",
     "passport-github": "^1.1.0",

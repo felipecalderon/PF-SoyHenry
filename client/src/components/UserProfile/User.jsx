@@ -3,104 +3,115 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux"
 import usuario from "../../assets/user.png";
 
+//mui
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import Perks from "../JobDetail/Perks";
+
 const skills = [
-  "Desarrollo web",
-  "Desarrollo móvil",
-  "Bases de datos",
-  "Seguridad informática",
-  "Redes de computadoras",
-  "Inteligencia artificial",
-  "Aprendizaje automático",
-  "Ciencia de datos",
-  "Gestión de proyectos",
-  "Diseño UX/UI",
-  "Análisis de negocios",
-  "Cloud computing",
-  "DevOps",
-  "Automatización de pruebas",
-  "Ingeniería de software",
-  "Realidad virtual y aumentada",
-  "Blockchain",
-  "Ciberseguridad",
-  "Arquitectura de software",
-  "Gestión de la información",
+
 ];
 function User() {
   const { user } = useSelector(state => state.userRegisterSlice)
   const dataUserLocal = localStorage.getItem("userLogin");
   const dataUser = JSON.parse(dataUserLocal);
+  const dataUserGoogle = JSON.parse(localStorage.getItem('usergoogle'))
+  const dataUserLocalStorage = JSON.parse(localStorage.getItem('userLogin'))
+
   const [data, SetData] = useState(dataUser);
   console.log(data)
   // useEffect(() => {
+  //traer datos de redux
   // }, []);
   return (
-    <ul className="flex flex-col justify-between items-start p-8 h-full ">
-      <li>
+    <ul className="w-full flex flex-col justify-between items-start px-8 py-4 h-full ">
+      <li className="w-full flex flex-col items-center">
         <img
-          src={usuario}
+          src={dataUser?.photo || dataUserGoogle?.photo || usuario}
           alt=""
           width="150px"
           className="border rounded-full m-1 "
         />
       </li>
 
-      <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
+      <li className="w-full mb-2 flex justify-center text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
         {data.names} {data.lastnames} , {data?.Postulants instanceof Array ? data.Postulants[0].age : data.Postulants.age}
       </li>
       <hr className="border border-b-gray-100  w-full " />
 
-      <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        Ubicacion{" "}
+      <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
+        <p style={{ fontWeight: "bold" }}> Ubicación: </p>   {dataUserLocalStorage?.city},{dataUserLocalStorage?.country}
       </li>
       <hr className="border border-b-gray-100  w-full " />
-      <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        Titulo{" "}
+      <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
+        <p style={{ fontWeight: "bold" }}> Titulo: </p>  {dataUserLocalStorage?.Postulants[0].title}
       </li>
 
       <li className="">
-        <h2 className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-          Descripcion
+        <h2 className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
+          <p style={{ fontWeight: "bold" }}> Descripción: </p>
         </h2>
-        <p className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-          Describa sus habilidades, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos.
+        <p className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
+          {dataUserLocalStorage?.Postulants[0].description_postulant}
         </p>
       </li>
       <hr className="border border-b-gray-100  w-full " />
 
-      <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        Idioma
+      <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
+        <p style={{ fontWeight: "bold" }}> Idioma/s: </p>  {dataUserLocalStorage?.Postulants[0].languages}
       </li>
 
       <hr className="border border-b-gray-100  w-full " />
 
       <li className="">
-        <h2 className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-          Habilidades:
+        <h2 className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
+          <p style={{ fontWeight: "bold" }}> Habilidades: </p>
         </h2>
+        <div className="flex flex-row flex-wrap gap-3">
+          {dataUserLocalStorage?.Postulants[0].tecnology?.map((habilidades) => {
+            return <Perks perk={habilidades} />
+          })}
+        </div>
         <ul
           className="flex flex-wrap justify-start overflow-y-auto"
           style={{ maxHeight: "90px" }}
         >
-          {skills.map((el) => (
-            <li className="m-2 p-2 rounded-xl bg-white border text-sm text-center flex justify-between items-center">
-              {el}
-            </li>
-          ))}
+          {dataUserLocalStorage?.Postulants[0].tecnology?.length ?
+            skills.map((el) => (
+              <li className="m-2 p-2 rounded-xl bg-white border text-sm text-center flex justify-between items-center"> {el}</li>))
+            : <><p className={` select-none font-bold  mb-1 text-white text-xl text-center`}>La lista de habilidades está vacía.</p><br />
+              <p className="select-none text-gray-400 text-sm text-center"> Seleccione una habilidad para continuar</p>
+            </>
+          }
+
         </ul>
       </li>
       <hr className="border border-b-gray-100  w-full " />
-      <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-        Datos de contacto
-        <ul>
-          <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-            Telefono
+      <li className="w-full mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
+        <p style={{ fontWeight: "bold" }}> Datos de contacto </p>
+        <ul className="w-full">
+          <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
+            <p style={{ fontWeight: "bold" }}> Celular: </p>
+            <p>{dataUserLocalStorage?.phone}</p>
           </li>
-          <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-            Facebook
-          </li>
-          <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">
-            Linkedin
-          </li>
+          <div className="flex flex-row w-full justify-center">
+            <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-white h-8">
+              {
+                dataUserLocalStorage?.Postulants[0].facebook
+                  ? <a href={dataUserLocalStorage?.Postulants[0].facebook} target="_blank" rel="noreferrer"  > <FacebookIcon sx={{ fontSize: 70 }} /> </a>
+                  : null
+              }
+
+            </li>
+            <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
+              {
+                dataUserLocalStorage?.Postulants[0].linkedin
+                  ? <a href={dataUserLocalStorage?.Postulants[0].linkedin} target="_blank" rel="noreferrer"  > <LinkedInIcon sx={{ fontSize: 70 }} /> </a>
+                  : null
+              }
+
+            </li>
+          </div>
         </ul>
       </li>
     </ul>

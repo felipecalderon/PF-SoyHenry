@@ -1,12 +1,14 @@
 import React from 'react'
 function Pdf() {
+  const dataUserLocalStorage = JSON.parse(localStorage.getItem("userLogin"));
+  const pdf = dataUserLocalStorage.Postulants[0].curriculum_pdf
   return (
     <>
         <object 
-        data={require("./curriculumejemplo.pdf")}
+        data={pdf}
         type="application/pdf"
-      style={{width: "100%",
-        height: "100vh"}}>
+         style={{width: "100%",
+           height: "100vh"}}>
             
         </object>
     </>

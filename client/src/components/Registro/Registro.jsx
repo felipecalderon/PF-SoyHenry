@@ -38,7 +38,7 @@ export const Registro = () => {
     // const navigate = useNavigate();
 
     const [form, setForm] = useState({
-        names: '',
+        username: '',
         lastnames: '',
         email: '',
         password: '',
@@ -49,7 +49,7 @@ export const Registro = () => {
     });
 
     const [errors, setErrors] = useState({
-        names: '',
+        username: '',
         lastnames: '',
         email: '',
         password: '',
@@ -154,6 +154,7 @@ export const Registro = () => {
                                 "& .MuiInput-underline:before": {
                                     borderBottomColor: "darkorange",
                                 },
+                                '& .MuiInputLabel-root': { color: 'darkorange' }
                             }}
                             noValidate
                             autoComplete="on"
@@ -208,7 +209,7 @@ export const Registro = () => {
                         <div className='flex items-center justify-center'>
                             <Box sx={{ '& > button': { m: 1, width: '150px', height: '60px', fontWeight: '700' } }}>
                                 <LoadingButton
-                                    className={`${isErrorsEmpty && isFormComplete ? "" : "opacity-50 cursor-not-allowed pointer-events-none"}`}
+                                    // className={`${isErrorsEmpty && isFormComplete ? "" : "opacity-50 cursor-not-allowed pointer-events-none"}`}
                                     onClick={handleClick}
                                     loading={loading}
                                     color="warning"
