@@ -20,7 +20,7 @@ const Dropdown = ({rol}) => {
         },
         {
             link: "#",
-            name: "Empleos favoritos",
+            name: "Empleos Guardados",
         },
         {
             link: "/profile",

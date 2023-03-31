@@ -6,7 +6,7 @@ import { useState } from "react";
 // Componentes
 import Curriculum from "./Curriculum";
 import Postulaciones from "./Postulaciones";
-import Favoritos from "./Favoritos";
+import Favoritos from "./Guardados";
 import Configuracion from "./Configuracion";
 import User from "./User";
 import { NavLanding } from "../NavLanding/NavLanding";
@@ -23,27 +23,7 @@ function UserProfile() {
     const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
         valorSeleccionado: "curriculum"
     })
-    // const [data, SetData] = useState({
-    //     nombre: "nombre",
-    //     apellido: "apellido",
-    //     edad: 20,
-    //     ubicacion: "",
-    //     titulo: "Titulo",
-    //     descripcion: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem consequatur nisi perspiciatis earum neque aspernatur recusandae numquam, corrupti quasi explicabo alias placeat libero cumque ad repellat adipisci aut! Obcaecati, quasi!",
-    //     idioma: "",
-    //     habilidades: ["javascript", "css"],
-    //     contacto: {
-    //         tel: "123456789",
-    //         mail: "hola@gmail.com",
-    //         redes_sociales: {
-    //             linkedin: "",
-    //             facebook: "",
-    //             instagram: ""
-    //         },
-    //         direccion: "calle falsa 123"
-    //     }
-    // })
-
+    
     const handleBarraPerfil = (event) => {
         const { value } = event.target
         SetSelectedValueBarraPerfil({
