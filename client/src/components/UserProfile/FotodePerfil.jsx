@@ -36,6 +36,8 @@ function FotodePerfil({photo}) {
       .then((response) => {
         console.log(response.data);
         alert("se modifico la foto de perfil")
+        window.location.reload();
+
         
       })
       .catch((error) => {

@@ -91,7 +91,7 @@ function User() {
         <p style={{ fontWeight: "bold" }}> Datos de contacto </p>
         <ul className="w-full">
           <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
-            <p style={{ fontWeight: "bold" }}> Cellular: </p>
+            <p style={{ fontWeight: "bold" }}> Celular: </p>
             <p>{dataUserLocalStorage?.phone}</p>
           </li>
           <div className="flex flex-row w-full justify-center">
