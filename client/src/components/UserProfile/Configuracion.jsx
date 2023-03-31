@@ -3,6 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchCountries } from "../../redux/slices/countriesSlices";
+import usuario from "../../assets/user.png"
 
 import validacionConfig from "./validacionconfig";
 import FotodePerfil from "./FotodePerfil";
@@ -43,22 +44,23 @@ function Configuracion() {
 
   const [form, SetForm] = useState({
     rol: "Postulante",
-    email: dataUserLocalStorage.email,
-    names: dataUserLocalStorage.names,
-    lastnames: dataUserLocalStorage.lastnames,
-    age: dataUserLocalStorage.Postulants[0].age,
-    gender: dataUserLocalStorage.Postulants[0].gender,
-    experience: dataUserLocalStorage.Postulants[0].experience,
-    disability: dataUserLocalStorage.Postulants[0].disability,
-    city: dataUserLocalStorage.city,
-    country: dataUserLocalStorage.country,
-    title: dataUserLocalStorage.Postulants[0].title,
-    description_postulant: dataUserLocalStorage.Postulants[0].description_postulant,
-    languages: dataUserLocalStorage.Postulants[0].languages,
-    tecnology: dataUserLocalStorage.Postulants[0].tecnology,
-    phone: dataUserLocalStorage.phone,
-    linkedin: dataUserLocalStorage.Postulants[0].linkedin,
-    facebook: dataUserLocalStorage.Postulants[0].facebook,
+    email: dataUserLocalStorage.email || '',
+    names: dataUserLocalStorage.names || '',
+    lastnames: dataUserLocalStorage.lastnames || '',
+    age: dataUserLocalStorage.Postulants[0].age || '',
+    gender: dataUserLocalStorage.Postulants[0].gender || '',
+    experience: dataUserLocalStorage.Postulants[0].experience || '',
+    disability: dataUserLocalStorage.Postulants[0].disability || '',
+    city: dataUserLocalStorage.city || '',
+    country: dataUserLocalStorage.country || '',
+    title: dataUserLocalStorage.Postulants[0].title || '',
+    description_postulant: dataUserLocalStorage.Postulants[0].description_postulant || '',
+    languages: dataUserLocalStorage.Postulants[0].languages || '',
+    tecnology: dataUserLocalStorage.Postulants[0].tecnology || '',
+    phone: dataUserLocalStorage.phone || '',
+    linkedin: dataUserLocalStorage.Postulants[0].linkedin || '',
+    facebook: dataUserLocalStorage.Postulants[0].facebook || '',
+
   });
   const [error, SetError] = useState({
     names: "",
@@ -111,15 +113,12 @@ function Configuracion() {
     : [];
 
   const handleSelectSkills = (event) => {
-    const { value } = event.target;
-    if (form.tecnology.includes(value)) {
-      SetForm({
-        ...form,
-        tecnology: [...form.tecnology].filter((element) => element !== value),
-      });
-    } else if (value !== "") {
+
+    const value = event.target.value;
+    if (!form.tecnology.includes(value)) {
       SetForm({ ...form, tecnology: [...form.tecnology, value] });
-    }
+    } 
+
   };
   const handleButtonSkill = (event) => {
     SetForm({
@@ -127,6 +126,7 @@ function Configuracion() {
       tecnology: [...form.tecnology].filter((el) => el !== event.target.value),
     });
   };
+  console.log(form.tecnology)
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -163,7 +163,8 @@ function Configuracion() {
     <>
       <form className="w-full flex flex-col justify-between items-start px-3 pb-5">
         <div className="w-full flex flex-col mb-8">
-          <FotodePerfil photo={dataUserGoogle.photo} />
+
+          <FotodePerfil photo={dataUserLocalStorage?.photo || dataUserGoogle?.photo || usuario} />
         </div>
 
         <Box
@@ -186,7 +187,8 @@ function Configuracion() {
           <div className=" text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400 w-full flex justify-between">
             <TextField id="names" label="Nombre" className="w-1/3" name="names" value={form.names} onChange={actualizarData} error={!!error.names} helperText={error.names} />
             <TextField id="lastnames" label="Apellido" className="w-1/3 " name="lastnames" value={form.lastnames} onChange={actualizarData} error={!!error.lastnames} helperText={error.lastnames} />
-            <TextField id="age" label='Edad' type="number" className="w-1/4" value={form.age} onChange={actualizarData} error={!!error.age} helperText={error.age}
+            <TextField id="age" name="age" label='Edad' type="number" className="w-1/4" value={form.age} onChange={actualizarData} error={!!error.age} helperText={error.age}
+
               inputProps={{
                 min: "18",
                 max: "120",

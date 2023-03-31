@@ -17,10 +17,12 @@ import { spinnerPurple } from "../Cards/spinner";
 
 //mui
 import EditIcon from '@mui/icons-material/Edit';
+
 import { IconButton } from "@mui/material";
 import PremiumButtonComponent from "../BotonPremium/BotonPremium";
 
 function UserProfile() {
+
     const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userLogin')));
     const [loading, setLoading] = useState(true)
     useEffect(() => {
@@ -35,6 +37,7 @@ function UserProfile() {
 
 
     const [inConfig, SetInConfig] = useState(false)
+
     const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
         valorSeleccionado: "curriculum"
     })
@@ -123,6 +126,7 @@ function UserProfile() {
                 <section className="bg-primary-light flex  w-full dark:bg-secondary-dark flex-wrap justify-center ">
                     <section
                         className="w-full bg-secondary-light dark:bg-primary-dark m-4 border rounded-xl w-full flex flex-col"
+
                         style={{ minHeight: " 1200px", minWidth: "330px", maxWidth: "616px" }}>
                         <div className="w-full flex flex-col  items-end">
                             {

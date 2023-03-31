@@ -27,7 +27,7 @@ function User() {
     <ul className="w-full flex flex-col justify-between items-start px-8 py-4 h-full ">
       <li className="w-full flex flex-col items-center">
         <img
-          src={dataUser.photo || dataUserGoogle.photo || usuario}
+          src={dataUser?.photo || dataUserGoogle?.photo || usuario}
           alt=""
           width="150px"
           className="border rounded-full m-1 "
@@ -91,7 +91,7 @@ function User() {
         <p style={{ fontWeight: "bold" }}> Datos de contacto </p>
         <ul className="w-full">
           <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
-            <p style={{ fontWeight: "bold" }}> Cellular: </p>
+            <p style={{ fontWeight: "bold" }}> Celular: </p>
             <p>{dataUserLocalStorage?.phone}</p>
           </li>
           <div className="flex flex-row w-full justify-center">

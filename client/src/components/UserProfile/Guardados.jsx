@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import axios from "axios";
@@ -14,8 +14,8 @@ function Favoritos() {
   const dataUserGoogle = localStorage.getItem("usergoogle");
   const dataUser = JSON.parse(dataUserLocal);
   const [saveOffers, setSavedOffers] = useState([]);
-  
-  const [ setIsFavorite] = useState(false);
+
+  const [setIsFavorite] = useState(false);
 
   useEffect(() => {
     axios
@@ -28,7 +28,7 @@ function Favoritos() {
     const apiUrl = `/rel_offers/${offerId}/${dataUser.id}?save=unsave&title=${offerTitle}&origin=api`;
     const dbUrl = `/rel_offers/${offerId}/${dataUser.id}?save=unsave&title=${offerTitle}&origin=db`;
     const url = Number(offerId) ? dbUrl : apiUrl;
-  
+
     if (window.confirm("¿Estás seguro que deseas eliminar esta oferta de tus favoritos?")) {
       axios
         .put(url)
@@ -40,42 +40,38 @@ function Favoritos() {
         .catch((err) => console.log(err));
     }
   };
-  console.log(saveOffers)
-  
+
   return (
     <>
-    {
-      saveOffers?.length?
-    <>
-     { saveOffers.map((offer) => (
-       <Link to={`/detail/${offer.offerId}?title=${offer.title}`}>
-        <Box key={offer.offerId}>
-          <h2 className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-between z-0 items-center">
-            <Fab
-              sx={{ backgroundColor: 'lightblue' }}
-              aria-label="like"
-              onClick={() => handleRemoveOffer(offer.offerId)}
-            >
-              <TurnedInIcon />
-            </Fab>
-           
-               { offer.hasOwnProperty("Offer") ? offer.Offer?.title : offer.title}
-              
-          </h2>
-        </Box>
-        
-        </Link>
+      {
+        saveOffers?.length ?
+          <>
+            {saveOffers.map((offer) => (
+              <Box key={offer.offerId}>
+                <h2 className="z- 10 bg-white dark:bg-secondary-dark rounded-xl p-4 border mb-4 text-center flex justify-between items-center">
+                  <Fab
+                    sx={{ backgroundColor: 'lightblue', zIndex: 0 }}
+                    aria-label="like"
+                    onClick={() => handleRemoveOffer(offer.offerId)}
+                  >
+                    <TurnedInIcon  />
+                  </Fab>
+                  <Link to={`/detail/${offer.offerId}?title=${offer.title}`} className='text-3xl dark:text-white font-bold'>
+                    {offer.title}
+                  </Link>
+                </h2>
+              </Box>
+            ))}
+          </> :
+          <div className='flex flex-col justify-around w-full h-2/3'>
+            <h2 className="text-3xl font-bold text-white mb-3 text-center">No hay elementos en tus favoritos aún </h2>
+            <p className='text-gray-400 text-2xl text-center'>¡Agrega algunos elementos a tu lista de favoritos para tenerlos siempre a mano!</p>
+            <img src={logofusionajob} alt='logo' className="text-center" />
+          </div>
 
-      ))}
-    </>:
-    <div className='flex flex-col justify-around w-full h-2/3'>
-      <h2 className="text-3xl font-bold text-white mb-3 text-center">No hay elementos en tus favoritos aún </h2>
-    <p className='text-gray-400 text-2xl text-center'>¡Agrega algunos elementos a tu lista de favoritos para tenerlos siempre a mano!</p>
-    <img src={logofusionajob} alt='logo' className="text-center" />
-    </div>
-    
-    }
-  </>
+      }
+    </>
+
   )
 }
 
