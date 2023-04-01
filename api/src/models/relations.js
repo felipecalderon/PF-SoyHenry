@@ -53,8 +53,8 @@ Technologies.hasMany(Postulant, {foreignKey: 'idPostulant', onDelete: 'CASCADE'}
 Postulant.hasMany(Technologies, {foreignKey: 'idPostulant'})
 
 // Pagos
-Payment.belongsTo(Postulant);
-Postulant.hasMany(Payment, { as: 'payments' });
+Payment.belongsTo(User);
+User.hasMany(Payment, { as: 'payments' });
 
 module.exports = {
     User,
