@@ -15,11 +15,11 @@ const DashAdmin = () => {
                 <h2 className="text-center pt-6 mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">
                     Panel de Adminisitración
                 </h2>
-            <section className="py-10 gap-3 w-full flex flex-row flex-wrap justify-center text-center">
-                <div className="w-full sm:w-1/3 flex flex-col justify-center">
+            <section className="py-10 gap-3 flex flex-row flex-wrap justify-center text-center">
+                <div className="w-11/12 sm:w-1/3 flex flex-col">
                     <Left /> 
                 </div>
-                <div className="w-full sm:w-1/2 flex flex-col justify-center">
+                <div className="w-full sm:w-1/2 flex flex-col">
                     <Rigth />
                 </div>
             </section>

@@ -1,28 +1,29 @@
 import Card from "./Card"
+import ReactPaginate from 'react-paginate'; // libreria para hacer el paginado
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostList } from '../../redux/slices/postSlices';
-import { spinnerPurple } from './spinner';
 import useFetch from '../Hooks/useFetch';
-import ReactPaginate from 'react-paginate'; // libreria para hacer el paginado
-import Footer from "../Footer/Footer";
-import { NavLanding } from "../NavLanding/NavLanding";
 
+// Components
+import { spinnerPurple } from './spinner';
+import { NavLanding } from "../NavLanding/NavLanding";
 import { useNavigate } from 'react-router-dom';
 import PremiumButtonComponent from "../BotonPremium/BotonPremium";
+
+import Footer from "../Footer/Footer";
 
 
 const Cards = () => {
   const navigate = useNavigate()
   const dataUserLocal = JSON.parse(localStorage.getItem("userLogin"))
   const dataUserGoogle = JSON.parse(localStorage.getItem("usergoogle"))
-  console.log(dataUserLocal);
 
   const dispatch = useDispatch()
   const { postJobs } = useSelector((state) => state.postSlice)
   const [filters, setFilters] = useState({});
   const [title, setTitle] = useState('a');
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(''); 
   
 
   // Filtrado  
@@ -108,7 +109,7 @@ const Cards = () => {
   const filtersLocalStorage = localStorage.getItem("filtersLocalStorage"); // filtros aplicados
   const filtros = JSON.parse(filtersLocalStorage); // Convertir el objeto JSON en un objeto JavaScript
 
-  if (titleSearchbar && title !== 'a') console.log(titleSearchbar) //setTitle(titleSearchbar)
+  if (titleSearchbar && title !== 'a')//setTitle(titleSearchbar)
   if (filtersLocalStorage && Object.keys(filtros).length !== 0 && Object.keys(filters).length === 0) setFilters(filtros) // Si hay filtros guardados los aplica
   if (dateFilterSelect && dateFilter) dateFilter.value = dateFilterSelect;
   if (expFilterSelect && experienceFilter) experienceFilter.value = expFilterSelect;
@@ -145,7 +146,7 @@ const Cards = () => {
 
   useEffect(() => {
     if(!dataUserLocal && !dataUserGoogle) navigate('/')
-  }, [])
+  }, []) // eslint-disable-line
 
   if (isLoading) return spinnerPurple()
   const menuOffers = [
