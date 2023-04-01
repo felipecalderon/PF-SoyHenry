@@ -38,7 +38,7 @@ export const Registro = () => {
     // const navigate = useNavigate();
 
     const [form, setForm] = useState({
-        username: '',
+        names: '',
         lastnames: '',
         email: '',
         password: '',
@@ -49,7 +49,7 @@ export const Registro = () => {
     });
 
     const [errors, setErrors] = useState({
-        username: '',
+        names: '',
         lastnames: '',
         email: '',
         password: '',
@@ -121,7 +121,7 @@ export const Registro = () => {
             })
 
         // Guarda los datos en localStorage 
-        const objetoJSON = JSON.stringify(userDbData.data)
+        const objetoJSON = JSON.stringify(userDbData?.data)
         localStorage.setItem('userLogin', objetoJSON)
 
         // Guarda los datos en Redux

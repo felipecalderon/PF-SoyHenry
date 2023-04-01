@@ -36,7 +36,7 @@ function UserProfile() {
     }, [])
 
 
-    const [inConfig, SetInConfig] = useState(false)
+    const [inConfig, SetInConfig] = useState(!userData.Postulants[0].description_postulant)
 
     const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
         valorSeleccionado: "curriculum"
@@ -125,7 +125,7 @@ function UserProfile() {
 
                 <section className="bg-primary-light flex  w-full dark:bg-secondary-dark flex-wrap justify-center ">
                     <section
-                        className="w-full bg-secondary-light dark:bg-primary-dark m-4 border rounded-xl w-full flex flex-col"
+                        className="w-full bg-secondary-light dark:bg-primary-dark m-4 border rounded-xl  flex flex-col"
 
                         style={{ minHeight: " 1200px", minWidth: "330px", maxWidth: "616px" }}>
                         <div className="w-full flex flex-col  items-end">
