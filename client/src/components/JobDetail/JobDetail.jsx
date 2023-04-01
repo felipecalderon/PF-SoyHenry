@@ -1,20 +1,20 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getDataPostulacion, getDataEmpresa } from "../../redux/slices/postSlices";
-import useFetch from '../Hooks/useFetch'
+import { getDataPostulacion } from "../../redux/slices/postSlices";
+
+// Components
 import { NavLanding } from "../NavLanding/NavLanding";
-import Footer from "../Footer/Footer";
 import { spinnerPurple } from "../Cards/spinner";
-import { addFavorites } from "../../redux/slices/userRegisterSlice"
+import useFetch from '../Hooks/useFetch'
+import Footer from "../Footer/Footer";
+import Perks from "./Perks";
+
+// Mui
 import { Box, Fab, Snackbar } from "@mui/material";
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
-import axios from "axios";
-import Perks from "./Perks";
-import { fetchEmpresaData } from "../../redux/actions/fetchEmpresa";
-import { async } from "@firebase/util";
-import { ClassSharp } from "@mui/icons-material";
 
 const JobDetail = () => {
   const navigate = useNavigate()

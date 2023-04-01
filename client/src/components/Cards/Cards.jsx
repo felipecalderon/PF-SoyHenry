@@ -1,14 +1,16 @@
 import Card from "./Card"
+import ReactPaginate from 'react-paginate'; // libreria para hacer el paginado
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostList } from '../../redux/slices/postSlices';
-import { spinnerPurple } from './spinner';
 import useFetch from '../Hooks/useFetch';
-import ReactPaginate from 'react-paginate'; // libreria para hacer el paginado
-import Footer from "../Footer/Footer";
-import { NavLanding } from "../NavLanding/NavLanding";
 
+// Components
+import { spinnerPurple } from './spinner';
+import { NavLanding } from "../NavLanding/NavLanding";
 import { useNavigate } from 'react-router-dom';
+import Footer from "../Footer/Footer";
+
 
 const Cards = () => {
   const navigate = useNavigate()
@@ -142,7 +144,7 @@ const Cards = () => {
 
   useEffect(() => {
     if(!dataUserLocal && !dataUserGoogle) navigate('/')
-  }, [])
+  }, []) // eslint-disable-line
 
   if (isLoading) return spinnerPurple()
   const menuOffers = [
