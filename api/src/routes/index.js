@@ -57,7 +57,8 @@ const { planRoute,
     subscriptionRoute,
     respuestasMP,
     pagoStripe,
-    recepcionPago
+    recepcionPago,
+    rutaVerPagos
 } = require('./suscriptionRoute');
 
 const route = Router();
@@ -109,6 +110,7 @@ route.post('/plan', planRoute)
 route.post('/mercadopago', respuestasMP)
 route.post('/stripe', pagoStripe)
 route.get('/pago', recepcionPago)
+route.get('/verpagos', rutaVerPagos)
 module.exports = route;
 
 // Gets

@@ -2,6 +2,20 @@ const {mercadopago} = require('../configs/mercadopago/mpconfig');
 const { getUsersByEmail } = require('../handlers/handlerUserModels');
 const { User, Postulant, Payment } = require("../models/relations.js");
 
+const controlarListaPagos = async ({email}) => {
+    try {
+        if(!email){
+          const postulants = await User.findAll({ include: 'payments' });
+          return postulants
+        }
+        const postulant = await User.findOne({ where: { email }, include: 'payments' });
+        return postulant.payments
+    } catch (error) {
+        console.log(error);
+        throw { message: 'Error fetching payments for postulant' }
+    }
+}
+
 const controlarPagoStripe = async ({estado, email}) => {
   try {
     if(estado !== 'pagado') throw 'Pago fallido por alguna razón misteriosa 👀'
@@ -9,13 +23,7 @@ const controlarPagoStripe = async ({estado, email}) => {
       where: {email}
     })
     if(!usuario) throw 'No se puede contratar el plan sin tener una cuenta creada 👀👀'
-    const postulante = await Postulant.findOne({
-      where: {
-        userId: usuario.id
-      }
-    })
-    console.log(postulante);
-    await postulante.createPayment({
+    await usuario.createPayment({
       inicio_plan: new Date(),
       fin_plan: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 días después de hoy
       plan: 'Premium',
@@ -67,4 +75,4 @@ const crearPlan = async ({email}) => {
     }
   }
 
-  module.exports = {crearPlan, crearSuscripcion, controlarPagoStripe}
+  module.exports = {crearPlan, crearSuscripcion, controlarPagoStripe, controlarListaPagos}

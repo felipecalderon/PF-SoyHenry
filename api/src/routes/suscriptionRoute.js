@@ -1,4 +1,4 @@
-const {crearPlan, crearSuscripcion, controlarPagoStripe} = require('../controllers/paymentController')
+const {crearPlan, crearSuscripcion, controlarPagoStripe, controlarListaPagos} = require('../controllers/paymentController')
 const stripe = require('../configs/stripe/stripeConfig')
 const planRoute = async (req, res) => {
     try {
@@ -62,4 +62,14 @@ const respuestasMP = async (req, res) => {
       res.status(500).send(error);
     }
   }
-module.exports = {planRoute, subscriptionRoute, respuestasMP, pagoStripe, recepcionPago}
+
+  const rutaVerPagos = async (req, res) => {
+    try {
+      const estadoDelPago = await controlarListaPagos(req.query)
+      res.json(estadoDelPago)
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(error);
+    }
+  }
+module.exports = {planRoute, subscriptionRoute, respuestasMP, pagoStripe, recepcionPago, rutaVerPagos}
