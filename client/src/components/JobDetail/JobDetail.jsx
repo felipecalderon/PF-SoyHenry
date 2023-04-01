@@ -15,6 +15,7 @@ import Perks from "./Perks";
 import { fetchEmpresaData } from "../../redux/actions/fetchEmpresa";
 import { async } from "@firebase/util";
 import { ClassSharp } from "@mui/icons-material";
+import PremiumButtonComponent from "../BotonPremium/BotonPremium";
 
 const JobDetail = () => {
   const navigate = useNavigate()
@@ -25,7 +26,6 @@ const JobDetail = () => {
   const {empresaId} = useSelector((state)=> state.postSlice)
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
-
   const { data, isLoading } = useFetch(url);
   const dataUserLocal = localStorage.getItem("userLogin")
   const dataUserGoogle = localStorage.getItem("usergoogle")
@@ -61,7 +61,7 @@ useEffect(() => {
 
 
 //FAVORITOS AHORA ES GUARDADOS
-const [isPremium, setIsPremium] = useState(localStorage.getItem("userLogin"));
+const userData = JSON.parse(localStorage.getItem('userLogin'));
 const [openSnackbar, setOpenSnackbar] = useState(false);
 const [isFavorite, setIsFavorite] = useState(false);
 const [favFilter, setFavFilter]  = useState([]);
@@ -92,9 +92,8 @@ useEffect(()=>{
 
 
 const handleToggleFavorite = () => {
-  if (savedOffers.length >= 5 && isPremium === "false") {
+  if (!userData.premium && savedOffers.length >= 5) { // Verificar si el usuario es premium y si la cantidad de ofertas guardadas no supera las 5 permitidas
     setOpenSnackbar(true);
-   
     return;
   }
   if (!isFavorite) {
@@ -115,9 +114,6 @@ const handleToggleFavorite = () => {
 };
 
 
-
-
-
 useEffect(() => {
   window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
   if (data) {
@@ -133,7 +129,6 @@ useEffect(() => {
     axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
     alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
   };
-  
   
 
   // obtener perks en español desde la api getonbrd
@@ -155,6 +150,7 @@ useEffect(() => {
   return (
     <div className="bg-primary-light dark:bg-secondary-dark pt-20">
     <NavLanding menu={menu}/>
+    < PremiumButtonComponent/>
     {/* Datos de la empresa */}
     <div className="md:flex-shrink-0">
       <img className="h-48 w-full object-cover md:w-48 flex justify-center items-center" src={empresa?.logo} alt="Job Posting" />

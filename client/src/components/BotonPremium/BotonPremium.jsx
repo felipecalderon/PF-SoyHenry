@@ -49,7 +49,7 @@ const CloseButton = tw.button`
 export default function PremiumButtonComponent() {
   const [isPulsing, setIsPulsing] = useState(false);
   const dispatch = useDispatch();
-  const [isPremium, setIsPremium] = useState(localStorage.getItem("premium"));
+  const userData = JSON.parse(localStorage.getItem('userLogin'));
 
   const [open, setOpen] = useState(false);
   const [closed, setClosed] = useState(true);
@@ -64,6 +64,7 @@ export default function PremiumButtonComponent() {
     setClosed(true);
   };
   
+  if (!userData.premium) {
   return  (
     <>
     
@@ -93,13 +94,13 @@ export default function PremiumButtonComponent() {
             </PremiumModalTitle>
             <ul className="text-lg md:text-xl text-center">
               <li>
-                Usa filtros combinados para encontrar tu trabajo ideal
+              • Usa filtros combinados para encontrar tu trabajo ideal
               </li>
               <li>
-                Guarda tantas ofertas como quieras y aplica en el momento que
+              • Guarda tantas ofertas como quieras y aplica en el momento que
                 quieras
               </li>
-            <li>Puedes encontrar más ofertas laborales en este modal</li>
+            <li>• Puedes encontrar más ofertas laborales</li>
           </ul>
         </PremiumModal>
       </Modal>
@@ -107,5 +108,6 @@ export default function PremiumButtonComponent() {
 
 </>
   
-  );
+  );}
+  return null
 }

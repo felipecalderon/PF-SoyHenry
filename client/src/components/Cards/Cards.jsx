@@ -9,6 +9,8 @@ import Footer from "../Footer/Footer";
 import { NavLanding } from "../NavLanding/NavLanding";
 
 import { useNavigate } from 'react-router-dom';
+import PremiumButtonComponent from "../BotonPremium/BotonPremium";
+
 
 const Cards = () => {
   const navigate = useNavigate()
@@ -155,6 +157,7 @@ const Cards = () => {
     return (
       <>
       <NavLanding menu={menuOffers}/>
+      
       <div className="bg-primary-light dark:bg-secondary-dark pt-20">
         
         {/* Muestra la Searchbar */}
@@ -170,6 +173,7 @@ const Cards = () => {
         {
           titleSearchbar ? <p className="m-5 flex justify-center items-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white" > Buscando las ofertas por: {titleSearchbar} </p> : <p></p>
         }
+        < PremiumButtonComponent/>
         {/* Muestra los filtros */}
         <form className="flex flex-wrap justify-center">
           <select id="date" onChange={(e) => handleFilterChange('dt', e.target.value)} defaultValue={'DEFAULT'} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-600 peer">
