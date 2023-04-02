@@ -144,9 +144,9 @@ const getUsersByEmail = async (data) => {
 };
 
 const getUsersById = async (id) => {
-    const user = await User.findByPk(id, {
+    const user = await User.findOne({
         where: {
-            estado: 1
+            id: id
         },
     });
     return user;
@@ -180,22 +180,22 @@ const getUsersInactById = async (id) => {
 };
 
 // Puts
-const putUsers = async (id, nombres, apellidos, celular, correo, discapacidad, genero) => {
+const putUsers = async ({ id }, { names, lastnames, phone, email, photo, website } ) => {
     // Comprueba si existe el usuario
     const user = await User.findByPk(id);
     if (!user) throw Error(`El usuario con id: ${id} no existe`);
 
     // Comprueba si falta algun dato
-    if (!nombres || !apellidos || !celular || !correo || !discapacidad || !genero) throw Error('Faltan Datos');
+    if (!names || !lastnames || !phone || !email || !photo || !website) throw Error('Faltan Datos');
 
     // Actualiza los datos
     await User.update(
-        { nombres, apellidos, celular, correo, discapacidad, genero },
+        { names, lastnames, phone, email, photo, website },
         {
             where: { id }
         }
     )
-    return `${nombres} has been updated`;
+    return `${names} has been updated`;
 };
 
 const putState = async (id, active) => {
