@@ -57,7 +57,7 @@ function Favoritos() {
                 >
                   <TurnedInIcon  />
                 </Fab>
-                <Link to={`/detail/${offer.offerId}?title=${offer.title}`} className='text-3xl dark:text-white font-bold'>
+                <Link to={`/detail/${offer.offerId}?title=${offer?.Offer?.title}`} className='text-3xl dark:text-white font-bold'>
                   {offer.hasOwnProperty("Offer") ? offer.Offer.title : offer.title}
                 </Link>
               </h2>

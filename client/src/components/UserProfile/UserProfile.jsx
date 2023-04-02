@@ -26,7 +26,7 @@ function UserProfile() {
     const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userLogin')));
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        axios.post('/user/email', { email: userData.email })
+        axios.post('/user/email', { email: userData?.email })
             .then(res => {
                 const objetoJSON = JSON.stringify(res.data)
                 localStorage.setItem('userLogin', objetoJSON);
