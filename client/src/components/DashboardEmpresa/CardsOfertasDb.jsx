@@ -138,8 +138,17 @@ export const CardsOfertasDb = () => {
                <p className='mb-[.5rem]'><strong>Requisitos: </strong>{offer.requeriments}</p>
                <p className='mb-[.5rem]'><strong>Beneficios: </strong>{offer.benefits}</p>
                <p className='mb-[.5rem]'><strong>Funciones: </strong>{offer.functions}</p>
-               <p className='mb-[.5rem]'><strong>Modalidad: </strong>{offer.modality}</p>
-               <p className='mb-[.5rem]'><strong>Tecnologias: </strong>{offer.perks.map((p) => p).join(', ')}</p>
+               <p className='mb-[.5rem]'><strong>Modalidad: </strong>{offer.modality === 'fully_remote' 
+                                                                      ? "Remoto" 
+                                                                      : offer.modality === 'remote_local' 
+                                                                      ? 'Remoto local' 
+                                                                      : offer.modality === 'hybrid' 
+                                                                      ? 'Híbrido' 
+                                                                      : offer.modality === 'no_remote' 
+                                                                      ? 'Presencial' 
+                                                                      : 'No especificado'}</p>
+               <p className='mb-[.5rem]'><strong>Ventajas: </strong>{offer.perks.map((p) => p).join(', ')}</p>
+               <p className='mb-[.5rem]'><strong>Tecnologías requeridas: </strong>{offer.technologies.map((t) => t).join(', ')}</p>
                <p className='mb-[.5rem]'><strong>Experiencia: </strong>{offer.experience} Año/s</p>
                <p className='mb-[.5rem]'><strong>Salario: </strong>${offer.min_salary} - ${offer.max_salary}</p>
                <p className='mb-[.5rem]'><strong>Fecha de creación: </strong>{offer.date_post}</p>

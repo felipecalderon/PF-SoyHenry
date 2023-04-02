@@ -137,13 +137,13 @@ const handleSubmit = async (event) => {
             {companyname}
           </Typography>
           <Typography component="div" variant="h6" className='text-gray-900 dark:text-white'>
-            <p>Ubicación: </p><p className='text-sm'>{company_city}, {company_country}</p>
+            <p><strong>Ubicación: </strong></p><p className='text-sm'>{company_city}, {company_country}</p>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-blue-600'>
-            <a href={website} target="_blank" rel="noopener noreferrer">{website}</a>
+            <p className='text-black'><strong>Sitio web: </strong></p><a href={website} target="_blank" rel="noopener noreferrer">{website}</a>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
-            <p>Email: </p><p target="_blank" rel="noopener noreferrer">{email_company}</p>
+            <p><strong>Email: </strong></p><p target="_blank" rel="noopener noreferrer">{email_company}</p>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
             <p><strong>Teléfono: </strong></p><p target="_blank" rel="noopener noreferrer">{phone_company}</p>

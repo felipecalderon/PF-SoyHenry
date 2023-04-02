@@ -58,10 +58,9 @@ const getUsersInactByIdControllers = async (  id  ) => {
 };
 
 // Puts
-const putUsersControllers = async ( { id } ) => {
-    const { nombres, apellidos, celular, correo, discapacidad, genero } = req.body;
+const putUsersControllers = async ( id, body ) => {
     try {
-        const response = await putUsers( id, nombres, apellidos, celular, correo, discapacidad, genero );
+        const response = await putUsers( id, body );
         return response
     } catch (error) {
         throw { error: error.message }

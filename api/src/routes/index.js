@@ -8,6 +8,7 @@ const {
     createUser,
     deleteUsers,
     getUsersById,
+    putUsersById,
     getUsersRouteClaveForanea,
     getUsersRouteByEmail
 } = require('./userRoute')
@@ -70,6 +71,7 @@ route.post('/auth/register', authUserCreate)
 route.get('/auth/google/:token', authUserCreateGoogleBtn)
 route.get('/user', allUsers);
 route.get('/user/:id', getUsersById);
+route.put('/user/:id', putUsersById);
 route.post('/user/email', getUsersRouteByEmail);
 route.post('/userPk', getUsersRouteClaveForanea);
 
