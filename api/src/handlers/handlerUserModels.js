@@ -1,7 +1,7 @@
 // const{ Users } = require('../database.js')
 const { Op } = require("sequelize");
 const { User, Admin, Postulant, Company, Offers, Payment } = require("../models/relations.js");
-const{ mailRegisterUser } = require('./Utils/sendMail');
+const { mailRegisterUser } = require('./Utils/sendMail');
 // Post
 const createUsers = async ({ photo, names, lastnames, email, city, country, password, rol, active, phone, document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook, description_postulant, title, languages, companyname, email_company, description, phone_company, website, logo, company_city, company_country, }) => {
     try {
@@ -101,8 +101,24 @@ const getUsersByName = async (name) => {
     });
     return users;
 };
+const premiumState = async (id, state) => {
+    console.log(state)
+    try {
+        const user = await User.findByPk(id)
+        if (!user) throw Error('Usuario no encontrado')
+        if(state === 'true') {
+            await User.update({ premium: true }, { where: { id } })
+            return 'Usuario Premium'
+        } else {
+            await User.update({ premium: false }, { where: { id } })
+            return 'Usuario no Premium'
+        }
+    } catch (error) {
+        
+    }
+}
 
-const getUsersByEmail = async ( data ) => {
+const getUsersByEmail = async (data) => {
     const email = typeof data === 'object' && data.email ? data.email : typeof data === 'string' ? data : null;
     try {
         const user = await User.findOne({
@@ -203,5 +219,6 @@ module.exports = {
     putState,
     deleteUsers,
     getUsersByEmail,
-    getUsersByIdCforanea
+    getUsersByIdCforanea,
+    premiumState
 };
