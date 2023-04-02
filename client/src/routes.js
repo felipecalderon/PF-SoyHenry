@@ -12,7 +12,6 @@ import Pdf from './components/UserProfile/Pdf'
 import NotFound from './components/NotFound/NotFound'
 import DashAdmin from './components/DashboardAdmin/DashboardAdmin'
 
-
 export const rutas = createBrowserRouter([
     {
       path: '/',
@@ -30,6 +29,7 @@ export const rutas = createBrowserRouter([
       path:"*",
       element: <NotFound/>
     },
+
     // Postulant
     {
       path: '/offers',
@@ -47,6 +47,7 @@ export const rutas = createBrowserRouter([
       path:"/profile/micv",
       element: <Pdf/>
     },
+
     // Company
     {
       path: '/offersCreate',

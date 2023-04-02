@@ -101,20 +101,32 @@ const getUsersByName = async (name) => {
     });
     return users;
 };
-const premiumState = async (id, state) => {
-    console.log(state)
+const premiumState = async (id, state, active) => {
     try {
         const user = await User.findByPk(id)
         if (!user) throw Error('Usuario no encontrado')
-        if(state === 'true') {
+        // Actualiza el premium
+        if (state === 'true') {
             await User.update({ premium: true }, { where: { id } })
             return 'Usuario Premium'
-        } else {
+        } 
+        if(state === 'false') {
             await User.update({ premium: false }, { where: { id } })
             return 'Usuario no Premium'
         }
+
+        // Actualiza active
+        if (active === 'true') {
+            await User.update({ active: true }, { where: { id } })
+            return 'Usuario Desbaneado'
+        } 
+        if(active === 'false') {
+            await User.update({ active: false }, { where: { id } })
+            return 'Usuario Baneado'
+        }
+
     } catch (error) {
-        
+        throw error
     }
 }
 
@@ -203,9 +215,15 @@ const putState = async (id, active) => {
 
 // Delete
 const deleteUsers = async (id) => {
-    const deleteUsers = await User.findByPk(id);
-    await deleteUsers.destroy();
-    return `${deleteUsers.nombres} ha sido eliminado con éxito de la base de datos.`;
+    try {
+        const deleteUsers = await User.findByPk(id);
+        if (!deleteUsers) throw Error('Usuario no encontrado')
+        await deleteUsers.destroy();
+        return `${deleteUsers.names} ha sido eliminado con éxito de la base de datos.`;
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
 };
 
 module.exports = {

@@ -58,9 +58,9 @@ const authLoginGoogle = async ({ token }) => {
   }
 }
 
-const updatePremiumController = async ({id}, {state}) => {
+const updatePremiumController = async ({id}, {state, active}) => {
   try {
-    const status = await premiumState(id, state)
+    const status = await premiumState(id, state, active)
     return status
   } catch (error) {
     console.log(error)
