@@ -1,6 +1,7 @@
 const { 
     createUsersController,
     getUsersControllers,
+    getUsersByIdControllers,
     deleteUsersControllers } = require('../controllers/userControllers')
 
     const {
@@ -20,6 +21,16 @@ const allUsers = async (req, res) => {
 const getUsersRouteClaveForanea = async (req, res) => {
     try {
         const data = await getUsersByIdCforanea(req.body)
+        res.status(200).json(data)
+    } catch (error) {
+        console.log(error)
+        res.status(404).json(error)
+    }
+}
+
+const getUsersById = async (req, res) => {
+    try {
+        const data = await getUsersByIdControllers(req.params)
         res.status(200).json(data)
     } catch (error) {
         console.log(error)
@@ -60,5 +71,6 @@ module.exports = {
     createUser, 
     deleteUsers,
     getUsersRouteClaveForanea,
-    getUsersRouteByEmail
+    getUsersRouteByEmail,
+    getUsersById
 }

@@ -27,7 +27,7 @@ const JobDetail = () => {
   const url = `/jobs/${id}?title=${title}`;
 
   const { data, isLoading } = useFetch(url);
-  const dataUserLocal = localStorage.getItem("userLogin")
+  const dataUserLocal = localStorage.getItem('userLogin')
   const dataUserGoogle = localStorage.getItem("usergoogle")
   const dataUser = JSON.parse(dataUserLocal);
   const jobBenefitsHTML = { __html: jobId?.benefits };
@@ -58,8 +58,24 @@ useEffect(() => {
   }
 }, [empresaId]);
 
-console.log(empresa)
-console.log(empresaId)
+// console.log(empresa)
+// console.log(empresaId)
+
+const [rol, setRol] = useState(dataUser?.rol);
+
+useEffect(() => {
+  axios.get(`/user/${dataUser.id}`)
+  .then((res) => {
+    const userRol = res.data?.rol;
+    setRol(userRol);
+    // console.log(res.data.rol)
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+},[]);
+
+  console.log(dataUser.rol)
 
 //FAVORITOS AHORA ES GUARDADOS
 const [isPremium, setIsPremium] = useState(localStorage.getItem("userLogin"));
@@ -71,8 +87,6 @@ const [savedOffers, setSavedOffers] = useState([]);
 const handleCloseSnackbar = () => {
   setOpenSnackbar(false);
 };
-
-
 
 const OffersSave = async() => {
 const get = await axios.get(`/save_offers/${dataUser.id}`)
@@ -211,6 +225,7 @@ useEffect(() => {
               })}
             </div>
       
+          {rol === 'Postulante' &&
             <div className="mt-8 flex justify-center">
               {
                 Number(jobId.id)
@@ -226,8 +241,7 @@ useEffect(() => {
                       </span>
                     </button>
                   </a>
-              }
-
+                }
                 <Box>
                   <Fab
                     sx={{ backgroundColor: "lightblue" }}
@@ -243,8 +257,8 @@ useEffect(() => {
                     message="Solo puede guardar 5 ofertas de trabajo por tener el plan free"
                   />
                 </Box>
-
             </div>
+          }
           </div>
         </div>
       </div>

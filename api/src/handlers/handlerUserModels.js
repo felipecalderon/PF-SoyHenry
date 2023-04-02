@@ -116,9 +116,9 @@ const getUsersByEmail = async ( data ) => {
 };
 
 const getUsersById = async (id) => {
-    const user = await User.findByPk(id, {
+    const user = await User.findOne({
         where: {
-            estado: 1
+            id: id
         },
     });
     return user;

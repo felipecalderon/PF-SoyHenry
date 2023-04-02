@@ -47,7 +47,8 @@ const getUsersInactControllers = async () => {
         throw { error: error.message }
     }
 };
-const getUsersInactByIdControllers = async ( { id } ) => {
+
+const getUsersInactByIdControllers = async (  id  ) => {
     try {
         const response = await getUsersById( id );
         return response 
