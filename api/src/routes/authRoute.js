@@ -22,6 +22,7 @@ const authUserCreate = async (req, res) => {
       const data = await updatePremiumController(req.params, req.query)
       res.json(data);
     } catch (error) {
+      console.log(error);
       res.status(400).json({ error: error.message });
     }
   };
