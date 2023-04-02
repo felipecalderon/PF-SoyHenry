@@ -33,11 +33,13 @@ const Card = ({ title, description, id, modality, salario_minimo, salario_maximo
           <h3 className="text-gray-600 dark:text-gray-300">Modalidad: {
             modality?.split("_").join(' ')
           }</h3>
-          {salaryRange && (
-            <h4 className="text-gray-600 dark:text-gray-300">
-              Rango salarial: {salaryRange}
-            </h4>
-          )}
+          {
+            salaryRange !== 0 && salaryRange && (
+              <h4 className="text-gray-600 dark:text-gray-300">
+                Rango salarial: { salaryRange }
+              </h4>
+            )
+          }
         </Link>
       </div>
     </div>

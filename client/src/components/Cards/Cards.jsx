@@ -1,26 +1,29 @@
 import Card from "./Card"
+import ReactPaginate from 'react-paginate'; // libreria para hacer el paginado
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostList } from '../../redux/slices/postSlices';
-import { spinnerPurple } from './spinner';
 import useFetch from '../Hooks/useFetch';
-import ReactPaginate from 'react-paginate'; // libreria para hacer el paginado
-import Footer from "../Footer/Footer";
-import { NavLanding } from "../NavLanding/NavLanding";
 
+// Components
+import { spinnerPurple } from './spinner';
+import { NavLanding } from "../NavLanding/NavLanding";
 import { useNavigate } from 'react-router-dom';
+import PremiumButtonComponent from "../BotonPremium/BotonPremium";
+
+import Footer from "../Footer/Footer";
+
 
 const Cards = () => {
   const navigate = useNavigate()
   const dataUserLocal = JSON.parse(localStorage.getItem("userLogin"))
   const dataUserGoogle = JSON.parse(localStorage.getItem("usergoogle"))
-  console.log(dataUserLocal);
 
   const dispatch = useDispatch()
   const { postJobs } = useSelector((state) => state.postSlice)
   const [filters, setFilters] = useState({});
   const [title, setTitle] = useState('a');
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(''); 
   
 
   // Filtrado  
@@ -29,12 +32,13 @@ const Cards = () => {
   const urlFilters = `/jobs?title=${title}&${queryString}`;
 
   const handleFilterChange = (name, value) => {
-    name === 'resetFilter' ?
+    if(dataUserLocal.premium){
+      name === 'resetFilter' ?
       setFilters({})
       : setFilters({
         ...filters,
         [name]: value,
-      });
+      });}
   }
 
   const { data, isLoading } = useFetch(urlFilters)
@@ -106,7 +110,7 @@ const Cards = () => {
   const filtersLocalStorage = localStorage.getItem("filtersLocalStorage"); // filtros aplicados
   const filtros = JSON.parse(filtersLocalStorage); // Convertir el objeto JSON en un objeto JavaScript
 
-  if (titleSearchbar && title !== 'a') console.log(titleSearchbar) //setTitle(titleSearchbar)
+  if (titleSearchbar && title !== 'a')//setTitle(titleSearchbar)
   if (filtersLocalStorage && Object.keys(filtros).length !== 0 && Object.keys(filters).length === 0) setFilters(filtros) // Si hay filtros guardados los aplica
   if (dateFilterSelect && dateFilter) dateFilter.value = dateFilterSelect;
   if (expFilterSelect && experienceFilter) experienceFilter.value = expFilterSelect;
@@ -143,7 +147,7 @@ const Cards = () => {
 
   useEffect(() => {
     if(!dataUserLocal && !dataUserGoogle) navigate('/')
-  }, [])
+  }, []) // eslint-disable-line
 
   if (isLoading) return spinnerPurple()
   const menuOffers = [
@@ -155,6 +159,7 @@ const Cards = () => {
     return (
       <>
       <NavLanding menu={menuOffers}/>
+      
       <div className="bg-primary-light dark:bg-secondary-dark pt-20">
         
         {/* Muestra la Searchbar */}
@@ -170,37 +175,38 @@ const Cards = () => {
         {
           titleSearchbar ? <p className="m-5 flex justify-center items-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white" > Buscando las ofertas por: {titleSearchbar} </p> : <p></p>
         }
+        < PremiumButtonComponent/>
         {/* Muestra los filtros */}
         <form className="flex flex-wrap justify-center">
-          <select id="date" onChange={(e) => handleFilterChange('dt', e.target.value)} defaultValue={'DEFAULT'} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-600 peer">
+          <select id="date" onChange={(e) => handleFilterChange('dt', e.target.value)} defaultValue={'DEFAULT'} disabled={!dataUserLocal.premium} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-600 peer">
             <option value="DEFAULT" disabled> Por Fecha: </option>
             <option value="1"> Hoy </option>
             <option value="4"> Últimos 3 dias </option>
             <option value="16"> Últimos 15 dias </option>
             <option value="31"> Último mes </option>
           </select>
-          <select id="experience" onChange={(e) => handleFilterChange('exp', e.target.value)} defaultValue={'DEFAULT'} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-600 peer">
+          <select id="experience" onChange={(e) => handleFilterChange('exp', e.target.value)} defaultValue={'DEFAULT'} disabled={!dataUserLocal.premium} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-600 peer">
             <option value="DEFAULT" disabled> Por Experiencia: </option>
             <option value="0"> Sin experiencia </option>
             <option value="1"> 1 año de experiencia </option>
             <option value="2-4"> 2-4 años de experiencia </option>
             <option value="5"> Más de 5 años </option>
           </select>
-          <select id="modality" onChange={(e) => handleFilterChange('mty', e.target.value)} defaultValue={'DEFAULT'} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-600 peer">
+          <select id="modality" onChange={(e) => handleFilterChange('mty', e.target.value)} defaultValue={'DEFAULT'} disabled={!dataUserLocal.premium} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-600 peer">
             <option value="DEFAULT" disabled> Por Modalidad: </option>
             <option value="fr"> Remoto </option>
             <option value="rl"> Remoto local </option>
             <option value="h"> Híbrido </option>
             <option value="nr"> Presencial </option>
           </select>
-          <select id="salary" onChange={(e) => handleFilterChange('sly', e.target.value)} defaultValue={'DEFAULT'} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-600 peer">
+          <select id="salary" onChange={(e) => handleFilterChange('sly', e.target.value)} defaultValue={'DEFAULT'} disabled={!dataUserLocal.premium} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-600 peer">
             <option value="DEFAULT" disabled> Por Salario: </option>
             <option value="1"> Menos de 200 </option>
             <option value="2"> Más de 200 </option>
             <option value="3"> Más de 500 </option>
             <option value="4"> Más de 500 </option>
           </select>
-          <button id="btn-reset" type='reset' onClick={() => handleFilterChange('resetFilter')} className="mx-5 my-2.5 py-0 px-0 w-50 text-l text-red-500 bg-transparent border-0 border-b-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer">
+          <button id="btn-reset" type='reset' onClick={() => handleFilterChange('resetFilter')} disabled={!dataUserLocal.premium} className="mx-5 my-2.5 py-0 px-0 w-50 text-l text-red-500 bg-transparent border-0 border-b-2 border-red-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer">
             Limpiar filtros
           </button>
         </form>

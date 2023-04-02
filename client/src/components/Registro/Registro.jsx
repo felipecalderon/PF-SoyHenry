@@ -136,7 +136,9 @@ export const Registro = () => {
     const errorsValue = Object.values(errors);
     const isFormComplete = formValues.every(value => value !== '' && value !== null);
     const isErrorsEmpty = errorsValue.every(value => value === '');
-
+    console.log(isFormComplete)
+    console.log(isErrorsEmpty)
+    console.log(form)
     return (
         <div className="w-full h-screen flex flex-col justify-between bg-primary-light dark:bg-secondary-dark">
             <NavLanding menu={menu} />
@@ -209,7 +211,7 @@ export const Registro = () => {
                         <div className='flex items-center justify-center'>
                             <Box sx={{ '& > button': { m: 1, width: '150px', height: '60px', fontWeight: '700' } }}>
                                 <LoadingButton
-                                    // className={`${isErrorsEmpty && isFormComplete ? "" : "opacity-50 cursor-not-allowed pointer-events-none"}`}
+                                    className={`${isErrorsEmpty && isFormComplete ? "" : "opacity-50 cursor-not-allowed pointer-events-none"}`}
                                     onClick={handleClick}
                                     loading={loading}
                                     color="warning"
