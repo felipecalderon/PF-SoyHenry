@@ -4,8 +4,7 @@ const {postImagepostulante,
     postCvpostulante}=require("./uploadImagesRoute")
 const upload =require("../handlers/Utils/multer")
 const { 
-    allUsers, 
-    createUser,
+    allUsers,
     deleteUsers,
     getUsersRouteClaveForanea,
     getUsersRouteByEmail
@@ -34,17 +33,7 @@ const{
     companyByIdDatBas,
     putCompany,
     deleteCompany
-
 }=require('./companyRoute');
-const { 
-    getUsersControllers, 
-    getUsersInactControllers, 
-    putUsersControllers, 
-    putStateControllers, 
-    deleteUsersControllers,
-    getUsersInactByIdControllers,
-    getUsersByIdControllers,
-} = require("../controllers/userControllers");
 const { 
     stateAplication, 
     saveCompany,
@@ -73,6 +62,8 @@ route.get('/auth/google/:token', authUserCreateGoogleBtn)
 route.get('/user', allUsers);
 route.post('/user/email', getUsersRouteByEmail);
 route.post('/userPk', getUsersRouteClaveForanea);
+// Physical delete
+route.delete('/user/:id', deleteUsers );
 
 // Offers
 route.post('/jobs' , createOffer);
@@ -125,11 +116,9 @@ module.exports = route;
 // route.get('user/:email', getUsersByIdControllers );
 // route.get('user/inact', getUsersInactControllers );
 // route.get('user/inact/:id', getUsersInactByIdControllers );
-// // Puts
 // route.put('user/:id', putUsersControllers );
+// // Puts
 // route.put('user/ld/:id', putStateControllers );
-// // Delete
-// route.delete('user/:id', deleteUsersControllers );
 
 //admin
 // route.get('/admin',allAdmin )
