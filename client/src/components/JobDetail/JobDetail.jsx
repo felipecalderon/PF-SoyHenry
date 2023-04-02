@@ -90,7 +90,6 @@ useEffect(() => {
   console.log(dataUser.rol)
 
   //FAVORITOS AHORA ES GUARDADOS
-  const [isPremium] = useState(JSON.parse(localStorage.getItem('userLogin')));
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [favFilter, setFavFilter] = useState([]);
