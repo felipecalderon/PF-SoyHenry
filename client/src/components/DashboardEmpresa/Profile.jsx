@@ -45,14 +45,14 @@ import Select from '@mui/material/Select';
   const {id, companyname, email_company , company_city, company_country, logo, website, phone_company} = company;
 
   const [info, setInfo] = useState({
-    companyname: '',
-    email_company: '',
-    description: '',
-    company_city: '',
-    company_country: '',
-    phone_company: '',
-    website: '',
-    logo: ''
+    companyname: company.companyname,
+    email_company: company.email_company,
+    description: company.description,
+    company_city: company.company_city,
+    company_country: company.company_country,
+    phone_company: company.phone_company,
+    website: company.website,
+    logo: company.logo
   });
 
   const [errors, setErrors] = useState({
@@ -148,11 +148,11 @@ const handleSubmit = async (event) => {
           <Typography component="div" variant="h6" className='text-gray-900 dark:text-white'>
             <p><strong>Ubicación: </strong></p><p className='text-sm'>{company_city}, {company_country}</p>
           </Typography>
-          <Typography component="div" variant="subtitle1" className='text-gray-900 dark:text-white'>
-            <p><strong>Sitio web: </strong></p><a className='text-blue-700' href={website} target="_blank" rel="noopener noreferrer">{website}</a>
-          </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
             <p><strong>Email: </strong></p><p target="_blank" rel="noopener noreferrer">{email_company}</p>
+          </Typography>
+          <Typography component="div" variant="subtitle1" className='text-gray-900 dark:text-white'>
+            <p><strong>Sitio web: </strong></p><a className='text-blue-700' href={website} target="_blank" rel="noopener noreferrer">{website}</a>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
             <p><strong>Teléfono: </strong></p><p target="_blank" rel="noopener noreferrer">{phone_company}</p>
@@ -165,7 +165,8 @@ const handleSubmit = async (event) => {
           TransitionComponent={Transition}
           keepMounted
           onClose={handleClose}
-          aria-describedby="alert-dialog-slide-description">
+          aria-describedby="alert-dialog-slide-description"
+          className='flex w-auto justify-center'>
         <DialogTitle>Editar información de usuario</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
