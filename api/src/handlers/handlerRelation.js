@@ -1,5 +1,6 @@
 const { User, Offers, Company, FavoritesComp, SaveOffer, Aplications, Postulant } = require("../models/relations.js");
 const SaveOfferApi = require("../models/SaveOffersApiModel.js");
+const { mailStatusAplication } = require("./Utils/sendMail.js");
 
 const putState = async (offerId, userId, status) => { // Aplicacion
     try {
@@ -14,15 +15,18 @@ const putState = async (offerId, userId, status) => { // Aplicacion
         if (status === 'send') { // 
             await Aplications.create({ userId, offerId, status });
             await Offers.update({ applications_count: offer.applications_count + 1 }, { where: { id: offerId } });
+            mailStatusAplication( user.email, user.names, status, offer.title )
             return `La postulacion ha sido enviada`;
         }
         if (status === 'cancel') {
             const apli = await Aplications.findOne({ where: { userId, offerId } });
             await apli.destroy();
             await Offers.update({ applications_count: offer.applications_count - 1 }, { where: { id: offerId } });
+            mailStatusAplication( user.email, user.names, status, offer.title )
             return 'Se ha cancelado la postulacion';
         }
         await Aplications.update({ status }, { where: { userId, offerId } });
+        mailStatusAplication( user.email, user.names, status, offer.title )
 
         return `La postulacion ha sido ${status}`;
     } catch (error) {

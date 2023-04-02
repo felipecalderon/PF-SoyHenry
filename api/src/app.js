@@ -20,7 +20,7 @@ app.use(express.urlencoded({
 app.use(cors({
     origin: '*',
     methods: '*'
-  }))
+}))
 sequelize.sync({ alter: true })
 
 app.use(morgan('dev'));

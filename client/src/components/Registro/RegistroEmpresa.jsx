@@ -1,5 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchCountries } from "../../redux/slices/countriesSlices";
 import { saveUser } from "../../redux/slices/userRegisterSlice";
@@ -52,8 +53,8 @@ export const RegistroEmpresa = () => {
     };
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [userDbData, setUserDbData] = useState(null);
+    // const navigate = useNavigate();
+    // const [userDbData, setUserDbData] = useState(null);
 
     const [form, setForm] = useState({
         names: '',
