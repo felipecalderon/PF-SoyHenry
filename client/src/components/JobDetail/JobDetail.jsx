@@ -95,7 +95,6 @@ useEffect(() => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [favFilter, setFavFilter] = useState([]);
   const [countOffers, setCountOffers] = useState()
-  const [countOffers, setCountOffers] = useState()
   const [savedOffers, setSavedOffers] = useState([]);
 
   const handleCloseSnackbar = () => {

@@ -38,39 +38,6 @@ export const Registro = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
 
-    const handleClick = async () => {
-        // bloquea el boton
-        setLoading(true);
-
-        // Crea el usuario en la base de datos
-        const userDbData = await axios.post('/auth/register', form)
-            .catch(() => {
-                setErrors({
-                    ...errors,
-                    email: '¡Este correo ya esta registrado!'
-                })
-                setLoading(false);
-            })
-
-        // Guarda los datos en localStorage 
-        const objetoJSON = JSON.stringify(userDbData?.data)
-        localStorage.setItem('userLogin', objetoJSON)
-
-        // Guarda los datos en Redux
-        dispatch(saveUser(userDbData.data))
-
-        // Mensaje y redirige si todo fue exitoso
-        handleOpen()
-    };
-
-    // validacion para habilitar el boton
-    const formValues = Object.values(form);
-    const errorsValue = Object.values(errors);
-    const isFormComplete = formValues.every(value => value !== '' && value !== null);
-    const isErrorsEmpty = errorsValue.every(value => value === '');
-    console.log(isFormComplete)
-    console.log(isErrorsEmpty)
-    console.log(form)
     return (
         <div className="w-full h-screen flex flex-col justify-between bg-primary-light dark:bg-secondary-dark">
             <NavLanding menu={menu} />
