@@ -272,8 +272,8 @@ const handleSubmit = async (event) => {
                 label="Descripción" 
                 value={info.description} 
                 onChange={handleChange} 
-                // error={!!errors.description} 
-                // helperText={errors.description} 
+                error={!!errors.description} 
+                helperText={errors.description} 
                 variant="standard" 
                 name='description'/>
           </div>
