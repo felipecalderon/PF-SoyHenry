@@ -19,8 +19,7 @@ export const DashboardEmpresa = () => {
     useEffect(() => {
         axios.get(`/jobsdb/${userData?.Companies instanceof Array ? userData?.Companies[0].id : userData?.Companies?.id}`)
         .then(res => {
-            dispatch(saveOffers(res.data.Offers))
-            console.log(res.data.Offers);
+            dispatch(saveOffers(res.data.Offers))            
         })
     }, []) // eslint-disable-line
 
@@ -57,7 +56,7 @@ export const DashboardEmpresa = () => {
                     </div>
                     <div className="col-span-1 row-span-1 md:col-span-1 md:row-span-1 px-4 ml-[2.5rem]">
                         <div className="pt-1">
-                            {offers && <ResumenOfertas offers={offers}/>}
+                            {offers && <ResumenOfertas />}
                         </div>
                     </div>
                     <div className="col-span-2 row-span-1"></div>

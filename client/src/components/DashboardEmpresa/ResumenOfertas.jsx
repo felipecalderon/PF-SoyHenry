@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-export const ResumenOfertas = ({offers}) => {
+export const ResumenOfertas = () => {
 
+    const  {offers} = useSelector((state) => state.recruiterSlice) 
     const totalApplications = offers.reduce((total, offer) => total + offer.applications_count, 0);
 
     // Filtrar ofertas que han caducado (más de 20 días desde su creación)
@@ -26,6 +28,13 @@ export const ResumenOfertas = ({offers}) => {
     return diasDiferencia <= 5;
   });
 
+    let ofertasCerradas = 0 
+    offers?.map((offer) => {      
+      if (offer.active === false) ofertasCerradas += 1 
+    } )
+
+
+
 
     return (
         <div className="relative w-[26rem] h-[15rem] bg-secondary-light dark:bg-primary-dark p-5 pt-1 rounded-2xl border border-slate-900 dark:border-white dark:text-text-dark">
@@ -36,12 +45,12 @@ export const ResumenOfertas = ({offers}) => {
             {totalApplications === 1
             ? <h3 className="flex p-2 items-center justify-center font-semibold">{totalApplications} Postulante</h3>
             : <h3 className="flex p-2 items-center justify-center font-semibold">{totalApplications} Postulantes</h3>}
-            {ofertasCaducadas === 1 
-            ? <h3 className="flex p-2 items-center justify-center font-semibold">{ofertasCaducadas.length} Oferta caducada</h3>
-            : <h3 className="flex p-2 items-center justify-center font-semibold">{ofertasCaducadas.length} Ofertas caducadas</h3>}
-            {ofertasPorCaducar === 1
-            ? <h3 className="flex p-2 items-center justify-center font-semibold">{ofertasPorCaducar.length} Oferta por caducar</h3>
-            : <h3 className="flex p-2 items-center justify-center font-semibold">{ofertasPorCaducar.length} Ofertas por caducar</h3>}
+            {ofertasCerradas === 1 
+            ? <h3 className="flex p-2 items-center justify-center font-semibold">{ofertasCerradas} Oferta cerrada</h3>
+            : <h3 className="flex p-2 items-center justify-center font-semibold">{ofertasCerradas} Ofertas cerradas</h3>}
+            {/* {ofertasPorCaducar === 1
+            ? <h3 className="flex p-2 items-center justify-center font-semibold">{ofertasPorCaducar.length} Oferta por cerrar</h3>
+            : <h3 className="flex p-2 items-center justify-center font-semibold">{ofertasPorCaducar.length} Ofertas por cerrar</h3>} */}
         </div>
     )
 }
