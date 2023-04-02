@@ -60,6 +60,7 @@ const { planRoute,
     recepcionPago,
     rutaVerPagos
 } = require('./suscriptionRoute');
+const { getAllData } = require('./adminRoute');
 
 const route = Router();
 
@@ -111,6 +112,10 @@ route.post('/mercadopago', respuestasMP)
 route.post('/stripe', pagoStripe)
 route.get('/pago', recepcionPago)
 route.get('/verpagos', rutaVerPagos)
+
+// Admin
+route.get('/all_data', getAllData)
+
 module.exports = route;
 
 // Gets

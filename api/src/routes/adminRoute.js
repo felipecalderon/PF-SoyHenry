@@ -4,6 +4,7 @@ const {
     putAdminControllers,
     getAdminByIdControllers,
     deleteAdminControllers,
+    getAllDataController,
     } = require('../controllers/adminControllers')
 
 const allAdmin = async (req, res) => {
@@ -42,6 +43,15 @@ const getadminbyid = async (req, res) => {
     }
 }
 
+const getAllData = async (req, res) => {
+    try {
+        const allData = await getAllDataController()
+        res.status(200).json(allData)
+    } catch (error) {
+        res.status(404).json(error)
+    }
+}
+
 
 const deleteadmin = async (req, res) => {
     try {
@@ -54,4 +64,11 @@ const deleteadmin = async (req, res) => {
 
 
 
-module.exports = { allAdmin, createAdmin,putAdmin,deleteadmin,getadminbyid }
+module.exports = { 
+    allAdmin, 
+    createAdmin,
+    putAdmin,
+    deleteadmin,
+    getadminbyid,
+    getAllData,
+}

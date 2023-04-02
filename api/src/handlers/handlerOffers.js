@@ -3,14 +3,16 @@ const { Op } = require('sequelize');
 const { Offers, User, Company, Technologies, Aplications, Postulant } = require("../models/relations.js");
 const { cleaningGetonbrd } = require('./Utils/offersCleaning');
 const paginate = require('./Utils/paginate');
+const { DateTime } = require('luxon');
 
 //post
-const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, technologies, min_salary, max_salary, modality, experience, applications_count, bd_create, by, idRecruiterOfferCreate, idAplicants }) => {
+const createOfferHandler = async ({ title, requeriments, functions, benefits, perks, technologies, min_salary, max_salary, modality, experience, applications_count, bd_create, by, idRecruiterOfferCreate, idAplicants, expiration }) => {
+    const expiring_offers = DateTime.local().plus({ days: expiration }).toJSDate(); // tomara la el dia actual y sumara la cantidad de dias activa (expiration) y generara la nueva fecha
     try {
         if(min_salary === '') min_salary = 0
         if(max_salary === '') max_salary = 0
         const newOffer = await Offers.create({
-            title, requeriments, functions, benefits, perks, technologies, min_salary, max_salary, modality, experience, applications_count, bd_create,
+            title, requeriments, functions, benefits, perks, technologies, min_salary, max_salary, modality, experience, applications_count, bd_create, expiring_offers,
             userId: by, idRecruiterOfferCreate, idAplicants
         });
         const technologiesDb = await Technologies.findAll({
