@@ -1,9 +1,9 @@
 // const{ Users } = require('../database.js')
 const { Op } = require("sequelize");
 const { User, Admin, Postulant, Company, Offers, Payment } = require("../models/relations.js");
-const{ mailRegisterUser } = require('./Utils/sendMail');
+const { mailRegisterUser } = require('./Utils/sendMail');
 // Post
-const createUsers = async ({ photo, names, lastnames, email, city, country, password, rol, active, phone, document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook, description_postulant, title, languages, companyname, email_company, description, phone_company, website, logo }) => {
+const createUsers = async ({ photo, names, lastnames, email, city, country, password, rol, active, phone, document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook, description_postulant, title, languages, companyname, email_company, description, phone_company, website, logo, company_city, company_country, }) => {
     try {
         const [usuario, creado] = await User.findOrCreate({
             where: { email },
@@ -11,9 +11,9 @@ const createUsers = async ({ photo, names, lastnames, email, city, country, pass
                 photo, names, lastnames, email, city, country, password, rol, active, phone
             }
         });
-       
+
         if (creado) {
-            mailRegisterUser(email,names)//cuando te registras envie un mail
+            mailRegisterUser(email, names, rol)//cuando te registras envie un mail
             switch (rol) {
                 case 'Postulante':
                     const Postulants = await Postulant.create({
@@ -23,7 +23,7 @@ const createUsers = async ({ photo, names, lastnames, email, city, country, pass
                     return { ...usuario.dataValues, Postulants }
                 case 'Empresa':
                     const Companies = await Company.create({
-                        companyname, email_company, description, phone_company, website, logo, 
+                        companyname, email_company, description, phone_company, website, logo, company_city, company_country,
                         userId: usuario.id
                     });
                     return { ...usuario.dataValues, Companies }
@@ -44,7 +44,7 @@ const createUsers = async ({ photo, names, lastnames, email, city, country, pass
                     return { ...updatedUser.dataValues, ...postulant.dataValues }
                 case 'Empresa':
                     const company = await Company.update({
-                        companyname, email_company, description, phone_company, website, logo,
+                        companyname, email_company, description, phone_company, website, logo, company_city, company_country,
                     },
                         {
                             where: { userId: usuario.id }
@@ -101,8 +101,24 @@ const getUsersByName = async (name) => {
     });
     return users;
 };
+const premiumState = async (id, state) => {
+    console.log(state)
+    try {
+        const user = await User.findByPk(id)
+        if (!user) throw Error('Usuario no encontrado')
+        if(state === 'true') {
+            await User.update({ premium: true }, { where: { id } })
+            return 'Usuario Premium'
+        } else {
+            await User.update({ premium: false }, { where: { id } })
+            return 'Usuario no Premium'
+        }
+    } catch (error) {
+        
+    }
+}
 
-const getUsersByEmail = async ( data ) => {
+const getUsersByEmail = async (data) => {
     const email = typeof data === 'object' && data.email ? data.email : typeof data === 'string' ? data : null;
     try {
         const user = await User.findOne({
@@ -203,5 +219,6 @@ module.exports = {
     putState,
     deleteUsers,
     getUsersByEmail,
-    getUsersByIdCforanea
+    getUsersByIdCforanea,
+    premiumState
 };

@@ -1,4 +1,4 @@
-const { createUsers } = require("../handlers/handlerUserModels")
+const { createUsers, premiumState } = require("../handlers/handlerUserModels")
 const { admin, firebase } = require('../configs/auth/firebase.config')
 const { getAuth, GoogleAuthProvider, signInWithCredential, getUserByEmail} = require("firebase/auth")
 const { getUsersByEmail } = require('../handlers/handlerUserModels')
@@ -58,4 +58,18 @@ const authLoginGoogle = async ({ token }) => {
   }
 }
 
-module.exports = { authCreatePostulant, authLoginGoogle, authLoginCredentials }
+const updatePremiumController = async ({id}, {state}) => {
+  try {
+    const status = await premiumState(id, state)
+    return status
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+module.exports = { 
+  authCreatePostulant, authLoginGoogle, 
+  authLoginCredentials, 
+  updatePremiumController 
+}

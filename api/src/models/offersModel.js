@@ -60,6 +60,13 @@ const Offers = sequelize.define('Offers', {
         type: DataTypes.BOOLEAN,
         defaultValue: true
     },
+    expiring_offers: {
+        type: DataTypes.DATE,
+        get() {
+            const value = this.getDataValue('expiring_offers');
+            return DateTime.fromJSDate(value).toFormat('dd/MM/yyyy HH:mm:ss'); // usa la fecha actual y la guarda al hacer el post ( de esta forma se actualiza )
+        },
+    },
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true
@@ -67,8 +74,5 @@ const Offers = sequelize.define('Offers', {
     state_aplication: {
         type: DataTypes.INTEGER,
     },
-    description:{
-        type: DataTypes.STRING,
-    }
 });
 module.exports = Offers

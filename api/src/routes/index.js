@@ -24,7 +24,8 @@ const {
     authUserCreate,
     authUserCreateGoogleBtn,
     authUserGoogleBtnCB,
-    authUserLoginCredentials
+    authUserLoginCredentials,
+    updatePremium
 } = require('./authRoute')
 const{
     allCompany,
@@ -60,12 +61,14 @@ const { planRoute,
     recepcionPago,
     rutaVerPagos
 } = require('./suscriptionRoute');
+const { getAllData } = require('./adminRoute');
 
 const route = Router();
 
 // users
 route.post('/auth/login', authUserLoginCredentials)
 route.post('/auth/register', authUserCreate)
+route.put('/update/:id', updatePremium)
 route.get('/auth/google/:token', authUserCreateGoogleBtn)
 route.get('/user', allUsers);
 route.post('/user/email', getUsersRouteByEmail);
@@ -111,6 +114,10 @@ route.post('/mercadopago', respuestasMP)
 route.post('/stripe', pagoStripe)
 route.get('/pago', recepcionPago)
 route.get('/verpagos', rutaVerPagos)
+
+// Admin
+route.get('/all_data', getAllData)
+
 module.exports = route;
 
 // Gets

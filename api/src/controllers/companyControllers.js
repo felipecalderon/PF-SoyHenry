@@ -37,16 +37,14 @@ const getCompanyByIdControllers = async ({id}) => {
     try {
         
         const companies =  await searchCompanyAPI  (id);
-       
-        
+
         return {
-            name: companies.name,
+            name: companies.companyname,
             description: companies.description,
-            benefits: companies.benefits,
-            web: companies.web,
+            web: companies.website,
             logo: companies.logo,
+            likes: companies.likes_count
         }
-  
 
     } catch (error) {
         return error
@@ -57,13 +55,7 @@ const getCompanyByIdDatBasControllers = async ({id}) => {
     try {
         
         const companies =  await getCompanywithDbId  (id); 
-        return {
-            name: companies.name,
-            description: companies.description,
-            benefits: companies.benefits,
-            web: companies.web,
-            logo: companies.logo,
-        }
+        return companies
 
     } catch (error) {
         return error

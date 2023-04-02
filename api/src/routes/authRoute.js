@@ -1,4 +1,10 @@
-const { authCreatePostulant, authLoginGoogle, authLoginGoogleCB, authLoginCredentials } = require('../controllers/authControllers');
+const { 
+  authCreatePostulant, 
+  authLoginGoogle, 
+  authLoginGoogleCB, 
+  authLoginCredentials, 
+  updatePremiumController 
+} = require('../controllers/authControllers');
 
 // Registro de usuario con correo electrónico y contraseña
 const authUserCreate = async (req, res) => {
@@ -11,8 +17,13 @@ const authUserCreate = async (req, res) => {
     }
   };
 
-  const getUserById = async () => {
-    
+  const updatePremium = async (req, res) => {
+    try {
+      const data = await updatePremiumController(req.params, req.query)
+      res.json(data);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
   };
 
   const authUserLoginCredentials = async (req, res) => {
@@ -49,4 +60,9 @@ const authUserCreate = async (req, res) => {
     }
   };
 
-  module.exports = {authUserCreate, authUserCreateGoogleBtn, authUserLoginCredentials}
+  module.exports = {
+    authUserCreate, 
+    authUserCreateGoogleBtn, 
+    authUserLoginCredentials, 
+    updatePremium
+  }

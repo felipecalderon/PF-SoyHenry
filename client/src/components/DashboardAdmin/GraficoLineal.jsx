@@ -45,7 +45,7 @@ const GraficoLineal = ({datos}) => {
 
     if(!datos) return null
     return (
-      <div className="w-full h-64">
+      <div className="w-full h-64 mt-4 bg-gray-100 rounded">
         <canvas ref={chartRef} />
       </div>
     );
