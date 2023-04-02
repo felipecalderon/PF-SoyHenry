@@ -1,4 +1,4 @@
-const { createUsers } = require("../handlers/handlerUserModels")
+const { createUsers, premiumState } = require("../handlers/handlerUserModels")
 const { admin, firebase } = require('../configs/auth/firebase.config')
 const { getAuth, GoogleAuthProvider, signInWithCredential, getUserByEmail} = require("firebase/auth")
 const { getUsersByEmail } = require('../handlers/handlerUserModels')
@@ -6,6 +6,7 @@ const { compareSync } = require('bcrypt')
 
 const authVerifyFb = async (email) => {
   try {
+    const auth = admin.auth();
     await auth.getUserByEmail(email)
     return true
   } catch (error) {
@@ -35,9 +36,8 @@ const authCreatePostulant = async (body) => {
 
 const authLoginCredentials = async ({ email, password }) => {
   try {
-    const auth = admin.auth();
     const user = await getUsersByEmail({ email })
-    const userCredential = await authVerifyFb(email) //solo verifica que exista en firebase
+    await authVerifyFb(email) //solo verifica que exista en firebase
     if (!user) throw 'Usuario no existe en DB'
     const passwordValid = compareSync(password, user.password) //verifica que clave sea la misma en BD
     if (!passwordValid) throw 'Contraseña incorrecta'
@@ -58,4 +58,18 @@ const authLoginGoogle = async ({ token }) => {
   }
 }
 
-module.exports = { authCreatePostulant, authLoginGoogle, authLoginCredentials }
+const updatePremiumController = async ({id}, {state, active}) => {
+  try {
+    const status = await premiumState(id, state, active)
+    return status
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+module.exports = { 
+  authCreatePostulant, authLoginGoogle, 
+  authLoginCredentials, 
+  updatePremiumController 
+}

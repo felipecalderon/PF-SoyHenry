@@ -22,9 +22,6 @@ const Accordion = styled((props) => (
   '&:before': {
     display: 'none',
   },
-  marginBottom: '.5rem',
-  marginLeft: '1rem',
-  width: '35rem'
 }));
 
 const AccordionSummary = styled((props) => (
@@ -191,7 +188,7 @@ export const CardsOfertasDb = () => {
   
   return (
      <Fragment>
-     <div>
+     <div className='w-full'>
        {offers?.map((offer, index) => (
          <Accordion 
           key={index} 
@@ -222,12 +219,23 @@ export const CardsOfertasDb = () => {
                <p className='mb-[.5rem]'><strong>Funciones: </strong>{offer.functions}</p>
                <p className='mb-[.5rem]'><strong>Modalidad: </strong>{offer.modality}</p>
                <p className='mb-[.5rem]'><strong>Ventajas: </strong>{offer.perks.map((p) => p).join(', ')}</p>
+               <p className='mb-[.5rem]'><strong>Modalidad: </strong>{offer.modality === 'fully_remote' 
+                                                                      ? "Remoto" 
+                                                                      : offer.modality === 'remote_local' 
+                                                                      ? 'Remoto local' 
+                                                                      : offer.modality === 'hybrid' 
+                                                                      ? 'Híbrido' 
+                                                                      : offer.modality === 'no_remote' 
+                                                                      ? 'Presencial' 
+                                                                      : 'No especificado'}</p>
+               <p className='mb-[.5rem]'><strong>Ventajas: </strong>{offer.perks.map((p) => p).join(', ')}</p>
+               <p className='mb-[.5rem]'><strong>Tecnologías requeridas: </strong>{offer.technologies.map((t) => t).join(', ')}</p>
                <p className='mb-[.5rem]'><strong>Experiencia: </strong>{offer.experience} Año/s</p>
                <p className='mb-[.5rem]'><strong>Salario: </strong>{offer.min_salary === 0 && offer.max_salary === 0 ? 'Sin informar'  : '$ ' + offer.min_salary - '$ ' + offer.max_salary }</p>
                <p className='mb-[.5rem]'><strong>Fecha de creación: </strong>{offer.date_post.slice(0,10)}</p>
                <p className='mb-[.5rem]'><strong>Fecha de finalización: </strong>{ handleDate(offer.date_post, offer.active, offer.updatedAt)}</p>
                <p className='mb-[.5rem]'><strong>Postulantes: </strong>{offer.applications_count}</p>
-               <Link><button
+               {(offer.applications_count !== 0) && <Link><button
                 className='py-2 px-2 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'
                 onClick={() => {
                   setShowModal(true)

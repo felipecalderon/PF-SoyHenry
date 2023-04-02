@@ -1,5 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchCountries } from "../../redux/slices/countriesSlices";
 import { saveUser } from "../../redux/slices/userRegisterSlice";
@@ -52,8 +53,8 @@ export const RegistroEmpresa = () => {
     };
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [userDbData, setUserDbData] = useState(null);
+    // const navigate = useNavigate();
+    // const [userDbData, setUserDbData] = useState(null);
 
     const [form, setForm] = useState({
         names: '',
@@ -65,8 +66,8 @@ export const RegistroEmpresa = () => {
         confpassword: '',
         email: '',
         description: '',
-        city: '',
-        country: '',
+        company_city: '',
+        company_country: '',
         website: '',
         logo: '',
         rol: 'Empresa',
@@ -83,8 +84,8 @@ export const RegistroEmpresa = () => {
         confpassword: '',
         email: '',
         description: '',
-        city: '',
-        country: '',
+        company_city: '',
+        company_country: '',
         website: '',
         logo: '',
     });
@@ -113,24 +114,24 @@ export const RegistroEmpresa = () => {
     }, [dispatch]);
 
     const handleCountryChange = (event) => {
-        const country = event.target.value;
+        const company_country = event.target.value;
         setForm({
             ...form,
-            country: country
+            company_country: company_country
         })
-        setSelectedCountry(country);
+        setSelectedCountry(company_country);
         setSelectedCity('');
     };
     const handleCityChange = (event) => {
         setForm({
             ...form,
-            city: event.target.value
+            company_city: event.target.value
         })
         setSelectedCity(event.target.value);
     };
 
     const filteredCities = selectedCountry
-        ? countryData.find((country) => country.country === selectedCountry)?.cities
+        ? countryData.find((company_country) => company_country.country === selectedCountry)?.cities
         : [];
 
     // validacion de confpassword
@@ -292,12 +293,12 @@ export const RegistroEmpresa = () => {
                                             onChange={handleCountryChange}
                                             MenuProps={MenuProps}
                                             label="País"
-                                            name='country'
+                                            name='company_country'
                                         >
                                             {
-                                                countryData?.map((country) => (
-                                                    <MenuItem key={country.country} value={country.country}>
-                                                        {country.country}
+                                                countryData?.map((company_country) => (
+                                                    <MenuItem key={company_country.country} value={company_country.country}>
+                                                        {company_country.country}
                                                     </MenuItem>
                                                 ))
                                             }
@@ -314,13 +315,13 @@ export const RegistroEmpresa = () => {
                                             onChange={handleCityChange}
                                             MenuProps={MenuProps}
                                             label="Ciudad"
-                                            name='city'
+                                            name='company_city'
                                             disabled={!selectedCountry} className="form-input mt-1 block rounded-md border-gray-300 shadow-sm w-full mx-2 text-base"
                                         >
                                             {
-                                                filteredCities?.map((city) => (
-                                                    <MenuItem key={city} value={city}>
-                                                        {city}
+                                                filteredCities?.map((company_city) => (
+                                                    <MenuItem key={company_city} value={company_city}>
+                                                        {company_city}
                                                     </MenuItem>
                                                 ))
                                             }

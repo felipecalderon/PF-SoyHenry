@@ -4,9 +4,10 @@ const {postImagepostulante,
     postCvpostulante}=require("./uploadImagesRoute")
 const upload =require("../handlers/Utils/multer")
 const { 
-    allUsers, 
-    createUser,
+    allUsers,
     deleteUsers,
+    getUsersById,
+    putUsersById,
     getUsersRouteClaveForanea,
     getUsersRouteByEmail
 } = require('./userRoute')
@@ -24,7 +25,8 @@ const {
     authUserCreate,
     authUserCreateGoogleBtn,
     authUserGoogleBtnCB,
-    authUserLoginCredentials
+    authUserLoginCredentials,
+    updatePremium
 } = require('./authRoute')
 const{
     allCompany,
@@ -33,17 +35,7 @@ const{
     companyByIdDatBas,
     putCompany,
     deleteCompany
-
 }=require('./companyRoute');
-const { 
-    getUsersControllers, 
-    getUsersInactControllers, 
-    putUsersControllers, 
-    putStateControllers, 
-    deleteUsersControllers,
-    getUsersInactByIdControllers,
-    getUsersByIdControllers,
-} = require("../controllers/userControllers");
 const { 
     stateAplication, 
     saveCompany,
@@ -57,18 +49,25 @@ const { planRoute,
     subscriptionRoute,
     respuestasMP,
     pagoStripe,
-    recepcionPago
+    recepcionPago,
+    rutaVerPagos
 } = require('./suscriptionRoute');
+const { getAllData } = require('./adminRoute');
 
 const route = Router();
 
 // users
 route.post('/auth/login', authUserLoginCredentials)
 route.post('/auth/register', authUserCreate)
+route.put('/update/:id', updatePremium)
 route.get('/auth/google/:token', authUserCreateGoogleBtn)
 route.get('/user', allUsers);
+route.get('/user/:id', getUsersById);
+route.put('/user/:id', putUsersById);
 route.post('/user/email', getUsersRouteByEmail);
 route.post('/userPk', getUsersRouteClaveForanea);
+// Physical delete
+route.delete('/user/:id', deleteUsers );
 
 // Offers
 route.post('/jobs' , createOffer);
@@ -109,6 +108,11 @@ route.post('/plan', planRoute)
 route.post('/mercadopago', respuestasMP)
 route.post('/stripe', pagoStripe)
 route.get('/pago', recepcionPago)
+route.get('/verpagos', rutaVerPagos)
+
+// Admin
+route.get('/all_data', getAllData)
+
 module.exports = route;
 
 // Gets
@@ -116,11 +120,9 @@ module.exports = route;
 // route.get('user/:email', getUsersByIdControllers );
 // route.get('user/inact', getUsersInactControllers );
 // route.get('user/inact/:id', getUsersInactByIdControllers );
-// // Puts
 // route.put('user/:id', putUsersControllers );
+// // Puts
 // route.put('user/ld/:id', putStateControllers );
-// // Delete
-// route.delete('user/:id', deleteUsersControllers );
 
 //admin
 // route.get('/admin',allAdmin )
