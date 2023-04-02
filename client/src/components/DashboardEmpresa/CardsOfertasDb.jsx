@@ -123,7 +123,7 @@ export const CardsOfertasDb = () => {
             id={`panel${index + 1}d-header`}>
              <Typography className='flex'>
                 <div className='font-bold'>
-                  {offer.title.slice(0, 35)}{offer.title.length > 35 ? '...' : ''} 
+                  {offer.title.slice(0, 30)}{offer.title.length > 30 ? '...' : ''} 
                 </div>
                 <div>
                   <p className='relative ml-5 border-l-black h-0 font-bold'>| Postulantes: {offer.applications_count}</p>
