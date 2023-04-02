@@ -48,22 +48,22 @@ export const DashboardEmpresa = () => {
                     Bienvenido {userData.names}
                 </h2>
                 <div className="grid grid-cols-2 grid-rows-2 gap-4 py-6">
-                        <div className="col-span-1 row-span-1 w-full md:w-1/2 pl-8">
-                            <ProfileRecruiter/>
-                        </div>
                     <div className="col-span-1 row-span-1 w-full md:w-1/2 pl-8">
-                        {offers && <ResumenOfertas offers={offers}/>}
+                        <ProfileRecruiter/>
                     </div>
-                    <div className="col-span-1 row-span-2 flex md:block ml-[2.5rem]">
-                        <div className="pt-1">
-                            <Profile/>
-                        </div>
+                <div className="col-span-1 row-span-1 w-full md:w-1/2 pl-8">
+                    {offers && <ResumenOfertas offers={offers}/>}
+                </div>
+                <div className="col-span-1 row-span-2 flex md:block ml-[2.5rem]">
+                    <div className="pt-1">
+                        <Profile/>
                     </div>
-                    <div className="col-span-1 row-span-1 md:col-span-1 md:row-span-1">
-                        <div className="w-full h-full">
-                            <CardsOfertasDb  />
-                        </div>
+                </div>
+                <div className="col-span-1 row-span-1 md:col-span-1 md:row-span-1">
+                    <div className="w-full h-full">
+                        <CardsOfertasDb  />
                     </div>
+                </div>
                     <div className="col-span-2 row-span-1"></div>
                 </div>
                 <Footer />
