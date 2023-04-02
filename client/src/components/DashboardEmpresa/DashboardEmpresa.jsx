@@ -52,11 +52,11 @@ export const DashboardEmpresa = () => {
                             <ProfileRecruiter/>
                         </div>
                     <div className="col-span-1 row-span-1 w-full md:w-1/2 pl-8">
-                        <Profile/>
+                        {offers && <ResumenOfertas offers={offers}/>}
                     </div>
                     <div className="col-span-1 row-span-2 flex md:block ml-[2.5rem]">
                         <div className="pt-1">
-                            {offers && <ResumenOfertas offers={offers}/>}
+                            <Profile/>
                         </div>
                     </div>
                     <div className="col-span-1 row-span-1 md:col-span-1 md:row-span-1">

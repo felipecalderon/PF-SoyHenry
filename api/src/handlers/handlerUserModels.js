@@ -168,17 +168,17 @@ const getUsersInactById = async (id) => {
 };
 
 // Puts
-const putUsers = async ({ id }, { names, lastnames, phone, email, photo } ) => {
+const putUsers = async ({ id }, { names, lastnames, phone, email, photo, website } ) => {
     // Comprueba si existe el usuario
     const user = await User.findByPk(id);
     if (!user) throw Error(`El usuario con id: ${id} no existe`);
 
     // Comprueba si falta algun dato
-    if (!names || !lastnames || !phone || !email || !photo) throw Error('Faltan Datos');
+    if (!names || !lastnames || !phone || !email || !photo || !website) throw Error('Faltan Datos');
 
     // Actualiza los datos
     await User.update(
-        { names, lastnames, phone, email, photo },
+        { names, lastnames, phone, email, photo, website },
         {
             where: { id }
         }

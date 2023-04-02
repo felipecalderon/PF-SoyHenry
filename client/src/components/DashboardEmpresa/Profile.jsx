@@ -151,9 +151,9 @@ const handleSubmit = async (event) => {
           <Rating name="ratingCompany" value={4} readOnly />
         </CardContent>
       </Box>
-      <Box className="flex flex-row gap-3 w-[29.5rem] pt-[1rem]">   
+      <Box className="flex flex-row gap-3 w-[36rem] pt-[1rem]">   
         <Button variant="outlined" onClick={handleClickOpen} startIcon={<Badge />}>
-          Modificar mis datos
+          Modificar datos de empresa
         </Button>
         <Link to='/offerscreate'>
           <Button variant="contained" endIcon={<SendIcon />}>
@@ -178,8 +178,8 @@ const handleSubmit = async (event) => {
                 label="Nombre de la empresa" 
                 value={info.companyname} 
                 onChange={handleChange} 
-                // error={!!errors.companyname} 
-                // helperText={errors.companyname} 
+                error={!!errors.companyname} 
+                helperText={errors.companyname} 
                 variant="standard" 
                 name='companyname'/>
           </div>

@@ -19,23 +19,21 @@ import { TextField } from "@mui/material";
   console.log(user)
   
   //eslint-disable-next-line no-unused-vars
-  const {id, names, lastnames, email, photo, phone} = recruiter;
+  const {id, names, lastnames, email, photo, phone, website} = recruiter;
 
   const [info, setInfo] = useState({
-    names: '',
-    lastnames: '',
-    email: '',
-    description: '',
-    phone: '',
-    website: '',
-    photo: ''
+    names: recruiter.names,
+    lastnames: recruiter.lastnames,
+    email: recruiter.email,
+    phone: recruiter.phone,
+    website: recruiter.website,
+    photo: recruiter.photo
   });
 
   const [errors, setErrors] = useState({
     names: '',
     lastnames: '',
     email: '',
-    description: '',
     phone: '',
     website: '',
     photo: ''
@@ -78,7 +76,7 @@ const handleSubmit = async (event) => {
     <>
       <Box className="flex flex-row">
         <CardMedia
-          className='ml-[3rem] rounded-full'
+          className='ml-[3rem] mt-[2rem] h-44 rounded-full'
           component="img"
           sx={{ width: 200, objectFit: 'contain' }}
           image={photo}
@@ -90,6 +88,9 @@ const handleSubmit = async (event) => {
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
             <p><strong>Email: </strong></p><p target="_blank" rel="noopener noreferrer">{email}</p>
+          </Typography>
+          <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
+            <p><strong>Sitio web: </strong></p><a href={website} target="_blank" rel="noopener noreferrer" className='text-blue-600'>{website}</a>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
             <p><strong>Teléfono: </strong></p><p target="_blank" rel="noopener noreferrer">{phone}</p>
@@ -155,6 +156,16 @@ const handleSubmit = async (event) => {
           </div>
           <div>
               <TextField 
+                label="Website" 
+                value={info.website} 
+                onChange={handleChange}
+                error={!!errors.website} 
+                helperText={errors.website} 
+                variant="standard" 
+                name='website'/>
+          </div>
+          <div>
+              <TextField 
                 label="Teléfono personal" 
                 value={info.phone} 
                 onChange={handleChange} 
@@ -175,7 +186,7 @@ const handleSubmit = async (event) => {
           <h1 className='p-1 dark:text-text-dark'><strong>Apellido:</strong> {info.lastnames}</h1>
           <h1 className='p-1 dark:text-text-dark'><strong>Email:</strong> {info.email}</h1>
           <h1 className='p-1 dark:text-text-dark'><strong>Foto:</strong> {info.photo}</h1>
-          {/* <h1 className='p-1 dark:text-text-dark'><strong>Website:</strong> {info.website}</h1> */}
+          <h1 className='p-1 dark:text-text-dark'><strong>Website:</strong> {info.website}</h1>
           <h1 className='p-1 dark:text-text-dark'><strong>Teléfono:</strong> {info.phone}</h1>
           <div className='flex justify-center p-5'>
             <button className='h-10 w-24 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2' 
