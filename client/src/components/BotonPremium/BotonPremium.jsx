@@ -19,8 +19,7 @@ const pulse = keyframes`
 `;
 
 const PremiumButton = tw.button`
-bg-orange-600
-
+  bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600
   text-white
   font-bold
   py-2
@@ -65,49 +64,46 @@ export default function PremiumButtonComponent() {
   };
   
   if (!userData.premium) {
-  return  (
-    <>
-    
-      <PremiumButton
-        css={isPulsing ? { animation: `${pulse} 1s ease-in-out infinite` } : {}}
-        className="border border-solid border-gold-500"
-        onClick={handleOpen}
-      >
-        Hazte usuario premium
-      </PremiumButton>
-      
-      <div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+    return (
+      <>
+        <PremiumButton
+          css={isPulsing ? { animation: `${pulse} 1s ease-in-out infinite` } : {}}
+          className="border border-solid border-gold-500"
+          onClick={handleOpen}
         >
-          <PremiumModal>
-            {!closed && (
-              <CloseButton onClick={handleClose}>
-                <CloseIcon />
-              </CloseButton>
-            )}
-            <PremiumModalTitle>
-              ¡Disfruta los grandes beneficios del plan Premium!
-            </PremiumModalTitle>
-            <ul className="text-lg md:text-xl text-center">
-              <li>
-              • Usa filtros combinados para encontrar tu trabajo ideal
-              </li>
-              <li>
-              • Guarda tantas ofertas como quieras y aplica en el momento que
-                quieras
-              </li>
-            <li>• Puedes encontrar más ofertas laborales</li>
-          </ul>
-        </PremiumModal>
-      </Modal>
-</div> 
-
-</>
-  
-  );}
-  return null
+          Hazte premium
+        </PremiumButton>
+        <div>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <PremiumModal>
+              {!closed && (
+                <CloseButton onClick={handleClose}>
+                  <CloseIcon />
+                </CloseButton>
+              )}
+              <PremiumModalTitle>
+                ¡Disfruta los grandes beneficios del plan Premium!
+              </PremiumModalTitle>
+              <ul className="text-lg md:text-xl text-center">
+                <li>
+                  • Usa filtros combinados para encontrar tu trabajo ideal
+                </li>
+                <li>
+                  • Guarda tantas ofertas como quieras y aplica en el momento que
+                  quieras
+                </li>
+                <li>• Puedes encontrar más ofertas laborales que se adapten a tus necesidades y deseos</li>
+              </ul>
+            </PremiumModal>
+          </Modal>
+        </div> 
+      </>
+    );
+  }
+  return null;
 }

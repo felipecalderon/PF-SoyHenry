@@ -15,11 +15,6 @@ import Perks from "./Perks";
 import { Box, Fab, Snackbar } from "@mui/material";
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
-import axios from "axios";
-import Perks from "./Perks";
-import { fetchEmpresaData } from "../../redux/actions/fetchEmpresa";
-import { async } from "@firebase/util";
-import { ClassSharp } from "@mui/icons-material";
 import PremiumButtonComponent from "../BotonPremium/BotonPremium";
 
 const JobDetail = () => {
@@ -31,6 +26,7 @@ const JobDetail = () => {
   const { empresaId } = useSelector((state) => state.postSlice)
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
+
 
   const { data, isLoading } = useFetch(url);
   const dataUserLocal = localStorage.getItem("userLogin")
@@ -50,10 +46,8 @@ const JobDetail = () => {
       link: "/about"
     },
   ]
+
   const [empresa, setEmpresa] = useState(null);
-
-  console.log(data)
-
   useEffect(() => {
     if (data?.idEmpresa) {
       axios.get(`https://www.getonbrd.com/api/v0/companies/${data?.idEmpresa}`)
@@ -79,68 +73,66 @@ const JobDetail = () => {
     }
   }, [jobId?.id])
 
-//FAVORITOS AHORA ES GUARDADOS
-const userData = JSON.parse(localStorage.getItem('userLogin'));
-const [openSnackbar, setOpenSnackbar] = useState(false);
-const [isFavorite, setIsFavorite] = useState(false);
-const [favFilter, setFavFilter]  = useState([]);
-const [savedOffers, setSavedOffers] = useState([]);
+  //FAVORITOS AHORA ES GUARDADOS
+  const [isPremium] = useState(JSON.parse(localStorage.getItem('userLogin')));
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favFilter, setFavFilter] = useState([]);
+  const [countOffers, setCountOffers] = useState()
+  const [savedOffers, setSavedOffers] = useState([]);
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
 
-
-
   const OffersSave = async () => {
-    const get = await axios.get(`/save_offers/${jobId.id}`)
-      .then((res) => res.data.find(cb => cb.offerId === jobId?.id))
+    const get = await axios.get(`/save_offers/${dataUser.id}`)
+      .then((res) => {
+        setCountOffers(res.data.length)
+        return res.data.find(cb => cb.offerId === jobId?.id)
+      })
     if (get !== undefined) {
-      return setIsFavorite(true)
+      setIsFavorite(true)
+      return
     }
     return setIsFavorite(false)
   }
 
-  OffersSave()
-
   useEffect(() => {
+    OffersSave()
     axios.get(`/fav_company/${dataUser?.id}`)
       .then((res) => res.data.filter((cb) => cb.offerId === jobId?.id))
       .then((res) => setFavFilter(res))
   }, [dataUser?.id, jobId?.id]);
 
-
-const handleToggleFavorite = () => {
-  if (!userData.premium && savedOffers.length >= 5) { // Verificar si el usuario es premium y si la cantidad de ofertas guardadas no supera las 5 permitidas
-    setOpenSnackbar(true);
-    return;
-  }
-  if (!isFavorite) {
-    Number(jobId.id)
-      ? axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=db`)
-      : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=api`);
-    setIsFavorite(true);
-    setSavedOffers([...savedOffers, jobId.id]);
-    alert('Se ha guardado la oferta');
-  } else {
-    Number(jobId.id)
-      ? axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=db`)
-      : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=api`);
-    setIsFavorite(false);
-    setSavedOffers(savedOffers.filter((savedId) => savedId !== jobId.id));
-    alert('Se ha eliminado la oferta de tu lista guardada');
-  }
-};
-
+  const handleToggleFavorite = () => {
+    if (countOffers >= 5 && dataUser?.premium === false ) {
+      setOpenSnackbar(true);
+      return;
+    }
+    if (!isFavorite) {
+      Number(jobId.id)
+        ? axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=db`)
+        : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=api`);
+      setIsFavorite(true);
+      setSavedOffers([...savedOffers, jobId.id]);
+      alert('Se ha guardado la oferta');
+    } else {
+      Number(jobId.id)
+        ? axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=db`)
+        : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=api`);
+      setIsFavorite(false);
+      setSavedOffers(savedOffers.filter((savedId) => savedId !== jobId.id));
+      alert('Se ha eliminado la oferta de tu lista guardada');
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
     if (data) {
       dispatch(getDataPostulacion(data));
-
     }
   }, [data, dispatch, jobId?.companyId]);
-
 
   const handlePostulateDb = () => {
     const offerId = jobId.id
@@ -148,7 +140,6 @@ const handleToggleFavorite = () => {
     axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
     alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
   };
-  
 
   // obtener perks en español desde la api getonbrd
   const [perksApi, setPerksApi] = useState([])
@@ -157,7 +148,6 @@ const handleToggleFavorite = () => {
       .then(res => setPerksApi(res.data.data))
   }, [])
 
-  console.log(jobId?.perks)
   // filtrar según las perks que tenga la oferta de trabajo
   const cleanPerks = perksApi?.filter((perk) => jobId?.perks.includes(perk.id)).map(perk => perk.attributes.name)
 
@@ -168,15 +158,16 @@ const handleToggleFavorite = () => {
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
 
-  console.log(cleanPerks)
   const cleanHtml = { __html: empresa?.data.attributes.long_description }
 
   return (
     <div className="bg-primary-light dark:bg-secondary-dark pt-20">
       <NavLanding menu={menu} />
-    < PremiumButtonComponent/>
       <div className="relative flex flex-wrap space-around">
-        <Link to={'/offers'}>
+        <div className="relative ">
+        <PremiumButtonComponent/>
+        </div>
+        {/* <Link to={'/offers'}>
           <button type="button" class="absolute text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             style={{
               top: -10,
@@ -187,7 +178,7 @@ const handleToggleFavorite = () => {
             <span class="sr-only">Icon description</span>
             volver
           </button>
-        </Link>
+        </Link> */}
 
         {/* Detalles de la oferta */}
         <div className="relative pt-5 flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800">
@@ -288,7 +279,7 @@ const handleToggleFavorite = () => {
                     open={openSnackbar}
                     autoHideDuration={4000}
                     onClose={handleCloseSnackbar}
-                    message="Solo puede guardar 5 ofertas de trabajo por tener el plan free"
+                    message="Solo puedes guardar 5 ofertas de trabajo. para guardar mas ofertas y más beneficios asciende a premium"
                   />
                 </Box>
 
