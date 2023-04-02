@@ -60,6 +60,9 @@ const { planRoute,
     recepcionPago,
     rutaVerPagos
 } = require('./suscriptionRoute');
+const {  handlerSaveApplyApiOffer,
+    handlerGetApplyApiOffer}=require("../handlers/handlerApplyApiOffer")
+
 
 const route = Router();
 
@@ -112,6 +115,20 @@ route.post('/stripe', pagoStripe)
 route.get('/pago', recepcionPago)
 route.get('/verpagos', rutaVerPagos)
 module.exports = route;
+
+
+
+
+//Rutas que guardaran y mostraran ofertas a la que se aplicaron de la api
+
+
+//ruta que guardara las postulaciones de la api 
+route.post("/applyapioffer",handlerSaveApplyApiOffer)
+
+//ruta que traera oferta guardada de la api
+route.get("/applyapioffer/:userId",handlerGetApplyApiOffer)
+
+
 
 // Gets
 // route.get('user/:id', getUsersByIdControllers );

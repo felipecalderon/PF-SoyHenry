@@ -26,6 +26,16 @@ function Postulaciones() {
        }) 
     }, [])
     
+    useEffect(()=>{
+        axios.get(`/applyapioffer/${idUser}`)
+        .then((res)=>{
+            SetData((prevData) => [...prevData, ...res.data]);
+        })
+       .catch((err)=>{
+        console.log(err)
+       }) 
+
+    },[])
     
 return (
 
