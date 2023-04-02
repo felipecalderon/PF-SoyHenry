@@ -1,5 +1,5 @@
 const { User, Offers, Company, FavoritesComp, SaveOffer, Aplications, Postulant } = require("../models/relations.js");
-const SaveOfferApi = require("../models/SaveOffersApiModel.js");
+const SaveOfferApi = require("../models/saveOffersApiModel.js");
 const { mailStatusAplication } = require("./Utils/sendStateMail.js");
 
 const putState = async (offerId, userId, status) => { // Aplicacion
