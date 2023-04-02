@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 const { User, Admin, Postulant, Company, Offers, Payment } = require("../models/relations.js");
 const{ mailRegisterUser } = require('./Utils/sendMail');
 // Post
-const createUsers = async ({ photo, names, lastnames, email, city, country, password, rol, active, phone, document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook, description_postulant, title, languages, companyname, email_company, description, phone_company, website, logo }) => {
+const createUsers = async ({ photo, names, lastnames, email, city, country, password, rol, active, phone, document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook, description_postulant, title, languages, companyname, email_company, description, phone_company, website, logo, company_city, company_country, }) => {
     try {
         const [usuario, creado] = await User.findOrCreate({
             where: { email },
@@ -23,7 +23,7 @@ const createUsers = async ({ photo, names, lastnames, email, city, country, pass
                     return { ...usuario.dataValues, Postulants }
                 case 'Empresa':
                     const Companies = await Company.create({
-                        companyname, email_company, description, phone_company, website, logo, 
+                        companyname, email_company, description, phone_company, website, logo, company_city, company_country,
                         userId: usuario.id
                     });
                     return { ...usuario.dataValues, Companies }
@@ -44,7 +44,7 @@ const createUsers = async ({ photo, names, lastnames, email, city, country, pass
                     return { ...updatedUser.dataValues, ...postulant.dataValues }
                 case 'Empresa':
                     const company = await Company.update({
-                        companyname, email_company, description, phone_company, website, logo,
+                        companyname, email_company, description, phone_company, website, logo, company_city, company_country,
                     },
                         {
                             where: { userId: usuario.id }
