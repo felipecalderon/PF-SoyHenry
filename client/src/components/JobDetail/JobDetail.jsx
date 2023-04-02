@@ -45,10 +45,8 @@ const JobDetail = () => {
       link: "/about"
     },
   ]
+
   const [empresa, setEmpresa] = useState(null);
-
-  console.log(data)
-
   useEffect(() => {
     if (data?.idEmpresa) {
       axios.get(`https://www.getonbrd.com/api/v0/companies/${data?.idEmpresa}`)
@@ -75,40 +73,40 @@ const JobDetail = () => {
   }, [jobId?.id])
 
   //FAVORITOS AHORA ES GUARDADOS
-  const [isPremium, setIsPremium] = useState(localStorage.getItem("userLogin"));
+  const [isPremium] = useState(JSON.parse(localStorage.getItem('userLogin')));
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [favFilter, setFavFilter] = useState([]);
+  const [countOffers, setCountOffers] = useState()
   const [savedOffers, setSavedOffers] = useState([]);
 
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
 
-
-
   const OffersSave = async () => {
-    const get = await axios.get(`/save_offers/${jobId.id}`)
-      .then((res) => res.data.find(cb => cb.offerId === jobId?.id))
+    const get = await axios.get(`/save_offers/${dataUser.id}`)
+      .then((res) => {
+        setCountOffers(res.data.length)
+        return res.data.find(cb => cb.offerId === jobId?.id)
+      })
     if (get !== undefined) {
-      return setIsFavorite(true)
+      setIsFavorite(true)
+      return
     }
     return setIsFavorite(false)
   }
 
-  OffersSave()
-
   useEffect(() => {
+    OffersSave()
     axios.get(`/fav_company/${dataUser?.id}`)
       .then((res) => res.data.filter((cb) => cb.offerId === jobId?.id))
       .then((res) => setFavFilter(res))
   }, [dataUser?.id, jobId?.id]);
 
-
   const handleToggleFavorite = () => {
-    if (savedOffers.length >= 5 && isPremium === "false") {
+    if (countOffers >= 5 && dataUser?.premium === false ) {
       setOpenSnackbar(true);
-
       return;
     }
     if (!isFavorite) {
@@ -128,18 +126,12 @@ const JobDetail = () => {
     }
   };
 
-
-
-
-
   useEffect(() => {
     window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
     if (data) {
       dispatch(getDataPostulacion(data));
-
     }
   }, [data, dispatch, jobId?.companyId]);
-
 
   const handlePostulateDb = () => {
     const offerId = jobId.id
@@ -148,8 +140,6 @@ const JobDetail = () => {
     alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
   };
 
-
-
   // obtener perks en español desde la api getonbrd
   const [perksApi, setPerksApi] = useState([])
   useEffect(() => {
@@ -157,7 +147,6 @@ const JobDetail = () => {
       .then(res => setPerksApi(res.data.data))
   }, [])
 
-  console.log(jobId?.perks)
   // filtrar según las perks que tenga la oferta de trabajo
   const cleanPerks = perksApi?.filter((perk) => jobId?.perks.includes(perk.id)).map(perk => perk.attributes.name)
 
@@ -168,7 +157,6 @@ const JobDetail = () => {
   if (!jobId) return spinnerPurple()
   if (isLoading) return spinnerPurple()
 
-  console.log(cleanPerks)
   const cleanHtml = { __html: empresa?.data.attributes.long_description }
 
   return (
@@ -287,7 +275,7 @@ const JobDetail = () => {
                     open={openSnackbar}
                     autoHideDuration={4000}
                     onClose={handleCloseSnackbar}
-                    message="Solo puede guardar 5 ofertas de trabajo por tener el plan free"
+                    message="Solo puedes guardar 5 ofertas de trabajo. para guardar mas ofertas y más beneficios asciende a premium"
                   />
                 </Box>
 
