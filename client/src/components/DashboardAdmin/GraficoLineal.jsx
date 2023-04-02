@@ -41,7 +41,7 @@ const GraficoLineal = ({datos}) => {
         // Guardamos una referencia al objeto del gráfico para destruirlo la próxima vez
         chartInstanceRef.current = chartInstance;
       }
-    }, [chartRef]);
+    }, [chartRef, datos]) //eslint-disable-line
 
     if(!datos) return null
     return (
