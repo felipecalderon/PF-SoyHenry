@@ -124,23 +124,32 @@ const handleSubmit = async (event) => {
   if(!company) return "No hay info";
   return (
     <>
-      <Box className="flex flex-row">
+      <Box className="flex flex-row py-6 px-3 text-left">
+      <div className='flex flex-col px-6 w-2/5 items-center gap-6'>  
         <CardMedia
-          className='ml-[3rem]'
+          className='w-30 h-30 mx-auto object-cover'
           component="img"
-          sx={{ width: 200, objectFit: 'contain' }}
           image={logo}
           alt="Live from space album cover"
         />
-        <CardContent className="flex flex-col justify-center">
+        <Button variant="outlined" onClick={handleClickOpen} startIcon={<Badge />}>
+          Modificar datos de empresa
+        </Button>
+        <Link to='/offerscreate'>
+          <Button variant="contained" endIcon={<SendIcon />}>
+            Crear oferta de empleo
+          </Button>
+        </Link>
+      </div>
+      <CardContent className="flex flex-col w-3/5 justify-center">
           <Typography component="div" variant="h4" className='text-gray-900 dark:text-white'>
             {companyname}
           </Typography>
           <Typography component="div" variant="h6" className='text-gray-900 dark:text-white'>
             <p><strong>Ubicación: </strong></p><p className='text-sm'>{company_city}, {company_country}</p>
           </Typography>
-          <Typography component="div" variant="subtitle1" className='text-blue-600'>
-            <p className='text-black'><strong>Sitio web: </strong></p><a href={website} target="_blank" rel="noopener noreferrer">{website}</a>
+          <Typography component="div" variant="subtitle1" className='text-gray-900 dark:text-white'>
+            <p><strong>Sitio web: </strong></p><a className='text-blue-700' href={website} target="_blank" rel="noopener noreferrer">{website}</a>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
             <p><strong>Email: </strong></p><p target="_blank" rel="noopener noreferrer">{email_company}</p>
@@ -150,16 +159,6 @@ const handleSubmit = async (event) => {
           </Typography>
           <Rating name="ratingCompany" value={4} readOnly />
         </CardContent>
-      </Box>
-      <Box className="flex flex-row gap-3 w-[36rem] pt-[1rem]">   
-        <Button variant="outlined" onClick={handleClickOpen} startIcon={<Badge />}>
-          Modificar datos de empresa
-        </Button>
-        <Link to='/offerscreate'>
-          <Button variant="contained" endIcon={<SendIcon />}>
-            Crear oferta de empleo
-          </Button>
-        </Link>
       </Box>
         <Dialog
           open={open}
