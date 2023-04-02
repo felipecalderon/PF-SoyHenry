@@ -36,9 +36,9 @@ return (
         {
             data?.length ? <>
 <div className='h-1043px overflow-y-auto'  style={{maxHeight:" 1040px"}}>
-    <select className='bg-white rounded-xl  border mb-4 text-center flex justify-around'>
+    {/* <select className='bg-white rounded-xl  border mb-4 text-center flex justify-around'>
         <option value="">send</option>
-    </select>
+    </select> */}
     {data.map((el)=>
 <div className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-around" >
     <h2 className="text-lg font-bold cursor-pointer"
