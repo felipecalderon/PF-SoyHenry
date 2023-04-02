@@ -159,6 +159,16 @@ const JobDetail = () => {
 
   const cleanHtml = { __html: empresa?.data.attributes.long_description }
 
+  const SaveApplyToBdd=()=>{
+    axios.post(`/applyapioffer?userId=${dataUser.id}&&offerId=${jobId.id}&&title=${jobId.title}`)
+    .then((res)=>{
+      console.log("se envio la postulacion a la bdd ")
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+
   return (
     <div className="bg-primary-light dark:bg-secondary-dark pt-20">
       <NavLanding menu={menu} />
@@ -255,7 +265,7 @@ const JobDetail = () => {
                       </span>
                     </button>
                     : <a href={jobId.link} target="_blank" rel="noreferrer" >
-                      <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+                      <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800" onClick={SaveApplyToBdd}>
                         <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                           Aplicar en la Pagina
                         </span>
