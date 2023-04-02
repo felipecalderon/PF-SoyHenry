@@ -82,7 +82,7 @@ const deleteUsersControllers = async ( { id } ) => {
         const response = await deleteUsers( id );
         return response
     } catch (error) {
-        throw { error: error.message }
+        throw error
     }
 };
 
