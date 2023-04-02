@@ -295,13 +295,13 @@ const JobDetail = () => {
               }}>
                 Empresa
               </button>
-              <div className=" w-full flex flex justify-center items-center mb-4 mt-6 ">
+              <div className=" w-full  flex justify-center items-center mb-4 mt-6 ">
                 <img className="flex justify-center items-center " src={empresa?.data.attributes.logo || empresaApi?.logo} alt="Logo company" />
               </div>
               <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white m-8">{empresa?.data.attributes.name || empresaApi?.companyname}</h1>
               <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={cleanHtml}></h3>
               <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal"> {empresaApi?.description} </h3>
-              <section className="w-full flex flex justify-center items-center my-10">
+              <section className="w-full  flex justify-center items-center my-10">
                 <a href={empresa?.data.attributes.web || empresaApi?.website} target="_blank" rel="noreferrer">
                   <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
                     <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
