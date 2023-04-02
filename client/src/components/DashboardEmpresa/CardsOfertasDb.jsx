@@ -22,9 +22,6 @@ const Accordion = styled((props) => (
   '&:before': {
     display: 'none',
   },
-  marginBottom: '.5rem',
-  marginLeft: '1rem',
-  width: '35rem'
 }));
 
 const AccordionSummary = styled((props) => (
@@ -115,7 +112,7 @@ export const CardsOfertasDb = () => {
   
   return (
      <Fragment>
-     <div>
+     <div className='w-full'>
        {offers?.map((offer, index) => (
          <Accordion 
           key={index} 
