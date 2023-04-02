@@ -154,12 +154,13 @@ export const CardsOfertasDb = () => {
                <p className='mb-[.5rem]'><strong>Fecha de creación: </strong>{offer.date_post}</p>
                <p className='mb-[.5rem]'><strong>Fecha de finalización: </strong></p>
                <p className='mb-[.5rem]'><strong>Postulantes: </strong>{offer.applications_count}</p>
-               <Link><button
+               {(offer.applications_count !== 0) && <Link><button
                 className='py-2 px-2 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'
                 onClick={() => {
                   setShowModal(true)
                   handleAplicants(offer)
                   } }>Ver postulantes</button></Link>
+                }
                <div className='flex justify-center pt-5'>
                 <Link to={`/detail/${offer.id}?${offer.title}`}>
                   <button className='py-2 px-2 mx-2 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>Ver oferta</button>
