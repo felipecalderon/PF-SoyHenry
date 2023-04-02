@@ -1,6 +1,8 @@
 const { 
     createUsersController,
     getUsersControllers,
+    putUsersControllers,
+    getUsersByIdControllers,
     deleteUsersControllers 
 } = require('../controllers/userControllers')
 
