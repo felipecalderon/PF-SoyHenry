@@ -240,7 +240,7 @@ export const CardsOfertasDb = () => {
                 onClick={() => {
                   setShowModal(true)
                   handleAplicants(offer)
-                  }  }>{offer.active ? 'Ver postulantes' : 'Postulantes cerrados'}</button></Link>
+                  }  }>{offer.active ? 'Ver postulantes' : 'Postulantes cerrados'}</button></Link>}
                <div className='flex justify-center pt-5'>
                 <Link to={`/detail/${offer.id}?${offer.title}`}>
                   <button className='py-2 px-2 mx-2 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>Ver oferta</button>
