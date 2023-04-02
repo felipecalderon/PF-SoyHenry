@@ -1,9 +1,9 @@
 // const{ Users } = require('../database.js')
 const { Op } = require("sequelize");
 const { User, Admin, Postulant, Company, Offers, Payment } = require("../models/relations.js");
-const{ mailRegisterUser } = require('./Utils/sendMail');
+const { mailRegisterUser } = require('./Utils/sendMail');
 // Post
-const createUsers = async ({ photo, names, lastnames, email, city, country, password, rol, active, phone, document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook, description_postulant, title, languages, companyname, email_company, description, phone_company, website, logo }) => {
+const createUsers = async ({ photo, names, lastnames, email, city, country, password, rol, active, phone, document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook, description_postulant, title, languages, companyname, email_company, description, phone_company, website, logo, company_city, company_country, }) => {
     try {
         const [usuario, creado] = await User.findOrCreate({
             where: { email },
@@ -23,7 +23,7 @@ const createUsers = async ({ photo, names, lastnames, email, city, country, pass
                     return { ...usuario.dataValues, Postulants }
                 case 'Empresa':
                     const Companies = await Company.create({
-                        companyname, email_company, description, phone_company, website, logo, 
+                        companyname, email_company, description, phone_company, website, logo, company_city, company_country,
                         userId: usuario.id
                     });
                     return { ...usuario.dataValues, Companies }
@@ -44,7 +44,7 @@ const createUsers = async ({ photo, names, lastnames, email, city, country, pass
                     return { ...updatedUser.dataValues, ...postulant.dataValues }
                 case 'Empresa':
                     const company = await Company.update({
-                        companyname, email_company, description, phone_company, website, logo,
+                        companyname, email_company, description, phone_company, website, logo, company_city, company_country,
                     },
                         {
                             where: { userId: usuario.id }
@@ -101,8 +101,36 @@ const getUsersByName = async (name) => {
     });
     return users;
 };
+const premiumState = async (id, state, active) => {
+    try {
+        const user = await User.findByPk(id)
+        if (!user) throw Error('Usuario no encontrado')
+        // Actualiza el premium
+        if (state === 'true') {
+            await User.update({ premium: true }, { where: { id } })
+            return 'Usuario Premium'
+        } 
+        if(state === 'false') {
+            await User.update({ premium: false }, { where: { id } })
+            return 'Usuario no Premium'
+        }
 
-const getUsersByEmail = async ( data ) => {
+        // Actualiza active
+        if (active === 'true') {
+            await User.update({ active: true }, { where: { id } })
+            return 'Usuario Desbaneado'
+        } 
+        if(active === 'false') {
+            await User.update({ active: false }, { where: { id } })
+            return 'Usuario Baneado'
+        }
+
+    } catch (error) {
+        throw error
+    }
+}
+
+const getUsersByEmail = async (data) => {
     const email = typeof data === 'object' && data.email ? data.email : typeof data === 'string' ? data : null;
     try {
         const user = await User.findOne({
@@ -116,9 +144,9 @@ const getUsersByEmail = async ( data ) => {
 };
 
 const getUsersById = async (id) => {
-    const user = await User.findByPk(id, {
+    const user = await User.findOne({
         where: {
-            estado: 1
+            id: id
         },
     });
     return user;
@@ -152,22 +180,22 @@ const getUsersInactById = async (id) => {
 };
 
 // Puts
-const putUsers = async (id, nombres, apellidos, celular, correo, discapacidad, genero) => {
+const putUsers = async ({ id }, { names, lastnames, phone, email, photo, website } ) => {
     // Comprueba si existe el usuario
     const user = await User.findByPk(id);
     if (!user) throw Error(`El usuario con id: ${id} no existe`);
 
     // Comprueba si falta algun dato
-    if (!nombres || !apellidos || !celular || !correo || !discapacidad || !genero) throw Error('Faltan Datos');
+    if (!names || !lastnames || !phone || !email || !photo || !website) throw Error('Faltan Datos');
 
     // Actualiza los datos
     await User.update(
-        { nombres, apellidos, celular, correo, discapacidad, genero },
+        { names, lastnames, phone, email, photo, website },
         {
             where: { id }
         }
     )
-    return `${nombres} has been updated`;
+    return `${names} has been updated`;
 };
 
 const putState = async (id, active) => {
@@ -187,9 +215,15 @@ const putState = async (id, active) => {
 
 // Delete
 const deleteUsers = async (id) => {
-    const deleteUsers = await User.findByPk(id);
-    await deleteUsers.destroy();
-    return `${deleteUsers.nombres} ha sido eliminado con éxito de la base de datos.`;
+    try {
+        const deleteUsers = await User.findByPk(id);
+        if (!deleteUsers) throw Error('Usuario no encontrado')
+        await deleteUsers.destroy();
+        return `${deleteUsers.names} ha sido eliminado con éxito de la base de datos.`;
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
 };
 
 module.exports = {
@@ -203,5 +237,6 @@ module.exports = {
     putState,
     deleteUsers,
     getUsersByEmail,
-    getUsersByIdCforanea
+    getUsersByIdCforanea,
+    premiumState
 };

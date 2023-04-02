@@ -4,7 +4,8 @@ const{
     putAdminRol,
     getAdminById,
     deleteAdmin,
-}= require('../handlers/handlerAdminModels');
+    allData
+}= require('../handlers/handlersAdmin');
 
 
 const getAdminControllers = async ( ) => {
@@ -47,6 +48,15 @@ const putAdminControllers = async ( { id } ) => {
     }
 };
 
+const getAllDataController = async () => {
+    try {
+        const response = await allData( );
+        return response
+    } catch (error) {
+        throw { error: error.message }
+    }
+}
+
 const deleteAdminControllers = async ( { id } ) => {
     try {
         const response = await deleteAdmin( id );
@@ -63,5 +73,5 @@ module.exports={
     getAdminByIdControllers,
     putAdminControllers,
     deleteAdminControllers,
-
+    getAllDataController,
 };

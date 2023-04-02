@@ -138,19 +138,29 @@ export const CardsOfertasDb = () => {
                <p className='mb-[.5rem]'><strong>Requisitos: </strong>{offer.requeriments}</p>
                <p className='mb-[.5rem]'><strong>Beneficios: </strong>{offer.benefits}</p>
                <p className='mb-[.5rem]'><strong>Funciones: </strong>{offer.functions}</p>
-               <p className='mb-[.5rem]'><strong>Modalidad: </strong>{offer.modality}</p>
-               <p className='mb-[.5rem]'><strong>Tecnologias: </strong>{offer.perks.map((p) => p).join(', ')}</p>
+               <p className='mb-[.5rem]'><strong>Modalidad: </strong>{offer.modality === 'fully_remote' 
+                                                                      ? "Remoto" 
+                                                                      : offer.modality === 'remote_local' 
+                                                                      ? 'Remoto local' 
+                                                                      : offer.modality === 'hybrid' 
+                                                                      ? 'Híbrido' 
+                                                                      : offer.modality === 'no_remote' 
+                                                                      ? 'Presencial' 
+                                                                      : 'No especificado'}</p>
+               <p className='mb-[.5rem]'><strong>Ventajas: </strong>{offer.perks.map((p) => p).join(', ')}</p>
+               <p className='mb-[.5rem]'><strong>Tecnologías requeridas: </strong>{offer.technologies.map((t) => t).join(', ')}</p>
                <p className='mb-[.5rem]'><strong>Experiencia: </strong>{offer.experience} Año/s</p>
                <p className='mb-[.5rem]'><strong>Salario: </strong>${offer.min_salary} - ${offer.max_salary}</p>
                <p className='mb-[.5rem]'><strong>Fecha de creación: </strong>{offer.date_post}</p>
                <p className='mb-[.5rem]'><strong>Fecha de finalización: </strong></p>
                <p className='mb-[.5rem]'><strong>Postulantes: </strong>{offer.applications_count}</p>
-               <Link><button
+               {(offer.applications_count !== 0) && <Link><button
                 className='py-2 px-2 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'
                 onClick={() => {
                   setShowModal(true)
                   handleAplicants(offer)
                   } }>Ver postulantes</button></Link>
+                }
                <div className='flex justify-center pt-5'>
                 <Link to={`/detail/${offer.id}?${offer.title}`}>
                   <button className='py-2 px-2 mx-2 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'>Ver oferta</button>

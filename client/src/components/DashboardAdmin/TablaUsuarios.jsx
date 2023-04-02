@@ -9,7 +9,7 @@ const Tabla = ({datos}) => {
         <TableHead>
           <TableRow>
             <TableCell>LISTADO DE POSTULANTES</TableCell>
-            <TableCell>Postulaciones realizadas</TableCell>
+            <TableCell>Tipo</TableCell>
             <TableCell>Usuario desde</TableCell>
             <TableCell>Estado</TableCell>
             <TableCell>Acciones</TableCell>
@@ -20,7 +20,7 @@ const Tabla = ({datos}) => {
             return (
               <TableRow className="bg-gray-100 text-center">
                 <TableCell>{dato.name}</TableCell>
-                <TableCell>{dato.postulaciones_realizadas}</TableCell>
+                <TableCell>{dato.rol === "Empresa" ? "Recruiter" : dato.rol}</TableCell>
                 <TableCell>{dato.fecha_registro}</TableCell>
                 <TableCell>{dato.activo ? 'Activo' : 'Desactivado'}</TableCell>
                 <TableCell>
