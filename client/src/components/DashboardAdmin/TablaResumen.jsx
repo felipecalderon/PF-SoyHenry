@@ -7,8 +7,8 @@ const Tabla = ({datos}) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>ESTADÍSTICAS</TableCell>
-            <TableCell>Cantidad</TableCell>
+            <TableCell align="center" style={{fontWeight: "bold"}}>ESTADÍSTICAS</TableCell>
+            <TableCell align="center" style={{fontWeight: "bold"}}>Cantidad</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -16,7 +16,7 @@ const Tabla = ({datos}) => {
             return (
               <TableRow className="bg-gray-100">
                 <TableCell>{dato.name}</TableCell>
-                <TableCell>{dato.cantidad}</TableCell>
+                <TableCell align="center">{dato.cantidad}</TableCell>
               </TableRow>
             )
           })}

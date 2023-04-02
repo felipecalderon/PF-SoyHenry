@@ -93,14 +93,29 @@ const allData = async () => {
             active: true
         }
     });
-    
-    const allData = {
-        postulans: postulantes.length,
-        recluters: empresa.length,
-        offers_active: ofetasActivas.length,
-        expiring_offers: ofertasPorDesactivar.length,
-        offer_desactive: offestasDesactivadas.length
-    }
+
+    const allData = [
+        {
+            name: "Postulantes",
+            cantidad: postulantes.length,
+        },
+        {
+            name: "Reclutadores",
+            cantidad: empresa.length,
+        },
+        {
+            name: "Ofertas activas",
+            cantidad: ofetasActivas.length,
+        },
+        {
+            name: "Ofertas por caducar",
+            cantidad: ofertasPorDesactivar.length,
+        },
+        {
+            name: "Ofertas caducadas",
+            cantidad: offestasDesactivadas.length,
+        },
+        ]
 
     return allData
 }
