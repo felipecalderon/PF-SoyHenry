@@ -1,7 +1,8 @@
 const { 
     createUsersController,
     getUsersControllers,
-    deleteUsersControllers } = require('../controllers/userControllers')
+    deleteUsersControllers 
+} = require('../controllers/userControllers')
 
     const {
         getUsersByIdCforanea,
@@ -51,7 +52,7 @@ const deleteUsers = async (req, res) => {
         const data = await deleteUsersControllers(req.params)
         res.status(200).json(data)
     } catch (error) {
-        res.status(404).json(error)
+        res.status(404).json({ error: error.message})
     }
 }
 
