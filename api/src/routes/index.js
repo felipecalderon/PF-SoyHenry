@@ -24,7 +24,8 @@ const {
     authUserCreate,
     authUserCreateGoogleBtn,
     authUserGoogleBtnCB,
-    authUserLoginCredentials
+    authUserLoginCredentials,
+    updatePremium
 } = require('./authRoute')
 const{
     allCompany,
@@ -67,6 +68,7 @@ const route = Router();
 // users
 route.post('/auth/login', authUserLoginCredentials)
 route.post('/auth/register', authUserCreate)
+route.put('/update/:id', updatePremium)
 route.get('/auth/google/:token', authUserCreateGoogleBtn)
 route.get('/user', allUsers);
 route.post('/user/email', getUsersRouteByEmail);

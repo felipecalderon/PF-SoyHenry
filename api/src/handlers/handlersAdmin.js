@@ -61,27 +61,6 @@ const getAdminById = async (id) => {
 };
 
 const allData = async () => {
-    const postulantes = await User.findAll({
-        where: {
-            rol: 'Postulante'
-        }
-    })
-    const empresa = await User.findAll({
-        where: {
-            rol: 'Empresa'
-        }
-    })
-    const ofetasActivas = await Offers.findAll({
-        where: {
-            active: true
-        }
-    })
-    const offestasDesactivadas = await Offers.findAll({
-        where: {
-            active: false
-        }
-    })
-
     const currentDate = DateTime.local(); // fecha actual
     const expirationLimit = currentDate.plus({ days: 7 }); // fecha que se usara como condicional para traer todas las ofertas que esten desde esa fecha a la de "hoy"
 
@@ -93,8 +72,38 @@ const allData = async () => {
             active: true
         }
     });
+    const ofetasActivas = await Offers.findAll({
+        where: {
+            active: true
+        }
+    })
+    const offestasDesactivadas = await Offers.findAll({
+        where: {
+            active: false
+        }
+    })
+    const postulantes = await User.findAll({
+        where: {
+            rol: 'Postulante'
+        }
+    })
+    const empresa = await User.findAll({
+        where: {
+            rol: 'Empresa'
+        }
+    })
+    const UserPremium = await User.findAll({
+        where: {
+            premium: true
+        }
+    })
+
 
     const allData = [
+        {
+            name: "Usuarios Premium",
+            cantidad: UserPremium.length,
+        },
         {
             name: "Postulantes",
             cantidad: postulantes.length,
