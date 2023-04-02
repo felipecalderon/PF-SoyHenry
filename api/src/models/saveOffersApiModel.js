@@ -1,5 +1,5 @@
-const sequelize = require('../database');
 const { DataTypes } = require('sequelize');
+const sequelize = require('../database');
 
 const SaveOfferApi = sequelize.define('SaveOfferApi', {
     id: {
