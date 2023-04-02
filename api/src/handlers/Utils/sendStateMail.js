@@ -35,7 +35,7 @@ const mailStatusAplication = async (email, names, status, offerTitle) => {
 					<body style="background-color: #1E555C; font-family: Arial, sans-serif; color: #fff; display: flex; flex-direction: column;">
 						<div style="text-align: center; background-color: #29183c; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 24px; max-width: 600px; margin: 0 auto;">
 							<h1 style="color: #fff; font-size: 24px; font-weight: bold; margin-top: 0">Hola ${names}</h1>
-							<p style="color: #fff; font-size: 24px; font-weight: bold; margin-top: 0"> Cancelaste la aplicacion a la oferta ${offerTitle}, sigue buscando ofertas y aplicando en <a style="color: #fdb813; text-decoration: none;" href="https://fusionajob.vercel.app" target="_blank" rel="noreferrer">¡Nuestra Página!</a>  </a></p>
+							<p style="color: #fff; font-size: 24px; font-weight: bold; margin-top: 0"> Cancelaste la aplicacion a la oferta <b>${offerTitle}</b>, sigue buscando ofertas y aplicando en <a style="color: #fdb813; text-decoration: none;" href="https://fusionajob.vercel.app" target="_blank" rel="noreferrer">¡FusionaJob!</a>  </a></p>
 							<br />
 							<hr style="width: 500px; height: 1px; background-color: #fff; margin: 20px auto;" />
 							<p style="color: #fff;">No dudes en contactarnos si tienes alguna pregunta o inquietud..</p>
@@ -50,13 +50,20 @@ const mailStatusAplication = async (email, names, status, offerTitle) => {
 				await transporter.sendMail({
 					from: "Fusionajobs <fusionajobs@gmail.com>",
 					to: email,
-					subject: `Actualización del estado de tu aplicación en la oferta !!`,
+					subject: `Actualización del estado de tu aplicación en la oferta!!`,
 					html: `
 					<body style="background-color: #1E555C; font-family: Arial, sans-serif; color: #fff; display: flex; flex-direction: column;">
 						<div style="text-align: center; background-color: #29183c; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 24px; max-width: 600px; margin: 0 auto;">
 							<h1 style="color: #fff; font-size: 24px; font-weight: bold; margin-top: 0">Hola ${names}</h1>
-							<h1 style="color: #fff; font-size: 24px; font-weight: bold; margin-top: 0">¡Gracias por registrarte en FusionaJob!</h1>
-							<p style="color: #fff;">Termina de completar tus datos para poder aplicar a las diferentes ofertas laborales que están en <a style="color: #fdb813; text-decoration: none;" href="https://fusionajob.vercel.app" target="_blank" rel="noreferrer">¡Nuestra Página!</a></p>
+							<p style="color: #fff;"> 
+								Esperamos que te encuentres muy bien. Queremos informarte que hemos recibido una actualización sobre el estado de tu postulación de la oferta <b>${offerTitle}</b>. Nos complace informarte que tu postulación ha sido <b> ¡vista! </b> por el equipo de selección de la empresa.
+								<br/>
+								<br/>
+								Recuerda que nuestra plataforma es solo un intermediario entre los candidatos y las empresas. La decisión final depende del equipo de selección de la empresa, pero nos esforzamos por ayudarte en todo el proceso de búsqueda de empleo.
+								<br/>
+								<br/>
+								Te deseamos mucha suerte y te agradecemos por confiar en nuestra plataforma. 
+							</p>
 							<hr style="width: 500px; height: 1px; background-color: #fff; margin: 20px auto;" />
 							<p style="color: #fff;">Ante cualquier duda o consulta no dudes en contactarnos.</p>
 							<h3 style="color: #fff;">Atentamente,</h3>
@@ -75,8 +82,15 @@ const mailStatusAplication = async (email, names, status, offerTitle) => {
 					<body style="background-color: #1E555C; font-family: Arial, sans-serif; color: #fff; display: flex; flex-direction: column;">
 						<div style="text-align: center; background-color: #29183c; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 24px; max-width: 600px; margin: 0 auto;">
 							<h1 style="color: #fff; font-size: 24px; font-weight: bold; margin-top: 0">Hola ${names}</h1>
-							<h1 style="color: #fff; font-size: 24px; font-weight: bold; margin-top: 0">¡Gracias por registrarte en FusionaJob!</h1>
-							<p style="color: #fff;">Termina de completar tus datos para poder aplicar a las diferentes ofertas laborales que están en <a style="color: #fdb813; text-decoration: none;" href="https://fusionajob.vercel.app" target="_blank" rel="noreferrer">¡Nuestra Página!</a></p>
+							<p style="color: #fff;"> 
+								Esperamos que te encuentres muy bien. Queremos darte la gran noticia que hemos recibido una actualización sobre el estado de tu postulación de la oferta <b>${offerTitle}</b>. Nos complace informarte que tu postulación ha sido <b> ¡seleccionada! </b> por el equipo de selección de la empresa.
+								<br/>
+								<br/>
+								Recuerda que nuestra plataforma es solo un intermediario entre los candidatos y las empresas. La decisión final depende del equipo de selección de la empresa, pero nos esforzamos por ayudarte en todo el proceso de búsqueda de empleo.
+								<br/>
+								<br/>
+								Te deseamos mucha suerte y te agradecemos por confiar en nuestra plataforma. 
+							</p>
 							<hr style="width: 500px; height: 1px; background-color: #fff; margin: 20px auto;" />
 							<p style="color: #fff;">Ante cualquier duda o consulta no dudes en contactarnos.</p>
 							<h3 style="color: #fff;">Atentamente,</h3>
@@ -95,8 +109,12 @@ const mailStatusAplication = async (email, names, status, offerTitle) => {
 					<body style="background-color: #1E555C; font-family: Arial, sans-serif; color: #fff; display: flex; flex-direction: column;">
 						<div style="text-align: center; background-color: #29183c; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); padding: 24px; max-width: 600px; margin: 0 auto;">
 							<h1 style="color: #fff; font-size: 24px; font-weight: bold; margin-top: 0">Hola ${names}</h1>
-							<h1 style="color: #fff; font-size: 24px; font-weight: bold; margin-top: 0">¡Gracias por registrarte en FusionaJob!</h1>
-							<p style="color: #fff;">Termina de completar tus datos para poder aplicar a las diferentes ofertas laborales que están en <a style="color: #fdb813; text-decoration: none;" href="https://fusionajob.vercel.app" target="_blank" rel="noreferrer">¡Nuestra Página!</a></p>
+							<p style="color: #fff;"> 
+								Lamentamos informarte que no has sido seleccionado para la oferta laboral a la que aplicaste. Agradecemos tu interés y te animamos a seguir buscando oportunidades laborales que se ajusten a tus habilidades y perfil.
+								<br/>
+								<br/>
+								No dudes en seguir revisando las ofertas laborales disponibles en <a style="color: #fdb813; text-decoration: none;" href="https://fusionajob.vercel.app" target="_blank" rel="noreferrer">¡FusionaJob!</a> y aplicar a aquellas que te interesen. ¡Te deseamos mucho éxito en tu búsqueda laboral!
+							</p>
 							<hr style="width: 500px; height: 1px; background-color: #fff; margin: 20px auto;" />
 							<p style="color: #fff;">Ante cualquier duda o consulta no dudes en contactarnos.</p>
 							<h3 style="color: #fff;">Atentamente,</h3>
