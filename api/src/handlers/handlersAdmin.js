@@ -88,12 +88,12 @@ const allData = async () => {
     const ofertasPorDesactivar = await Offers.findAll({ // traera las ofertas que sean menores a la fecha limite y que esten activas
         where: {
             expiring_offers: {
-                [Op.lt]: expirationLimit.toJSDate()
+                [Op.lt]: expirationLimit.toJSDate() // operador de sequelize lt === <
             },
             active: true
         }
     });
-
+    
     const allData = {
         postulans: postulantes.length,
         recluters: empresa.length,
@@ -101,6 +101,7 @@ const allData = async () => {
         expiring_offers: ofertasPorDesactivar.length,
         offer_desactive: offestasDesactivadas.length
     }
+
     return allData
 }
 
