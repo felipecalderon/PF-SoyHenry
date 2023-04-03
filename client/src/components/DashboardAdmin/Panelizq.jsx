@@ -5,20 +5,16 @@ import axios from "axios";
 import GraficoLineal from "./GraficoLineal"
 import ResumenInfo from "./TablaResumen";
 
-// Mui
-import { Group, Groups, Work } from '@mui/icons-material';
-import { Button } from "@mui/material";
-
-const datosVentas = {
-  meses: ['Noviembre', 'Diciembre', 'Enero', 'Febrero'],
-  ventas: [200, 480, 360, 390],
-}
-
 const Izquierda = () => {
-  const [datosResumen, setDatosResumen] = useState([])
+  const [datosResumen, setDatosResumen] = useState([]);
+  const [datosVentas, setDatosVentas] = useState([]);
+
   useEffect(()=>{
     axios.get("/all_data")
     .then(res => setDatosResumen(res.data))
+
+    axios.get("/statisticspayments")
+    .then(res => setDatosVentas(res.data))
   },[])
 
   return (
