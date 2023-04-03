@@ -20,9 +20,7 @@ export const DashboardEmpresa = () => {
     useEffect(() => {
         axios.get(`/jobsdb/${userData?.Companies[0].id}`)
         .then(res => {
-            console.log(res.data);
-            dispatch(saveOffers(res.data.Offers))
-            console.log(res.data.Offers);
+            dispatch(saveOffers(res.data.Offers))            
         })
     }, []) // eslint-disable-line
 
