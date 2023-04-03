@@ -23,7 +23,7 @@ import Modal from '@mui/material/Modal';
 
 
 
-function Configuracion() {
+function Configuracion({inConfig,SetInConfig}) {
   const dispatch = useDispatch();
   const [skills, setSkills] = useState([]);
   const [showErrors, SetShowErrors] = useState(false);
@@ -79,6 +79,7 @@ function Configuracion() {
     linkedin: "",
     facebook: "",
   });
+
 
   const [countryData, setCountryData] = useState([]);
 
@@ -158,6 +159,7 @@ function Configuracion() {
       axios("/technologies").then((res) => setSkills(res.data));
     }
     validacionConfig(form, SetError);
+
   }, [form, skills]);
 
   return (
@@ -476,13 +478,15 @@ function Configuracion() {
             <button
             onClick={handleSubmit}
               type="submit"
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+              disabled={!Object.values(error).every(value => value === '')}
+              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded disabled:cursor-not-allowed"
             >
               Aceptar Cambios
             </button>
+
             <button
               className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded  "
-              onClick={() => { }}
+              onClick={() => {SetInConfig(!inConfig) }}
             >
               Cancelar
             </button>

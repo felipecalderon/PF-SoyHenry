@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import validationsRegister from "./validationsRegister";
 import axios from "axios";
 import { saveUser } from "../../redux/slices/userRegisterSlice";
+import validationsRegister from "./validationsRegister";
 import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
