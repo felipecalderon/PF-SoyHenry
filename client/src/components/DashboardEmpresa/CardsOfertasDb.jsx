@@ -128,7 +128,7 @@ export const CardsOfertasDb = () => {
 
   }
 
-  const handleDate = (date, active, udpate) => {
+  const handleDate = (date, active, udpate, expiration) => {
     let fecha
     if(active) {
       fecha = date.slice(0,10)
@@ -137,7 +137,7 @@ export const CardsOfertasDb = () => {
       let year = fecha.slice(6,11)
       fecha = ( year + '-' +month+ '-'+ day)
       fecha = new Date(fecha)
-      fecha.setDate(fecha.getDate()+15)
+      fecha.setDate(fecha.getDate() + expiration + 1)
 
       return fecha.toLocaleDateString('es-ES')
 
@@ -165,7 +165,7 @@ export const CardsOfertasDb = () => {
     if (offer.active === false) return 'closed'
     let today = new Date().getTime()
     let vencimiento = new Date( offer.createdAt)
-    vencimiento.setDate(vencimiento.getDate()+15)
+    vencimiento.setDate(vencimiento.getDate() + offer.expiration + 1)
     vencimiento = vencimiento.getTime()
     let diff = vencimiento - today
 
@@ -175,7 +175,7 @@ export const CardsOfertasDb = () => {
   offers?.map((offer) => {
     let today = new Date()
     let vencimiento = new Date( offer.createdAt)
-    vencimiento.setDate(vencimiento.getDate()+15)
+    vencimiento.setDate(vencimiento.getDate() + offer.expiration + 1 )
     
     if(today.toLocaleDateString('es-ES') === vencimiento.toLocaleDateString('es-ES')) {
     handleCloseOffer(offer.id)
@@ -233,7 +233,7 @@ export const CardsOfertasDb = () => {
                <p className='mb-2 text-left'><strong>Experiencia: </strong>{offer.experience} Año/s</p>
                <p className='mb-2 text-left'><strong>Salario: </strong>{offer.min_salary === 0 && offer.max_salary === 0 ? 'Sin informar'  : '$ ' + offer.min_salary - '$ ' + offer.max_salary }</p>
                <p className='mb-2 text-left'><strong>Fecha de creación: </strong>{offer.date_post.slice(0,10)}</p>
-               <p className='mb-2 text-left'><strong>Fecha de finalización: </strong>{ handleDate(offer.date_post, offer.active, offer.updatedAt)}</p>
+               <p className='mb-2 text-left'><strong>Fecha de finalización: </strong>{ handleDate(offer.date_post, offer.active, offer.updatedAt, offer.expiration)}</p>
                <p className='mb-2 text-left'><strong>Postulantes: </strong>{offer.applications_count}</p>
                {(offer.applications_count !== 0) && <Link><button
                 className='py-2 px-2 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'
