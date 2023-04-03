@@ -66,7 +66,7 @@ const JobDetail = () => {
     if (jobId?.id) {
       axios.get(`/jobs/${jobId?.id}`)
         .then((response) => {
-          setEmpresaApi(response.data.User?.Companies[0]);
+          setEmpresaApi(response.data?.User?.Companies[0]);
         })
         .catch((error) => {
           console.error(error);
