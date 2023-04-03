@@ -124,7 +124,6 @@ useEffect(() => {
 
   useEffect(() => {
     OffersSave()
-    OffersSave()
     axios.get(`/fav_company/${dataUser?.id}`)
       .then((res) => res.data.filter((cb) => cb.offerId === jobId?.id))
       .then((res) => setFavFilter(res))
