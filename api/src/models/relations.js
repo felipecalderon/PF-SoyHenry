@@ -8,7 +8,7 @@ const SaveOffer = require('./saveOfferModel');
 const FavoritesComp = require('./favoritesCompModel');
 const Technologies = require('./technologiesModel');
 const Payment = require('./paymentModel');
-
+const Review = require('./reviewModel');
 
 Postulant.belongsTo(User, { foreignKey: 'userId', onDelete: 'CASCADE' });
 User.hasMany(Postulant, { foreignKey: 'userId' });
@@ -52,6 +52,10 @@ Offers.belongsToMany(Technologies, { through: 'Technologies_Offers'});
 Technologies.hasMany(Postulant, {foreignKey: 'idPostulant', onDelete: 'CASCADE'})
 Postulant.hasMany(Technologies, {foreignKey: 'idPostulant'})
 
+//reviews
+Review.belongsTo(Company, { foreignKey: 'companyId', onDelete: 'CASCADE' });
+Company.hasMany(Review, { foreignKey: 'companyId' });
+
 // Pagos
 Payment.belongsTo(User);
 User.hasMany(Payment, { as: 'payments' });
@@ -67,5 +71,7 @@ module.exports = {
     Aplications,
     SaveOffer,
     FavoritesComp,
-    Payment
+    Payment,
+
+    Review
 }
