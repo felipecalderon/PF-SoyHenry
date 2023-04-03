@@ -373,4 +373,7 @@ useEffect(() => {
 
 
 
+
+
+
 export default JobDetail;
