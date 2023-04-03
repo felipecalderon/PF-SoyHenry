@@ -134,6 +134,7 @@ function Configuracion() {
   const errorsValue = Object.values(error);
   const isErrorsEmpty = errorsValue.every(value => value === '');
 
+  // event.preventDefault()
   const handleSubmit = async (event) => {
     handleOpen()
     if (isErrorsEmpty) {

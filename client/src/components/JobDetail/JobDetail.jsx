@@ -15,7 +15,6 @@ import Perks from "./Perks";
 import { Box, Fab, Snackbar } from "@mui/material";
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
-import PremiumButtonComponent from "../BotonPremium/BotonPremium";
 
 const JobDetail = () => {
   const navigate = useNavigate()
@@ -191,14 +190,21 @@ useEffect(() => {
 
   const cleanHtml = { __html: empresa?.data.attributes.long_description }
 
+  const SaveApplyToBdd=()=>{
+    axios.post(`/applyapioffer?userId=${dataUser.id}&&offerId=${jobId.id}&&title=${jobId.title}`)
+    .then((res)=>{
+      console.log("se envio la postulacion a la bdd ")
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+
   return (
     <div className="bg-primary-light dark:bg-secondary-dark pt-20">
       <NavLanding menu={menu} />
       <div className="relative flex flex-wrap space-around">
-        <div className="relative ">
-        <PremiumButtonComponent/>
-        </div>
-        {/* <Link to={'/offers'}>
+        <Link to={'/offers'}>
           <button type="button" class="absolute text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             style={{
               top: -10,
@@ -209,7 +215,7 @@ useEffect(() => {
             <span class="sr-only">Icon description</span>
             volver
           </button>
-        </Link> */}
+        </Link>
 
         {/* Detalles de la oferta */}
         <div className="relative pt-5 flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800">
@@ -298,7 +304,7 @@ useEffect(() => {
                   />
                   </button>
                     : <a href={jobId.link} target="_blank" rel="noreferrer" >
-                      <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+                      <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800" onClick={SaveApplyToBdd}>
                         <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                           Aplicar en la Pagina
                         </span>
