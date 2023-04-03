@@ -123,11 +123,11 @@ const handleSubmit = async (event) => {
   
   if(!company) return "No hay info";
   return (
-    <>
+    <div className='bg-primary-light border border-slate-900 dark:border-white dark:text-text-dark dark:bg-secondary-dark m-3 rounded-2xl'>
       <Box className="flex flex-row py-6 px-3 text-left">
-      <div className='flex flex-col px-6 w-2/5 items-center gap-6'>  
+      <div className='flex flex-col px-6 w-2/5 items-center gap-6 '>  
         <CardMedia
-          className='w-30 h-30 mx-auto object-cover'
+          className='w-30 h-30 mx-auto object-cover border-2 border-slate-900 dark:border-white'
           component="img"
           image={logo}
           alt="Live from space album cover"
@@ -152,12 +152,12 @@ const handleSubmit = async (event) => {
             <p><strong>Email: </strong></p><p target="_blank" rel="noopener noreferrer">{email_company}</p>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-gray-900 dark:text-white'>
-            <p><strong>Sitio web: </strong></p><a className='text-blue-700' href={website} target="_blank" rel="noopener noreferrer">{website}</a>
+            <p><strong>Sitio web: </strong></p><a className='text-blue-600' href={website} target="_blank" rel="noopener noreferrer">{website.slice(0, 30)}{website.length > 30 ? '...' : ''}</a>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
             <p><strong>Teléfono: </strong></p><p target="_blank" rel="noopener noreferrer">{phone_company}</p>
           </Typography>
-          <Rating name="ratingCompany" value={4} readOnly />
+          {/* <Rating name="ratingCompany" value={4} readOnly /> */}
         </CardContent>
       </Box>
         <Dialog
@@ -300,7 +300,7 @@ const handleSubmit = async (event) => {
           </div>            
         </ModalConfirmChangesCompany>
       </Dialog>
-    </>
+    </div>
     )
 }
 
