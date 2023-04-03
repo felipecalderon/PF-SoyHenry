@@ -100,6 +100,7 @@ route.post("/upload-photo-user/:idUser",upload.single("imagenes"),postImagepostu
 //Subir y Actualizar pdf
 route.post("/upload-cv-user/:idPostulante",upload.single("pdf"),postCvpostulante)
 
+// Payments
 route.post('/plan', planRoute)
 route.post('/mercadopago', respuestasMP)
 route.post('/stripe', pagoStripe)
@@ -108,6 +109,8 @@ route.get('/verpagos', rutaVerPagos)
 
 // Admin
 route.get('/all_data', getAllData)
+
+
 
 module.exports = route;
 
