@@ -152,7 +152,7 @@ const handleSubmit = async (event) => {
             <p><strong>Email: </strong></p><p target="_blank" rel="noopener noreferrer">{email_company}</p>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-gray-900 dark:text-white'>
-            <p><strong>Sitio web: </strong></p><a className='text-blue-600' href={website} target="_blank" rel="noopener noreferrer">{website.slice(0, 30)}{website.length > 30 ? '...' : ''}</a>
+            {/* <p><strong>Sitio web: </strong></p><a className='text-blue-600' href={website} target="_blank" rel="noopener noreferrer">{website.slice(0, 30)}{website.length > 30 ? '...' : ''}</a> */}
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
             <p><strong>Teléfono: </strong></p><p target="_blank" rel="noopener noreferrer">{phone_company}</p>

@@ -142,7 +142,7 @@ function UserProfile() {
                                     )
                             }
                         </div>
-                        {inConfig ? <Configuracion /> : <User />}
+                        {inConfig ? <Configuracion inConfig={inConfig} SetInConfig={SetInConfig} /> : <User />}
                     </section>
 
                     <section className="bg-secondary-light dark:bg-primary-dark m-5 p-4 border rounded-xl w-full  flex flex-col justify-start " style={{ minWidth: "330px", maxWidth: "616px", minHeight: " 1200px" }}>
