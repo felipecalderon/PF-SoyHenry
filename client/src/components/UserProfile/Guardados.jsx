@@ -57,7 +57,7 @@ function Favoritos() {
                 >
                   <TurnedInIcon  />
                 </Fab>
-                <Link to={`/detail/${offer.offerId}?title=${offer?.Offer?.title}`} className='text-3xl dark:text-white font-bold'>
+                <Link to={`/detail/${offer.offerId}?title=${ offer?.Offer?.title || offer.title}`} className='text-3xl dark:text-white font-bold'>
                   {offer.hasOwnProperty("Offer") ? offer.Offer.title : offer.title}
                 </Link>
               </h2>
@@ -65,10 +65,10 @@ function Favoritos() {
           ))}
         </>
       ) :
-          <div className='flex flex-col justify-around w-full h-2/3'>
-            <h2 className="text-3xl font-bold text-white mb-3 text-center">No hay elementos en tus favoritos aún </h2>
-            <p className='text-gray-400 text-2xl text-center'>¡Agrega algunos elementos a tu lista de favoritos para tenerlos siempre a mano!</p>
-            <img src={logofusionajob} alt='logo' className="text-center" />
+          <div className='flex flex-col justify-start w-full h-2/3'>
+            <h2 className="text-3xl font-bold text-white mt-3 mb-3 text-center">No hay elementos en tus favoritos aún </h2>
+            <p className='text-gray-400 text-2xl mt-3 mb-3 text-center'>¡Agrega algunos elementos a tu lista de favoritos para tenerlos siempre a mano!</p>
+            <img src={logofusionajob} alt='logo' className="text-center mt-3 mb-3" />
           </div>
 
       }
