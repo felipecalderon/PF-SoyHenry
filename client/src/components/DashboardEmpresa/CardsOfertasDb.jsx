@@ -22,6 +22,7 @@ const Accordion = styled((props) => (
   '&:before': {
     display: 'none',
   },
+  marginBottom: '.2rem'
 }));
 
 const AccordionSummary = styled((props) => (
@@ -198,28 +199,27 @@ export const CardsOfertasDb = () => {
             aria-controls={`panel${index + 1}d-content`} 
             id={`panel${index + 1}d-header`}>
              <Typography className='flex'>
-                <div className='font-bold'>
-                  {offer.title.slice(0, 35)}{offer.title.length > 35 ? '...' : ''} 
+                <div className='font-bold items-center border-r-2 border-slate-500 pr-1 text-sm'>
+                  {offer.title.slice(0, 20)}{offer.title.length > 20 ? '...' : ''} 
                 </div>
                 <div>
-                  <p className='relative ml-5 border-l-black h-0 font-bold'>| Postulantes: {offer.applications_count}</p>
+                  <p className='relative ml-1 items-center border-l-black h-0 font-bold text-sm'>Postulantes: {offer.applications_count}</p>
                 </div>
                 <div>
-                  <p>Postulantes sin evaluar: {handleContarNuevos(offer)}</p>
+                  <p className='relative ml-2 items-center border-l-black h-0 font-bold text-sm'>Postulantes sin evaluar: {handleContarNuevos(offer)}</p>
                 </div>
                 <div>
-                  <p>Dias restantes: {handleContarDias(offer)} </p>
+                  <p className='relative ml-2 items-center border-l-black h-0 font-bold text-sm'>Dias restantes: {handleContarDias(offer)} </p>
                 </div>
               </Typography>
            </AccordionSummary>
            <AccordionDetails>
              <Typography>
-               <p className='mb-[.5rem]'><strong>Requisitos: </strong>{offer.requeriments}</p>
-               <p className='mb-[.5rem]'><strong>Beneficios: </strong>{offer.benefits}</p>
-               <p className='mb-[.5rem]'><strong>Funciones: </strong>{offer.functions}</p>
-               <p className='mb-[.5rem]'><strong>Modalidad: </strong>{offer.modality}</p>
-               <p className='mb-[.5rem]'><strong>Ventajas: </strong>{offer.perks.map((p) => p).join(', ')}</p>
-               <p className='mb-[.5rem]'><strong>Modalidad: </strong>{offer.modality === 'fully_remote' 
+               <p className='mb-2 text-left'><strong>Nombre: </strong>{offer.title}</p>
+               <p className='mb-2 text-left'><strong>Requisitos: </strong>{offer.requeriments}</p>
+               <p className='mb-2 text-left'><strong>Beneficios: </strong>{offer.benefits}</p>
+               <p className='mb-2 text-left'><strong>Funciones: </strong>{offer.functions}</p>
+               <p className='mb-2 text-left'><strong>Modalidad: </strong>{offer.modality === 'fully_remote' 
                                                                       ? "Remoto" 
                                                                       : offer.modality === 'remote_local' 
                                                                       ? 'Remoto local' 
@@ -228,13 +228,13 @@ export const CardsOfertasDb = () => {
                                                                       : offer.modality === 'no_remote' 
                                                                       ? 'Presencial' 
                                                                       : 'No especificado'}</p>
-               <p className='mb-[.5rem]'><strong>Ventajas: </strong>{offer.perks.map((p) => p).join(', ')}</p>
-               <p className='mb-[.5rem]'><strong>Tecnologías requeridas: </strong>{offer.technologies.map((t) => t).join(', ')}</p>
-               <p className='mb-[.5rem]'><strong>Experiencia: </strong>{offer.experience} Año/s</p>
-               <p className='mb-[.5rem]'><strong>Salario: </strong>{offer.min_salary === 0 && offer.max_salary === 0 ? 'Sin informar'  : '$ ' + offer.min_salary - '$ ' + offer.max_salary }</p>
-               <p className='mb-[.5rem]'><strong>Fecha de creación: </strong>{offer.date_post.slice(0,10)}</p>
-               <p className='mb-[.5rem]'><strong>Fecha de finalización: </strong>{ handleDate(offer.date_post, offer.active, offer.updatedAt)}</p>
-               <p className='mb-[.5rem]'><strong>Postulantes: </strong>{offer.applications_count}</p>
+               <p className='mb-2 text-left'><strong>Ventajas: </strong>{offer.perks.map((p) => p).join(', ')}</p>
+               <p className='mb-2 text-left'><strong>Tecnologías requeridas: </strong>{offer.technologies.map((t) => t).join(', ')}</p>
+               <p className='mb-2 text-left'><strong>Experiencia: </strong>{offer.experience} Año/s</p>
+               <p className='mb-2 text-left'><strong>Salario: </strong>{offer.min_salary === 0 && offer.max_salary === 0 ? 'Sin informar'  : '$ ' + offer.min_salary - '$ ' + offer.max_salary }</p>
+               <p className='mb-2 text-left'><strong>Fecha de creación: </strong>{offer.date_post.slice(0,10)}</p>
+               <p className='mb-2 text-left'><strong>Fecha de finalización: </strong>{ handleDate(offer.date_post, offer.active, offer.updatedAt)}</p>
+               <p className='mb-2 text-left'><strong>Postulantes: </strong>{offer.applications_count}</p>
                {(offer.applications_count !== 0) && <Link><button
                 className='py-2 px-2 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'
                 onClick={() => {
@@ -283,40 +283,38 @@ export const CardsOfertasDb = () => {
      </div>
      <ModalConfirmChanges isVisible={showModal} onClose={() => setShowModal(false)} >
         {aplicantsModalList && aplicantsModalList[0].length &&  
-        <div>          
-          <h1>{aplicantsModalList[1]?.title}</h1>
-          <p>
-            <span>Ordenar por: </span> <br />
-              <label > mayor experiencia <input type="radio" name='ordenar' onChange={() => aplicantsModalList[0].sort(function (a,b) { return b.experience - a.experience} )}/></label> 
-              <label > mayor tecnologias <input type="radio" name='ordenar' onChange={() => aplicantsModalList[0].sort(function (a,b) { return b.technologies.length - a.technologies.length} )} /></label> 
-              <br />
-              <label > menor experiencia <input type="radio" name='ordenar' onChange={() => aplicantsModalList[0].sort(function (a,b) { return a.experience - b.experience} )}/></label> 
-              <label > menor tecnologias <input type="radio" name='ordenar' onChange={() => aplicantsModalList[0].sort(function (a,b) { return a.technologies.length - b.technologies.length} )} /></label> 
+        <div className="flex relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-auto bg-primary-light dark:bg-primary-dark border-2 shadow-24 p-4 h-auto rounded-2xl flex-col justify-center items-center">          
+          <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center dark:text-white">{aplicantsModalList[1]?.title}</h1>
+          <p className="text-2xl font-semibold text-center dark:text-white">
+            <div className='flex py-2 text-lg'>
+              <span>Ordenar por:</span>
+                <label className='border-r-2 border-black px-2'><input type="radio" name='ordenar' onChange={() => aplicantsModalList[0].sort(function (a,b) { return b.experience - a.experience} )}/> Mayor experiencia</label> 
+                <label className='border-r-2 border-black px-2'><input type="radio" name='ordenar' onChange={() => aplicantsModalList[0].sort(function (a,b) { return b.technologies.length - a.technologies.length} )} /> Mayor tecnologías</label> 
+                <label className='border-r-2 border-black px-2'><input type="radio" name='ordenar' onChange={() => aplicantsModalList[0].sort(function (a,b) { return a.experience - b.experience} )}/> Menor experiencia</label> 
+                <label className='px-2'><input type="radio" name='ordenar' onChange={() => aplicantsModalList[0].sort(function (a,b) { return a.technologies.length - b.technologies.length} )} /> Menor tecnologías</label> 
+            </div>
           </p>
           <table>
             <thead>
               <tr>
-                <th>Nombre</th>
-                <th>Tecnologias</th>
-                <th>Experiencia</th>
-                <th>informacion del postulante</th>
-                <th>Acciones sobre el postulante </th>
+                <th className='border-2 border-black px-2'>Nombre</th>
+                <th className='border-2 border-black px-2'>Tecnologías</th>
+                <th className='border-2 border-black px-2'>Experiencia</th>
+                <th className='border-2 border-black px-2'>información</th>
+                <th className='border-2 border-black px-2' colSpan={3}>Acciones sobre el postulante</th>
               </tr>
             </thead>
             <tbody>
               {aplicantsModalList[0]?.map((aplicant, index) => {
                 return(
-                  
                   <tr>                                 
-                    <td>{aplicant.name}</td>  
-                    <td>{aplicant.technologies}</td>  
-                    <td>{aplicant.experience}</td>
-                    <td><button onClick={(event)=>handleViewCV(event)} offerid={aplicant.offerId} userid={aplicant.userId} status={aplicant.status} email={aplicant.email}>ver perfil</button></td>
-                    <td>
-                    <label ><input type='checkbox' value={'viewed'} disabled='disabled' defaultChecked={aplicant.status !== 'send' ? true : false} /> perfil o CV visto</label>
-                    <label ><input type='radio' disabled={aplicant.status === 'no_select' || aplicant.status === 'select' ? true : false  } defaultChecked={aplicant.status === 'no_select' ? true : false} name={index} onChange={(event) => handleSelected(event)} value={'no_select'} offerid={aplicant.offerId} userid={aplicant.userId} /> postulante rechazado</label>
-                    <label ><input type='radio' disabled={aplicant.status === 'no_select' || aplicant.status === 'select' ? true : false  } defaultChecked={aplicant.status === 'select' ? true : false} name={index} onChange={(event) => handleSelected(event)} value={'select'} offerid={aplicant.offerId} userid={aplicant.userId}/> postulante preseleccionado</label>
-                    </td>
+                    <td className='border-2 border-black px-2'>{aplicant.name}</td>  
+                    <td className='border-2 border-black px-2'>{aplicant.technologies.join(', ')}</td>  
+                    <td className='border-2 border-black px-2'>{aplicant.experience} Año/s</td>
+                    <td className='border-2 border-black px-2 py-2'><button onClick={(event)=>handleViewCV(event)} offerid={aplicant.offerId} userid={aplicant.userId} status={aplicant.status} email={aplicant.email}>Ver perfil</button></td>
+                    <td className='border-2 border-black px-2 py-2'><input type='checkbox' value={'viewed'} disabled='disabled' defaultChecked={aplicant.status !== 'send' ? true : false} /> Perfil o CV visto </td>
+                    <td className='border-2 border-black px-2'><input type='radio' disabled={aplicant.status === 'no_select' || aplicant.status === 'select' ? true : false  } defaultChecked={aplicant.status === 'no_select' ? true : false} name={index} onChange={(event) => handleSelected(event)} value={'no_select'} offerid={aplicant.offerId} userid={aplicant.userId} /> Postulante rechazado </td>
+                    <td className='border-2 border-black px-2'><input type='radio' disabled={aplicant.status === 'no_select' || aplicant.status === 'select' ? true : false  } defaultChecked={aplicant.status === 'select' ? true : false} name={index} onChange={(event) => handleSelected(event)} value={'select'} offerid={aplicant.offerId} userid={aplicant.userId}/> Postulante preseleccionado </td>
                   </tr>
                 )
               })}
@@ -326,58 +324,67 @@ export const CardsOfertasDb = () => {
         }   
         {aplicantsModalList && aplicantsModalList[0].length === 0 && 
           <div>
-            <h1>Esta oferta aun no recibio postulaciones</h1>
+            <h1>Esta oferta aún no recibió postulaciones</h1>
           </div>
         }
     </ModalConfirmChanges>
 
     <ModalConfirmChanges isVisible={showModal2} onClose={() => setShowModal2(false)}>
-      <div>
-        <h1>Atencion</h1>
-        <p>Esta accion cerrara la oferta</p>
-        <p> esto indica que dejara de recibir postulaciones, no sera mas visible en el catalogo de ofertas y ademas se les informara a los postulantes si fueron seleccionados, o no.</p>
-        <button onClick={() => {setShowModal2(false) 
-                                handleCloseOffer(offerIdclose_delete)}}>Cerrar oferta</button>
-        <button onClick={() => setShowModal2(false)}>Volver</button>        
+      <div className="flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 bg-primary-light dark:bg-primary-dark border-2 shadow-24 p-4 h-auto rounded-2xl flex-col justify-center items-center">
+        <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center dark:text-white">Atención</h1>
+        <p className="text-2xl font-bold text-center dark:text-white">Esta acción cerrará la oferta</p>
+        <p className="mb-3 text-2xl font-semibold text-center dark:text-white">Esto indica que dejará de recibir postulaciones, ya no será visible en el catálogo de ofertas y se les informará a los postulantes si fueron seleccionados, o no.</p>
+        <div className='flex'>
+        <button
+        className='m-2 h-14 bg-primary-dark hover:bg-purple-900  dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+        onClick={() => {setShowModal2(false) 
+                        handleCloseOffer(offerIdclose_delete)}}>Cerrar oferta</button>
+        <button
+        className='m-2 h-14 bg-primary-dark hover:bg-purple-900  dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' 
+        onClick={() => setShowModal2(false)}>Volver</button>        
+        </div>
       </div>     
     </ModalConfirmChanges>
 
     <ModalConfirmChanges isVisible={showModal4} onClose={() => setShowModal4(false)}>
-      <div>
-        <h1>Atencion</h1>
-        <p>Esta accion borrara la oferta</p>
-        <p> Alerta, esta accion no podra deshacerse, borrara la oferta con toda su informacion y postulantes, no estara mas visible en el dashboard</p>
-        <button onClick={() => {setShowModal4(false) 
+      <div className="flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 bg-primary-light dark:bg-primary-dark border-2 shadow-24 p-4 h-auto rounded-2xl flex-col justify-center items-center">
+        <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center dark:text-white">Atención</h1>
+        <p className="text-2xl font-bold text-center dark:text-white">Esta acción borrará la oferta</p>
+        <p className="mb-3 text-2xl font-semibold text-center dark:text-white"> Alerta, esta acción no puede deshacerse, borrará la oferta con toda su información y postulantes, ya no estará visible en el dashboard</p>
+        <div className='flex'>
+        <button
+        className='m-2 h-14 bg-red-600 hover:bg-red-900  dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+        onClick={() => {setShowModal4(false) 
                                 handleDeleteOffer(offerIdclose_delete)}}>Borrar oferta</button>
-        <button onClick={() => setShowModal4(false)}>Volver</button>        
+        <button
+        className='m-2 h-14 bg-primary-dark hover:bg-purple-900  dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' 
+        onClick={() => setShowModal4(false)}>Volver</button>        
+        </div>
       </div>     
     </ModalConfirmChanges>
 
     
     <ModalConfirmChanges isVisible={showModal3} onClose={() => setShowModal3(false)}>
       {perfil && 
-      <div>
-        <h1>Perfil de postulante</h1>
-        <h2>Datos personales</h2>
-        <p>Nombre: {perfil.names}</p>
-        <p>Apellido: {perfil.lastnames}</p>
-        <p>Edad: {perfil.Postulants[0].age}</p>
-        <p>Genero: {perfil.Postulants[0].gender}</p>
-        <p>Pais: {perfil.country}</p>
-        <p>Ciudad: {perfil.city}</p>
-        <p>Telefono: {perfil.phone}</p>
-        <p>Email: {perfil.email}</p>
-        <p>LinkedIn: {perfil.Postulants[0].linkedin}</p>
+      <div className="flex absolute w-96 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary-light dark:bg-primary-dark border-2 shadow-24 p-4 h-auto rounded-2xl flex-col justify-center items-center">
+        <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center dark:text-white">Perfil de postulante</h1>
+        <h2 className="text-2xl font-semibold mt-3 text-center dark:text-white">Datos personales</h2>
+        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Nombre: </strong>{perfil.names}</p>
+        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Apellido: </strong>{perfil.lastnames}</p>
+        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Edad: </strong>{perfil.Postulants[0].age}</p>
+        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Género: </strong>{perfil.Postulants[0].gender}</p>
+        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>País: </strong>{perfil.country}</p>
+        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Ciudad: </strong>{perfil.city}</p>
+        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Teléfono: </strong>{perfil.phone}</p>
+        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Email: </strong>{perfil.email}</p>
+        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>LinkedIn: </strong>{perfil.Postulants[0].linkedin}</p>
 
-        <h2>Informacion profesional </h2>
-        <p>Como se describe: {perfil.Postulants[0].description_postulant}</p>
-        <p>Se autotitula como: {perfil.Postulants[0].title}</p>
-        <p>Lenguaje: {perfil.Postulants[0].languages}</p>
-        <p>Tecnologias: {perfil.Postulants[0].technologies}</p>
-        <p>Experiencia: {perfil.Postulants[0].experience}</p>
-        <p></p>
-
-
+        <h2 className="text-2xl mt-3 font-semibold text-center dark:text-white">Informacion profesional </h2>
+        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Como se describe: </strong>{perfil.Postulants[0].description_postulant}</p>
+        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Se autotitula como: </strong>{perfil.Postulants[0].title}</p>
+        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Lenguaje: </strong>{perfil.Postulants[0].languages}</p>
+        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Tecnologías: </strong>{perfil.Postulants[0].technologies}</p>
+        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Experiencia: </strong>{perfil.Postulants[0].experience} Año/s</p>
       </div>
       }
       <button onClick={() => setShowModal3(false)}>Volver</button>
