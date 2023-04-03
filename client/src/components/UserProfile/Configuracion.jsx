@@ -80,6 +80,7 @@ function Configuracion({inConfig,SetInConfig}) {
     facebook: "",
   });
 
+
   const [countryData, setCountryData] = useState([]);
 
   useEffect(() => {
@@ -158,6 +159,7 @@ function Configuracion({inConfig,SetInConfig}) {
       axios("/technologies").then((res) => setSkills(res.data));
     }
     validacionConfig(form, SetError);
+
   }, [form, skills]);
 
   return (
@@ -476,10 +478,12 @@ function Configuracion({inConfig,SetInConfig}) {
             <button
             onClick={handleSubmit}
               type="submit"
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+              disabled={!Object.values(error).every(value => value === '')}
+              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded disabled:cursor-not-allowed"
             >
               Aceptar Cambios
             </button>
+
             <button
               className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded  "
               onClick={() => {SetInConfig(!inConfig) }}
