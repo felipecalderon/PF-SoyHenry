@@ -5,7 +5,7 @@ import Maria from "../../assets/Maria.png"
 import Footer from '../Footer/Footer'
 import { useNavigate } from 'react-router-dom'
 import { NavLanding } from '../NavLanding/NavLanding'
-
+import Testimonials from './Testimonials'
 export const menu = [
   {
     name: "Planes",
@@ -99,19 +99,7 @@ function LandingPage() {
 
       <section className="py-10 w-full flex flex-col flex-wrap bg-secondary-light dark:bg-primary-dark">
         <h2 className="pt-3 text-center mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">Testimonios</h2>
-        <figure className="max-w-screen-md mx-auto text-center">
-          <svg aria-hidden="true" className="w-12 h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" fill="currentColor" /></svg>
-          <blockquote>
-            <p className="text-2xl italic font-medium text-gray-900 dark:text-white">"Nunca había sido tan fácil encontrar trabajo hasta que encontré Fusionajob. ¡Gracias por hacerlo posible!."</p>
-          </blockquote>
-          <figcaption className="flex items-center justify-center mt-6 space-x-3">
-            <img className="w-10 h-10 rounded-full object-cover" src={Maria} alt="testimonio" />
-            <div className="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
-              <cite className="pr-3 font-medium text-gray-900 dark:text-white">María Mercedes</cite>
-              <cite className="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">CEO en Rappi</cite>
-            </div>
-          </figcaption>
-        </figure>
+        <Testimonials />
       </section>
 
       <section className="py-10 w-full flex flex-col flex-wrap bg-primary-light dark:bg-secondary-dark">
