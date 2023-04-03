@@ -2,7 +2,7 @@ import { useState } from "react"
 import ListaUsuarios from "./TablaUsuarios"
 import FormularioPostulante from "../Registro/FormularioPostulante"
 import FormularioRecluter from "../Registro/FormularioRecluter";
-import FormularioAdmin from "./FormularioAdmin";
+import FormularioAdmin from "../Registro/FormularioAdmin";
 import AllOffersDb from "./AllOffersDb";
 
 const Derecha = ({ datos, addpostulant, addRecluter, addAdmin, addOffers }) => {

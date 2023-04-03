@@ -27,6 +27,9 @@ const createUsers = async ({ photo, names, lastnames, email, city, country, pass
                         userId: usuario.id
                     });
                     return { ...usuario.dataValues, Companies }
+                case 'Admin':
+                    const newAdmin = await Admin.create({ userId: usuario.id });
+                    return { ...usuario.dataValues, newAdmin }
                 default:
                     throw 'Tipo de usuario no válido'
             }
