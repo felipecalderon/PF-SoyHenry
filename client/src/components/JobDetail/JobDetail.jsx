@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { getDataPostulacion } from "../../redux/slices/postSlices";
+import StarSharpIcon from '@mui/icons-material/StarSharp';
 
 // Components
 import { NavLanding } from "../NavLanding/NavLanding";
@@ -62,7 +63,6 @@ const JobDetail = () => {
   }, [data]);
 
   const [empresaApi, setEmpresaApi] = useState()
-  console.log(empresaApi)
   useEffect(() => {
     if (jobId?.id) {
       axios.get(`/jobs/${jobId?.id}`)
@@ -88,8 +88,6 @@ useEffect(() => {
     console.log(error);
   });
 },[]);
-
-  console.log(dataUser?.rol)
 
   //FAVORITOS AHORA ES GUARDADOS
   const [isPremium] = useState(JSON.parse(localStorage.getItem('userLogin')));
@@ -130,24 +128,30 @@ useEffect(() => {
   }, [dataUser?.id, jobId?.id]);
 
   const handleToggleFavorite = () => {
-  
-    if (countOffers >= 5 && dataUser?.premium === false ) {
-      setOpenSnackbar(true);
+    if (!isFavorite) {
+    if (countOffers === 5 && dataUser?.premium === false && !isFavorite ) {
+      setOpenSnackbar(true)
       return;
     }
-    if (!isFavorite) {
+    
       Number(jobId.id)
         ? axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=db`)
         : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=api`);
       setIsFavorite(true);
-      setSavedOffers([...savedOffers, jobId.id]);
+      setSavedOffers([...savedOffers, jobId.id])
+      if (!dataUser?.premium) {
+        setCountOffers((prevCountOffers) => prevCountOffers + 1);
+      }
       alert('Se ha guardado la oferta');
     } else {
       Number(jobId.id)
         ? axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=db`)
         : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=api`);
       setIsFavorite(false);
-      setSavedOffers(savedOffers.filter((savedId) => savedId !== jobId.id));
+      setSavedOffers(savedOffers.filter((savedId) => savedId !== jobId.id))
+      if (!dataUser?.premium) {
+        setCountOffers((prevCountOffers) => prevCountOffers - 1);
+      }
       alert('Se ha eliminado la oferta de tu lista guardada');
     }
   };
@@ -228,10 +232,12 @@ useEffect(() => {
               right: '43%',
               fontSize: 25
             }}>
-              Oferta
+              Oferta 
+            
             </button>
+            
             <div className="p-8">
-              <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white mb-4">{jobId.title}</h1>
+              <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white mb-4">{jobId.title}{ Number(jobId.id) ? <StarSharpIcon className="flex justify-center" style={{ color: 'orange' }}/> : null }</h1>
               <section className=" w-full flex ">
                 {jobId.modality &&
                   <h3 className="text-lg font-semibold dark:text-white mr-4">
