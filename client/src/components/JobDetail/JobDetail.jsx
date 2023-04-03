@@ -224,14 +224,13 @@ useEffect(() => {
         </Link>
 
         {/* Detalles de la oferta */}
-        <div className="relative pt-5 flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800">
-          <div className=" md:flex">
-            <button className="absolute focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" style={{
-              top: -20,
-              right: '23%',
+        <div className=" flex flex-col justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800">
+          <div className=" md:flex items-center flex flex-col">
+            <button className=" focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-br-xl rounded-bl-xl text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-0" style={{
+      
               fontSize: 25
             }}>
-              Oferta premium { Number(jobId.id) ? <StarSharpIcon className="flex justify-center" style={{ color: 'orange' }}/> : null }
+              { !isNaN(jobId.id) ? <> Oferta premium <StarSharpIcon className="flex justify-center" style={{ color: 'orange' }}/></> :  'Oferta'}
             </button> 
             <div className="p-8">
               <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white mb-4">{jobId.title}</h1>
@@ -342,12 +341,10 @@ useEffect(() => {
         {/* Datos de la empresa */}
         <div className="relative flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800">
           <div className="md:flex">
-            <div className="p-8">
-              <button className="absolute focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" style={{
-                top: -20,
-                right: '39%',
-                fontSize: 25
-              }}>
+            <div className="p-md:flex items-center flex flex-col">
+           < button className=" focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-br-xl rounded-bl-xl text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-0" style={{
+            fontSize: 25
+            }}>
                 Empresa
               </button>
               <div className=" w-full flex justify-center items-center mb-4 mt-6 ">
