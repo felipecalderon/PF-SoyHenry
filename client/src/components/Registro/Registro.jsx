@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { saveUser } from "../../redux/slices/userRegisterSlice";
-import axios from "axios";
 
 import working1 from '../../assets/working1.png';
-import validationsRegister from './validationsRegister';
 
 // Components
 import { NavLanding } from "../NavLanding/NavLanding";
@@ -13,9 +9,6 @@ import Footer from "../Footer/Footer";
 
 // Mui core;
 import Box from '@mui/material/Box';
-import { IconButton, InputAdornment, TextField } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import LoadingButton from '@mui/lab/LoadingButton';
 import Modal from '@mui/material/Modal';
 import FormularioPostulante from "./FormularioPostulante";
 
@@ -45,7 +38,6 @@ export const Registro = () => {
                 <h2 className='text-3xl md:text-4xl font-bold mb-8 text-center dark:text-white'>¡Crea tu cuenta y encuentra ese empleo IT deseado!</h2>
                 <div className='flex flex-col md:flex-row items-center justify-center mb-12'>
                     <img src={working1} alt='work1' className='w-full md:w-3/5 lg:w-2/5 mb-8 md:mb-0 rounded-lg' />
-                    
                     <FormularioPostulante handleOpen={handleOpen} />
                 </div>
                 <div>
