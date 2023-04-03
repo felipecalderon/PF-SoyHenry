@@ -1,4 +1,4 @@
-import { BorderColor, PersonRemove } from "@mui/icons-material"
+import { PersonRemove } from "@mui/icons-material"
 import { Icon, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import PersonOffIcon from '@mui/icons-material/PersonOff';
 import StarIcon from '@mui/icons-material/Star';
