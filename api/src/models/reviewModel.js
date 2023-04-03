@@ -1,30 +1,34 @@
-const { DataTypes, Sequelize } = require('sequelize');
+const { DataTypes, Sequelize, UniqueConstraintError } = require('sequelize');
 const sequelize = require('../database');
 
 const Review = sequelize.define('Review', {
   id: {
-        type: DataTypes.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        allowNull: false,
-        primaryKey: true,
-  },
-  usuario:{
-    type: DataTypes.STRING,
+    type: DataTypes.UUID,
+    defaultValue: Sequelize.UUIDV4,
     allowNull: false,
+    primaryKey: true,
   },
-  comentario:{
+  photo: {
     type: DataTypes.STRING,
-    allowNull: false,
   },
-  puntuacion:{
+  idUser: {
+    type: DataTypes.UUID,
+    unique: true,
+  },
+  usuario: {
+    type: DataTypes.STRING,
+  },
+  comentario: {
+    type: DataTypes.TEXT,
+  },
+  puntuacion: {
     type: DataTypes.INTEGER,
-    allowNull: false,
-},
-active:{
+  },
+  active: {
     type: DataTypes.BOOLEAN,
-    defaultValue: false,
+    defaultValue: true
   },
 
-}); 
+});
 
 module.exports = Review
