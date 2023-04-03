@@ -73,11 +73,11 @@ const handleSubmit = async (event) => {
   
   if(!recruiter) return "No hay info";
   return (
-    <>
+    <div className='bg-primary-light border border-slate-900 dark:border-white dark:text-text-dark dark:bg-secondary-dark m-3 rounded-2xl'>
       <Box className="flex flex-row py-6 px-3">
         <div className='flex flex-col w-2/5 px-6 items-center gap-6'>
         <CardMedia
-          className='w-30 h-30 mx-auto object-cover rounded-full'
+          className='w-30 h-30 mx-auto object-cover rounded-full border-2 border-slate-900 dark:border-white'
           component="img"
           image={photo}
           alt="ProfilePhoto"
@@ -94,7 +94,7 @@ const handleSubmit = async (event) => {
             <p><strong>Email: </strong></p><p target="_blank" rel="noopener noreferrer">{email}</p>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
-            <p><strong>Sitio web: </strong></p><a href={website} target="_blank" rel="noopener noreferrer" className='text-blue-600'>{website}</a>
+            <p><strong>Sitio web: </strong></p><a href={website} target="_blank" rel="noopener noreferrer" className='text-blue-600'>{website.slice(0, 30)}{website.length > 30 ? '...' : ''}</a>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
             <p><strong>Teléfono: </strong></p><p target="_blank" rel="noopener noreferrer">{phone}</p>
@@ -194,7 +194,7 @@ const handleSubmit = async (event) => {
           </div>            
         </ModalConfirmChangesCompany>
       </Dialog>
-    </>
+    </div>
     )
 }
 
