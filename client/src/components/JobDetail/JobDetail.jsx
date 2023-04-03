@@ -94,6 +94,7 @@ useEffect(() => {
   //FAVORITOS AHORA ES GUARDADOS
   const [isPremium] = useState(JSON.parse(localStorage.getItem('userLogin')));
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [isSnackbar, setSnackbat] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false);
   const [favFilter, setFavFilter] = useState([]);
   const [countOffers, setCountOffers] = useState()
@@ -102,6 +103,10 @@ useEffect(() => {
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
+
+  const handleClose = ()=>{
+    setSnackbat(false)
+  }
 
   const OffersSave = async () => {
     const get = await axios.get(`/save_offers/${dataUser.id}`)
@@ -158,18 +163,14 @@ useEffect(() => {
   const handlePostulateDb = () => {
     const offerId = jobId.id
     const userId = dataUser.id
-    axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
-    alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
-  };
-
-  const handleClick = () => {
-    if (dataUser?.premium) {
-      handlePostulateDb();
-    } else {
-      alert('Debes hacerte premium para aplicar a esta oferta');
-      
+    if(dataUser.premium){
+      axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
+      alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
+    }else{
+      isSnackbar(true)
     }
   };
+
 
   // obtener perks en español desde la api getonbrd
   const [perksApi, setPerksApi] = useState([])
@@ -284,10 +285,17 @@ useEffect(() => {
             <div className="mt-8 flex justify-center">
                 {
                   Number(jobId?.id)
-                    ? <button onClick={handleClick} disabled={!dataUser?.premium} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+                    ? <button onClick={handlePostulateDb} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800" disabled={!dataUser?.premium} >
                     <span className="relative px-5 py-4 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                       Aplicar
                     </span>
+                    <Snackbar
+                    open={Snackbar}
+                    autoHideDuration={7000}
+                    onClose={handleClose}
+                    message="Debes ser premium para aplicar a esta oferta"
+                    
+                  />
                   </button>
                     : <a href={jobId.link} target="_blank" rel="noreferrer" >
                       <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
@@ -307,7 +315,7 @@ useEffect(() => {
                   </Fab>
                   <Snackbar
                     open={openSnackbar}
-                    autoHideDuration={4000}
+                    autoHideDuration={7000}
                     onClose={handleCloseSnackbar}
                     message="Solo puedes guardar 5 ofertas de trabajo. para guardar mas ofertas y más beneficios asciende a premium"
                     
