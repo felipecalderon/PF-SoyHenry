@@ -228,7 +228,7 @@ useEffect(() => {
           <div className=" md:flex">
             <button className="absolute focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" style={{
               top: -20,
-              right: '20%',
+              right: '23%',
               fontSize: 25
             }}>
               Oferta premium { Number(jobId.id) ? <StarSharpIcon className="flex justify-center" style={{ color: 'orange' }}/> : null }
