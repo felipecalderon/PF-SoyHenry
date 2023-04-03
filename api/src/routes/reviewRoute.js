@@ -5,7 +5,7 @@ const{createNewReviewControllers,getReviewControllers,putReviewsControllers,dele
 
 const allReview = async (req, res) => {
     try {
-        const reviews = await getReviewControllers()
+        const reviews = await getReviewControllers(req.params)
         return res.status(200).json(reviews)
         
     } catch (error) {
@@ -27,7 +27,7 @@ const newReview = async (req, res) => {
 const putReviews = async (req, res) => {
     try {
         const data = await  putReviewsControllers (req.params, req.body)
-       return  res.status(200).json(data)
+        return  res.status(200).json(data)
     } catch (error) {
         res.status(404).json(error)
     }

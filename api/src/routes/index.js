@@ -122,7 +122,7 @@ route.get('/all_data', getAllData)
 route.get('/statisticspayments', statisticspayments)
 
 // Review
-route.get('/review',allReview);
+route.get('/review/:id',allReview); // trae todos los comentarios o por id
 route.post('/review',newReview );
 route.put('/review/:id',putReviews);
 route.delete('/review/:id',deleteReviews);

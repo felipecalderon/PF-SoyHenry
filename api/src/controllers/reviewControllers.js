@@ -1,9 +1,10 @@
-const{getReview,createReview,putReviews,deleteReview}=require('../handlers/handlerReview')
+const{getReview,createReview,putReviews,deleteReview, getReviewById}=require('../handlers/handlerReview')
 
 
-const getReviewControllers = async ( ) => {
+const getReviewControllers = async ({id}) => {
+    console.log(id)
     try {
-        const response =  await getReview();
+        const response =  id ? await getReviewById(id) :  await getReview();
         return response
     } catch (error) {
         console.log(error)
