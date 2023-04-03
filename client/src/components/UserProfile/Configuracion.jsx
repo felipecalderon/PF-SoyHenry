@@ -23,7 +23,7 @@ import Modal from '@mui/material/Modal';
 
 
 
-function Configuracion() {
+function Configuracion({inConfig,SetInConfig}) {
   const dispatch = useDispatch();
   const [skills, setSkills] = useState([]);
   const [showErrors, SetShowErrors] = useState(false);
@@ -482,7 +482,7 @@ function Configuracion() {
             </button>
             <button
               className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded  "
-              onClick={() => { }}
+              onClick={() => {SetInConfig(!inConfig) }}
             >
               Cancelar
             </button>
