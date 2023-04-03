@@ -55,6 +55,8 @@ const { planRoute,
 } = require('./suscriptionRoute');
 const { getAllData } = require('./adminRoute');
 
+const{newReview,allReview,putReviews,deleteReviews}=require('./reviewRoute');
+
 const route = Router();
 
 // users
@@ -111,12 +113,21 @@ route.post('/mercadopago', respuestasMP)
 route.post('/stripe', pagoStripe)
 route.get('/pago', recepcionPago)
 route.get('/verpagos', rutaVerPagos)
+
 route.get('/statisticspayments', statisticspayments)
 
 // Admin
 route.get('/all_data', getAllData)
 
 
+
+
+
+
+route.get('/review',allReview);
+route.post('/review',newReview );
+route.put('/review/:id',putReviews);
+route.delete('/review/:id',deleteReviews);
 
 module.exports = route;
 
