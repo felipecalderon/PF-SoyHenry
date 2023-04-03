@@ -28,7 +28,7 @@ function Postulaciones() {
     let objetosFiltrados = [...allData];
     //filtro de estado aun no funciona
     if (filtros.fecha === "") {
-      objetosFiltrados = objetosFiltrados;
+      objetosFiltrados = [...allData];
     }
     if (filtros.fecha === "mas reciente") {
       objetosFiltrados = objetosFiltrados.sort(
@@ -108,22 +108,18 @@ function Postulaciones() {
               <div className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-around">
                 <h2
                   className="text-lg font-bold cursor-pointer hover:underline"
-                  onClick={() =>
-                    navigate(
-                      `/detail/${el.offerId}?title=${
-                        el.Offer ? el.Offer.title : el.title
-                      }`
-                    )
-                  }
+                  onClick={() => navigate( `/detail/${el.offerId}?title=${el.Offer ? el.Offer.title : el.title}`)}
                 >
                   {el.Offer ? el.Offer.title : el.title}
                 </h2>
-                <div className="text-sm text-gray-400">
-                  <h2>Estado</h2>
-                  {el.status
-                    ? el.status[0].toUpperCase() + el.status.slice(1)
-                    : "Sin especificar"}
-                </div>
+                <div className="text-sm text-gray-400" name="estado">
+  <h2 class=" font-bold text-blue-500">Estado</h2>
+  <h2 class=" font-medium text-green-500 text-center">
+      {el.status
+        ? el.status[0].toUpperCase() + el.status.slice(1)
+        : "Sin especificar"}
+  </h2>
+</div>
               </div>
             ))}
           </div>
@@ -145,26 +141,4 @@ function Postulaciones() {
 }
 
 export default Postulaciones;
-/**
- * Offer
-: 
-{date_post: '31/03/2023 18:04:05', id: 1, title: 'Buscamos Cocinero', requeriments: 'Debe hacer altos sandwiches', functions: 'hacer sandwiches', …}
-createdAt
-: 
-"2023-03-31T21:05:18.087Z"
-id
-: 
-1
-offerId
-: 
-1
-status
-: 
-"send"
-updatedAt
-: 
-"2023-03-31T21:05:18.087Z"
-userId
-: 
-"bc8aae10-17d7-4c1f-b736-3e39424d144b"
- ****/
+
