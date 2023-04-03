@@ -15,6 +15,7 @@ import Perks from "./Perks";
 import { Box, Fab, Snackbar } from "@mui/material";
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
+import PremiumButtonComponent from "../BotonPremium/BotonPremium";
 
 const JobDetail = () => {
   const navigate = useNavigate()
@@ -203,6 +204,9 @@ useEffect(() => {
   return (
     <div className="bg-primary-light dark:bg-secondary-dark pt-20">
       <NavLanding menu={menu} />
+      <div class="flex justify-center items-center">
+           <PremiumButtonComponent />
+        </div>
       <div className="relative flex flex-wrap space-around">
         <Link to={'/offers'}>
           <button type="button" class="absolute text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -276,7 +280,7 @@ useEffect(() => {
 
               <br />
               {
-                jobId.perks &&
+                jobId?.perks &&
                 <h2 className="text-lg font-semibold dark:text-white py-3"> Ventajas </h2>
               }
               <div className="flex flex-row flex-wrap gap-3">
