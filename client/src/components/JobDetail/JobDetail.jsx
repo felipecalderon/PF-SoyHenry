@@ -24,7 +24,6 @@ const JobDetail = () => {
   const query = new URLSearchParams(window.location.search);
   const title = query.get('title');
   const { jobId } = useSelector((state) => state.postSlice);
-  const { empresaId } = useSelector((state) => state.postSlice)
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
 
@@ -232,12 +231,10 @@ useEffect(() => {
               right: '43%',
               fontSize: 25
             }}>
-              Oferta 
-            
-            </button>
-            
+              Oferta premium { Number(jobId.id) ? <StarSharpIcon className="flex justify-center" style={{ color: 'orange' }}/> : null }
+            </button> 
             <div className="p-8">
-              <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white mb-4">{jobId.title}{ Number(jobId.id) ? <StarSharpIcon className="flex justify-center" style={{ color: 'orange' }}/> : null }</h1>
+              <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white mb-4">{jobId.title}</h1>
               <section className=" w-full flex ">
                 {jobId.modality &&
                   <h3 className="text-lg font-semibold dark:text-white mr-4">
