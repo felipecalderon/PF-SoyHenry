@@ -9,6 +9,7 @@ function Postulaciones() {
     const navigate=useNavigate()
     const idUser = JSON.parse(localStorage.getItem("userLogin")).Postulants[0].userId
     const [data,SetData]=useState([])
+    const [allData,SetAllData]=useState([])
     const [filtros, setFiltros] = useState({
         estado: '',
         fecha: ''
@@ -23,36 +24,41 @@ function Postulaciones() {
           [name]: value
         }));
       
-        aplicarFiltros(data, {[name]: value});
+
       }
 
-      const aplicarFiltros = (data, filtros) => {
-        let objetosFiltrados = data;
+      const aplicarFiltros = (filtros) => {
+        let objetosFiltrados = [...allData]
       //filtro de estado aun no funciona
-        if (filtros.estado) {
-          objetosFiltrados = objetosFiltrados.filter(objeto => objeto.status === filtros.estado || !objeto.status);
-        }
+      if (filtros.fecha==="") {
+        objetosFiltrados= objetosFiltrados
+    }
+  if (filtros.fecha === 'mas reciente') {
+    objetosFiltrados = objetosFiltrados.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  } else if (filtros.fecha === 'mas antiguo') {
+    objetosFiltrados =  objetosFiltrados.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  }
+
+  if (filtros.estado) {
+    if(filtros.estado==="Sin especificar") objetosFiltrados=objetosFiltrados.filter(el=> !el.status && filtros.estado==="Sin especificar")
+
+ else   objetosFiltrados = objetosFiltrados.filter(objeto => objeto.status === filtros.estado);
+        } 
       
-        if (filtros.fecha) {
-          if (filtros.fecha === 'mas reciente') {
-            objetosFiltrados = objetosFiltrados.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-          } else if (filtros.fecha === 'mas antiguo') {
-            objetosFiltrados = objetosFiltrados.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-          }
-        }
-      
-        SetData(objetosFiltrados);
+    
+
+
+      return objetosFiltrados
       }
-      
 
     useEffect(() => {
         const fetchData = async () => {
             try {
               const res1 = await axios.get(`/aplicates/${idUser}`);
               const res2 = await axios.get(`/applyapioffer/${idUser}`);
-              SetData([...res1.data, ...res2.data]);
-              console.log([...res1.data, ...res2.data])
-            
+               SetData([...res1.data, ...res2.data]);
+            //   console.log([...res1.data, ...res2.data])
+            SetAllData([...res1.data, ...res2.data])
 
             
             } catch (err) {
@@ -67,28 +73,31 @@ function Postulaciones() {
 return (
 
     <>
-        {
-            data?.length ? <>
-    <div className='flex justify-around'>
-        <select className='bg-white rounded-xl  border mb-4 text-center  flex-grow ' name="estado" onChange={handleFiltroChange}>
-            <option value="">Filtrar por estado</option>
-            <option value="send">send</option>
-            <option value="viewed">viewed</option>
-            <option value="no_select">no_select</option>
-            <option value="select">select</option>
-            <option value="Sin especificar">Sin especificar</option>
+        
+
+<div className='flex justify-around'>
+<select className='bg-white rounded-xl  border mb-4 text-center  flex-grow ' name="estado" onChange={handleFiltroChange}>
+    <option value="">Filtrar por estado</option>
+    <option value="send">Enviado</option>
+    <option value="viewed">Visto</option>
+    <option value="no_select">Descartado</option>
+    <option value="select">Seleccionado</option>
+    <option value="Sin especificar">Sin especificar</option>
 
 
-        </select>
-        <select className='bg-white rounded-xl  border mb-4 text-center flex-grow' name="fecha" onChange={handleFiltroChange}>
-            <option value="">Filtrar por fecha</option>
-            <option value="mas reciente">mas recientes</option>
-            <option value="mas antiguo">mas antiguos</option>
-        </select>
+</select>
+<select className='bg-white rounded-xl  border mb-4 text-center flex-grow' name="fecha" onChange={handleFiltroChange}>
+    <option value="">Ordenar por fecha</option>
+    <option value="mas reciente">mas recientes a mas antiguos</option>
+    <option value="mas antiguo">mas antiguos a mas recientes</option>
+</select>
 
-    </div>
+</div>
+
+          {  data?.length ? <>
+   
 <div className='h-1043px overflow-y-auto'  style={{maxHeight:" 1040px"}}>
-    {data.map((el)=>
+    {aplicarFiltros(filtros).map((el)=>
 <div className="bg-white rounded-xl p-4 border mb-4 text-center flex justify-around" >
     <h2 className="text-lg font-bold cursor-pointer hover:underline"
      onClick={()=>navigate(`/detail/${el.offerId}?title=${el.Offer?el.Offer.title:el.title}`)}>
@@ -134,4 +143,4 @@ updatedAt
 userId
 : 
 "bc8aae10-17d7-4c1f-b736-3e39424d144b"
- */
+ ****/
