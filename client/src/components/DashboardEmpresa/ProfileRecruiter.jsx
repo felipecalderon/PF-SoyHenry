@@ -53,18 +53,13 @@ import { TextField } from "@mui/material";
     });
   };
 
-
 const handleSubmit = async (event) => {
   try {
-    const errorsNew = validationsDatosRecruiter(info);
-    setErrors(errorsNew);
-    if (Object.keys(errorsNew).length === 0) {
       await axios.put(`/user/${id}`, info);
       const verifyUsrExist = await axios.post(`/user/email`, { email: user.email })
       localStorage.setItem('userLogin', JSON.stringify(verifyUsrExist.data))
       setShowModal(false);
       setOpen(false);
-    }
   } catch (error) {
     console.log(error);
   }
@@ -176,7 +171,17 @@ const handleSubmit = async (event) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancelar</Button>
-          <Button onClick={() => setShowModal(true)}>Aceptar</Button>
+          <Button 
+          // onClick={() => errorsNew.length === 0 ? setShowModal(true) : setErrors(errorsNew)}>Aceptar</Button>
+          // onClick={() => setShowModal(true)}>Aceptar</Button>
+          onClick={() => {
+            const errorsNew = validationsDatosRecruiter(info);
+            setErrors(errorsNew);
+            const noErrors = Object.values(errorsNew).every(error => error === '');
+            if (noErrors) {
+              setShowModal(true);
+            }
+          }}>Aceptar</Button>
         </DialogActions>
         <ModalConfirmChangesCompany isVisible={showModal} onClose={() => setShowModal(false)} >
           <h1 className='flex font-bold justify-center p-3 dark:text-text-dark'>Antes de confirmar, verifique los datos</h1>
