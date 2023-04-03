@@ -116,7 +116,6 @@ export default function OffersCreate() {
             acumulador += errors[key]
         }
         for (const key in inputs) {
-            // console.log(key)
             if (inputs[key].length === 0) acumulador2 = true
             if (key === 'min_salary' && inputs[key].length === 0) acumulador2 = false
             if (key === 'max_salary' && inputs[key].length === 0) acumulador2 = false
@@ -172,7 +171,6 @@ export default function OffersCreate() {
         dispatch(createOffer(inputs))
         alert('oferta creada')
         setShowModal(false)
-        console.log(user.id)
         setInputs({
             title: '',
             requeriments: '',

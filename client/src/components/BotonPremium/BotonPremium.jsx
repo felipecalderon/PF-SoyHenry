@@ -91,16 +91,19 @@ export default function PremiumButtonComponent() {
             <PremiumModalTitle>
               ¡Disfruta los grandes beneficios del plan Premium!
             </PremiumModalTitle>
-            <ul className="text-lg md:text-xl text-center">
-              <li>
+            <ul className="text-lg md:text-xl text-center dark:text-text-dark">
+              <li className="py-2 font-semibold">
+                Accede a más ofertas laborales disponibles en nuestra base de datos
+              </li>
+              <li className="py-2 font-semibold">
                 Usa filtros combinados para encontrar tu trabajo ideal
               </li>
-              <li>
+              <li className="py-2 font-semibold">
                 Guarda tantas ofertas como quieras y aplica en el momento que
                 quieras
               </li>
-            <li>Puedes encontrar más ofertas laborales en este modal</li>
           </ul>
+          <button className='mt-6 h-14 bg-green-600 hover:bg-green-900 dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>Hazte Premium</button>
         </PremiumModal>
       </Modal>
 </div> 

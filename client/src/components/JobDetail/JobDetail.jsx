@@ -87,8 +87,6 @@ useEffect(() => {
   });
 },[]);
 
-  console.log(dataUser.rol)
-
   //FAVORITOS AHORA ES GUARDADOS
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);

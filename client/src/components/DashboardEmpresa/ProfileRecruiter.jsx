@@ -16,7 +16,6 @@ import { TextField } from "@mui/material";
 
   const user = JSON.parse(localStorage.getItem('userLogin'))
   const recruiter = user
-  console.log(user)
   
   //eslint-disable-next-line no-unused-vars
   const {id, names, lastnames, email, photo, phone, website} = recruiter;
@@ -94,7 +93,7 @@ const handleSubmit = async (event) => {
             <p><strong>Email: </strong></p><p target="_blank" rel="noopener noreferrer">{email}</p>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
-            <p><strong>Sitio web: </strong></p><a href={website} target="_blank" rel="noopener noreferrer" className='text-blue-600'>{website.slice(0, 30)}{website.length > 30 ? '...' : ''}</a>
+            <p><strong>Sitio web: </strong></p><a href={website} target="_blank" rel="noopener noreferrer" className='text-blue-600'>{website && website.slice(0, 30)}{website && website.length > 30 ? '...' : ''}</a>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
             <p><strong>Teléfono: </strong></p><p target="_blank" rel="noopener noreferrer">{phone}</p>

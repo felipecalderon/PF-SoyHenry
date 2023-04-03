@@ -38,7 +38,6 @@ export const DashboardEmpresa = () => {
             link: '/offers'
         }
     ]
-    console.log(userData);
     if(!userData || userData.rol !== "Empresa") return <NotFound/>
         return (
             <div className="bg-primary-light dark:bg-secondary-dark pt-20 h-full w-full">
