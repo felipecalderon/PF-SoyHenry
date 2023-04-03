@@ -93,12 +93,12 @@ const FormularioPostulante = ({ handleOpen }) => {
             })
 
         // Guarda los datos en localStorage 
-        const objetoJSON = JSON.stringify(userDbData.data)
-        const usuarioLogueado = JSON.parse(localStorage.getItem('userLogin'))
+        const objetoJSON = JSON.stringify(userDbData.data);
+        const usuarioLogueado = JSON.parse(localStorage.getItem('userLogin'));
         if (!usuarioLogueado) {
-            localStorage.setItem('userLogin', objetoJSON)
-            dispatch(saveUser(userDbData.data))
-            handleOpen()
+            localStorage.setItem('userLogin', objetoJSON);
+            dispatch(saveUser(userDbData.data));
+            handleOpen();
         } else {
             setForm({
                 names: '',
@@ -109,8 +109,9 @@ const FormularioPostulante = ({ handleOpen }) => {
                 phone: '',
                 rol: 'Postulante',
                 active: true
-            })
-            alert('Postulante Creado')
+            });
+            alert('Postulante Creado');
+            window.location.reload();
         }
     };
 

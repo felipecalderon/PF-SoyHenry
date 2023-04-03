@@ -1,42 +1,109 @@
 import { BorderColor, PersonRemove } from "@mui/icons-material"
 import { Icon, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
+import PersonOffIcon from '@mui/icons-material/PersonOff';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import axios from "axios";
 
-const Tabla = ({datos}) => {
-    return (
+const Tabla = ({ datos }) => {
+  const handlePremium = async (id, premium, name) => {
+    const respuesta = window.confirm(`¿Estás seguro quieres cambiar el plan de ${name}?`);
+    if (respuesta === true) {
+      await axios.put(`/update/${id}?state=${!premium}`)
+        .then(res => {
+          !premium
+            ? alert(`Ahora ${name} es ¡Premium!`)
+            : alert(`Ahora ${name} ya ¡No es Premium!`)
+          window.location.reload()
+        }
+        )
+        .catch(error => {
+          alert('Ocurrio un error')
+          console.log(error)
+        })
+    }
+  };
+  const handleBan = async (id, state, name) => {
+    const respuesta = window.confirm(`¿Estás seguro que quieres cambiar el estado de ${name}?`);
+    if (respuesta === true) {
+      await axios.put(`/update/${id}?active=${!state}`)
+        .then(res => {
+          state
+            ? alert(`¡Baneaste! a ${name}`)
+            : alert(`Le quitaste el Ban a ${name}`)
+          window.location.reload()
+        }
+        )
+        .catch(error => {
+          alert('Ocurrio un error')
+          console.log(error)
+        })
+    }
+  };
+  const handleDelete = async (id, name) => {
+    const respuesta = window.confirm(`¿Estás seguro que quieres eliminar los datos de ${name}?. esta Accion es ¡Irreversible!`);
+    if (respuesta === true) {
+      await axios.delete(`/user/${id}`)
+        .then(res => {
+          alert(`Eliminaste a ${name} de la Base de Datos`)
+          window.location.reload()
+        }
+        )
+        .catch(error => {
+          alert('Ocurrio un error')
+          console.log(error)
+        })
+    }
+  };
+  return (
     <>
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>LISTADO DE POSTULANTES</TableCell>
-            <TableCell>Tipo</TableCell>
-            <TableCell>Usuario desde</TableCell>
-            <TableCell>Estado</TableCell>
-            <TableCell>Acciones</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {datos?.map((dato, index) => {
-            return (
-              <TableRow className="bg-gray-100 text-center">
-                <TableCell>{dato.name}</TableCell>
-                <TableCell>{dato.rol === "Empresa" ? "Recruiter" : dato.rol}</TableCell>
-                <TableCell>{dato.fecha_registro}</TableCell>
-                <TableCell>{dato.activo ? 'Activo' : 'Desactivado'}</TableCell>
-                <TableCell>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell align="center" style={{ fontWeight: "bold" }}>LISTADO DE POSTULANTES</TableCell>
+              <TableCell align="center" style={{ fontWeight: "bold" }}>Tipo</TableCell>
+              <TableCell align="center" style={{ fontWeight: "bold" }}>Usuario desde</TableCell>
+              <TableCell align="center" style={{ fontWeight: "bold" }}>Estado</TableCell>
+              <TableCell align="center" style={{ fontWeight: "bold" }}>Acciones</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {datos?.map((dato, index) => {
+              return (
+                <TableRow className="bg-gray-100 text-center">
+                  <TableCell>{dato.name}</TableCell>
+                  <TableCell align="center">{dato.rol === "Empresa" ? "Recruiter" : dato.rol}</TableCell>
+                  <TableCell align="center">{dato.fecha_registro}</TableCell>
+                  <TableCell align="center">{dato.activo ? 'Activo' : 'Desactivado'}</TableCell>
+                  <TableCell align="center">
                     <div className="flex flex-row gap-1">
-                    <Icon component={BorderColor} />
-                    <Icon component={PersonRemove} />
+                      <button onClick={() => { handlePremium(dato.id, dato.premium, dato.name) }} className="cursor-pointer">
+                        {
+                          dato.premium
+                            ? <Icon component={StarIcon} />
+                            : <Icon component={StarBorderIcon} />
+                        }
+                      </button>
+                      <button onClick={() => { handleBan(dato.id, dato.activo, dato.name) }} className="cursor-pointer">
+                        {dato.activo
+                          ? <Icon component={PersonOffIcon} />
+                          : <Icon component={HowToRegIcon} />}
+                      </button>
+                      <button onClick={() => { handleDelete(dato.id, dato.name) }} className="cursor-pointer">
+                        <Icon component={PersonRemove} />
+                      </button>
                     </div>
-                </TableCell>
-              </TableRow>
-            )
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+                  </TableCell>
+                </TableRow>
+              )
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
-    )
+  )
 }
 
 export default Tabla

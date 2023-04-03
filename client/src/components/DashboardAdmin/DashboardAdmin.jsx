@@ -7,6 +7,7 @@ import { Button } from '@mui/material';
 import { Group, GroupAdd, Groups, PersonAddAlt1, Work } from '@mui/icons-material';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 
 // funcion para transformar fecha del backend
 export const tranformarFecha = (fechaOriginal) => {
@@ -28,10 +29,12 @@ const menuUserProfile = [
 ]
 
 const DashAdmin = () => {
+  const users = JSON.parse(localStorage.getItem('userList'))
   const [listaUsers, setListaUsers] = useState([])
   const [addPostulant, setAddPostulant] = useState(false)
   const [addRecluter, setAddRecluter] = useState(false)
-  const users = JSON.parse(localStorage.getItem('userList'))
+  const [addAdmin, setAddAdmin] = useState(false)
+  const [addOffers, setAddOffers] = useState(false)
 
   const [mostrarBotones, setMostrarBotones] = useState(false);
   function handleClick() {
@@ -43,20 +46,39 @@ const DashAdmin = () => {
     const filtro = id === 'all' ? users : users.filter(user => user.rol === id);
     setListaUsers(filtro);
     setMostrarBotones(false);
-    setAddPostulant(false)
-    setAddRecluter(false)
+    setAddPostulant(false);
+    setAddRecluter(false);
+    setAddAdmin(false);
+    setAddOffers(false);
   }
 
   const handlePostulant = (e) => {
     e.preventDefault()
-    setAddPostulant(true)
-    setAddRecluter(false)
+    setAddPostulant(true);
+    setAddRecluter(false);
+    setAddAdmin(false);
+    setAddOffers(false);
   };
-
   const handleRecluter = (e) => {
     e.preventDefault()
-    setAddPostulant(false)
-    setAddRecluter(true)
+    setAddPostulant(false);
+    setAddRecluter(true);
+    setAddAdmin(false);
+    setAddOffers(false);
+  };
+  const handleAdmin = (e) => {
+    e.preventDefault()
+    setAddPostulant(false);
+    setAddRecluter(false);
+    setAddAdmin(true);
+    setAddOffers(false);
+  };
+  const handleOffers = (e) => {
+    e.preventDefault()
+    setAddPostulant(false);
+    setAddRecluter(false);
+    setAddAdmin(false);
+    setAddOffers(true);
   };
 
   useEffect(() => {
@@ -87,8 +109,6 @@ const DashAdmin = () => {
           Panel de Adminisitración
         </h2>
         <section className="gap-3 flex flex-row flex-wrap justify-center text-center">
-          <Button variant="contained" onClick={handlePostulant} startIcon={<PersonAddAlt1 />} sx={{ height: '36px' }} >Agregar Postulante </Button>
-          <Button variant="contained" onClick={handleRecluter} startIcon={<GroupAdd />} sx={{ height: '36px' }} >Agregar Reclutador </Button>
           <div>
             <Button className='m-1' variant="contained" onClick={handleClick} startIcon={<AssignmentIndIcon />} >Usuarios</Button>
             {mostrarBotones &&
@@ -99,11 +119,14 @@ const DashAdmin = () => {
               </div>
             }
           </div>
-          <Button variant="contained" startIcon={<Work />} sx={{ height: '36px' }} >Ver Ofertas </Button>
+          <Button variant="contained" onClick={handlePostulant} startIcon={<PersonAddAlt1 />} sx={{ height: '36px' }} >Agregar Postulante </Button>
+          <Button variant="contained" onClick={handleRecluter} startIcon={<GroupAdd />} sx={{ height: '36px' }} >Agregar Reclutador </Button>
+          <Button variant="contained" onClick={handleAdmin} startIcon={<SupervisorAccountIcon />} sx={{ height: '36px' }} >Agregar Admin </Button>
+          <Button variant="contained" onClick={handleOffers} startIcon={<Work />} sx={{ height: '36px' }} >Ver Ofertas </Button>
         </section>
         <section className="py-5 gap-3 flex flex-row flex-wrap justify-center text-center">
           <div className="w-full sm:w-1/2 flex flex-col">
-            <Rigth datos={listaUsers} addpostulant={addPostulant} addRecluter={addRecluter} />
+            <Rigth datos={listaUsers} addpostulant={addPostulant} addRecluter={addRecluter} addAdmin={addAdmin} addOffers={addOffers} />
           </div>
           <div className="w-11/12 sm:w-1/3 flex flex-col">
             <Left />
