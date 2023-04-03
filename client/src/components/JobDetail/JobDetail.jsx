@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { getDataPostulacion } from "../../redux/slices/postSlices";
+import StarSharpIcon from '@mui/icons-material/StarSharp';
 
 // Components
 import { NavLanding } from "../NavLanding/NavLanding";
@@ -23,7 +24,6 @@ const JobDetail = () => {
   const query = new URLSearchParams(window.location.search);
   const title = query.get('title');
   const { jobId } = useSelector((state) => state.postSlice);
-  const { empresaId } = useSelector((state) => state.postSlice)
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
 
@@ -62,7 +62,6 @@ const JobDetail = () => {
   }, [data]);
 
   const [empresaApi, setEmpresaApi] = useState()
-  console.log(empresaApi)
   useEffect(() => {
     if (jobId?.id) {
       axios.get(`/jobs/${jobId?.id}`)
@@ -88,8 +87,6 @@ useEffect(() => {
     console.log(error);
   });
 },[]);
-
-  console.log(dataUser?.rol)
 
   //FAVORITOS AHORA ES GUARDADOS
   const [isPremium] = useState(JSON.parse(localStorage.getItem('userLogin')));
@@ -124,31 +121,36 @@ useEffect(() => {
 
   useEffect(() => {
     OffersSave()
-    OffersSave()
     axios.get(`/fav_company/${dataUser?.id}`)
       .then((res) => res.data.filter((cb) => cb.offerId === jobId?.id))
       .then((res) => setFavFilter(res))
   }, [dataUser?.id, jobId?.id]);
 
   const handleToggleFavorite = () => {
-  
-    if (countOffers >= 5 && dataUser?.premium === false && !isFavorite ) {
-      setOpenSnackbar(true);
+    if (!isFavorite) {
+    if (countOffers === 5 && dataUser?.premium === false && !isFavorite ) {
+      setOpenSnackbar(true)
       return;
     }
-    if (!isFavorite) {
+    
       Number(jobId.id)
         ? axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=db`)
         : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=api`);
       setIsFavorite(true);
-      setSavedOffers([...savedOffers, jobId.id]);
+      setSavedOffers([...savedOffers, jobId.id])
+      if (!dataUser?.premium) {
+        setCountOffers((prevCountOffers) => prevCountOffers + 1);
+      }
       alert('Se ha guardado la oferta');
     } else {
       Number(jobId.id)
         ? axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=db`)
         : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=api`);
       setIsFavorite(false);
-      setSavedOffers(savedOffers.filter((savedId) => savedId !== jobId.id));
+      setSavedOffers(savedOffers.filter((savedId) => savedId !== jobId.id))
+      if (!dataUser?.premium) {
+        setCountOffers((prevCountOffers) => prevCountOffers - 1);
+      }
       alert('Se ha eliminado la oferta de tu lista guardada');
     }
   };
@@ -222,15 +224,14 @@ useEffect(() => {
         </Link>
 
         {/* Detalles de la oferta */}
-        <div className="relative pt-5 flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800">
-          <div className=" md:flex">
-            <button className="absolute focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" style={{
-              top: -20,
-              right: '43%',
+        <div className=" flex flex-col justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800">
+          <div className=" md:flex items-center flex flex-col">
+            <button className=" focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-br-xl rounded-bl-xl text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-0" style={{
+      
               fontSize: 25
             }}>
-              Oferta
-            </button>
+              { !isNaN(jobId.id) ? <> Oferta premium <StarSharpIcon className="flex justify-center" style={{ color: 'orange' }}/></> :  'Oferta'}
+            </button> 
             <div className="p-8">
               <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white mb-4">{jobId.title}</h1>
               <section className=" w-full flex ">
@@ -340,12 +341,10 @@ useEffect(() => {
         {/* Datos de la empresa */}
         <div className="relative flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800">
           <div className="md:flex">
-            <div className="p-8">
-              <button className="absolute focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" style={{
-                top: -20,
-                right: '39%',
-                fontSize: 25
-              }}>
+            <div className="p-md:flex items-center flex flex-col">
+           < button className=" focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-br-xl rounded-bl-xl text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-0" style={{
+            fontSize: 25
+            }}>
                 Empresa
               </button>
               <div className=" w-full flex justify-center items-center mb-4 mt-6 ">

@@ -9,6 +9,8 @@ function Postulaciones() {
   const idUser = JSON.parse(localStorage.getItem("userLogin")).Postulants[0]
     .userId;
   const [data, SetData] = useState([]);
+  const dataUserLocal = localStorage.getItem('userLogin')
+  const dataUser = JSON.parse(dataUserLocal);
   const [allData, SetAllData] = useState([]);
   const [filtros, setFiltros] = useState({
     estado: "",
@@ -26,7 +28,7 @@ function Postulaciones() {
 
   const aplicarFiltros = (filtros) => {
     let objetosFiltrados = [...allData];
-    //filtro de estado aun no funciona
+    
     if (filtros.fecha === "") {
       objetosFiltrados = [...allData];
     }
@@ -39,20 +41,27 @@ function Postulaciones() {
         (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
       );
     }
-
+  
     if (filtros.estado) {
-      if (filtros.estado === "Sin especificar")
+      if (filtros.estado === "Sin especificar") {
         objetosFiltrados = objetosFiltrados.filter(
           (el) => !el.status && filtros.estado === "Sin especificar"
         );
-      else
+      } else {
         objetosFiltrados = objetosFiltrados.filter(
           (objeto) => objeto.status === filtros.estado
         );
+      }
     }
-
+  
+    if (!dataUser.isPremium) {
+      objetosFiltrados = objetosFiltrados.slice(-5);
+    }
+  
     return objetosFiltrados;
   };
+
+  
 
   useEffect(() => {
     const fetchData = async () => {
