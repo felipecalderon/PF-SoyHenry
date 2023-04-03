@@ -7,7 +7,7 @@ import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 
-const FormularioPostulante = ({handleOpen}) => {
+const FormularioPostulante = ({ handleOpen }) => {
     const dispatch = useDispatch()
     const [form, setForm] = useState({
         names: '',
@@ -74,7 +74,7 @@ const FormularioPostulante = ({handleOpen}) => {
     };
 
     // const navigate = useNavigate();
-    
+
     const [loading, setLoading] = useState(false);
     const handleClick = async () => {
         // bloquea el boton
@@ -95,11 +95,11 @@ const FormularioPostulante = ({handleOpen}) => {
         // Guarda los datos en localStorage 
         const objetoJSON = JSON.stringify(userDbData.data)
         const usuarioLogueado = JSON.parse(localStorage.getItem('userLogin'))
-        if(!usuarioLogueado) {
+        if (!usuarioLogueado) {
             localStorage.setItem('userLogin', objetoJSON)
             dispatch(saveUser(userDbData.data))
             handleOpen()
-        }else{
+        } else {
             setForm({
                 names: '',
                 lastnames: '',
@@ -113,7 +113,7 @@ const FormularioPostulante = ({handleOpen}) => {
             alert('Postulante Creado')
         }
     };
-    
+
 
     // validacion para habilitar el boton
     const formValues = Object.values(form);
@@ -122,89 +122,89 @@ const FormularioPostulante = ({handleOpen}) => {
     const isErrorsEmpty = errorsValue.every(value => value === '');
 
     return (
-    <>
-        <form className='w-full flex flex-col m-4'>
-                        <Box
-                            className="flex flex-col"
-                            component="form"
-                            sx={{
-                                '& > :not(style)': { m: 1 },
-                                '& .MuiInputBase-input': { color: 'darkorange' },
-                                "& .MuiInput-underline:before": {
-                                    borderBottomColor: "darkorange",
-                                },
-                                '& .MuiInputLabel-root': { color: 'darkorange' }
-                            }}
-                            noValidate
-                            autoComplete="on"
+        <>
+            <form className='w-full flex flex-col m-4'>
+                <Box
+                    className="flex flex-col"
+                    component="form"
+                    sx={{
+                        '& > :not(style)': { m: 1 },
+                        '& .MuiInputBase-input': { color: 'darkorange' },
+                        "& .MuiInput-underline:before": {
+                            borderBottomColor: "darkorange",
+                        },
+                        '& .MuiInputLabel-root': { color: 'darkorange' }
+                    }}
+                    noValidate
+                    autoComplete="on"
+                >
+                    <div className="w-full flex flex-wrap justify-center">
+                        <div className="mr-4 my-4">
+                            <TextField label="Nombres" value={form.names} onChange={handleChange} error={!!errors.names} helperText={errors.names} variant="standard" name='names' />
+                        </div>
+                        <div className="mr-4 my-4">
+                            <TextField label="Apellidos" value={form.lastnames} onChange={handleChange} error={!!errors.lastnames} helperText={errors.lastnames} variant="standard" name='lastnames' />
+                        </div>
+                        <div className="mr-4 my-4">
+                            <TextField label="Email" value={userData ? userData.email : form.email} onChange={handleChange} error={!!errors.email} helperText={userData ? 'No puedes modificar el correo' : errors.email ? errors.email : 'Ej. correo@gmail.com'} variant="standard" name='email' />
+                        </div>
+                        <div className="mr-4 my-4">
+                            <TextField label="Phone" value={form.phone} onChange={handleChange} error={!!errors.phone} helperText={errors.phone ? errors.phone : 'Ej. +573215894786'} variant="standard" name='phone' />
+                        </div>
+                    </div>
+                    <div className="w-full flex flex-wrap justify-center">
+                        <div className="mr-4 my-4">
+                            <TextField
+                                label="Contraseña" value={form.password} onChange={handleChange} error={!!errors.password} helperText={errors.password} variant="standard" name='password'
+                                type={showPassword ? "text" : "password"}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton onClick={handleClickShowPassword}>
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            />
+                        </div>
+                        <div className="mr-4 my-4">
+                            <TextField
+                                label="Confirmar contraseña" onChange={handleChange} error={!!errors.confpassword} helperText={errors.confpassword} variant="standard" name='confpassword'
+                                type={showPassword ? "text" : "password"}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton onClick={handleClickShowPassword}>
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            />
+                        </div>
+                    </div>
+                </Box>
+                <div className='flex items-center justify-center'>
+                    <Box sx={{ '& > button': { m: 1, width: '150px', height: '60px', fontWeight: '700' } }}>
+                        <LoadingButton
+                            className={`${isErrorsEmpty && isFormComplete ? "" : "opacity-50 cursor-not-allowed pointer-events-none"}`}
+                            onClick={handleClick}
+                            loading={loading}
+                            color="warning"
+                            loadingPosition="center"
+                            variant="contained"
+                            type='submit'
                         >
-                            <div className="w-full flex flex-wrap justify-center">
-                                <div className="mr-4 my-4">
-                                    <TextField label="Nombres" value={form.names} onChange={handleChange} error={!!errors.names} helperText={errors.names} variant="standard" name='names' />
-                                </div>
-                                <div className="mr-4 my-4">
-                                    <TextField label="Apellidos" value={form.lastnames} onChange={handleChange} error={!!errors.lastnames} helperText={errors.lastnames} variant="standard" name='lastnames' />
-                                </div>
-                                <div className="mr-4 my-4">
-                                    <TextField label="Email" value={userData ? userData.email : form.email} onChange={handleChange} error={!!errors.email} helperText={userData ? 'No puedes modificar el correo' : errors.email ? errors.email : 'Ej. correo@gmail.com'} variant="standard" name='email' />
-                                </div>
-                                <div className="mr-4 my-4">
-                                    <TextField label="Phone" value={form.phone} onChange={handleChange} error={!!errors.phone} helperText={errors.phone ? errors.phone : 'Ej. +573215894786'} variant="standard" name='phone' />
-                                </div>
-                            </div>
-                            <div className="w-full flex flex-wrap justify-center">
-                                <div className="mr-4 my-4">
-                                    <TextField
-                                        label="Contraseña" value={form.password} onChange={handleChange} error={!!errors.password} helperText={errors.password} variant="standard" name='password'
-                                        type={showPassword ? "text" : "password"}
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton onClick={handleClickShowPassword}>
-                                                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            )
-                                        }}
-                                    />
-                                </div>
-                                <div className="mr-4 my-4">
-                                    <TextField
-                                        label="Confirmar contraseña" onChange={handleChange} error={!!errors.confpassword} helperText={errors.confpassword} variant="standard" name='confpassword'
-                                        type={showPassword ? "text" : "password"}
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton onClick={handleClickShowPassword}>
-                                                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            )
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                        </Box>
-                        <div className='flex items-center justify-center'>
-                            <Box sx={{ '& > button': { m: 1, width: '150px', height: '60px', fontWeight: '700' } }}>
-                                <LoadingButton
-                                    className={`${isErrorsEmpty && isFormComplete ? "" : "opacity-50 cursor-not-allowed pointer-events-none"}`}
-                                    onClick={handleClick}
-                                    loading={loading}
-                                    color="warning"
-                                    loadingPosition="center"
-                                    variant="contained"
-                                    type='submit'
-                                >
-                                    <span>Crear cuenta</span>
-                                </LoadingButton>
-                            </Box>
-                        </div>
-                        <div className='mt-4 text-center'>
-                            <p className='text-gray-700 dark:text-white text-sm'>Al hacer click en Crear Cuenta, aceptas las <a className="text-secondary-light dark:text-primary-dark" href='#'>Condiciones de uso</a> y las <a className="text-secondary-light dark:text-primary-dark" href='#'>Políticas de privacidad</a> de Fusionajob.</p>
-                        </div>
-                    </form>
-    </>
+                            <span>Crear cuenta</span>
+                        </LoadingButton>
+                    </Box>
+                </div>
+                <div className='mt-4 text-center'>
+                    <p className='text-gray-700 dark:text-white text-sm'>Al hacer click en Crear Cuenta, aceptas las <a className="text-secondary-light dark:text-primary-dark" href='#'>Condiciones de uso</a> y las <a className="text-secondary-light dark:text-primary-dark" href='#'>Políticas de privacidad</a> de Fusionajob.</p>
+                </div>
+            </form>
+        </>
     )
 }
 
