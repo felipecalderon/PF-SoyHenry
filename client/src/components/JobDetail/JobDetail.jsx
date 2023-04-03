@@ -29,7 +29,7 @@ const JobDetail = () => {
 
 
   const { data, isLoading } = useFetch(url);
-  const dataUserLocal = localStorage.getItem("userLogin")
+  const dataUserLocal = localStorage.getItem('userLogin')
   const dataUserGoogle = localStorage.getItem("usergoogle")
   const dataUser = JSON.parse(dataUserLocal);
   const jobBenefitsHTML = { __html: jobId?.benefits };
@@ -47,6 +47,7 @@ const JobDetail = () => {
     },
   ]
 
+
   const [empresa, setEmpresa] = useState(null);
   useEffect(() => {
     if (data?.idEmpresa) {
@@ -61,17 +62,34 @@ const JobDetail = () => {
   }, [data]);
 
   const [empresaApi, setEmpresaApi] = useState()
+  console.log(empresaApi)
   useEffect(() => {
     if (jobId?.id) {
       axios.get(`/jobs/${jobId?.id}`)
         .then((response) => {
-          setEmpresaApi(response.data.User.Companies[0]);
+          setEmpresaApi(response.data.User?.Companies[0]);
         })
         .catch((error) => {
           console.error(error);
         });
     }
   }, [jobId?.id])
+
+const [rol, setRol] = useState(dataUser?.rol);
+
+useEffect(() => {
+  axios.get(`/user/${dataUser.id}`)
+  .then((res) => {
+    const userRol = res.data?.rol;
+    setRol(userRol);
+    // console.log(res.data.rol)
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+},[]);
+
+  console.log(dataUser?.rol)
 
   //FAVORITOS AHORA ES GUARDADOS
   const [isPremium] = useState(JSON.parse(localStorage.getItem('userLogin')));
@@ -94,11 +112,13 @@ const JobDetail = () => {
     if (get !== undefined) {
       setIsFavorite(true)
       return
+      
     }
     return setIsFavorite(false)
   }
 
   useEffect(() => {
+    OffersSave()
     OffersSave()
     axios.get(`/fav_company/${dataUser?.id}`)
       .then((res) => res.data.filter((cb) => cb.offerId === jobId?.id))
@@ -106,6 +126,7 @@ const JobDetail = () => {
   }, [dataUser?.id, jobId?.id]);
 
   const handleToggleFavorite = () => {
+  
     if (countOffers >= 5 && dataUser?.premium === false ) {
       setOpenSnackbar(true);
       return;
@@ -132,13 +153,22 @@ const JobDetail = () => {
     if (data) {
       dispatch(getDataPostulacion(data));
     }
-  }, [data, dispatch, jobId?.companyId]);
+  }, [data, jobId?.companyId]);
 
   const handlePostulateDb = () => {
     const offerId = jobId.id
     const userId = dataUser.id
     axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
     alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
+  };
+
+  const handleClick = () => {
+    if (dataUser?.premium) {
+      handlePostulateDb();
+    } else {
+      alert('Debes hacerte premium para aplicar a esta oferta');
+      
+    }
   };
 
   // obtener perks en español desde la api getonbrd
@@ -250,14 +280,15 @@ const JobDetail = () => {
                 }
               </div>
 
-              <div className="mt-8 flex justify-center">
+            {rol === 'Postulante' &&
+            <div className="mt-8 flex justify-center">
                 {
-                  Number(jobId.id)
-                    ? <button onClick={handlePostulateDb} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
-                      <span className="relative px-5 py-4 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                        Aplicar
-                      </span>
-                    </button>
+                  Number(jobId?.id)
+                    ? <button onClick={handleClick} disabled={!dataUser?.premium} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+                    <span className="relative px-5 py-4 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                      Aplicar
+                    </span>
+                  </button>
                     : <a href={jobId.link} target="_blank" rel="noreferrer" >
                       <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
                         <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
@@ -265,8 +296,7 @@ const JobDetail = () => {
                         </span>
                       </button>
                     </a>
-                }
-
+                  }
                 <Box>
                   <Fab
                     sx={{ backgroundColor: "lightblue" }}
@@ -280,11 +310,12 @@ const JobDetail = () => {
                     autoHideDuration={4000}
                     onClose={handleCloseSnackbar}
                     message="Solo puedes guardar 5 ofertas de trabajo. para guardar mas ofertas y más beneficios asciende a premium"
+                    
                   />
                 </Box>
-
               </div>
-            </div>
+            }
+          </div>
           </div>
 
         </div>
@@ -299,13 +330,13 @@ const JobDetail = () => {
               }}>
                 Empresa
               </button>
-              <div className=" w-full flex flex justify-center items-center mb-4 mt-6 ">
+              <div className=" w-full flex justify-center items-center mb-4 mt-6 ">
                 <img className="flex justify-center items-center " src={empresa?.data.attributes.logo || empresaApi?.logo} alt="Logo company" />
               </div>
               <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white m-8">{empresa?.data.attributes.name || empresaApi?.companyname}</h1>
               <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={cleanHtml}></h3>
               <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal"> {empresaApi?.description} </h3>
-              <section className="w-full flex flex justify-center items-center my-10">
+              <section className="w-full flex justify-center items-center my-10">
                 <a href={empresa?.data.attributes.web || empresaApi?.website} target="_blank" rel="noreferrer">
                   <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
                     <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
