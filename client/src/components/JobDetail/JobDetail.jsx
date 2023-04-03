@@ -132,7 +132,7 @@ useEffect(() => {
 
   const handleToggleFavorite = () => {
   
-    if (countOffers >= 5 && dataUser?.premium === false ) {
+    if (countOffers >= 5 && dataUser?.premium === false && !isFavorite ) {
       setOpenSnackbar(true);
       return;
     }
