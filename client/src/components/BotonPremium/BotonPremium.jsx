@@ -63,7 +63,7 @@ export default function PremiumButtonComponent() {
     setClosed(true);
   };
   
-  if (!userData.premium) {
+  if (!userData?.premium) {
     return (
       <>
         <PremiumButton

@@ -15,6 +15,7 @@ import Perks from "./Perks";
 import { Box, Fab, Snackbar } from "@mui/material";
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
+import PremiumButtonComponent from "../BotonPremium/BotonPremium";
 
 const JobDetail = () => {
   const navigate = useNavigate()
@@ -46,6 +47,7 @@ const JobDetail = () => {
     },
   ]
 
+
   const [empresa, setEmpresa] = useState(null);
   useEffect(() => {
     if (data?.idEmpresa) {
@@ -65,7 +67,7 @@ const JobDetail = () => {
     if (jobId?.id) {
       axios.get(`/jobs/${jobId?.id}`)
         .then((response) => {
-          setEmpresaApi(response.data.User.Companies[0]);
+          setEmpresaApi(response.data?.User?.Companies[0]);
         })
         .catch((error) => {
           console.error(error);
@@ -87,11 +89,12 @@ useEffect(() => {
   });
 },[]);
 
-  console.log(dataUser.rol)
+  console.log(dataUser?.rol)
 
   //FAVORITOS AHORA ES GUARDADOS
   const [isPremium] = useState(JSON.parse(localStorage.getItem('userLogin')));
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [isSnackbar, setSnackbat] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false);
   const [favFilter, setFavFilter] = useState([]);
   const [countOffers, setCountOffers] = useState()
@@ -100,6 +103,10 @@ useEffect(() => {
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
+
+  const handleClose = ()=>{
+    setSnackbat(false)
+  }
 
   const OffersSave = async () => {
     const get = await axios.get(`/save_offers/${dataUser.id}`)
@@ -110,11 +117,13 @@ useEffect(() => {
     if (get !== undefined) {
       setIsFavorite(true)
       return
+      
     }
     return setIsFavorite(false)
   }
 
   useEffect(() => {
+    OffersSave()
     OffersSave()
     axios.get(`/fav_company/${dataUser?.id}`)
       .then((res) => res.data.filter((cb) => cb.offerId === jobId?.id))
@@ -122,6 +131,7 @@ useEffect(() => {
   }, [dataUser?.id, jobId?.id]);
 
   const handleToggleFavorite = () => {
+  
     if (countOffers >= 5 && dataUser?.premium === false ) {
       setOpenSnackbar(true);
       return;
@@ -148,14 +158,19 @@ useEffect(() => {
     if (data) {
       dispatch(getDataPostulacion(data));
     }
-  }, [data, dispatch, jobId?.companyId]);
+  }, [data, jobId?.companyId]);
 
   const handlePostulateDb = () => {
     const offerId = jobId.id
     const userId = dataUser.id
-    axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
-    alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
+    if(dataUser.premium){
+      axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
+      alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
+    }else{
+      isSnackbar(true)
+    }
   };
+
 
   // obtener perks en español desde la api getonbrd
   const [perksApi, setPerksApi] = useState([])
@@ -189,6 +204,9 @@ useEffect(() => {
   return (
     <div className="bg-primary-light dark:bg-secondary-dark pt-20">
       <NavLanding menu={menu} />
+      <div class="flex justify-center items-center">
+           <PremiumButtonComponent />
+        </div>
       <div className="relative flex flex-wrap space-around">
         <Link to={'/offers'}>
           <button type="button" class="absolute text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -262,7 +280,7 @@ useEffect(() => {
 
               <br />
               {
-                jobId.perks &&
+                jobId?.perks &&
                 <h2 className="text-lg font-semibold dark:text-white py-3"> Ventajas </h2>
               }
               <div className="flex flex-row flex-wrap gap-3">
@@ -276,12 +294,19 @@ useEffect(() => {
             {rol === 'Postulante' &&
             <div className="mt-8 flex justify-center">
                 {
-                  Number(jobId.id)
-                    ? <button onClick={handlePostulateDb} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
-                      <span className="relative px-5 py-4 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                        Aplicar
-                      </span>
-                    </button>
+                  Number(jobId?.id)
+                    ? <button onClick={handlePostulateDb} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800"  disabled={!dataUser?.premium} style={{opacity: dataUser?.premium ? 1 : 0.5, cursor: dataUser?.premium ? 'pointer' : 'not-allowed'}}>
+                    <span className="relative px-5 py-4 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                      Aplicar
+                    </span>
+                    <Snackbar
+                    open={Snackbar}
+                    autoHideDuration={7000}
+                    onClose={handleClose}
+                    message="Debes ser premium para aplicar a esta oferta"
+                    
+                  />
+                  </button>
                     : <a href={jobId.link} target="_blank" rel="noreferrer" >
                       <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800" onClick={SaveApplyToBdd}>
                         <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
@@ -300,9 +325,10 @@ useEffect(() => {
                   </Fab>
                   <Snackbar
                     open={openSnackbar}
-                    autoHideDuration={4000}
+                    autoHideDuration={7000}
                     onClose={handleCloseSnackbar}
                     message="Solo puedes guardar 5 ofertas de trabajo. para guardar mas ofertas y más beneficios asciende a premium"
+                    
                   />
                 </Box>
               </div>
