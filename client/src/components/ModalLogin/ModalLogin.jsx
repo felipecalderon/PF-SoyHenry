@@ -4,6 +4,7 @@ import { useNavigate } from "react-router"
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { saveUser } from '../../redux/slices/userRegisterSlice'
 import { Link } from "react-router-dom"
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import axios from 'axios'
 
 import validations from './validations'
@@ -122,7 +123,9 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
         <div className='z-50 fixed top-0 left-0 right-0 bottom-0 bg-black bg-opacity-80 flex justify-center items-center' onClick={closeModal}>
             <article className='w-1/2 mx-auto relative'>
                 <div className="rounded-3xl bg-primary-light dark:bg-primary-dark" onClick={handleModalContainerClick}>
-                    <div className="absolute top-0 right-0 m-4 px-2 rounded-full cursor-pointer text-xl dark:text-white hover:scale-150 transition-all" onClick={closeModal}> x </div>
+                    <div className="absolute top-0 right-0 m-4 px-2 rounded-full cursor-pointer text-xl dark:text-white hover:scale-150 transition-all" onClick={closeModal}>
+                        <HighlightOffIcon sx={{color:'red'}} />
+                    </div>
                     <h2 className="pt-10 text-center text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Ingresar a Fusionajob</h2>
                     {error && <h3 className="text-center text-white font-medium w-1/2 rounded-lg mx-auto bg-red-700">{error}</h3>}
                     <form onSubmit={handleSubmit} className="px-8 py-6">
@@ -139,7 +142,7 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
 
                         <div className='flex flex-col w-auto pb-3'>
                             <button type="submit" className='bg-primary-dark dark:bg-secondary-light hover:text-lg transition-all text-white dark:text-gray-800 font-medium py-2 px-4 rounded-md my-2 duration-200'>Ingresar</button>
-                            <button onClick={()=>{setOpenM(true)}} className='w-full border-2 border-gray-400 hover:border-gray-500 text-gray-400 hover:text-gray-500 font-medium py-2 px-4 rounded-md my-2 transition duration-200'>Crear cuenta</button>
+                            <button onClick={() => { setOpenM(true) }} className='w-full border-2 border-gray-400 hover:border-gray-500 text-gray-400 hover:text-gray-500 font-medium py-2 px-4 rounded-md my-2 transition duration-200'>Crear cuenta</button>
                         </div>
                         <div className='flex justify-center items-center text-sm'>
                             <button onClick={handleLoginGoogle} className='w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-md'>

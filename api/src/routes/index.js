@@ -117,16 +117,11 @@ route.post('/stripe', pagoStripe)
 route.get('/pago', recepcionPago)
 route.get('/verpagos', rutaVerPagos)
 
-route.get('/statisticspayments', statisticspayments)
-
 // Admin
 route.get('/all_data', getAllData)
+route.get('/statisticspayments', statisticspayments)
 
-
-
-
-
-
+// Review
 route.get('/review',allReview);
 route.post('/review',newReview );
 route.put('/review/:id',putReviews);
