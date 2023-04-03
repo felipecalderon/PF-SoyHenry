@@ -2,7 +2,7 @@ import { Box, Modal, Rating, Stack } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const FeedbackGeneralForm = ({open, handleClose}) => {
+const FeedbackGeneralForm = ({ open, handleClose, data }) => {
   const [form, setForm] = useState({
     names: '',
     lastnames: '',
@@ -13,11 +13,12 @@ const FeedbackGeneralForm = ({open, handleClose}) => {
     rol: 'Postulante',
     active: true
   });
+  if(!data) return null
   return (
     <div>
       <Modal
-        open={ open }
-        onClose={handleClose()}
+        open={open}
+        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -25,7 +26,7 @@ const FeedbackGeneralForm = ({open, handleClose}) => {
           <Stack spacing={1}>
             <Rating name="size-large" defaultValue={2} size="large" />
           </Stack>
-          <button onClick={handleClose()}>
+          <button onClick={handleClose}>
             close
           </button>
 
