@@ -1,4 +1,6 @@
-const { User, Admin, Postulant, Company,Review } = require("../models/relations.js");
+const {Review,Company } = require("../models/relations.js");
+//feedback para la pagina..
+
 
 
 //traer todos los reviews activos.
@@ -7,20 +9,21 @@ const getReview = async () => {
         where: {
             active: true
         },
+        include:{model:Company}
     });
     return review;
 };
 
 
-//fijarse si esta biem hecho el post que tengo dudas..
-const createReview= async ({username, email, rol,password,usuario,comentario,puntuacion,active }) => {
+
+
+//comentario para la pagina
+const createReview= async ({usuario,comentario,puntuacion,active,companyid }) => {
     try {
-
-    
-
+   ///revisar esta parte si esta bien y la relacion !!!!!!
     const newReview = await Review.create({
             usuario,comentario,puntuacion,active,
-           
+            companyId:companyid
         });
 
         return newReview;
