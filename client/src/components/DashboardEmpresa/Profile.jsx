@@ -56,6 +56,7 @@ import Select from '@mui/material/Select';
   });
 
   const [errors, setErrors] = useState({
+    companyname: '',
     email_company: '',
     description: '',
     phone_company: '',
@@ -104,18 +105,18 @@ const filteredCities = selectedCountry
     });
   };
 
+const errorsNew = validationsDatosEmpresa(info);
 
 const handleSubmit = async (event) => {
   try {
-    const errorsNew = validationsDatosEmpresa(info);
-    setErrors(errorsNew);
-    if (Object.keys(errorsNew).length === 0) {
+    // if (Object.keys(errorsNew).length === 0) {
+      // setErrors(errorsNew);
       await axios.put(`/company/${id}`, info);
       const verifyUsrExist = await axios.post(`/user/email`, { email: user.email })
       localStorage.setItem('userLogin', JSON.stringify(verifyUsrExist.data))
       setShowModal(false);
       setOpen(false);
-    }
+    // }
   } catch (error) {
     console.log(error);
   }
@@ -282,6 +283,7 @@ const handleSubmit = async (event) => {
         <DialogActions>
           <Button onClick={handleClose}>Cancelar</Button>
           <Button 
+          // onClick={() => errorsNew.length === 0 ? setShowModal(true) : setErrors(errorsNew)}>Aceptar</Button>
           onClick={() => setShowModal(true)}>Aceptar</Button>
         </DialogActions>
         <ModalConfirmChangesCompany isVisible={showModal} onClose={() => setShowModal(false)} >
@@ -298,7 +300,7 @@ const handleSubmit = async (event) => {
             <button className='h-10 w-24 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2' 
               type='submit' 
               onClick={handleSubmit}>Confirmar</button>
-          </div>            
+          </div>
         </ModalConfirmChangesCompany>
       </Dialog>
     </div>
