@@ -19,8 +19,7 @@ const pulse = keyframes`
 `;
 
 const PremiumButton = tw.button`
-bg-orange-600
-
+  bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600
   text-white
   font-bold
   py-2
@@ -49,7 +48,7 @@ const CloseButton = tw.button`
 export default function PremiumButtonComponent() {
   const [isPulsing, setIsPulsing] = useState(false);
   const dispatch = useDispatch();
-  const [isPremium, setIsPremium] = useState(localStorage.getItem("premium"));
+  const userData = JSON.parse(localStorage.getItem('userLogin'));
 
   const [open, setOpen] = useState(false);
   const [closed, setClosed] = useState(true);
@@ -64,48 +63,47 @@ export default function PremiumButtonComponent() {
     setClosed(true);
   };
   
-  return  (
-    <>
-    
-      <PremiumButton
-        css={isPulsing ? { animation: `${pulse} 1s ease-in-out infinite` } : {}}
-        className="border border-solid border-gold-500"
-        onClick={handleOpen}
-      >
-        Hazte usuario premium
-      </PremiumButton>
-      
-      <div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+  if (!userData?.premium) {
+    return (
+      <>
+        <PremiumButton
+          css={isPulsing ? { animation: `${pulse} 1s ease-in-out infinite` } : {}}
+          className="border border-solid border-gold-500"
+          onClick={handleOpen}
         >
-          <PremiumModal>
-            {!closed && (
-              <CloseButton onClick={handleClose}>
-                <CloseIcon />
-              </CloseButton>
-            )}
-            <PremiumModalTitle>
-              ¡Disfruta los grandes beneficios del plan Premium!
-            </PremiumModalTitle>
-            <ul className="text-lg md:text-xl text-center">
-              <li>
-                Usa filtros combinados para encontrar tu trabajo ideal
-              </li>
-              <li>
-                Guarda tantas ofertas como quieras y aplica en el momento que
-                quieras
-              </li>
-            <li>Puedes encontrar más ofertas laborales en este modal</li>
-          </ul>
-        </PremiumModal>
-      </Modal>
-</div> 
-
-</>
-  
-  );
+          Hazte premium
+        </PremiumButton>
+        <div>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <PremiumModal>
+              {!closed && (
+                <CloseButton onClick={handleClose}>
+                  <CloseIcon />
+                </CloseButton>
+              )}
+              <PremiumModalTitle>
+                ¡Disfruta los grandes beneficios del plan Premium!
+              </PremiumModalTitle>
+              <ul className="text-lg md:text-xl text-center">
+                <li>
+                  • Usa filtros combinados para encontrar tu trabajo ideal
+                </li>
+                <li>
+                  • Guarda tantas ofertas como quieras y aplica en el momento que
+                  quieras
+                </li>
+                <li>• Puedes encontrar más ofertas laborales que se adapten a tus necesidades y deseos</li>
+              </ul>
+            </PremiumModal>
+          </Modal>
+        </div> 
+      </>
+    );
+  }
+  return null;
 }

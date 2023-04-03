@@ -37,7 +37,7 @@ export const ResumenOfertas = () => {
 
 
     return (
-        <div className="w-full bg-secondary-light dark:bg-primary-dark p-5 pt-1 rounded-2xl border border-slate-900 dark:border-white dark:text-text-dark">
+        <div className="w-full bg-primary-light dark:bg-secondary-dark p-5 pt-1 rounded-2xl border border-slate-900 dark:border-white dark:text-text-dark">
             <h2 className="flex p-2 items-center justify-center text-lg font-bold">Resumen de ofertas</h2>
             {offers.length === 1
             ? <h3 className="flex p-2 items-center justify-center font-semibold">{offers.length} Oferta creada</h3>
