@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import logofusionajob from '../../assets/logofusionajob.png'
+import UserPremiumButton from "../BotonPremium/UserPremiumBoton";
 import ModoNoche from "./ModoNoche";
 import UserMenu from "./UserMenu";
 
@@ -32,6 +33,7 @@ export const NavLanding = ({menu}) => {
       {/* Botones */}
       <div className="flex-grow">
         <div className="ml-4 flex items-center justify-end md:ml-6 gap-3">
+          <UserPremiumButton/>
         <UserMenu user={user} userGoogle={userGoogle}/>
         <ModoNoche />
         </div>

@@ -7,7 +7,7 @@ function Curriculum() {
   const dataUserLocalStorage = JSON.parse(localStorage.getItem("userLogin"));
   const idPostulante=dataUserLocalStorage.Postulants[0].id
   const [file, setFile] = useState(null);
-  const pdf = dataUserLocalStorage.Postulants[0].curriculum_pdf || file;
+  const pdf = dataUserLocalStorage.Postulants[0].curriculum_pdf ;
   const [isPdf, SetIsPdf] = useState(false);
   const [error, setError] = useState({
     size: false,
@@ -62,7 +62,17 @@ const handleSubmit=(event)=>{
     alert("Algo salio mal  </3")
   })
 }
-
+const visualizar=()=>{
+  if (pdf) {
+    return pdf
+  }
+  if (!pdf && file) {
+    return file
+  }
+  if (!pdf && !file) {
+    return false;
+  }
+}
 
 
 
@@ -70,9 +80,9 @@ const handleSubmit=(event)=>{
     <div
       className=" flex justify-start flex-grow   flex-col"  style={{ textAlign: "center" }}>
       {pdf ? (
-        <div className="">
+        <div  className="mb-9">
           <object
-            data={pdf ? pdf : null }
+            data={visualizar() }
             type="application/pdf"
             style={{ width: "100%", height: "700px" }}
           >
@@ -80,7 +90,7 @@ const handleSubmit=(event)=>{
 
         </div>
       ) : (
-        <div className=" flex flex-col justify-around ">
+        <div className=" flex flex-col justify-around mb-9 ">
           <h2 className="text-3xl font-bold text-white  text-center">
             Aún no has cargado tu curriculum
           </h2>
