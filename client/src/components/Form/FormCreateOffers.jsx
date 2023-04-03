@@ -32,6 +32,7 @@ export default function OffersCreate() {
         applications_count: 0,
         experience: '',
         idRecruiterOfferCreate: user?.Companies instanceof Array ? user?.Companies[0].id : user?.Companies?.id,
+        by: user?.id // dato que se necesita en postuland
     })
 
     function validate(validar) {
@@ -115,7 +116,7 @@ export default function OffersCreate() {
             acumulador += errors[key]
         }
         for (const key in inputs) {
-            console.log(key)
+            // console.log(key)
             if (inputs[key].length === 0) acumulador2 = true
             if (key === 'min_salary' && inputs[key].length === 0) acumulador2 = false
             if (key === 'max_salary' && inputs[key].length === 0) acumulador2 = false
@@ -171,6 +172,7 @@ export default function OffersCreate() {
         dispatch(createOffer(inputs))
         alert('oferta creada')
         setShowModal(false)
+        console.log(user.id)
         setInputs({
             title: '',
             requeriments: '',
@@ -184,6 +186,7 @@ export default function OffersCreate() {
             applications_count: 0,
             experience: '',
             idRecruiterOfferCreate: user.Companies[0].id,
+            by: user?.id // necesario para mostrar info de la empresa en postuland
         })
     }
     // className={styles.contenedor} // style por css

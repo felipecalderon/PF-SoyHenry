@@ -2,16 +2,14 @@ import { Link } from "react-router-dom"
 
 
 const Card = ({ title, description, id, modality, salario_minimo, salario_maximo }) => {
-
   let salaryRange = null;
   if (salario_minimo === salario_maximo) {
     salaryRange = salario_minimo
   } else {
     salaryRange = `${salario_minimo} - ${salario_maximo}`
   }
-
   function recortarTexto(texto, longitudMaxima) {
-    if (texto.length > longitudMaxima) {
+    if (texto && texto.length > longitudMaxima) {
       return texto.substring(0, longitudMaxima) + "...";
     } else {
       return texto;
@@ -33,11 +31,13 @@ const Card = ({ title, description, id, modality, salario_minimo, salario_maximo
           <h3 className="text-gray-600 dark:text-gray-300">Modalidad: {
             modality?.split("_").join(' ')
           }</h3>
-          {salaryRange && (
-            <h4 className="text-gray-600 dark:text-gray-300">
-              Rango salarial: {salaryRange}
-            </h4>
-          )}
+          {
+            salaryRange !== 0 && salaryRange && (
+              <h4 className="text-gray-600 dark:text-gray-300">
+                Rango salarial: { salaryRange }
+              </h4>
+            )
+          }
         </Link>
       </div>
     </div>

@@ -41,11 +41,11 @@ const GraficoLineal = ({datos}) => {
         // Guardamos una referencia al objeto del gráfico para destruirlo la próxima vez
         chartInstanceRef.current = chartInstance;
       }
-    }, [chartRef]);
+    }, [chartRef, datos]) //eslint-disable-line
 
     if(!datos) return null
     return (
-      <div className="w-full h-64">
+      <div className="w-full h-64 mt-4 bg-gray-100 rounded">
         <canvas ref={chartRef} />
       </div>
     );

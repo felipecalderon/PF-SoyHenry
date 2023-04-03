@@ -1,7 +1,10 @@
 const { 
     createUsersController,
     getUsersControllers,
-    deleteUsersControllers } = require('../controllers/userControllers')
+    putUsersControllers,
+    getUsersByIdControllers,
+    deleteUsersControllers 
+} = require('../controllers/userControllers')
 
     const {
         getUsersByIdCforanea,
@@ -20,6 +23,16 @@ const allUsers = async (req, res) => {
 const getUsersRouteClaveForanea = async (req, res) => {
     try {
         const data = await getUsersByIdCforanea(req.body)
+        res.status(200).json(data)
+    } catch (error) {
+        console.log(error)
+        res.status(404).json(error)
+    }
+}
+
+const getUsersById = async (req, res) => {
+    try {
+        const data = await getUsersByIdControllers(req.params)
         res.status(200).json(data)
     } catch (error) {
         console.log(error)
@@ -46,12 +59,22 @@ const createUser = async (req, res) => {
         res.status(404).json(error)
     }
 }
+
+const putUsersById = async (req, res) => {
+    try {
+        const data = await  putUsersControllers (req.params, req.body)
+       return  res.status(200).json(data)
+    } catch (error) {
+        res.status(404).json(error)
+    }
+}
+
 const deleteUsers = async (req, res) => {
     try {
         const data = await deleteUsersControllers(req.params)
         res.status(200).json(data)
     } catch (error) {
-        res.status(404).json(error)
+        res.status(404).json({ error: error.message})
     }
 }
 
@@ -59,6 +82,8 @@ module.exports = {
     allUsers, 
     createUser, 
     deleteUsers,
+    putUsersById,
     getUsersRouteClaveForanea,
-    getUsersRouteByEmail
+    getUsersRouteByEmail,
+    getUsersById
 }
