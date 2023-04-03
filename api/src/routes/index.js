@@ -53,6 +53,9 @@ const { planRoute,
     rutaVerPagos,
     statisticspayments
 } = require('./suscriptionRoute');
+const {  handlerSaveApplyApiOffer,
+    handlerGetApplyApiOffer}=require("../handlers/handlerApplyApiOffer")
+
 const { getAllData } = require('./adminRoute');
 
 const{newReview,allReview,putReviews,deleteReviews}=require('./reviewRoute');
@@ -130,6 +133,20 @@ route.put('/review/:id',putReviews);
 route.delete('/review/:id',deleteReviews);
 
 module.exports = route;
+
+
+
+
+//Rutas que guardaran y mostraran ofertas a la que se aplicaron de la api
+
+
+//ruta que guardara las postulaciones de la api 
+route.post("/applyapioffer",handlerSaveApplyApiOffer)
+
+//ruta que traera oferta guardada de la api
+route.get("/applyapioffer/:userId",handlerGetApplyApiOffer)
+
+
 
 // Gets
 // route.get('user/:id', getUsersByIdControllers );
