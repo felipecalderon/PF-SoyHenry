@@ -74,16 +74,20 @@ const handleSubmit = async (event) => {
   if(!recruiter) return "No hay info";
   return (
     <>
-      <Box className="flex flex-row">
+      <Box className="flex flex-row py-6 px-3">
+        <div className='flex flex-col w-2/5 px-6 items-center gap-6'>
         <CardMedia
-          className='ml-[3rem] mt-[2rem] h-44 rounded-full'
+          className='w-30 h-30 mx-auto object-cover rounded-full'
           component="img"
-          sx={{ width: 200, objectFit: 'contain' }}
           image={photo}
           alt="ProfilePhoto"
         />
-        <CardContent className="flex flex-col justify-center">
-          <Typography component="div" variant="h4" className='text-gray-900 dark:text-white w-96'>
+        <Button variant="outlined" onClick={handleClickOpen} startIcon={<Badge />}>
+          Modificar datos personales
+        </Button>
+        </div>
+        <CardContent className="flex flex-col w-3/5 justify-center text-left">
+          <Typography component="div" variant="h4" className='text-gray-900 dark:text-white'>
             {names} {lastnames} 
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
@@ -96,11 +100,6 @@ const handleSubmit = async (event) => {
             <p><strong>Teléfono: </strong></p><p target="_blank" rel="noopener noreferrer">{phone}</p>
           </Typography>
         </CardContent>
-      </Box>
-      <Box className="flex flex-row gap-3 w-[29.5rem] pt-[1rem] justify-center">   
-        <Button variant="outlined" onClick={handleClickOpen} startIcon={<Badge />}>
-          Modificar datos personales
-        </Button>
       </Box>
         <Dialog
           open={open}
