@@ -6,8 +6,9 @@ import FormularioAdmin from "./FormularioAdmin";
 import AllOffersDb from "./AllOffersDb";
 
 const Derecha = ({ datos, addpostulant, addRecluter, addAdmin, addOffers }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); // eslint-disable-line 
   const handleOpen = () => setOpen(true);
+  
   return (
     <>
       <section className="bg-secondary-light dark:bg-primary-dark m-5 py-3 px-2 border rounded-xl w-full flex flex-col">
