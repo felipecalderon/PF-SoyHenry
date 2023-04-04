@@ -9,7 +9,8 @@ const {
     getUsersById,
     putUsersById,
     getUsersRouteClaveForanea,
-    getUsersRouteByEmail
+    getUsersRouteByEmail,
+    pqrs
 } = require('./userRoute')
 const {
     allOffers,
@@ -72,8 +73,12 @@ route.get('/user/:id', getUsersById);
 route.put('/user/:id', putUsersById);
 route.post('/user/email', getUsersRouteByEmail);
 route.post('/userPk', getUsersRouteClaveForanea);
-// Physical delete
+
+// User physical delete
 route.delete('/user/:id', deleteUsers);
+
+// PQRS
+route.post('/pqrs', pqrs)
 
 // Offers
 route.post('/jobs', createOffer);
