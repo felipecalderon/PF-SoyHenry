@@ -14,14 +14,7 @@ const Dropdown = ({rol}) => {
     ]
     
     const menuPostulante = [
-        {
-            link: "#",
-            name: "Mis postulaciones"
-        },
-        {
-            link: "#",
-            name: "Empleos Guardados",
-        },
+        
         {
             link: "/profile",
             name: "Perfíl de postulante",
