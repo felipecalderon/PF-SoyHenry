@@ -44,7 +44,7 @@ const Testimonials = () => {
             </p>
         </figcaption>
       </div>
-    })
+    }).slice(0,6)
     if(testimonios.length === 0) return null
     return (
     <section className="py-10 w-full flex flex-col flex-wrap bg-secondary-light dark:bg-primary-dark">
