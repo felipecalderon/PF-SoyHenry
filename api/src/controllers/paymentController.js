@@ -24,7 +24,8 @@ const controlarPagoStripe = async ({ estado, email }) => {
     const usuario = await User.findOne({
       where: { email }
     })
-    if (!usuario) throw 'No se puede contratar el plan sin tener una cuenta creada 👀👀'
+    console.log(usuario)
+    await User.update({premium: true},{where: { id: usuario.dataValues.id }})
     await usuario.createPayment({
       inicio_plan: new Date(),
       fin_plan: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 días después de hoy

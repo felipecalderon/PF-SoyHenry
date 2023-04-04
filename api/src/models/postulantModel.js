@@ -10,6 +10,7 @@ const Postulant = sequelize.define('Postulant', {
     },
     document: {
         type: DataTypes.STRING,
+        unique: true,
     },
     description_postulant:{
         type: DataTypes.TEXT,
