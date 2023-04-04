@@ -1,22 +1,19 @@
 import React, { useState } from "react"
-import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router"
 import validations from "../ModalLogin/validations";
 import axios from 'axios'
 
 const LoginAdmin = () => {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [form, setForm] = useState({
     email: '',
     password: ''
   })
-
   const [errors, setErrors] = useState({
     email: '',
     password: ''
   })
-
+  const [error, setError] = useState(null)
   const handleForm = (event) => {
     setForm({
       ...form,
@@ -27,7 +24,6 @@ const LoginAdmin = () => {
       [event.target.name]: (event.target.value)
     }))
   }
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = form
@@ -37,9 +33,15 @@ const LoginAdmin = () => {
         password
       })
       const { data } = response
-      console.log(data)
+      await axios.post('/userPk', { id: data.id })
+      .then(res=>{
+        localStorage.setItem('userLogin', JSON.stringify(res.data))
+      })
+      if (data.user === 'Admin') return navigate('/dashboardadmin')
+      navigate('/')
     } catch (error) {
-
+      console.log(error)
+        setError(error.response.data.message)
     }
   }
   return (
@@ -47,7 +49,7 @@ const LoginAdmin = () => {
       <article className='w-1/2 mx-auto relative'>
         <div className="rounded-3xl bg-primary-light dark:bg-primary-dark">
           <h2 className="pt-10 text-center text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Ingreso SuperAdmin</h2>
-
+          {error && <h3 className="text-center text-white font-medium w-1/2 rounded-lg mx-auto bg-red-700">{error}</h3>}
           <form onSubmit={handleSubmit} className="px-8 py-6">
             <div className='mb-4'>
               <label htmlFor="email" className='block text-gray-700 dark:text-white font-medium mb-2'>Email:</label>
