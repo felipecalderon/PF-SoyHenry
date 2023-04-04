@@ -58,7 +58,7 @@ const {  handlerSaveApplyApiOffer,
 
 const { getAllData } = require('./adminRoute');
 
-const{newReview,allReview,putReviews,deleteReviews}=require('./reviewRoute');
+const{newReview,allReview,putReviews,deleteReviews, allReviewById}=require('./reviewRoute');
 
 const route = Router();
 
@@ -122,8 +122,9 @@ route.get('/all_data', getAllData)
 route.get('/statisticspayments', statisticspayments)
 
 // Review
-route.get('/review',allReview);
 route.post('/review',newReview );
+route.get('/review',allReview);
+route.get('/review/:id',allReviewById);
 route.put('/review/:id',putReviews);
 route.delete('/review/:id',deleteReviews);
 
