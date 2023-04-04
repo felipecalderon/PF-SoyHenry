@@ -11,7 +11,7 @@ const FeedbackGeneralForm = ({ open, handleClose, data }) => {
   const userData = JSON.parse(localStorage.getItem('usergoogle'))
   const [form, setForm] = useState({
     idUser: data.id ,
-    username: data.names,
+    usuario: data.names,
     photo: data?.photo || userData?.photo,
     puntuacion: 3,
     comentario: '',

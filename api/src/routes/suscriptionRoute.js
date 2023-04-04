@@ -59,8 +59,8 @@ const pagoStripe = async (req, res) => {
 
 const recepcionPago = async (req, res) => {
   try {
-    const estadoDelPago = await controlarPagoStripe(req.query)
-    res.json(estadoDelPago)
+    await controlarPagoStripe(req.query)
+    res.redirect(302, 'http://localhost:3002/offers');
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
