@@ -51,10 +51,10 @@ function FotodePerfil({photo}) {
     <div className="w-full flex flex-col items-center" >
       <img src={imageToRender || photo || usuario} alt="" width="150px" className="border rounded-full m-4" />
       <input type="file" className="  text-white font-bold py-2 px-4 rounded" onChange={handleImageInputChange} />
-      
+
       <button
         onClick={handleSubmit}
-        className="w-1/2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 mt-2 rounded disabled:cursor-not-allowed"
+        className="w-1/2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 mt-2 rounded disabled:cursor-not-allowed disabled:opacity-50 "
         disabled={notValidImage}
       >
         Subir imagen
