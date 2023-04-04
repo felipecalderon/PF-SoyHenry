@@ -1,7 +1,8 @@
 //ACA IMPORTAN Y SE DEFINEN LAS RUTAS
 const { Router } = require('express')
 const { postImagepostulante,
-    postCvpostulante } = require("./uploadImagesRoute")
+        postImageRecruiter,
+        postCvpostulante } = require("./uploadImagesRoute")
 const upload = require("../handlers/Utils/multer")
 const {
     allUsers,
@@ -9,7 +10,8 @@ const {
     getUsersById,
     putUsersById,
     getUsersRouteClaveForanea,
-    getUsersRouteByEmail
+    getUsersRouteByEmail,
+    pqrs
 } = require('./userRoute')
 const {
     allOffers,
@@ -58,7 +60,7 @@ const {  handlerSaveApplyApiOffer,
 
 const { getAllData } = require('./adminRoute');
 
-const{newReview,allReview,putReviews,deleteReviews}=require('./reviewRoute');
+const{newReview,allReview,putReviews,deleteReviews, allReviewById}=require('./reviewRoute');
 
 const route = Router();
 
@@ -72,8 +74,12 @@ route.get('/user/:id', getUsersById);
 route.put('/user/:id', putUsersById);
 route.post('/user/email', getUsersRouteByEmail);
 route.post('/userPk', getUsersRouteClaveForanea);
-// Physical delete
+
+// User physical delete
 route.delete('/user/:id', deleteUsers);
+
+// PQRS
+route.post('/pqrs', pqrs)
 
 // Offers
 route.post('/jobs', createOffer);
@@ -106,6 +112,7 @@ route.get('/technologies', getTechnologies)
 
 //Subir y Actualizar imagenes usuario
 route.post("/upload-photo-user/:idUser", upload.single("imagenes"), postImagepostulante)
+route.post("/upload-logo-company/:idUser", upload.single("imagenes"), postImageRecruiter)
 
 //Subir y Actualizar pdf
 route.post("/upload-cv-user/:idPostulante", upload.single("pdf"), postCvpostulante)
@@ -117,18 +124,14 @@ route.post('/stripe', pagoStripe)
 route.get('/pago', recepcionPago)
 route.get('/verpagos', rutaVerPagos)
 
-route.get('/statisticspayments', statisticspayments)
-
 // Admin
 route.get('/all_data', getAllData)
+route.get('/statisticspayments', statisticspayments)
 
-
-
-
-
-
-route.get('/review',allReview);
+// Review
 route.post('/review',newReview );
+route.get('/review',allReview);
+route.get('/review/:id',allReviewById);
 route.put('/review/:id',putReviews);
 route.delete('/review/:id',deleteReviews);
 

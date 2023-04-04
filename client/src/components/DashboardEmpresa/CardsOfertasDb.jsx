@@ -1,6 +1,7 @@
 import { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
@@ -61,7 +62,7 @@ export const CardsOfertasDb = () => {
   const [offerIdclose_delete, setOfferIdclose_delete] = useState(null)
   const [aplicantsModalList, setAplicantsModalList ] = useState(null)
   const [perfil, setPerfil] = useState(null)
-  const  {offers} = useSelector((state) => state.recruiterSlice) 
+  const {offers} = useSelector((state) => state.recruiterSlice) 
   
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('userLogin'))
@@ -76,21 +77,22 @@ export const CardsOfertasDb = () => {
   };
 
   const handleAplicants = (offer) => {
-    const aplicants = offer.Aplications.map(Apply => {          
+    const aplicants = offer.Aplications.map(Apply => {
       return(
         {
           userId: Apply.userId,
           offerId: Apply.offerId,           
           name: Apply.User.names,
+          lastnames: Apply.User.lastnames,
           technologies: Apply.User.Postulants[0].tecnology,
           experience: Apply.User.Postulants[0].experience,
+          cv: Apply.User.Postulants[0].curriculum_pdf,
           email: Apply.User.email,
           status: Apply.status
         }
-      )
-    })    
-    setAplicantsModalList([aplicants,{title: offer.title}])   
-
+        )
+      })    
+      setAplicantsModalList([aplicants,{title: offer.title}])   
     
   }
   
@@ -121,14 +123,14 @@ export const CardsOfertasDb = () => {
     setActualizar(!actualizar)
   }
 
-  const handleCloseOffer = (id) => {
-    
+  const handleCloseOffer = (id, active) => {
+    if(active === false) return
     axios.put(`jobsld/${id}`,{active: false}).then((res) => console.log(res))    
     setActualizar(!actualizar)
 
   }
 
-  const handleDate = (date, active, udpate) => {
+  const handleDate = (date, active, udpate, expiration) => {
     let fecha
     if(active) {
       fecha = date.slice(0,10)
@@ -137,7 +139,7 @@ export const CardsOfertasDb = () => {
       let year = fecha.slice(6,11)
       fecha = ( year + '-' +month+ '-'+ day)
       fecha = new Date(fecha)
-      fecha.setDate(fecha.getDate()+15)
+      fecha.setDate(fecha.getDate() + expiration + 1)
 
       return fecha.toLocaleDateString('es-ES')
 
@@ -165,7 +167,7 @@ export const CardsOfertasDb = () => {
     if (offer.active === false) return 'closed'
     let today = new Date().getTime()
     let vencimiento = new Date( offer.createdAt)
-    vencimiento.setDate(vencimiento.getDate()+15)
+    vencimiento.setDate(vencimiento.getDate() + offer.expiration + 1)
     vencimiento = vencimiento.getTime()
     let diff = vencimiento - today
 
@@ -175,12 +177,11 @@ export const CardsOfertasDb = () => {
   offers?.map((offer) => {
     let today = new Date()
     let vencimiento = new Date( offer.createdAt)
-    vencimiento.setDate(vencimiento.getDate()+15)
+    vencimiento.setDate(vencimiento.getDate() + offer.expiration + 1 )
     
     if(today.toLocaleDateString('es-ES') === vencimiento.toLocaleDateString('es-ES')) {
-    handleCloseOffer(offer.id)
-    setActualizar(!actualizar)
-    }     
+    handleCloseOffer(offer.id, offer.active)
+    }
     
   })
 
@@ -233,7 +234,7 @@ export const CardsOfertasDb = () => {
                <p className='mb-2 text-left'><strong>Experiencia: </strong>{offer.experience} Año/s</p>
                <p className='mb-2 text-left'><strong>Salario: </strong>{offer.min_salary === 0 && offer.max_salary === 0 ? 'Sin informar'  : '$ ' + offer.min_salary - '$ ' + offer.max_salary }</p>
                <p className='mb-2 text-left'><strong>Fecha de creación: </strong>{offer.date_post.slice(0,10)}</p>
-               <p className='mb-2 text-left'><strong>Fecha de finalización: </strong>{ handleDate(offer.date_post, offer.active, offer.updatedAt)}</p>
+               <p className='mb-2 text-left'><strong>Fecha de finalización: </strong>{ handleDate(offer.date_post, offer.active, offer.updatedAt, offer.expiration)}</p>
                <p className='mb-2 text-left'><strong>Postulantes: </strong>{offer.applications_count}</p>
                {(offer.applications_count !== 0) && <Link><button
                 className='py-2 px-2 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2'
@@ -260,18 +261,28 @@ export const CardsOfertasDb = () => {
                 </Link>
                </div>
                 {!offer.active && <div >
-                  <h1>Resumen de oferta</h1>
-                  <h2>Datos de postulantes seleccionados</h2>
+                  <h1 className='mt-3 font-bold border-t-2 border-black text-lg'>Resumen de oferta</h1>
+                  <h2 className='font-semibold mb-1'>Datos de postulantes seleccionados</h2>
                   {offer.Aplications.map( apply => {
                     if (apply.status === 'select') {
                       return (
-                        <div>
-                          <span>{apply.User.names}</span>
-                          <span>{apply.User.lastnames}</span>
-                          <span>{apply.User.email}</span>                          
-                          <span>{apply.User.Postulants[0].linkedin}</span>
-                         <button onClick={(event)=>handleViewCV(event)}  email={apply.User.email}>Perfil</button>
-                        </div>     
+                        <div className='flex justify-center'>
+                        <table>
+                          <thead>
+                            <th className='border-2 border-black px-2'>Nombre</th>
+                            <th className='border-2 border-black px-2'>Email</th>
+                            <th className='border-2 border-black px-2'>LinkedIn</th>
+                            <th className='border-2 border-black px-2'>Perfil</th>
+                            <tr></tr>
+                          </thead>
+                            <tbody>
+                              <td className='border-2 border-black px-2'>{apply.User.names} {apply.User.lastnames}</td>
+                              <td className='border-2 border-black px-2'><a href={`mailto:${apply.User.email}`}><p className='text-blue-600'>{apply.User.email && apply.User.email.slice(0, 13)}{apply.User.email && apply.User.email.length > 13 ? '...' : ''}</p></a></td>                          
+                              <td className='border-2 border-black px-2'><a target="_blank" rel="noopener noreferrer" href={apply.User.Postulants[0].linkedin}><p className='text-blue-600'><LinkedInIcon sx={{ fontSize: 30 }} /></p></a></td>
+                              <td className='border-2 border-black px-2'><button onClick={(event)=>handleViewCV(event)} email={apply.User.email}>Ver perfil</button></td>
+                            </tbody>
+                        </table>
+                        </div>
                       )
                     }
                   } )}
@@ -308,8 +319,8 @@ export const CardsOfertasDb = () => {
               {aplicantsModalList[0]?.map((aplicant, index) => {
                 return(
                   <tr>                                 
-                    <td className='border-2 border-black px-2'>{aplicant.name}</td>  
-                    <td className='border-2 border-black px-2'>{aplicant.technologies.join(', ')}</td>  
+                    <td className='border-2 border-black px-2'>{aplicant.name} {aplicant.lastnames}</td>  
+                    <td className='border-2 border-black px-2'>{aplicant.technologies && aplicant.technologies.join(', ')}</td>  
                     <td className='border-2 border-black px-2'>{aplicant.experience} Año/s</td>
                     <td className='border-2 border-black px-2 py-2'><button onClick={(event)=>handleViewCV(event)} offerid={aplicant.offerId} userid={aplicant.userId} status={aplicant.status} email={aplicant.email}>Ver perfil</button></td>
                     <td className='border-2 border-black px-2 py-2'><input type='checkbox' value={'viewed'} disabled='disabled' defaultChecked={aplicant.status !== 'send' ? true : false} /> Perfil o CV visto </td>
@@ -366,30 +377,37 @@ export const CardsOfertasDb = () => {
     
     <ModalConfirmChanges isVisible={showModal3} onClose={() => setShowModal3(false)}>
       {perfil && 
-      <div className="flex absolute w-96 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary-light dark:bg-primary-dark border-2 shadow-24 p-4 h-auto rounded-2xl flex-col justify-center items-center">
-        <h1 className="text-3xl md:text-4xl font-bold mb-2 text-center dark:text-white">Perfil de postulante</h1>
-        <h2 className="text-2xl font-semibold mt-3 text-center dark:text-white">Datos personales</h2>
-        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Nombre: </strong>{perfil.names}</p>
-        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Apellido: </strong>{perfil.lastnames}</p>
-        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Edad: </strong>{perfil.Postulants[0].age}</p>
-        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Género: </strong>{perfil.Postulants[0].gender}</p>
-        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>País: </strong>{perfil.country}</p>
-        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Ciudad: </strong>{perfil.city}</p>
-        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Teléfono: </strong>{perfil.phone}</p>
-        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Email: </strong>{perfil.email}</p>
-        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>LinkedIn: </strong>{perfil.Postulants[0].linkedin}</p>
-
-        <h2 className="text-2xl mt-3 font-semibold text-center dark:text-white">Informacion profesional </h2>
-        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Como se describe: </strong>{perfil.Postulants[0].description_postulant}</p>
-        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Se autotitula como: </strong>{perfil.Postulants[0].title}</p>
-        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Lenguaje: </strong>{perfil.Postulants[0].languages}</p>
-        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Tecnologías: </strong>{perfil.Postulants[0].technologies}</p>
-        <p className="mb-3 mt-3 text-md font-semibold text-center dark:text-white"><strong>Experiencia: </strong>{perfil.Postulants[0].experience} Año/s</p>
+      <div className="flex relative w-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary-light dark:bg-primary-dark border-2 shadow-24 p-4 h-auto rounded-2xl flex-col justify-center items-center">
+        <h1 className="text-3xl md:text-4xl font-bold mb-1 text-center dark:text-white">Perfil de postulante</h1>
+        <div className='flex flex-row mt-5'>
+          <div className='flex flex-col w-1/2 h-1/2'>
+            <h2 className="text-2xl font-semibold mt-2 text-center dark:text-white">Datos personales</h2>
+            <p className="mb-2 mt-2 text-md font-semibold text-center dark:text-white"><strong>Nombre: </strong>{perfil.names}</p>
+            <p className="mb-2 mt-2 text-md font-semibold text-center dark:text-white"><strong>Apellido: </strong>{perfil.lastnames}</p>
+            <p className="mb-2 mt-2 text-md font-semibold text-center dark:text-white"><strong>Edad: </strong>{perfil.Postulants[0].age}</p>
+            <p className="mb-2 mt-2 text-md font-semibold text-center dark:text-white"><strong>Género: </strong>{perfil.Postulants[0].gender}</p>
+            <p className="mb-2 mt-2 text-md font-semibold text-center dark:text-white"><strong>País: </strong>{perfil.country}</p>
+            <p className="mb-2 mt-2 text-md font-semibold text-center dark:text-white"><strong>Ciudad: </strong>{perfil.city}</p>
+            <p className="mb-2 mt-2 text-md font-semibold text-center dark:text-white"><strong>Teléfono: </strong>{perfil.phone}</p>
+            <p className="mb-2 mt-2 text-md font-semibold text-center dark:text-white"><strong>Email: </strong><a href={`mailto:${perfil.email}`}><p className='text-blue-600'>{perfil.email}</p></a></p>
+            <p className="mb-2 mt-2 text-md font-semibold text-center dark:text-white"><strong>LinkedIn: </strong><a target="_blank" rel="noopener noreferrer" href={perfil.Postulants[0].linkedin}><p className='text-blue-600'>{perfil.Postulants[0].linkedin}</p></a></p>
+          </div>
+          <div className='flex flex-col w-1/2 h-1/2'>
+            <h2 className="text-2xl mt-2 font-semibold text-center dark:text-white">Información profesional</h2>
+            <p className="mb-2 mt-2 text-md font-semibold text-center dark:text-white"><strong>Como se describe: </strong>{perfil.Postulants[0].description_postulant}</p>
+            <p className="mb-2 mt-2 text-md font-semibold text-center dark:text-white"><strong>Se autotitula como: </strong>{perfil.Postulants[0].title}</p>
+            <p className="mb-2 mt-2 text-md font-semibold text-center dark:text-white"><strong>Lenguaje: </strong>{perfil.Postulants[0].languages}</p>
+            <p className="mb-2 mt-2 text-md font-semibold text-center dark:text-white"><strong>Tecnologías: </strong>{perfil.Postulants[0].technologies}</p>
+            <p className="mb-2 mt-2 text-md font-semibold text-center dark:text-white"><strong>Experiencia: </strong>{perfil.Postulants[0].experience} Año/s</p>
+            {perfil.Postulants[0].curriculum_pdf
+            ? <button className='m-2 h-auto w-auto bg-primary-dark hover:bg-purple-900 dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline'><a target="_blank" rel="noopener noreferrer" href={perfil.Postulants[0].curriculum_pdf}>Ver CV</a></button>
+            : 'El usuario no cargo el CV'}
+          </div>
+        </div>
       </div>
       }
       <button onClick={() => setShowModal3(false)}>Volver</button>
     </ModalConfirmChanges>
-      
     </Fragment>
   );
 };

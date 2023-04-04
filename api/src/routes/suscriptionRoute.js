@@ -1,5 +1,6 @@
 const { crearPlan, crearSuscripcion, controlarPagoStripe, controlarListaPagos, statisticspaymentsController } = require('../controllers/paymentController')
-const stripe = require('../configs/stripe/stripeConfig')
+const stripe = require('../configs/stripe/stripeConfig');
+const { getUsersByEmail } = require('../handlers/handlerUserModels');
 const planRoute = async (req, res) => {
   try {
     const suscripcion = await crearPlan(req.body)
@@ -35,6 +36,9 @@ const pagoStripe = async (req, res) => {
     const { customerEmail } = req.body;
     const product = await stripe.products.retrieve('prod_NcONWlS4sUtxG6');
     console.log(product);
+    console.log(customerEmail)
+    const usuario = await getUsersByEmail( customerEmail )
+    if (!usuario) throw Error( 'No se puede contratar el plan sin tener una cuenta creada 👀👀')
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [{
@@ -55,8 +59,8 @@ const pagoStripe = async (req, res) => {
 
 const recepcionPago = async (req, res) => {
   try {
-    const estadoDelPago = await controlarPagoStripe(req.query)
-    res.json(estadoDelPago)
+    await controlarPagoStripe(req.query)
+    res.redirect(302, 'http://localhost:3002/offers');
   } catch (error) {
     console.log(error);
     res.status(500).send(error);

@@ -67,6 +67,9 @@ const Offers = sequelize.define('Offers', {
             return DateTime.fromJSDate(value).toFormat('dd/MM/yyyy HH:mm:ss'); // usa la fecha actual y la guarda al hacer el post ( de esta forma se actualiza )
         },
     },
+    expiration: {
+        type: DataTypes.INTEGER,
+    },
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: true

@@ -8,7 +8,8 @@ const {
     getUsersInactById,
     putState,
     putUsers,
-    getUsersByEmail
+    getUsersByEmail,
+    pqrsUser
 } = require('../handlers/handlerUserModels') 
 
 const createUsersController = async (body) => {
@@ -86,6 +87,15 @@ const deleteUsersControllers = async ( { id } ) => {
     }
 };
 
+// PQRS
+const pqrsControllers = async ( body ) => {
+    try {
+        const response = await pqrsUser( body );
+        return response
+    } catch (error) {
+        throw error
+    }
+};
 module.exports = {
     createUsersController,
     getUsersControllers,
@@ -94,5 +104,6 @@ module.exports = {
     getUsersInactByIdControllers,
     putUsersControllers,
     putStateControllers,
-    deleteUsersControllers
+    deleteUsersControllers,
+    pqrsControllers
 }

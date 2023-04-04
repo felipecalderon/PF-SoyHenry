@@ -1,9 +1,18 @@
-const{getReview,createReview,putReviews,deleteReview}=require('../handlers/handlerReview')
+const{getReview,createReview,putReviews,deleteReview, getReviewById}=require('../handlers/handlerReview')
 
 
-const getReviewControllers = async ( ) => {
+const getReviewControllers = async () => {
     try {
         const response =  await getReview();
+        return response
+    } catch (error) {
+        console.log(error)
+        throw { error: error.message }
+    }
+};
+const getReviewByIdControllers = async ({id}) => {
+    try {
+        const response = await getReviewById(id) 
         return response
     } catch (error) {
         console.log(error)
@@ -20,7 +29,6 @@ const createNewReviewControllers = async (body) => {
 }
 
 const putReviewsControllers = async ( id , body ) => {
-    
     try {
         const response = await putReviews( id , body);
         return response;
@@ -40,4 +48,4 @@ const deleteReviewControllers = async ( { id } ) => {
 
 
 
-module.exports={createNewReviewControllers,getReviewControllers,putReviewsControllers,deleteReviewControllers}
+module.exports={createNewReviewControllers,getReviewControllers,putReviewsControllers,deleteReviewControllers, getReviewByIdControllers}
