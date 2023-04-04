@@ -5,15 +5,29 @@ const { Review, Company } = require("../models/relations.js");
 
 //traer todos los reviews activos.
 const getReview = async () => {
-    const review = await Review.findAll({
-        where: {
-            active: true
-        },
-        include: { model: Company }
-    });
-    return review;
+    try {
+        const review = await Review.findAll({
+            where: {
+                active: true
+            },
+            include: { model: Company }
+        });
+        return review;
+    } catch (error) {
+        throw error
+    }
 };
-
+const getReviewById = async (id) =>{
+    try {
+        const reviewById = await Review.findOne({
+            where: { idUser: id } 
+        })
+        if(!reviewById) throw Error('El Usuario no existe en la bd')
+        return reviewById
+    } catch (error) {
+        throw error
+    }
+}
 
 
 
@@ -21,7 +35,7 @@ const getReview = async () => {
 const createReview = async ({ usuario, comentario, puntuacion, active, companyid, photo, idUser }) => {
     const user = await Review.findByPk(idUser)
     console.log(user)
-    if(user) throw Error('El Usuario ya comento en la oferta')
+    if (user) throw Error('El Usuario ya comento en la oferta')
     try {
         ///revisar esta parte si esta bien y la relacion !!!!!!
         const newReview = await Review.create({
@@ -41,8 +55,7 @@ const putReviews = async ({ id }, { usuario, comentario, puntuacion, active }) =
 
     try {
         const review = await Review.findByPk(id);
-        if (!review) throw Error(`la review con id: ${id} no existe`);
-
+        if (review) throw Error(`la review con id: ${id} no existe`);
 
         await Review.update(
             { usuario, comentario, puntuacion, active },
@@ -80,4 +93,4 @@ const deleteReview = async ({ id }, { active }) => {
 };
 
 
-module.exports = { getReview, createReview, putReviews, deleteReview }
+module.exports = { getReview, createReview, putReviews, deleteReview, getReviewById }
