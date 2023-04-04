@@ -31,11 +31,6 @@ const validationsRegisterCompany = (validar) => {
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(validar.email)) return { ...errors, email: 'El email es inválido.' }
         if (validar.email.length) return { ...errors, email: '' };
     }
-    if (validar.hasOwnProperty('logo')) {
-        if (validar.logo === '') return { ...errors, logo: 'El logo tiene que ser una direccion URL.' };
-        if (!/\b((?:https?|ftp):\/\/(?:[\w-]+\.)+[a-z]{2,}(?:\/[\w~#-]*)*(?:\?\S+)?)\b/.test(validar.logo)) return { ...errors, logo: 'La URL es inválida..' }
-        if (validar.logo.length) return { ...errors, logo: '' };
-    }
     if (validar.hasOwnProperty('website')) {
         if (validar.website === '') return { ...errors, website: 'El website tiene que ser una direccion URL.' };
         if (!/\b((?:https?|ftp):\/\/(?:[\w-]+\.)+[a-z]{2,}(?:\/[\w~#-]*)*(?:\?\S+)?)\b/.test(validar.website)) return { ...errors, website: 'La URL es inválida..' }

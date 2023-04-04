@@ -127,7 +127,6 @@ function Configuracion({inConfig,SetInConfig}) {
       tecnology: [...form.tecnology].filter((el) => el !== event.target.value),
     });
   };
-  console.log(form.tecnology)
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);

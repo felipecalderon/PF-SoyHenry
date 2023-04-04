@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 
 const Dropdown = ({rol}) => {
+    const menuAdmin = [
+        {
+            link: "/dashboardadmin",
+            name: "Dasboard",
+        },
+    ]
+
     const menuEmpresa = [
         {
             link: "/offersCreate",
@@ -31,11 +38,11 @@ const Dropdown = ({rol}) => {
     const [menuRol, setMenuRol] = useState([])
 
     useEffect(() => {
+        if(rol === 'Admin') setMenuRol(menuAdmin)
         if(rol === 'Postulante') setMenuRol(menuPostulante)
         if(rol === 'Empresa') setMenuRol(menuEmpresa)
     }, [rol]) //eslint-disable-line
 
-    console.log(menuRol);
     return (
         <>
         {menuRol.map(menu => {

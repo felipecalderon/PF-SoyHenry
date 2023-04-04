@@ -1,5 +1,5 @@
 
-const { User, Postulant } = require("../models/relations");
+const { User, Postulant, Company } = require("../models/relations");
 /**
  * { 
   public_id: 'cr4mxeqx5zb8rlakpfkg',
@@ -26,7 +26,11 @@ const SendPhotoToUser = async (idUser, cloudinary_image) => {
         }
 
         await User.update({ photo: secure_url }, { where: { id: idUser } });
-        results = await User.findByPk(idUser)
+        results = await User.findByPk(idUser, {
+            include: [{ 
+                model: Company
+            }]
+        })
 
         return results
     } catch (error) {
@@ -36,10 +40,31 @@ const SendPhotoToUser = async (idUser, cloudinary_image) => {
 }
 
 
+const SendLogoToCompany = async (idUser, cloudinary_image) => {
 
+    try {
+        const { secure_url } = cloudinary_image
+        let results = await User.findByPk(idUser, {
+            include: [{ 
+                model: Company
+            }]
+        })
+        if (!results) {
+            throw Error("No se reconoce el id ingresado")
+        }
 
-
-
+        await Company.update({ logo: secure_url }, { where: { id: results.Companies[0].id } });
+        results = await User.findByPk(idUser, {
+            include: [{ 
+                model: Company
+            }]
+        })
+        return results
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
 
 const SendPdfToPostulante = async (idPostulante, cloudinary_pdf) => {
 
@@ -64,6 +89,7 @@ const SendPdfToPostulante = async (idPostulante, cloudinary_pdf) => {
 
 
 module.exports = {
-    SendPhotoToUser
-    , SendPdfToPostulante
+    SendPhotoToUser, 
+    SendPdfToPostulante,
+    SendLogoToCompany
 }

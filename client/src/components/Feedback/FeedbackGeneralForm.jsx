@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { Box, Modal, Rating, Stack, TextField } from "@mui/material";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import axios from 'axios'
 
 
-const FeedbackGeneralForm = ({ open, handleClose, data }) => {
-  
+const FeedbackGeneralForm = ({ open, handleClose, data, handleContactOpen }) => {
   const userData = JSON.parse(localStorage.getItem('usergoogle'))
   const [form, setForm] = useState({
     idUser: data.id ,
@@ -24,11 +22,10 @@ const FeedbackGeneralForm = ({ open, handleClose, data }) => {
 
   useEffect(() => {
     axios.get(`/review/${data?.id}`)
-    .then(res=>{
-      console.log(res.data)
-      if (res.data) return setExistReview(true)
-  })
-  },[])
+      .then(res => {
+        if (res.data) return setExistReview(true)
+      })
+  }, []) // eslint-disable-line
 
   const handleChange = (event) => {
     const value = event.target.value
@@ -80,18 +77,16 @@ const FeedbackGeneralForm = ({ open, handleClose, data }) => {
           !Gracias! ya recibimos tu feedback, solo recibimos uno por usuario si deseas comentarnos algo más...
         </h1>
         <div className='flex items-center justify-center mb-4'>
-          <Link to={'/contact'}>
           <Box sx={{ '& > button': { m: 1, width: '200px', height: '60px', fontWeight: '700' } }}>
             <LoadingButton
               color="warning"
               loadingPosition="center"
               variant="contained"
-              type='submit'
+              onClick={() => { handleClose(); handleContactOpen() }}
             >
               <span>Contacta con nosotros</span>
             </LoadingButton>
           </Box>
-          </Link>
         </div>
       </Box>
     </Modal>

@@ -8,6 +8,7 @@ import { Group, GroupAdd, Groups, PersonAddAlt1, Work } from '@mui/icons-materia
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import NotFound from '../NotFound/NotFound';
 
 // funcion para transformar fecha del backend
 export const tranformarFecha = (fechaOriginal) => {
@@ -21,12 +22,12 @@ export const tranformarFecha = (fechaOriginal) => {
   return fechaFormateada
 }
 
-const menuUserProfile = [
-  {
-    name: "Inicio",
-    link: "/"
-  }
-]
+// const menuUserProfile = [
+//   {
+//     name: "Inicio",
+//     link: "/"
+//   }
+// ]
 
 const DashAdmin = () => {
   const users = JSON.parse(localStorage.getItem('userList'))
@@ -101,10 +102,13 @@ const DashAdmin = () => {
       })
   }, [])
 
+  const userLS = JSON.parse(localStorage.getItem('userLogin'))
+  if(!userLS || userLS?.rol !== "Admin") return <NotFound />
+  
   return (
     <>
       <div className="bg-primary-light dark:bg-secondary-dark pt-20">
-        <NavLanding menu={menuUserProfile} />
+        <NavLanding />
         <h2 className="text-center pt-6 mb-10 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">
           Panel de Adminisitración
         </h2>

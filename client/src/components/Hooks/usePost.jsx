@@ -4,7 +4,6 @@ function usePost(url, body) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(body)
 
   useEffect(() => {
     const fetchData = async (url, body) => {
