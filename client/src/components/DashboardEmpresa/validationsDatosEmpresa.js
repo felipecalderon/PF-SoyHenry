@@ -2,6 +2,9 @@ const validationsDatosEmpresa = (info) => {
 
     let errors = {};
 
+    if(!info.companyname) {
+        errors.companyname = 'Debe haber un Nombre'
+    }
     if(!info.logo) {
         errors.logo = 'El logo tiene que ser una direccion URL.'
     } else if (!/\b((?:https?|ftp):\/\/(?:[\w-]+\.)+[a-z]{2,}(?:\/[\w~#-]*)*(?:\?\S+)?)\b/.test(info.logo)) {
