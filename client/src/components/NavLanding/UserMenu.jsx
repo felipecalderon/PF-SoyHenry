@@ -11,10 +11,7 @@ import ModalBann from "./ModalBaneo"
 const UserMenu = ({ user, userGoogle }) => {
   const ref = useRef(null)
   const [showMenu, setShowMenu] = useState(false)
-
-  const dataUserLocalStorage = JSON.parse(localStorage.getItem("userLogin"));
-  const photo = dataUserLocalStorage ? dataUserLocalStorage.photo : null
-
+  const photo = user ? user.photo : userGoogle ? userGoogle?.photo : <AccountCircle />
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -28,8 +25,7 @@ const UserMenu = ({ user, userGoogle }) => {
     };
   }, [ref]);
 
-  if (!dataUserLocalStorage && !userGoogle) return <ProfileButton />
-
+  if (!user && !userGoogle) return <ProfileButton />
   if (user && !user.active) return <ModalBann />
 
   return (

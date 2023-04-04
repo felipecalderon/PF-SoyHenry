@@ -8,8 +8,8 @@ import axios from 'axios'
 const FeedbackGeneralForm = ({ open, handleClose, data, handleContactOpen }) => {
   const userData = JSON.parse(localStorage.getItem('usergoogle'))
   const [form, setForm] = useState({
-    idUser: data.id,
-    usuario: data.names,
+    idUser: data.id ,
+    usuario: `${data.names} ${data.lastnames}`,
     photo: data?.photo || userData?.photo,
     puntuacion: 3,
     comentario: '',

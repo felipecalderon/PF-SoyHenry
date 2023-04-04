@@ -1,35 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
-import Maria from "../../assets/Maria.png"
+import axios from "axios";
 
-const testimonials = [
-    {
-      id: 1,
-      comentario: "Nunca había sido tan fácil encontrar trabajo hasta que encontré Fusionajob. ¡Gracias por hacerlo posible!",
-      username: "María Mercedes",
-      puntuacion: 5,
-      photo: Maria,
-    },
-    {
-      id: 2,
-      comentario: "Me encanta la plataforma de Fusionajob. Es fácil de usar y me ha ayudado a encontrar varios trabajos temporales",
-      username: "Juan Pérez",
-      photo: Maria,
-      puntuacion: 5
-    },
-    {
-      id: 3,
-      comentario: "Desde que me registré en Fusionajob, he estado trabajando constantemente en varios proyectos interesantes. ¡Gracias!",
-      username: "Ana García",
-      photo: Maria,
-      puntuacion: 5
-    },
-  ];
+const Testimonials = () => {
+  const [testimonios, setTestimonios] = useState([])    
 
-
-const Testimonials = () => {    
-    const testimoniosHTML = testimonials.map(testimonio => {
+  useEffect(() => {
+    axios('/review')
+      .then(res => {
+        setTestimonios(res.data)
+      })
+    
+    
+  }, [])
+    const testimoniosHTML = testimonios.map(testimonio => {
       return <div className="max-w-screen-md mx-auto text-center" key={testimonio.id}>
           <svg
             aria-hidden="true"
@@ -54,13 +39,16 @@ const Testimonials = () => {
               src={testimonio.photo}
               alt="test" />
           <p className="italic text-gray-900 dark:text-white">
-              "{testimonio.username}"
+              "{testimonio.usuario}"
             </p>
         </figcaption>
       </div>
-    })
-
+    }).slice(0,6)
+    if(testimonios.length === 0) return null
     return (
+    <section className="py-10 w-full flex flex-col flex-wrap bg-secondary-light dark:bg-primary-dark">
+      <h2 className="pt-3 text-center mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">Comentarios de Fusionistas</h2>
+      <p className="text-center mb-6 text-lg font-normal text-gray-700 lg:text-xl pr-10 dark:text-gray-400">Esto comentan los usuarios de FusionaJobs</p>
       <AliceCarousel
         mouseTracking
         infinite={true}
@@ -69,6 +57,7 @@ const Testimonials = () => {
         items={testimoniosHTML}
         controlsStrategy="alternate"
       />
+    </section>
     )
     }
 
