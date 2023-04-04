@@ -1,35 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import Maria from "../../assets/Maria.png"
+import axios from "axios";
 
-const testimonials = [
-    {
-      id: 1,
-      comentario: "Nunca había sido tan fácil encontrar trabajo hasta que encontré Fusionajob. ¡Gracias por hacerlo posible!",
-      username: "María Mercedes",
-      puntuacion: 5,
-      photo: Maria,
-    },
-    {
-      id: 2,
-      comentario: "Me encanta la plataforma de Fusionajob. Es fácil de usar y me ha ayudado a encontrar varios trabajos temporales",
-      username: "Juan Pérez",
-      photo: Maria,
-      puntuacion: 5
-    },
-    {
-      id: 3,
-      comentario: "Desde que me registré en Fusionajob, he estado trabajando constantemente en varios proyectos interesantes. ¡Gracias!",
-      username: "Ana García",
-      photo: Maria,
-      puntuacion: 5
-    },
-  ];
+const Testimonials = () => {
+  const [testimonios, setTestimonios] = useState([])    
 
-
-const Testimonials = () => {    
-    const testimoniosHTML = testimonials.map(testimonio => {
+  useEffect(() => {
+    axios('/review')
+      .then(res => {
+        setTestimonios(res.data)
+      })
+    
+    
+  }, [])
+    const testimoniosHTML = testimonios.map(testimonio => {
       return <div className="max-w-screen-md mx-auto text-center" key={testimonio.id}>
           <svg
             aria-hidden="true"
@@ -54,7 +40,7 @@ const Testimonials = () => {
               src={testimonio.photo}
               alt="test" />
           <p className="italic text-gray-900 dark:text-white">
-              "{testimonio.username}"
+              "{testimonio.usuario}"
             </p>
         </figcaption>
       </div>
