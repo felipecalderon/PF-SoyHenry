@@ -73,6 +73,9 @@ function Footer() {
                         </li>
                     </ul>
                 </article>
+                <section>
+                <h2><b> © 2023 FusionaJob </b></h2>
+            </section>
                 <article>
                     <ul className='second-list'>
                         <li className='dark:text-white'  onClick={()=>navigate("/terminosdeservicio")}>Terminos de servicio</li>
@@ -84,9 +87,7 @@ function Footer() {
                     </ul>
                 </article>
             </section>
-            <section>
-                <h2><b> © 2023 FusionaJob </b></h2>
-            </section>
+         
             {
                 userData
                     ? <FeedbackGeneralForm open={open} handleClose={handleClose} handleContactOpen={handleContactOpen} data={userData} />
