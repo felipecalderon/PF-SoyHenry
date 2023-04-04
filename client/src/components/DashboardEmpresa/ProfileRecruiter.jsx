@@ -51,14 +51,14 @@ import { TextField } from "@mui/material";
       .post(`/upload-photo-user/${idUser}`, formData)
       .then((response) => {
         console.log(response.data);
-        alert("se modifico la foto de perfil")
         setImageToRender(null)
-        window.location.reload(); 
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
       });
   }
+  
 //----------------------------------------------------------------------------------------------------------------------------------//
   
   //eslint-disable-next-line no-unused-vars

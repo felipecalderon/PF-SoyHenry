@@ -123,8 +123,8 @@ export const CardsOfertasDb = () => {
     setActualizar(!actualizar)
   }
 
-  const handleCloseOffer = (id) => {
-    
+  const handleCloseOffer = (id, active) => {
+    if(active === false) return
     axios.put(`jobsld/${id}`,{active: false}).then((res) => console.log(res))    
     setActualizar(!actualizar)
 
@@ -180,9 +180,8 @@ export const CardsOfertasDb = () => {
     vencimiento.setDate(vencimiento.getDate() + offer.expiration + 1 )
     
     if(today.toLocaleDateString('es-ES') === vencimiento.toLocaleDateString('es-ES')) {
-    handleCloseOffer(offer.id)
-    setActualizar(!actualizar)
-    }     
+    handleCloseOffer(offer.id, offer.active)
+    }
     
   })
 

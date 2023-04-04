@@ -128,7 +128,7 @@ const handleSubmit = async (event) => {
           image={logo}
           alt="Live from space album cover"
         />
-        <Button variant="outlined" onClick={handleClickOpen} startIcon={<Badge />}>
+        <Button variant="outlined" onClick={() => handleClickOpen()} startIcon={<Badge />}>
           Modificar datos de empresa
         </Button>
         <Link to='/offerscreate'>
@@ -276,18 +276,18 @@ const handleSubmit = async (event) => {
           </info>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={() => handleClose()}>Cancelar</Button>
           <Button 
           // onClick={() => errorsNew.length === 0 ? setShowModal(true) : setErrors(errorsNew)}>Aceptar</Button>
-          // onClick={() => setShowModal(true)}>Aceptar</Button>
-          onClick={() => {
+          onClick={() => setShowModal(true)}>Aceptar</Button>
+          {/* onClick={() => {
             const errorsNew = validationsDatosEmpresa(info);
             setErrors(errorsNew);
             const noErrors = Object.values(errorsNew).every(error => error === '');
             if (noErrors) {
               setShowModal(true);
             }
-          }}>Aceptar</Button>
+          }}>Aceptar</Button> */}
         </DialogActions>
         <ModalConfirmChangesCompany isVisible={showModal} onClose={() => setShowModal(false)} >
           <h1 className='flex font-bold justify-center p-3 dark:text-text-dark'>Antes de confirmar, verifique los datos</h1>
