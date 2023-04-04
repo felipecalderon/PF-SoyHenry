@@ -8,7 +8,7 @@ const ModoNoche = () => {
     const localDark = JSON.parse(localStorage.getItem('isDarkMode')) || false;
     const [isDarkMode, setIsDarkMode] = useState(localDark);
 
-    const handleToggle = () => {
+    const handleToggle = () => { 
         const newIsDarkMode = !isDarkMode;
         setIsDarkMode(newIsDarkMode);
         if (!newIsDarkMode) {
