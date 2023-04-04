@@ -16,11 +16,12 @@ import { TextField } from "@mui/material";
   const [showModal, setShowModal] = useState(false);
   const user = JSON.parse(localStorage.getItem('userLogin'))
   const recruiter = user
+  const photo = recruiter.photo
 
 //------------------------------------------------Foto de Perfil----------------------------------------------------------------------//
 
   const [imageToRender, setImageToRender] = useState(null);
-  const [imagetosend,setImageTosend]=useState(null)
+  const [imagetosend, setImageTosend] = useState(null)
   const [notValidImage, setNotValidImage] = useState(true);
   const dataUserLocalStorage = JSON.parse(localStorage.getItem("userLogin"));
   const idUser = dataUserLocalStorage.id
@@ -51,7 +52,7 @@ import { TextField } from "@mui/material";
       .post(`/upload-photo-user/${idUser}`, formData)
       .then((response) => {
         console.log(response.data);
-        setImageToRender(null)
+        alert("se modifico la foto de perfil")
         window.location.reload();
       })
       .catch((error) => {
@@ -62,7 +63,7 @@ import { TextField } from "@mui/material";
 //----------------------------------------------------------------------------------------------------------------------------------//
   
   //eslint-disable-next-line no-unused-vars
-  const {id, names, lastnames, email, photo, phone, website} = recruiter;
+  const {id, names, lastnames, email, phone, website} = recruiter;
 
   const [info, setInfo] = useState({
     names: recruiter.names,
@@ -117,7 +118,7 @@ const handleSubmit = async (event) => {
         <CardMedia
           className='w-30 h-30 mx-auto object-cover rounded-full border-2 border-slate-900 dark:border-white'
           component="img"
-          image={imageToRender || photo || usuario}
+          image={imageToRender}
           alt="ProfilePhoto"
         />
         <Button variant="outlined" onClick={handleClickOpen} startIcon={<Badge />}>
@@ -137,7 +138,7 @@ const handleSubmit = async (event) => {
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
             <p><strong>Teléfono: </strong></p><p target="_blank" rel="noopener noreferrer">{phone}</p>
           </Typography>
-          <label><input type="file" onChange={handleImageInputChange}/></label>
+          <input type="file" onChange={handleImageInputChange}/>
           <div className='flex justify-center'>
             <button
             onClick={handleSubmitImage}
