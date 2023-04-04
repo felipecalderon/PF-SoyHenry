@@ -295,7 +295,7 @@ export const CardsOfertasDb = () => {
      </div>
      <ModalConfirmChanges isVisible={showModal} onClose={() => setShowModal(false)} >
         {aplicantsModalList && aplicantsModalList[0].length ?  
-        <div className="flex relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-auto bg-primary-light dark:bg-primary-dark border-2 shadow-24 p-4 h-auto rounded-2xl flex-col justify-center items-center">          
+        <div className="flex relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-auto bg-primary-light dark:bg-primary-dark border-2 shadow-24 p-4 h-auto rounded-2xl flex-col justify-center items-center sm:w-11/12">          
           <div className='flex flex-col relative'>
           <div className="absolute z-96 top-0 right-0 m-1 mt-2 px-2 rounded-full cursor-pointer text-xl dark:text-white hover:scale-150 transition-all" onClick={() => setShowModal(false)}>
             <HighlightOffIcon sx={{color:'red'}} />
@@ -338,12 +338,13 @@ export const CardsOfertasDb = () => {
           </table>           
         </div>
         </div>
-        : <div className='bg-primary-light dark:bg-primary-dark border-4 dark:border-white rounded-3xl'>
+        : 
+        <div className='bg-primary-light dark:bg-primary-dark border-4 dark:border-white rounded-3xl mx-auto w-11/12 sm:w-2/3 lg:w-full'>
             <div className='flex flex-col relative'>
               <div className="absolute z-96 top-0 right-0 mt-2 pr-3 rounded-full cursor-pointer text-xl dark:text-white hover:scale-150 transition-all" onClick={() => setShowModal(false)}>
                 <HighlightOffIcon sx={{color:'red'}} />
               </div>
-                <h1 className='flex justifycenter font-semibold my-14 mr-10 pr-2 ml-10 text-3xl dark:text-text-dark'>Esta oferta no recibió postulaciones</h1>
+                <h1 className='flex justifycenter font-semibold my-14 mr-10 pr-2 ml-10 text-3xl dark:text-text-dark'>'Esta oferta no tiene postulantes preseleccionados'</h1>
               </div>
           </div>
         }
