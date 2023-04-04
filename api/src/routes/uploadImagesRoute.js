@@ -3,6 +3,7 @@
 // fs.unlinkSync("../handlers/Utils/uploads");
 const {
   SendPhotoToUser,
+  SendLogoToCompany,
   SendPdfToPostulante
 } = require("../controllers/imagesController")
 const cloudinary = require("../handlers/Utils/cloudinaryConfig")
@@ -26,6 +27,33 @@ const postImagepostulante = async (req, res) => {
       folder: "PF_HENRY"
     })
     const results = await SendPhotoToUser(idUser, cloudinary_image)
+    res.status(200).json(results)
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({ error: error.message })
+  }
+
+}
+
+const postImageRecruiter = async (req, res) => {
+  const { idUser } = req.params
+  if (!req.file) {
+    return res.status(400).json({ message: "Debe ingresar archivo" })
+  }
+  if (!idUser) {
+    return res.status(400).json({ message: "Debe ingresar por params el id del usuario" })
+  }
+
+  // Verificar el tamaño del archivo
+  if (req.file.size > 5 * 1024 * 1024) {
+    return res.status(400).json({ message: "El archivo que intentas cargar es demasiado grande. El tamaño máximo permitido es de 5MB." })
+  }
+
+  try {
+    const cloudinary_image = await cloudinary.uploader.upload(req.file.path, {
+      folder: "PF_HENRY"
+    })
+    const results = await SendLogoToCompany(idUser, cloudinary_image)
     res.status(200).json(results)
   } catch (error) {
     console.log(error)
@@ -70,5 +98,6 @@ const postCvpostulante = async (req, res) => {
 
 module.exports = {
   postImagepostulante,
-  postCvpostulante
+  postCvpostulante,
+  postImageRecruiter
 }

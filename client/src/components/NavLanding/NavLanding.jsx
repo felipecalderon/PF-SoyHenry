@@ -17,6 +17,11 @@ export const NavLanding = ({menu}) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const estaRegistrado = menu.filter((e) => {
+    if (user && e.link === '/registro') return false
+    return true
+  })
+  
   return (
     <nav className="z-50 bg-secondary-light dark:bg-primary-dark fixed top-0 w-full transition-all">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,7 +38,7 @@ export const NavLanding = ({menu}) => {
           </div>
           <div className="ml-6 items-baseline space-x-4 dark:text-text-dark text-gray-900 hidden md:block">
           {
-            menu?.map(item => {
+            estaRegistrado?.map(item => {
               return <Link key={item.name} to={item.link} className="dark:hover:text-yellow-200 hover:scale-110 transition-all inline-block font-medium px-4 py-2">{ item.name }</Link>
             })
           }
@@ -54,7 +59,7 @@ export const NavLanding = ({menu}) => {
       {/* Menú en dispositivos móviles */}
       <div className={`${isMenuOpen ? 'flex flex-col items-end gap-3 pb-6' : 'hidden'} md:hidden`}>
         {
-          menu?.map(item => {
+          estaRegistrado?.map(item => {
             return <Link key={item.name} to={item.link} className="block dark:text-yellow-200 hover:scale-110 transition-all font-medium px-4 py-2">{ item.name }</Link>
           })
         }
