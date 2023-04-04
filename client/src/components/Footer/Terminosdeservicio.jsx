@@ -4,9 +4,9 @@ import { NavLanding } from '../NavLanding/NavLanding'
 function Terminosdeservicio() {
   return (<>
         <NavLanding/>  
-        <div className='flex flex-col  bg-primary-light  dark:bg-secondary-dark pt-20  '>
+        <div className='flex flex-col  bg-primary-light  dark:bg-secondary-dark pt-20 pb-20'>
 
-<div className='mx-20'>
+<div className='mx-20 pb-20'>
 
             <h2 className='text-3xl font-bold mb-4    text-gray-800 dark:text-gray-400 '>Términos y Condiciones de FusionaJob</h2>
     

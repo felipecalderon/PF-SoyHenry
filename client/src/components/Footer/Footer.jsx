@@ -76,8 +76,6 @@ function Footer() {
                 <article>
                     <ul className='second-list'>
                         <li className='dark:text-white'  onClick={()=>navigate("/terminosdeservicio")}>Terminos de servicio</li>
-                        <li className='dark:text-white' >Ayuda y soporte</li>
-                        <li className='dark:text-white' >Terminos de servicio</li>
                         <li className='dark:text-white' >
                             <button onClick={handleContactOpen}>
                                 Ayuda y soporte (PQRS)
