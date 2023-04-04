@@ -4,7 +4,8 @@ import { keyframes } from "@emotion/react";
 import tw from "tailwind-styled-components";
 import { Modal, IconButton } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
-
+import axios from "axios"
+import { useNavigate } from "react-router-dom";
 
 const pulse = keyframes`
   0% {
@@ -46,10 +47,23 @@ const CloseButton = tw.button`
 `;
 
 export default function PremiumButtonComponent() {
+  const navigate=useNavigate()
+  const dataUserLocalStorage = JSON.parse(localStorage.getItem("userLogin"));
+  const email=dataUserLocalStorage.email
   const [isPulsing, setIsPulsing] = useState(false);
   const dispatch = useDispatch();
   const userData = JSON.parse(localStorage.getItem('userLogin'));
-
+  const handleClickPremium=()=>{
+   axios.post(`/stripe`,{customerEmail: email})
+   .then((res)=>{
+   const link = document.createElement('a');
+   link.href = res.data.url;
+   link.target = '_blank';
+   link.rel = 'noopener noreferrer';
+   link.click()
+  })
+   .catch((err)=>console.log(err))
+  }
   const [open, setOpen] = useState(false);
   const [closed, setClosed] = useState(true);
 
@@ -62,7 +76,7 @@ export default function PremiumButtonComponent() {
     setOpen(false);
     setClosed(true);
   };
-  
+
   if (!userData?.premium) {
     return (
       <>
@@ -102,7 +116,7 @@ export default function PremiumButtonComponent() {
                 quieras
               </li>
           </ul>
-          <button className='mt-6 h-14 bg-green-600 hover:bg-green-900 dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>Hazte Premium</button>
+          <button className='mt-6 h-14 bg-green-600 hover:bg-green-900 dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' onClick={handleClickPremium}>Hazte Premium</button>
         </PremiumModal>
           </Modal>
         </div> 
