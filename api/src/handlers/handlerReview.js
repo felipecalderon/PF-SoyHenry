@@ -25,7 +25,7 @@ const getReviewById = async (id) =>{
         if(!reviewById) throw Error('El Usuario no existe en la bd')
         return reviewById
     } catch (error) {
-        
+        throw error
     }
 }
 
@@ -55,8 +55,7 @@ const putReviews = async ({ id }, { usuario, comentario, puntuacion, active }) =
 
     try {
         const review = await Review.findByPk(id);
-        if (!review) throw Error(`la review con id: ${id} no existe`);
-
+        if (review) throw Error(`la review con id: ${id} no existe`);
 
         await Review.update(
             { usuario, comentario, puntuacion, active },

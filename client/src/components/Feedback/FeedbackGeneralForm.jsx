@@ -7,18 +7,15 @@ import axios from 'axios'
 
 
 const FeedbackGeneralForm = ({ open, handleClose, data }) => {
-
+  
+  const userData = JSON.parse(localStorage.getItem('usergoogle'))
   const [form, setForm] = useState({
-    idUser: data.id,
+    idUser: data.id ,
     username: data.names,
-    photo: data.photo,
+    photo: data?.photo || userData?.photo,
     puntuacion: 3,
     comentario: '',
   });
-
-  useEffect(() => {
-
-  }, [])
 
   const [loading, setLoading] = useState(false);
   const [existReview, setExistReview] = useState(false)
@@ -26,9 +23,12 @@ const FeedbackGeneralForm = ({ open, handleClose, data }) => {
   const isFormComplete = formValues.every(value => value !== '' && value !== null);
 
   useEffect(() => {
-    const review = axios.post(`/review/${data.id}`, form)
-    if (review) return setExistReview(true)
-  }, [])
+    axios.get(`/review/${data?.id}`)
+    .then(res=>{
+      console.log(res.data)
+      if (res.data) return setExistReview(true)
+  })
+  },[])
 
   const handleChange = (event) => {
     const value = event.target.value
@@ -44,11 +44,12 @@ const FeedbackGeneralForm = ({ open, handleClose, data }) => {
     setLoading(true);
 
     // Crea el Comentario
-    await axios.post('/review', form)
+    await axios.post(`/review`, form)
       .then(res => {
         // Mensaje y redirige si todo fue exitoso
         alert('Gracias por tu FeedBack, que ¡Tengas un gran día!')
         handleClose()
+        window.location.reload()
       })
       .catch(error => {
         console.log(error)
@@ -119,10 +120,10 @@ const FeedbackGeneralForm = ({ open, handleClose, data }) => {
                   !Comentanos y Puntua tu experiencia!
                 </h1>
                 <div className="w-full flex justify-center align-Center">
-                  <img src={data.photo} style={{ width: "70px", borderRadius: '15px' }} alt="Foto de Usuario" />
+                  <img src={form.photo} style={{ width: "70px", borderRadius: '15px' }} alt="Foto de Usuario" />
                 </div>
                 <div className="w-full flex justify-center align-Center">
-                  <h2 className="text-black dark:text-white">{data.names}</h2>
+                  <h2 className="text-black dark:text-white">{form.names}</h2>
                 </div>
                 <Stack spacing={1} className="w-full flex items-center">
                   <Rating name="puntuacion" onChange={handleChange} value={form.puntuacion} size="large" />
