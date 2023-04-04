@@ -20,9 +20,7 @@ function User() {
 
   const [data, SetData] = useState(dataUser);
   console.log(data)
-  // useEffect(() => {
-  //traer datos de redux
-  // }, []);
+
   return (
     <ul className="w-full flex flex-col justify-between items-start px-8 py-4 h-full ">
       <li className="w-full flex flex-col items-center">
@@ -35,7 +33,7 @@ function User() {
       </li>
 
       <li className="w-full mb-2 flex justify-center text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
-        {data.names} {data.lastnames} , {data?.Postulants instanceof Array ? data.Postulants[0].age : data.Postulants.age}
+        {data.names} {data.lastnames}  {data?.Postulants instanceof Array ? data.Postulants[0].age : data.Postulants.age}
       </li>
       <hr className="border border-b-gray-100  w-full " />
 
