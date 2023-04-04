@@ -56,6 +56,7 @@ import Select from '@mui/material/Select';
   });
 
   const [errors, setErrors] = useState({
+    companyname: '',
     email_company: '',
     description: '',
     phone_company: '',
@@ -104,18 +105,13 @@ const filteredCities = selectedCountry
     });
   };
 
-
 const handleSubmit = async (event) => {
   try {
-    const errorsNew = validationsDatosEmpresa(info);
-    setErrors(errorsNew);
-    if (Object.keys(errorsNew).length === 0) {
       await axios.put(`/company/${id}`, info);
       const verifyUsrExist = await axios.post(`/user/email`, { email: user.email })
       localStorage.setItem('userLogin', JSON.stringify(verifyUsrExist.data))
       setShowModal(false);
       setOpen(false);
-    }
   } catch (error) {
     console.log(error);
   }
@@ -132,7 +128,7 @@ const handleSubmit = async (event) => {
           image={logo}
           alt="Live from space album cover"
         />
-        <Button variant="outlined" onClick={handleClickOpen} startIcon={<Badge />}>
+        <Button variant="outlined" onClick={() => handleClickOpen()} startIcon={<Badge />}>
           Modificar datos de empresa
         </Button>
         <Link to='/offerscreate'>
@@ -152,7 +148,7 @@ const handleSubmit = async (event) => {
             <p><strong>Email: </strong></p><p target="_blank" rel="noopener noreferrer">{email_company}</p>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-gray-900 dark:text-white'>
-            {/* <p><strong>Sitio web: </strong></p><a className='text-blue-600' href={website} target="_blank" rel="noopener noreferrer">{website.slice(0, 30)}{website.length > 30 ? '...' : ''}</a> */}
+            <p><strong>Sitio web: </strong></p><a className='text-blue-600' href={website} target="_blank" rel="noopener noreferrer">{website && website.slice(0, 30)}{website && website.length > 30 ? '...' : ''}</a>
           </Typography>
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
             <p><strong>Teléfono: </strong></p><p target="_blank" rel="noopener noreferrer">{phone_company}</p>
@@ -280,8 +276,18 @@ const handleSubmit = async (event) => {
           </info>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancelar</Button>
-          <Button onClick={() => setShowModal(true)}>Aceptar</Button>
+          <Button onClick={() => handleClose()}>Cancelar</Button>
+          <Button 
+          // onClick={() => errorsNew.length === 0 ? setShowModal(true) : setErrors(errorsNew)}>Aceptar</Button>
+          onClick={() => setShowModal(true)}>Aceptar</Button>
+          {/* onClick={() => {
+            const errorsNew = validationsDatosEmpresa(info);
+            setErrors(errorsNew);
+            const noErrors = Object.values(errorsNew).every(error => error === '');
+            if (noErrors) {
+              setShowModal(true);
+            }
+          }}>Aceptar</Button> */}
         </DialogActions>
         <ModalConfirmChangesCompany isVisible={showModal} onClose={() => setShowModal(false)} >
           <h1 className='flex font-bold justify-center p-3 dark:text-text-dark'>Antes de confirmar, verifique los datos</h1>
@@ -297,7 +303,7 @@ const handleSubmit = async (event) => {
             <button className='h-10 w-24 bg-gray-300 text-black dark:bg-slate-500 dark:text-white font-semibold rounded-lg shadow-md hover:bg-gray-400 focus:outline-none focus:ring-2' 
               type='submit' 
               onClick={handleSubmit}>Confirmar</button>
-          </div>            
+          </div>
         </ModalConfirmChangesCompany>
       </Dialog>
     </div>

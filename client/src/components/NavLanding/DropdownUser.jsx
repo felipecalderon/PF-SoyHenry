@@ -35,7 +35,6 @@ const Dropdown = ({rol}) => {
         if(rol === 'Empresa') setMenuRol(menuEmpresa)
     }, [rol]) //eslint-disable-line
 
-    console.log(menuRol);
     return (
         <>
         {menuRol.map(menu => {

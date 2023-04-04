@@ -8,6 +8,7 @@ import ModalConfirmChanges from './FormCreateOfferModal'
 import { Fragment } from "react";
 import Footer from "../Footer/Footer";
 import NotFound from "../NotFound/NotFound";
+import { NavLanding } from '../NavLanding/NavLanding';
 
 
 
@@ -28,6 +29,7 @@ export default function OffersCreate() {
         technologies: [],
         min_salary: '',
         max_salary: '',
+        expiration: 0,
         modality: '',
         applications_count: 0,
         experience: '',
@@ -41,14 +43,31 @@ export default function OffersCreate() {
             if (validar.title === '') return { ...errors, title: 'se requiere un titulo *' };
             if (validar.title.length) return { ...errors, title: '' };
         }
+
+        if (validar.hasOwnProperty('technologies')) {
+            if (validar.technologies.length === 0) return { ...errors, technologies: 'se requiere una tecnologia al menos *' };
+            if (validar.technologies.length > 0) return { ...errors, technologies: '' };
+        }
+
+        if (validar.hasOwnProperty('perks')) {
+            if (validar.perks.length === 0) return { ...errors, perks: 'se requiere una tecnologia al menos *' };
+            if (validar.perks.length > 0) return { ...errors, perks: '' };
+        }
+
+        if(validar.hasOwnProperty('expiration')) {
+            
+            if (Number (validar.expiration <= 0)) return { ...errors, expiration: 'ingrese los dias correctos *' };
+            if (Number(validar.expiration > 0)) return { ...errors, expiration: '' };
+        }
+
         if (validar.hasOwnProperty('description')) {
             if (validar.description === '') return { ...errors, description: 'se requiere una descripcion *' };
             if (validar.description.length) return { ...errors, description: '' };
         } if (validar.hasOwnProperty('requeriments')) {
-            if (validar.requeriments === '') return { ...errors, requeriments: 'se requiere una requeriments *' };
+            if (validar.requeriments === '') return { ...errors, requeriments: 'se requieren los requisitos *' };
             if (validar.requeriments.length) return { ...errors, requeriments: '' };
         } if (validar.hasOwnProperty('benefits')) {
-            if (validar.benefits === '') return { ...errors, benefits: 'se requiere una benefits *' };
+            if (validar.benefits === '') return { ...errors, benefits: 'se requiere un beneficio *' };
             if (validar.benefits.length) return { ...errors, benefits: '' };
         }
         if (validar.hasOwnProperty('functions')) {
@@ -91,6 +110,21 @@ export default function OffersCreate() {
             .then(res => setPerksApi(res.data.data))
     }, [])
 
+    const menuUserProfile = [
+        {
+            name: 'Inicio',
+            link: '/'
+        },
+        {
+            name: 'Sobre nosotros',
+            link: '/about'
+        },
+        {
+            name: 'Ofertas',
+            link: '/offers'
+        }
+    ]
+
 
 
     function handleChange(event) {
@@ -109,14 +143,13 @@ export default function OffersCreate() {
     }
 
     function controlarValoresErrors(errors, inputs) {
-
+        
         let acumulador = ''
         let acumulador2 = false
         for (const key in errors) {
             acumulador += errors[key]
         }
         for (const key in inputs) {
-            // console.log(key)
             if (inputs[key].length === 0) acumulador2 = true
             if (key === 'min_salary' && inputs[key].length === 0) acumulador2 = false
             if (key === 'max_salary' && inputs[key].length === 0) acumulador2 = false
@@ -124,6 +157,10 @@ export default function OffersCreate() {
 
         if (inputs.min_salary.length && !inputs.max_salary.length) acumulador2 = true
         if (inputs.max_salary.length && !inputs.min_salary.length) acumulador2 = true
+        if (!inputs.expiration.length) acumulador2 = true
+        if (!inputs.technologies.length) acumulador2 = true
+        if (!inputs.perks.length) acumulador2 = true
+
 
         if (acumulador === '' && acumulador2 === false) {
             acumulador = false
@@ -171,8 +208,7 @@ export default function OffersCreate() {
         event.preventDefault();
         dispatch(createOffer(inputs))
         alert('oferta creada')
-        setShowModal(false)
-        console.log(user.id)
+        setShowModal(false)        
         setInputs({
             title: '',
             requeriments: '',
@@ -182,6 +218,7 @@ export default function OffersCreate() {
             technologies: [],
             min_salary: '',
             max_salary: '',
+            expiration: 0,
             modality: '',
             applications_count: 0,
             experience: '',
@@ -193,7 +230,8 @@ export default function OffersCreate() {
     if (userData && userData.rol === 'Empresa') {
         return (
             <Fragment>
-                <div className="flex flex-col bg-primary-light dark:bg-secondary-dark"  >
+                <div className="flex flex-col bg-primary-light dark:bg-secondary-dark pt-20"  >
+                    <NavLanding menu={menuUserProfile} />
                     <h1 className={styles.titulo}>Publicacion oferta laboral</h1>
                     <form className="" onSubmit={(event) => handleSubmit(event)}>
                         <div className={styles.contenedor_inputs}>
@@ -221,6 +259,13 @@ export default function OffersCreate() {
                         </div>
 
                         <div className={styles.contenedor_inputs}>
+                            {errors.expiration && <p className={styles.p_formulario_error}>{errors.expiration} </p>}
+                            <label >Cantidad de dias de la oferta disponible: </label>
+                            <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.expiration} name='expiration'  placeholder="Dias" />
+                        </div>
+                       
+                        <div className={styles.contenedor_inputs}>
+                            {errors.perks && <p className={styles.p_formulario_error}>{errors.perks} </p>}
                             <label >Ventajas:</label>
                             <select className={styles.perks_select} onChange={(event) => handleSelect(event)}>
                                 <option value={'Seleccione'} >Seleccione</option>
@@ -246,7 +291,7 @@ export default function OffersCreate() {
                         </div>
 
                         <div className={styles.contenedor_inputs}>
-                            {errors.perks && <p className={styles.p_formulario_error}>{errors.perks}</p>}
+                            {errors.technologies && <p className={styles.p_formulario_error}>{errors.technologies}</p>}
                             <label >Tecnologias requeridas:</label>
                             <select className={styles.perks_select} onChange={(event) => handleSelectTechnologies(event)} >
                                 <option value={'Seleccione'} >Seleccione</option>
@@ -318,6 +363,7 @@ export default function OffersCreate() {
                     <h1>Requisitos: {inputs.requeriments}</h1>
                     <h1>Beneficios: {inputs.benefits}</h1>
                     <h1>Funciones: {inputs.functions}</h1>
+                    <h1>Dias disponible: {inputs.expiration}</h1>
                     <h1>Ventajas: {inputs.perks} </h1>
                     <h1>Tecnologias: {inputs.technologies}</h1>
                     <h1>Modalidad: {inputs.modality}</h1>
@@ -325,6 +371,7 @@ export default function OffersCreate() {
                     <h1>Salario minimo: {!inputs.min_salary.length ? 'Sin informar' : inputs.min_salary + ' dolares'} </h1>
                     <h1>Salario maximo: {!inputs.max_salary.length ? 'Sin informar' : inputs.max_salary + ' dolares'} </h1>
                     <button className={styles.boton_confirmacion} type='submit' onClick={handleSubmit}>confirmar</button>
+                    <button className={styles.boton_confirmacion} type='button' onClick={() => setShowModal(false)}>volver</button>
 
                 </ModalConfirmChanges>
                 <Footer />
