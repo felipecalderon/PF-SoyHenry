@@ -46,7 +46,7 @@ import { TextField } from "@mui/material";
   };
   
   const handleSubmitImage = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     console.log('Entro')
     const formData = new FormData();
     formData.append("imagenes", imagetosend);
@@ -57,14 +57,10 @@ import { TextField } from "@mui/material";
         console.log(response.data);
         // actualizar localStorage
         let userLogin = JSON.parse(localStorage.getItem('userLogin'))
-        userLogin = response.data
-        setInfo({
-          ...info,
-        photo: userLogin.photo
-        })
-        // localStorage.setItem('userLogin', JSON.stringify(userLogin))
+        userLogin.photo = response.data.photo
+        localStorage.setItem('userLogin', JSON.stringify(userLogin))
         alert("se modifico la foto de perfil")
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -131,20 +127,20 @@ const handleSubmit = async (event) => {
     <div className='bg-primary-light border border-slate-900 dark:border-white dark:text-text-dark dark:bg-secondary-dark m-3 rounded-2xl'>
       <Box className="flex flex-row py-6 px-3">
         <div className='flex flex-col w-2/5 px-6 items-center gap-6'>
-        {/* <CardMedia
+        <CardMedia
           className='w-30 h-30 mx-auto object-cover rounded-full border-2 border-slate-900 dark:border-white'
           component="img"
-          image={photo}
+          image={info.photo || photo}
           alt="ProfilePhoto"
-        /> */}
-        <li className="w-full flex flex-col items-center">
+        />
+        {/* <li className="w-full flex flex-col items-center">
         <img
           src={info.photo || usuario}
           alt=""
           width="150px"
           className="border rounded-full m-1 "
         />
-      </li>
+      </li> */}
         <Button variant="outlined" onClick={handleClickOpen} startIcon={<Badge />}>
           Modificar datos personales
         </Button>
