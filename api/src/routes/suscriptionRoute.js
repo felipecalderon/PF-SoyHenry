@@ -37,8 +37,8 @@ const pagoStripe = async (req, res) => {
     const product = await stripe.products.retrieve('prod_NcONWlS4sUtxG6');
     console.log(product);
     console.log(customerEmail)
-    const usuario = await getUsersByEmail( customerEmail )
-    if (!usuario) throw Error( 'No se puede contratar el plan sin tener una cuenta creada 👀👀')
+    const usuario = await getUsersByEmail(customerEmail)
+    if (!usuario) throw Error('No se puede contratar el plan sin tener una cuenta creada 👀👀')
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [{
@@ -60,7 +60,7 @@ const pagoStripe = async (req, res) => {
 const recepcionPago = async (req, res) => {
   try {
     await controlarPagoStripe(req.query)
-    res.redirect(302, 'http://localhost:3002/offers');
+    res.redirect(302, 'https://fusionajob.vercel.app/profile');
   } catch (error) {
     console.log(error);
     res.status(500).send(error);

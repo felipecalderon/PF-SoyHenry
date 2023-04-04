@@ -17,7 +17,7 @@ export const NavLanding = ({menu}) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const estaRegistrado = menu.filter((e) => {
+  const estaRegistrado = menu?.filter((e) => {
     if (user && e.link === '/registro') return false
     return true
   })
