@@ -8,6 +8,7 @@ import { Group, GroupAdd, Groups, PersonAddAlt1, Work } from '@mui/icons-materia
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import NotFound from '../NotFound/NotFound';
 
 // funcion para transformar fecha del backend
 export const tranformarFecha = (fechaOriginal) => {
@@ -101,6 +102,9 @@ const DashAdmin = () => {
       })
   }, [])
 
+  const userLS = JSON.parse(localStorage.getItem('userLogin'))
+  if(!userLS || userLS?.rol !== "Admin") return <NotFound />
+  
   return (
     <>
       <div className="bg-primary-light dark:bg-secondary-dark pt-20">

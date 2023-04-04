@@ -134,6 +134,18 @@ const premiumState = async (id, state, active) => {
 }
 
 const getUsersByEmail = async (data) => {
+    const createAdmin = await User.findOne({where: {email: "admin@admin.com"}})
+    if(!createAdmin){
+        await User.create({
+            rol: 'Admin',
+            email: 'admin@admin.com',
+            names: 'SuperAdmin',
+            lastnames: '',
+            photo: 'https://i.pinimg.com/736x/cd/8c/65/cd8c65c7813855d5f58cf91801b1d256.jpg',
+            password: 'admin123',
+            active: true
+        })
+    }
     const email = typeof data === 'object' && data.email ? data.email : typeof data === 'string' ? data : null;
     try {
         const user = await User.findOne({
