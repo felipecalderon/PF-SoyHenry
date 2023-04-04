@@ -230,7 +230,7 @@ export default function OffersCreate() {
     if (userData && userData.rol === 'Empresa') {
         return (
             <Fragment>
-                <div className="flex flex-col bg-primary-light dark:bg-secondary-dark"  >
+                <div className="flex flex-col bg-primary-light dark:bg-secondary-dark pt-20"  >
                     <NavLanding menu={menuUserProfile} />
                     <h1 className={styles.titulo}>Publicacion oferta laboral</h1>
                     <form className="" onSubmit={(event) => handleSubmit(event)}>
