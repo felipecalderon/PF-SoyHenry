@@ -6,8 +6,8 @@ const transporter = nodemailer.createTransport({
 	port: 465,
 	secure: true,
 	auth: {
-		user: GOOGLE_MAIL_USER,//"fusionajobs@gmail.com",
-		pass: GOOGLE_MAIL_PASS//"jvocooswsqcttbmg",
+		user: GOOGLE_MAIL_USER,
+		pass: GOOGLE_MAIL_PASS
 	},
 });
 transporter.verify().then(() => {

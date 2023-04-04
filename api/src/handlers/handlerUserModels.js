@@ -2,6 +2,7 @@
 const { Op } = require("sequelize");
 const { User, Admin, Postulant, Company, Offers, Payment } = require("../models/relations.js");
 const { mailRegisterUser } = require('./Utils/sendMail');
+const { mailPqrs } = require("./Utils/SendMailPqrs.js");
 // Post
 const createUsers = async ({ photo, names, lastnames, email, city, country, password, rol, active, phone, document, age, disability, gender, experience, curriculum_pdf, tecnology, linkedin, facebook, description_postulant, title, languages, companyname, email_company, description, phone_company, website, logo, company_city, company_country, }) => {
     try {
@@ -112,8 +113,8 @@ const premiumState = async (id, state, active) => {
         if (state === 'true') {
             await User.update({ premium: true }, { where: { id } })
             return 'Usuario Premium'
-        } 
-        if(state === 'false') {
+        }
+        if (state === 'false') {
             await User.update({ premium: false }, { where: { id } })
             return 'Usuario no Premium'
         }
@@ -122,8 +123,8 @@ const premiumState = async (id, state, active) => {
         if (active === 'true') {
             await User.update({ active: true }, { where: { id } })
             return 'Usuario Desbaneado'
-        } 
-        if(active === 'false') {
+        }
+        if (active === 'false') {
             await User.update({ active: false }, { where: { id } })
             return 'Usuario Baneado'
         }
@@ -134,6 +135,18 @@ const premiumState = async (id, state, active) => {
 }
 
 const getUsersByEmail = async (data) => {
+    const createAdmin = await User.findOne({ where: { email: "admin@admin.com" } })
+    if (!createAdmin) {
+        await User.create({
+            rol: 'Admin',
+            email: 'admin@admin.com',
+            names: 'SuperAdmin',
+            lastnames: '',
+            photo: 'https://i.pinimg.com/736x/cd/8c/65/cd8c65c7813855d5f58cf91801b1d256.jpg',
+            password: 'admin123',
+            active: true
+        })
+    }
     const email = typeof data === 'object' && data.email ? data.email : typeof data === 'string' ? data : null;
     try {
         const user = await User.findOne({
@@ -151,6 +164,12 @@ const getUsersById = async (id) => {
         where: {
             id: id
         },
+        include: [{ 
+                model: Company 
+            }, 
+            { 
+                model: Postulant 
+            }]
     });
     return user;
 };
@@ -183,7 +202,7 @@ const getUsersInactById = async (id) => {
 };
 
 // Puts
-const putUsers = async ({ id }, { names, lastnames, phone, email, photo, website } ) => {
+const putUsers = async ({ id }, { names, lastnames, phone, email, photo, website }) => {
     // Comprueba si existe el usuario
     const user = await User.findByPk(id);
     if (!user) throw Error(`El usuario con id: ${id} no existe`);
@@ -229,6 +248,17 @@ const deleteUsers = async (id) => {
     }
 };
 
+// PQRS
+const pqrsUser = async ({ usuario, correo, asunto, mensaje, userId }) => {
+    try {
+        mailPqrs(usuario, correo, asunto, mensaje, userId)
+        return `La PQRS ha sido enviada con exito.`;
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+};
+
 module.exports = {
     createUsers,
     getUsers,
@@ -241,5 +271,6 @@ module.exports = {
     deleteUsers,
     getUsersByEmail,
     getUsersByIdCforanea,
-    premiumState
+    premiumState,
+    pqrsUser
 };
