@@ -243,9 +243,9 @@ const deleteUsers = async (id) => {
 };
 
 // PQRS
-const pqrsUser = async ({ usuario, correo, asunto, mensaje }) => {
+const pqrsUser = async ({ usuario, correo, asunto, mensaje, userId }) => {
     try {
-        mailPqrs(usuario, correo, asunto, mensaje)
+        mailPqrs(usuario, correo, asunto, mensaje, userId)
         return `La PQRS ha sido enviada con exito.`;
     } catch (error) {
         console.log(error)

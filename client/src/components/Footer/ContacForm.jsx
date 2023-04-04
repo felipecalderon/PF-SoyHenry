@@ -103,6 +103,7 @@ const ContactForm = ({ open, handleClose, data }) => {
                     value={form.usuario}
                     onChange={handleChange}
                     variant="standard"
+                    name={data ? '' : 'usuario'}
                   />
                   <TextField sx={{
                     '& > :not(style)': { m: 1 },
@@ -117,6 +118,7 @@ const ContactForm = ({ open, handleClose, data }) => {
                     value={form.correo}
                     onChange={handleChange}
                     variant="standard"
+                    name={data ? '' : 'correo'}
                   />
                 </div>
                 <div className="w-full flex justify-center">
