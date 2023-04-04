@@ -143,7 +143,7 @@ export default function OffersCreate() {
     }
 
     function controlarValoresErrors(errors, inputs) {
-        
+        if(!inputs.length) return
         let acumulador = ''
         let acumulador2 = false
         for (const key in errors) {
