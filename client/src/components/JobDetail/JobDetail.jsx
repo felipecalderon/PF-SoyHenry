@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { getDataPostulacion } from "../../redux/slices/postSlices";
+import StarSharpIcon from '@mui/icons-material/StarSharp';
 
 // Components
 import { NavLanding } from "../NavLanding/NavLanding";
@@ -15,6 +16,7 @@ import Perks from "./Perks";
 import { Box, Fab, Snackbar } from "@mui/material";
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
+import PremiumButtonComponent from "../BotonPremium/BotonPremium";
 
 const JobDetail = () => {
   const navigate = useNavigate()
@@ -22,7 +24,6 @@ const JobDetail = () => {
   const query = new URLSearchParams(window.location.search);
   const title = query.get('title');
   const { jobId } = useSelector((state) => state.postSlice);
-  const { empresaId } = useSelector((state) => state.postSlice)
   const { id } = useParams();
   const url = `/jobs/${id}?title=${title}`;
 
@@ -46,6 +47,7 @@ const JobDetail = () => {
     },
   ]
 
+
   const [empresa, setEmpresa] = useState(null);
   useEffect(() => {
     if (data?.idEmpresa) {
@@ -60,12 +62,11 @@ const JobDetail = () => {
   }, [data]);
 
   const [empresaApi, setEmpresaApi] = useState()
-  console.log(empresaApi)
   useEffect(() => {
     if (jobId?.id) {
       axios.get(`/jobs/${jobId?.id}`)
         .then((response) => {
-          setEmpresaApi(response.data.User.Companies[0]);
+          setEmpresaApi(response.data?.User?.Companies[0]);
         })
         .catch((error) => {
           console.error(error);
@@ -88,7 +89,9 @@ useEffect(() => {
 },[]);
 
   //FAVORITOS AHORA ES GUARDADOS
+  const [isPremium] = useState(JSON.parse(localStorage.getItem('userLogin')));
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [isSnackbar, setSnackbat] = useState(false)
   const [isFavorite, setIsFavorite] = useState(false);
   const [favFilter, setFavFilter] = useState([]);
   const [countOffers, setCountOffers] = useState()
@@ -97,6 +100,10 @@ useEffect(() => {
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false);
   };
+
+  const handleClose = ()=>{
+    setSnackbat(false)
+  }
 
   const OffersSave = async () => {
     const get = await axios.get(`/save_offers/${dataUser.id}`)
@@ -107,6 +114,7 @@ useEffect(() => {
     if (get !== undefined) {
       setIsFavorite(true)
       return
+      
     }
     return setIsFavorite(false)
   }
@@ -119,23 +127,30 @@ useEffect(() => {
   }, [dataUser?.id, jobId?.id]);
 
   const handleToggleFavorite = () => {
-    if (countOffers >= 5 && dataUser?.premium === false ) {
-      setOpenSnackbar(true);
+    if (!isFavorite) {
+    if (countOffers === 5 && dataUser?.premium === false && !isFavorite ) {
+      setOpenSnackbar(true)
       return;
     }
-    if (!isFavorite) {
+    
       Number(jobId.id)
         ? axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=db`)
         : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=api`);
       setIsFavorite(true);
-      setSavedOffers([...savedOffers, jobId.id]);
+      setSavedOffers([...savedOffers, jobId.id])
+      if (!dataUser?.premium) {
+        setCountOffers((prevCountOffers) => prevCountOffers + 1);
+      }
       alert('Se ha guardado la oferta');
     } else {
       Number(jobId.id)
         ? axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=db`)
         : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=unsave&title=${jobId.title}&origin=api`);
       setIsFavorite(false);
-      setSavedOffers(savedOffers.filter((savedId) => savedId !== jobId.id));
+      setSavedOffers(savedOffers.filter((savedId) => savedId !== jobId.id))
+      if (!dataUser?.premium) {
+        setCountOffers((prevCountOffers) => prevCountOffers - 1);
+      }
       alert('Se ha eliminado la oferta de tu lista guardada');
     }
   };
@@ -145,14 +160,19 @@ useEffect(() => {
     if (data) {
       dispatch(getDataPostulacion(data));
     }
-  }, [data, dispatch, jobId?.companyId]);
+  }, [data, jobId?.companyId]);
 
   const handlePostulateDb = () => {
     const offerId = jobId.id
     const userId = dataUser.id
-    axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
-    alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
+    if(dataUser.premium){
+      axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
+      alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
+    }else{
+      isSnackbar(true)
+    }
   };
+
 
   // obtener perks en español desde la api getonbrd
   const [perksApi, setPerksApi] = useState([])
@@ -173,9 +193,22 @@ useEffect(() => {
 
   const cleanHtml = { __html: empresa?.data.attributes.long_description }
 
+  const SaveApplyToBdd=()=>{
+    axios.post(`/applyapioffer?userId=${dataUser.id}&&offerId=${jobId.id}&&title=${jobId.title}`)
+    .then((res)=>{
+      console.log("se envio la postulacion a la bdd ")
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+
   return (
     <div className="bg-primary-light dark:bg-secondary-dark pt-20">
       <NavLanding menu={menu} />
+      <div class="flex justify-center items-center">
+           <PremiumButtonComponent />
+        </div>
       <div className="relative flex flex-wrap space-around">
         <Link to={'/offers'}>
           <button type="button" class="absolute text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -191,15 +224,14 @@ useEffect(() => {
         </Link>
 
         {/* Detalles de la oferta */}
-        <div className="relative pt-5 flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800">
-          <div className=" md:flex">
-            <button className="absolute focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" style={{
-              top: -20,
-              right: '43%',
+        <div className=" flex flex-col justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800">
+          <div className=" md:flex items-center flex flex-col">
+            <button className=" focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-br-xl rounded-bl-xl text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-0" style={{
+      
               fontSize: 25
             }}>
-              Oferta
-            </button>
+              { !isNaN(jobId.id) ? <> Oferta premium <StarSharpIcon className="flex justify-center" style={{ color: 'orange' }}/></> :  'Oferta'}
+            </button> 
             <div className="p-8">
               <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white mb-4">{jobId.title}</h1>
               <section className=" w-full flex ">
@@ -249,7 +281,7 @@ useEffect(() => {
 
               <br />
               {
-                jobId.perks &&
+                jobId?.perks &&
                 <h2 className="text-lg font-semibold dark:text-white py-3"> Ventajas </h2>
               }
               <div className="flex flex-row flex-wrap gap-3">
@@ -263,14 +295,21 @@ useEffect(() => {
             {rol === 'Postulante' &&
             <div className="mt-8 flex justify-center">
                 {
-                  Number(jobId.id)
-                    ? <button onClick={handlePostulateDb} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
-                      <span className="relative px-5 py-4 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                        Aplicar
-                      </span>
-                    </button>
+                  Number(jobId?.id)
+                    ? <button onClick={handlePostulateDb} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800"  disabled={!dataUser?.premium} style={{opacity: dataUser?.premium ? 1 : 0.5, cursor: dataUser?.premium ? 'pointer' : 'not-allowed'}}>
+                    <span className="relative px-5 py-4 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                      Aplicar
+                    </span>
+                    <Snackbar
+                    open={Snackbar}
+                    autoHideDuration={7000}
+                    onClose={handleClose}
+                    message="Debes ser premium para aplicar a esta oferta"
+                    
+                  />
+                  </button>
                     : <a href={jobId.link} target="_blank" rel="noreferrer" >
-                      <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+                      <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800" onClick={SaveApplyToBdd}>
                         <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                           Aplicar en la Pagina
                         </span>
@@ -287,9 +326,10 @@ useEffect(() => {
                   </Fab>
                   <Snackbar
                     open={openSnackbar}
-                    autoHideDuration={4000}
+                    autoHideDuration={7000}
                     onClose={handleCloseSnackbar}
                     message="Solo puedes guardar 5 ofertas de trabajo. para guardar mas ofertas y más beneficios asciende a premium"
+                    
                   />
                 </Box>
               </div>
@@ -301,12 +341,10 @@ useEffect(() => {
         {/* Datos de la empresa */}
         <div className="relative flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800">
           <div className="md:flex">
-            <div className="p-8">
-              <button className="absolute focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2" style={{
-                top: -20,
-                right: '39%',
-                fontSize: 25
-              }}>
+            <div className="p-md:flex items-center flex flex-col">
+           < button className=" focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-br-xl rounded-bl-xl text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-0" style={{
+            fontSize: 25
+            }}>
                 Empresa
               </button>
               <div className=" w-full flex justify-center items-center mb-4 mt-6 ">
@@ -332,6 +370,9 @@ useEffect(() => {
     </div>
   );
 };
+
+
+
 
 
 

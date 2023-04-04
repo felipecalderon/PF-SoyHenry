@@ -3,9 +3,9 @@ import work1 from "../../assets/working1.png"
 import work2 from "../../assets/working2.png"
 import Maria from "../../assets/Maria.png"
 import Footer from '../Footer/Footer'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { NavLanding } from '../NavLanding/NavLanding'
-
+import Testimonials from './Testimonials'
 export const menu = [
   {
     name: "Planes",
@@ -99,25 +99,13 @@ function LandingPage() {
 
       <section className="py-10 w-full flex flex-col flex-wrap bg-secondary-light dark:bg-primary-dark">
         <h2 className="pt-3 text-center mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">Testimonios</h2>
-        <figure className="max-w-screen-md mx-auto text-center">
-          <svg aria-hidden="true" className="w-12 h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" fill="currentColor" /></svg>
-          <blockquote>
-            <p className="text-2xl italic font-medium text-gray-900 dark:text-white">"Nunca había sido tan fácil encontrar trabajo hasta que encontré Fusionajob. ¡Gracias por hacerlo posible!."</p>
-          </blockquote>
-          <figcaption className="flex items-center justify-center mt-6 space-x-3">
-            <img className="w-10 h-10 rounded-full object-cover" src={Maria} alt="testimonio" />
-            <div className="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
-              <cite className="pr-3 font-medium text-gray-900 dark:text-white">María Mercedes</cite>
-              <cite className="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">CEO en Rappi</cite>
-            </div>
-          </figcaption>
-        </figure>
+        <Testimonials />
       </section>
 
       <section className="py-10 w-full flex flex-col flex-wrap bg-primary-light dark:bg-secondary-dark">
         <h2 className="pt-3 text-center mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">Suscríbete!</h2>
-        <div className='flex flex-col items-center md:flex-row justify-center gap-6'>
-          <div className="w-full max-w-sm p-4 bg-secondary-light rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div className='flex flex-grow flex-col items-center md:flex-row justify-center gap-6'>
+          <div className=" flex flex-col w-full content-center max-w-sm p-4 bg-secondary-light rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
             <h5 className="mb-4 text-xl font-medium text-gray-800 dark:text-gray-400">Plan Básico</h5>
             <div className="flex items-baseline text-gray-900 dark:text-white">
               <span className="text-3xl font-semibold">$</span>
@@ -144,13 +132,17 @@ function LandingPage() {
                 <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-gray-400 dark:text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
                 <span className="text-base font-normal leading-tight text-gray-500">Guardar Ofertas ilimitas</span>
               </li>
-              
-              
+              <li className="flex space-x-3 line-through decoration-gray-500">
+                <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-gray-400 dark:text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
+                <span className="text-base font-normal leading-tight text-gray-500">Poder ver el estado de todas las ofertas a la que aplicaste</span>
+              </li>
             </ul>
-            <button type="button" className="text-gray-800 bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Elegir cuenta free</button>
+            <Link to= "/registro" >
+            <button type="button" className="text-gray-800 bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Registrate Ahora</button>
+            </Link>
           </div>
-          <div className="w-full max-w-sm p-4 bg-secondary-light rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-            <h5 className="mb-4 text-xl font-medium text-gray-800 dark:text-gray-400">Plan Premium</h5>
+          <div className="w-full content-center max-w-sm p-4 bg-secondary-light rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <h5 className="mb-4 items-center text-xl font-medium text-gray-800 dark:text-gray-400">Plan Premium</h5>
             <div className="flex items-baseline text-gray-900 dark:text-white">
               <span className="text-3xl font-semibold">$</span>
               <span className="text-5xl font-extrabold tracking-tight">15</span>
@@ -177,10 +169,14 @@ function LandingPage() {
                 <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-blue-50 dark:bg-primary-dark" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
                 <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">Guardar Ofertas ilimitas</span>
               </li>
+              <li className="flex space-x-3">
+                <svg aria-hidden="true" className="flex-shrink-0 w-5 h-5 text-blue-50 dark:bg-primary-dark" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Check icon</title><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"></path></svg>
+                <span className="text-base font-normal leading-tight text-gray-500 dark:text-gray-400">Poder ver el estaado de todas las ofertas a la que aplicaste</span>
+              </li>
             </ul>
             <button type="button" className="text-gray-800 bg-white hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Elegir cuenta premium</button>
           </div>
-         
+
         </div>
       </section>
 

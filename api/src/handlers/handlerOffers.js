@@ -12,7 +12,7 @@ const createOfferHandler = async ({ title, requeriments, functions, benefits, pe
         if(min_salary === '') min_salary = 0
         if(max_salary === '') max_salary = 0
         const newOffer = await Offers.create({
-            title, requeriments, functions, benefits, perks, technologies, min_salary, max_salary, modality, experience, applications_count, bd_create, expiring_offers,
+            title, requeriments, functions, benefits, perks, technologies, min_salary, max_salary, modality, experience, applications_count, bd_create, expiring_offers, expiration,
             userId: by, idRecruiterOfferCreate, idAplicants
         });
         const technologiesDb = await Technologies.findAll({
