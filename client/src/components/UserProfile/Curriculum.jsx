@@ -1,7 +1,8 @@
-
 import React from "react";
 import { useState } from "react";
 import axios from "axios"
+import LoadingButton from '@mui/lab/LoadingButton';
+import Box from "@mui/material/Box";
 
 function Curriculum() {
   const dataUserLocalStorage = JSON.parse(localStorage.getItem("userLogin"));
@@ -13,6 +14,8 @@ function Curriculum() {
     size: false,
     type: false,
   });
+  const [loading, setLoading] = useState(false);
+
   const handlerFile = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile.size > 5 * 1024 * 1024) {
@@ -49,6 +52,7 @@ setFile(selectedFile);
 
 const handleSubmit=(event)=>{
   event.preventDefault()
+  setLoading(true); 
   const formData = new FormData();
   formData.append("pdf", file);
   axios.post(`/upload-cv-user/${idPostulante}`,formData)
@@ -61,6 +65,9 @@ const handleSubmit=(event)=>{
     console.log(error)
     alert("Algo salio mal  </3")
   })
+  .finally(() => {
+    setLoading(false); // establecer el estado de carga en false después de completar la solicitud
+  });
 }
 const visualizar=()=>{
   if (pdf) {
@@ -114,15 +121,19 @@ const visualizar=()=>{
          ) : null}
          {error.type ? <p className="text-red-600 select-none font-bold  mb-1">Solo puedes ingresar archivos pdfs</p> : null}
        </div>
-       <button
-  className={`bg-green-500 text-white font-bold py-2 px-4 mb-9 rounded w-full disabled:opacity-50 disabled:cursor-not-allowed ${
-    !isPdf && 'opacity-50 cursor-not-allowed'
-  }`}
-  type="submit"
-  disabled={!isPdf}
->
-  {pdf ? 'Cambiar Curriculum' : 'Subir Curriculum'}
-</button>
+       <Box sx={{ "& > button": { m: 1, width: "150px", height: "60px", fontWeight: "700" } }}>
+        <LoadingButton
+          className={`${!isPdf && 'opacity-50 cursor-not-allowed'}`}
+          onClick={handleSubmit}
+          loading={loading}
+          color="warning"
+          loadingPosition="center"
+          variant="contained"
+          disabled={!isPdf || loading}
+        >
+       {pdf ? 'Cambiar Curriculum' : 'Subir Curriculum'}
+        </LoadingButton>
+      </Box>
 
      </form>
        
