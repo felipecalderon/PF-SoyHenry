@@ -220,6 +220,7 @@ useEffect(() => {
                   color: 'white',
                   border: '1px solid orange',
                   borderRadius: '0.25rem',
+                  fontWeight: 'bold'
                 }}
               >
                 Debes ser premium para aplicar a esta oferta

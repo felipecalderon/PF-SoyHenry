@@ -4,7 +4,7 @@ import StarSharpIcon from '@mui/icons-material/StarSharp';
 
 const PremiumButton = () => {
   const userData = JSON.parse(localStorage.getItem('userLogin'));
-  if(userData?.premium && userData.role === 'Postulante'){
+  if(userData?.premium && userData.rol === 'Postulante'){
 
     return (
       <Button
