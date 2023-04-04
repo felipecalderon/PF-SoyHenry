@@ -45,8 +45,11 @@ const Testimonials = () => {
         </figcaption>
       </div>
     })
-
+    if(testimonios.length === 0) return null
     return (
+    <section className="py-10 w-full flex flex-col flex-wrap bg-secondary-light dark:bg-primary-dark">
+      <h2 className="pt-3 text-center mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">Comentarios de Fusionistas</h2>
+      <p className="text-center mb-6 text-lg font-normal text-gray-700 lg:text-xl pr-10 dark:text-gray-400">Esto comentan los usuarios de FusionaJobs</p>
       <AliceCarousel
         mouseTracking
         infinite={true}
@@ -55,6 +58,7 @@ const Testimonials = () => {
         items={testimoniosHTML}
         controlsStrategy="alternate"
       />
+    </section>
     )
     }
 
