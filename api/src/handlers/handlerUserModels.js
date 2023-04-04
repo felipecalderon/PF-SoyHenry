@@ -151,6 +151,12 @@ const getUsersById = async (id) => {
         where: {
             id: id
         },
+        include: [{ 
+                model: Company 
+            }, 
+            { 
+                model: Postulant 
+            }]
     });
     return user;
 };

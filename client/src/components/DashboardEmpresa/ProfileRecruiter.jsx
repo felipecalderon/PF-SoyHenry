@@ -57,7 +57,7 @@ import { TextField } from "@mui/material";
         console.log(response.data);
         // actualizar localStorage
         let userLogin = JSON.parse(localStorage.getItem('userLogin'))
-        userLogin.photo = response.data.photo
+        userLogin = response.data
         localStorage.setItem('userLogin', JSON.stringify(userLogin))
         alert("se modifico la foto de perfil")
         window.location.reload();
@@ -65,8 +65,7 @@ import { TextField } from "@mui/material";
       .catch((error) => {
         console.log(error);
       });
-  } 
-  console.log(imageToRender)
+  }
   
 //----------------------------------------------------------------------------------------------------------------------------------//
   
@@ -125,7 +124,7 @@ const handleSubmit = async (event) => {
         <CardMedia
           className='w-30 h-30 mx-auto object-cover rounded-full border-2 border-slate-900 dark:border-white'
           component="img"
-          image={info.photo || dataUserGoogle.photo || usuario}
+          image={info?.photo || dataUserGoogle?.photo || usuario}
           alt="ProfilePhoto"
         />
         <Button variant="outlined" onClick={handleClickOpen} startIcon={<Badge />}>
@@ -198,16 +197,6 @@ const handleSubmit = async (event) => {
                 variant="standard" 
                 name='email'/>
           </div>
-          {/* <div>
-              <TextField 
-                label="Foto" 
-                value={info.photo} 
-                onChange={handleChange}
-                error={!!errors.photo} 
-                helperText={errors.photo} 
-                variant="standard" 
-                name='photo'/>
-          </div> */}
           <div>
               <TextField 
                 label="Website" 

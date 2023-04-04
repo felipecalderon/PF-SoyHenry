@@ -1,7 +1,8 @@
 //ACA IMPORTAN Y SE DEFINEN LAS RUTAS
 const { Router } = require('express')
 const { postImagepostulante,
-    postCvpostulante } = require("./uploadImagesRoute")
+        postImageRecruiter,
+        postCvpostulante } = require("./uploadImagesRoute")
 const upload = require("../handlers/Utils/multer")
 const {
     allUsers,
@@ -106,6 +107,7 @@ route.get('/technologies', getTechnologies)
 
 //Subir y Actualizar imagenes usuario
 route.post("/upload-photo-user/:idUser", upload.single("imagenes"), postImagepostulante)
+route.post("/upload-logo-company/:idUser", upload.single("imagenes"), postImageRecruiter)
 
 //Subir y Actualizar pdf
 route.post("/upload-cv-user/:idPostulante", upload.single("pdf"), postCvpostulante)
