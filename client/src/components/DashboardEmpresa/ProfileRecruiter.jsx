@@ -88,13 +88,8 @@ import { TextField } from "@mui/material";
     email: '',
     phone: '',
     website: '',
-    // photo: ''
   });
-
-  // useEffect(() => {
-  //   const dataUser = JSON.parse(localStorage.getItem("userLogin"));
-  // },[actualizar])
-
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -130,17 +125,9 @@ const handleSubmit = async (event) => {
         <CardMedia
           className='w-30 h-30 mx-auto object-cover rounded-full border-2 border-slate-900 dark:border-white'
           component="img"
-          image={info.photo || photo}
+          image={info.photo || dataUserGoogle.photo || usuario}
           alt="ProfilePhoto"
         />
-        {/* <li className="w-full flex flex-col items-center">
-        <img
-          src={info.photo || usuario}
-          alt=""
-          width="150px"
-          className="border rounded-full m-1 "
-        />
-      </li> */}
         <Button variant="outlined" onClick={handleClickOpen} startIcon={<Badge />}>
           Modificar datos personales
         </Button>
