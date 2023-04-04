@@ -2,20 +2,20 @@ import { useEffect, useState } from "react";
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import axios from "axios";
+import { Rating } from "@mui/material";
+import {Favorite, FavoriteBorder, AccountCircle} from '@mui/icons-material';
 
 const Testimonials = () => {
   const [testimonios, setTestimonios] = useState([])    
-
   useEffect(() => {
     axios('/review')
       .then(res => {
         setTestimonios(res.data)
       })
     
-    
   }, [])
     const testimoniosHTML = testimonios.map(testimonio => {
-      return <div className="max-w-screen-md mx-auto text-center" key={testimonio.id}>
+      return <div className="flex flex-col items-center px-10 md:px-48 text-center" key={testimonio.id}>
           <svg
             aria-hidden="true"
             className="w-12 h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600"
@@ -28,18 +28,32 @@ const Testimonials = () => {
               fill="currentColor"
             />
           </svg>
+          <Rating
+            name="customized-color"
+            defaultValue={testimonio.puntuacion}
+            precision={1}
+            className="text-3xl"
+            icon={<Favorite fontSize="large" className="text-purple-900 dark:text-yellow-400"/>}
+            emptyIcon={<FavoriteBorder fontSize="large" className="text-purple-500 dark:text-yellow-200"/>}
+            readOnly
+          />
           <blockquote>
             <p className="text-2xl italic font-medium text-gray-900 dark:text-white">
               "{testimonio.comentario}"
             </p>
           </blockquote>
-          <figcaption className="flex items-center justify-center mt-6 space-x-3">
-            <img
-              className="w-10 h-10 rounded-full object-cover"
+          <figcaption className="flex w-fit items-center justify-center mt-6 py-2 px-3 rounded-full bg-white bg-opacity-30 dark:bg-opacity-10">
+            {
+            testimonio.photo
+            ? <img
+              className="w-10 h-10 mr-2 rounded-full object-cover"
               src={testimonio.photo}
               alt="test" />
-          <p className="italic text-gray-900 dark:text-white">
-              "{testimonio.usuario}"
+            : <AccountCircle fontSize="large" className="w-10 h-10 mr-2 rounded-full object-cover dark:text-white text-3xl" />
+            }
+            
+            <p className="italic text-gray-900 dark:text-white">
+              {testimonio.usuario}
             </p>
         </figcaption>
       </div>
