@@ -26,6 +26,7 @@ export const menu = [
 function LandingPage() {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false);
+  const dataUserLocalStorage = JSON.parse(localStorage.getItem("userLogin"));
   
   return (
     <>
@@ -37,7 +38,8 @@ function LandingPage() {
         <div className="w-full sm:w-1/2 text-center sm:text-left flex flex-col justify-center">
           <h2 className="mb-4 text-2x pr-10 font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">Encuentra tu trabajo ideal aquí</h2>
           <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl pr-10 dark:text-gray-400">Únete ahora a nuestra plataforma y comienza a encontrar oportunidades de trabajo que se ajusten a tu perfil y habilidades.</p>
-          <button onClick={() => setOpen(!open)} type="button" className="w-full sm:w-1/3 text-gray-900 border border-gray-800 hover:bg-secondary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800">Comienza Ahora</button>
+          <button onClick={() => dataUserLocalStorage?.email?dataUserLocalStorage.rol==="Postulante"?navigate("/profile"):navigate("/dashboardempresa"): setOpen(!open)} 
+          type="button" className="w-full sm:w-1/3 text-gray-900 border border-gray-800 hover:bg-secondary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800">Comienza Ahora</button>
           <ModalLogin isOpen={open} setOpen={setOpen} />
 
         </div>
