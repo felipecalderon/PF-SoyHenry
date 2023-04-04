@@ -211,14 +211,15 @@ useEffect(() => {
            <PremiumButtonComponent />
         </div>
         <div class="flex justify-center items-center "> 
-        {!dataUser?.premium ? (
+        { Number(jobId.id) && !dataUser?.premium ? (
               <span
                 style={{
                   display: 'block',
                   padding: '0.5rem',
                   backgroundColor: 'orange',
                   color: 'white',
-                  
+                  border: '1px solid orange',
+                  borderRadius: '0.25rem',
                 }}
               >
                 Debes ser premium para aplicar a esta oferta
