@@ -9,6 +9,7 @@ import ModalConfirmChangesCompany from './ModalConfirmChangesCompany';
 import { useDispatch } from 'react-redux';
 import { fetchCountries } from '../../redux/slices/countriesSlices';
 import { TextField } from "@mui/material";
+import usuario from "../../assets/user.png"
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -41,6 +42,56 @@ import Select from '@mui/material/Select';
           },
       };
   
+//------------------------------------------------Logo de Empresa----------------------------------------------------------------------//
+
+const [imageToRender, setImageToRender] = useState(null);
+const [imagetosend, setImageTosend] = useState(null)
+const [notValidImage, setNotValidImage] = useState(true);
+const idUser = user.id
+
+const handleImageInputChange = (event) => {
+  const selectedImage = event.target.files[0];
+  if (selectedImage.size > 5 * 1024 * 1024) {
+    // manejar el caso en el que la imagen seleccionada es demasiado grande
+    setImageToRender(null);
+    setNotValidImage(true);
+  }
+  if (!["image/png", "image/jpeg"].includes(selectedImage.type)) {
+    // manejar el caso en el que el tipo de archivo seleccionado no es compatible
+    setImageToRender(null);
+    setNotValidImage(true);
+  } else {
+    setNotValidImage(false);
+    setImageToRender(URL.createObjectURL(selectedImage));
+    console.log(imageToRender)
+    setImageTosend(selectedImage)
+  }
+};
+
+const handleSubmitImage = (event) => {
+  const formData = new FormData();
+  formData.append("imagenes", imagetosend);
+  console.log(formData)
+  axios
+    .post(`/upload-logo-company/${idUser}`, formData)
+    .then((response) => {
+      console.log(response.data);
+      // actualizar localStorage
+      let userLogin = JSON.parse(localStorage.getItem('userLogin',))
+      userLogin = response.data
+      console.log(userLogin);
+      localStorage.setItem('userLogin', JSON.stringify(userLogin))
+      alert("se modifico el logo de empresa")
+      window.location.reload();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------//
+
+
   //eslint-disable-next-line no-unused-vars
   const {id, companyname, email_company , company_city, company_country, logo, website, phone_company} = company;
 
@@ -61,7 +112,6 @@ import Select from '@mui/material/Select';
     description: '',
     phone_company: '',
     website: '',
-    logo: '',
   });
 
   useEffect(() => {
@@ -125,7 +175,7 @@ const handleSubmit = async (event) => {
         <CardMedia
           className='w-30 h-30 mx-auto object-cover border-2 border-slate-900 dark:border-white'
           component="img"
-          image={logo}
+          image={info?.logo || usuario}
           alt="Live from space album cover"
         />
         <Button variant="outlined" onClick={() => handleClickOpen()} startIcon={<Badge />}>
@@ -153,6 +203,15 @@ const handleSubmit = async (event) => {
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
             <p><strong>Teléfono: </strong></p><p target="_blank" rel="noopener noreferrer">{phone_company}</p>
           </Typography>
+          <input type="file" onChange={handleImageInputChange}/>
+          <div className='flex justify-center'>
+            <button
+            onClick={handleSubmitImage}
+            className="w-36 bg-primary-light hover:bg-secondary-light border-2 border-blue-400 text-blue-500 font-medium py-2 px-4 mt-2 rounded disabled:cursor-not-allowed"
+            disabled={notValidImage}>
+            Subir imagen
+            </button>
+          </div>
           {/* <Rating name="ratingCompany" value={4} readOnly /> */}
         </CardContent>
       </Box>
@@ -189,7 +248,7 @@ const handleSubmit = async (event) => {
                 variant="standard" 
                 name='email_company'/>
           </div>
-          <div>
+          {/* <div>
               <TextField 
                 label="Logo" 
                 value={info.logo} 
@@ -198,7 +257,7 @@ const handleSubmit = async (event) => {
                 helperText={errors.logo} 
                 variant="standard" 
                 name='logo'/>
-          </div>
+          </div> */}
           <div>
               <TextField 
                 label="Website" 
@@ -279,15 +338,15 @@ const handleSubmit = async (event) => {
           <Button onClick={() => handleClose()}>Cancelar</Button>
           <Button 
           // onClick={() => errorsNew.length === 0 ? setShowModal(true) : setErrors(errorsNew)}>Aceptar</Button>
-          onClick={() => setShowModal(true)}>Aceptar</Button>
-          {/* onClick={() => {
+          // onClick={() => setShowModal(true)}>Aceptar</Button>
+          onClick={() => {
             const errorsNew = validationsDatosEmpresa(info);
             setErrors(errorsNew);
             const noErrors = Object.values(errorsNew).every(error => error === '');
             if (noErrors) {
               setShowModal(true);
             }
-          }}>Aceptar</Button> */}
+          }}>Aceptar</Button>
         </DialogActions>
         <ModalConfirmChangesCompany isVisible={showModal} onClose={() => setShowModal(false)} >
           <h1 className='flex font-bold justify-center p-3 dark:text-text-dark'>Antes de confirmar, verifique los datos</h1>

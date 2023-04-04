@@ -23,7 +23,7 @@ const ModoNoche = () => {
     }, [localDark])
     
     return (
-        <div onClick={handleToggle} className="cursor-pointer py-2 px-2 bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 dark:hover:bg-secondary-light">{isDarkMode 
+        <div onClick={handleToggle} className="cursor-pointer py-2 px-2 w-10 h-10 bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 dark:hover:bg-secondary-light">{isDarkMode 
             ? <img className="select-none w-6" src={dia} alt='dia'/>
             : <img className="select-none w-6" src={noche} alt='noche'/>
             }</div>

@@ -31,7 +31,6 @@ const controlarPagoStripe = async ({ estado, email }) => {
       fin_plan: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 días después de hoy
       plan: 'Premium',
     })
-    window.location.href = 'https://tu-pagina.com/';
     return 'Pago exitoso'
   } catch (error) {
     throw error

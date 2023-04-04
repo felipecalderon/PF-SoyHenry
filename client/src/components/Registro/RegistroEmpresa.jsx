@@ -69,7 +69,6 @@ export const RegistroEmpresa = () => {
         company_city: '',
         company_country: '',
         website: '',
-        logo: '',
         rol: 'Empresa',
         active: true
     });
@@ -87,7 +86,6 @@ export const RegistroEmpresa = () => {
         company_city: '',
         company_country: '',
         website: '',
-        logo: '',
     });
 
     const userData = JSON.parse(localStorage.getItem('usergoogle'))
@@ -274,9 +272,6 @@ export const RegistroEmpresa = () => {
                                 </div>
                                 <div className="mr-4 my-4">
                                     <TextField label="Correo de la empresa" value={form.email_company} onChange={handleChange} error={!!errors.email_company} helperText={errors.email_company ? errors.email_company : 'Ej. contacto@empresa.com'} variant="standard" name='email_company' />
-                                </div>
-                                <div className="mr-4 my-4">
-                                    <TextField label="Logo" value={form.logo} onChange={handleChange} error={!!errors.logo} helperText={errors.logo ? errors.logo : "http://www.logo.com"} variant="standard" name='logo' />
                                 </div>
                                 <div className="mr-4 my-4">
                                     <TextField label="Website" value={form.website} onChange={handleChange} error={!!errors.website} helperText={errors.website ? errors.website : "http://www.website.com"} variant="standard" name='website' />

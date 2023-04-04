@@ -11,7 +11,8 @@ import UserProfile from './components/UserProfile/UserProfile'
 import Pdf from './components/UserProfile/Pdf'
 import NotFound from './components/NotFound/NotFound'
 import DashAdmin from './components/DashboardAdmin/DashboardAdmin'
-import Terminosdeservicio from './components/Footer/Terminosdeservicio'
+import LoginAdmin from './components/DashboardAdmin/LoginAdmin'
+
 export const rutas = createBrowserRouter([
     {
       path: '/',
@@ -60,6 +61,10 @@ export const rutas = createBrowserRouter([
     {
       path: '/about',
       element: <About />
+    },
+    {
+      path: '/admin',
+      element: <LoginAdmin />
     },
     {
       path: '/dashboardadmin',
