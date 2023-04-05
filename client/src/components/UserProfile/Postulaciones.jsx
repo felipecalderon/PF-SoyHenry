@@ -13,7 +13,7 @@ function Postulaciones() {
   const dataUser = JSON.parse(dataUserLocal);
   const [allData, SetAllData] = useState([]);
   const [filtros, setFiltros] = useState({
-    estado: "",
+    estado: "todos",
     fecha: "",
   });
 
