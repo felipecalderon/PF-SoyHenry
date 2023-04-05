@@ -7,8 +7,11 @@ import validationsRegister from "./validationsRegister";
 import { Box, Button, IconButton, InputAdornment, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
+import { useNavigate} from "react-router-dom";
 
 const FormularioPostulante = ({ handleOpen }) => {
+    const navigate=useNavigate()
+    
     const dispatch = useDispatch()
     const [form, setForm] = useState({
         names: '',
@@ -126,6 +129,9 @@ const FormularioPostulante = ({ handleOpen }) => {
     return (
         <>
             <form className='w-full flex flex-col m-4'>
+           
+          
+        
                 <Box
                     className="flex flex-col"
                     component="form"
@@ -202,7 +208,7 @@ const FormularioPostulante = ({ handleOpen }) => {
                     </Box>
                 </div>
                 <div className='mt-4 text-center'>
-                    <p className='text-gray-700 dark:text-white text-sm'>Al hacer click en Crear Cuenta, aceptas las <a className="text-secondary-light dark:text-primary-dark" href='#'>Condiciones de uso</a> y las <a className="text-secondary-light dark:text-primary-dark" href='#'>Políticas de privacidad</a> de Fusionajob.</p>
+                    <p className='text-gray-700 dark:text-white text-sm'>Al hacer click en Crear Cuenta, aceptas las <a className="text-secondary-light dark:text-primary-dark cursor-pointer hover:underline" onClick={()=>navigate("/terminosdeservicio")}>Condiciones de uso</a> y las <a className="text-secondary-light dark:text-primary-dark cursor-pointer hover:underline"  onClick={()=>navigate("/terminosdeservicio")}>Políticas de privacidad</a> de Fusionajob.</p>
                 </div>
                     <div className="flex justify-center m-5">
                         <Link to='/companyregister'>

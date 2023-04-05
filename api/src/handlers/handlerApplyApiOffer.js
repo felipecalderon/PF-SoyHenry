@@ -24,12 +24,13 @@ const handlerGetApplyApiOffer =async (req,res)=>{
     const {userId}=req.params
     if(!userId) res.status(400).json({message:"debe ingresar el userId"})
     try {
-    
+        console.log("tu user id"+userId)
         const results=await  GetApplyApiOfferController(userId)
         
             res.status(200).json(results)
         
         } catch (error) {
+            console.log(error)
             res.status(400).json({message:error.message})
         }
         
