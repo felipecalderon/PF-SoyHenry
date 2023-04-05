@@ -108,7 +108,7 @@ function UserProfile() {
                 </button>
               )}
             </div>
-            {inConfig ? (
+            {inConfig ? ( 
               <Configuracion inConfig={inConfig} SetInConfig={SetInConfig} />
             ) : (
               <User />
