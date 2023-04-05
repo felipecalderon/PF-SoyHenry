@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {Box, Typography, CardContent, CardMedia, Rating, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Slide} from '@mui/material/';
 import {Badge} from '@mui/icons-material/';
 import SendIcon from '@mui/icons-material/Send';
-import {Link} from 'react-router-dom'
 import axios from 'axios';
 import validationsDatosEmpresa from './validationsDatosEmpresa';
 import ModalConfirmChangesCompany from './ModalConfirmChangesCompany';
@@ -15,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import LoadingButton from '@mui/lab/LoadingButton';
+import FormOfferClean from '../Form/FormCreateOfferClean';
 
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -23,6 +23,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
   const Profile = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [openForm, setOpenForm] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [countryData, setCountryData] = useState()
   const [selectedCountry, setSelectedCountry] = useState()
@@ -218,16 +219,14 @@ const handleSubmit = async (event) => {
             </Button>
           </div>
           <div className='pt-2'>
-          <Link to='/offerscreate'>
-            <Button variant="contained" className='w-full' endIcon={<SendIcon />}>
-              Crear oferta de empleo
+            <Button variant="contained" onClick={() => setOpenForm(true)} endIcon={<SendIcon />}>
+            Crear oferta de empleo
             </Button>
-          </Link>
           </div>
           </div>
         </CardContent>
       </Box>
-        <Dialog
+      <Dialog
           open={open}
           TransitionComponent={Transition}
           keepMounted
@@ -366,6 +365,19 @@ const handleSubmit = async (event) => {
               onClick={handleSubmit}>Confirmar</button>
           </div>
         </ModalConfirmChangesCompany>
+      </Dialog>
+
+      <Dialog
+          open={openForm}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={() => setOpenForm(false)}
+          aria-describedby="alert-dialog-slide-description"
+          className='flex w-auto justify-center bg-black bg-opacity-50'>
+        <DialogTitle className='bg-secondary-light dark:text-white dark:bg-primary-dark'>Crear nueva oferta de empleo</DialogTitle>
+        <DialogContent className='flex justify-center bg-primary-light bg-opacity-50'>
+          <FormOfferClean/>
+        </DialogContent>
       </Dialog>
     </div>
     )
