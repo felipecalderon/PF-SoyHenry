@@ -123,7 +123,7 @@ const visualizar=()=>{
        </div>
        <Box sx={{ "& > button": { m: 1, width: "150px", height: "60px", fontWeight: "700" } }}>
         <LoadingButton
-          className={`${!isPdf && 'opacity-50 cursor-not-allowed'}`}
+          className={`${!isPdf &&  'cursor-not-allowed'}`}
           onClick={handleSubmit}
           loading={loading}
           color="warning"

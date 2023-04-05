@@ -66,7 +66,7 @@ function FotodePerfil({ photo }) {
 
       <Box sx={{ "& > button": { m: 1, width: "150px", height: "60px", fontWeight: "700" } }}>
         <LoadingButton
-          className={`${notValidImage ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}`}
+          className={`${notValidImage ? "cursor-not-allowed pointer-events-none" : ""}`}
           onClick={handleSubmit}
           loading={loading}
           color="warning"
