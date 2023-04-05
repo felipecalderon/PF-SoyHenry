@@ -3,6 +3,8 @@ import { useState } from "react";
 import axios from "axios"
 import LoadingButton from '@mui/lab/LoadingButton';
 import Box from "@mui/material/Box";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 function Curriculum() {
   const dataUserLocalStorage = JSON.parse(localStorage.getItem("userLogin"));
@@ -137,10 +139,19 @@ const visualizar=()=>{
 
      </form>
        
-       { pdf?    <a href={pdf} 
-            className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
-              Ver Curriculum
-            </a>:null}
+     <Stack spacing={2} direction="row" className="flex flex-row justify-center">
+      {pdf && (
+        <Button
+          href={pdf}
+          target="_blank"
+          rel="noopener"
+          variant="contained"
+          color="primary"
+        >
+          Ver Curriculum
+        </Button>
+      )}
+    </Stack>
           
 
           

@@ -78,7 +78,7 @@ function UserProfile() {
     return (
       <>
         <NavLanding menu={menu} />
-        <div className="pt-20 text-left pl-7 bg-primary-light dark:bg-secondary-dark justify-around">
+        <div className="flex flex-row pt-20 text-left pl-7 bg-primary-light dark:bg-secondary-dark justify-center">
           <PremiumButtonComponent />
         </div>
 
