@@ -170,14 +170,14 @@ function Terminosdeservicio() {
             <br />
             <br />
           </ul>
-          <h2 className="mb-6 inline  text-gray-800 dark:text-gray-400 text-xl font-bold">
+          {/* <h2 className="mb-6 inline  text-gray-800 dark:text-gray-400 text-xl font-bold">
             Si tienes alguna pregunta o comentario sobre estos términos y
             condiciones, por favor contáctanos a través de
             <button className="text-secondary-light dark:text-primary-dark hover:underline ml-2">
               {" "}
               nuestra seccion PQRS
             </button>
-          </h2>
+          </h2> */}
         </div>
       </div>
       <Footer />
