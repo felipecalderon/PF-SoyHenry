@@ -39,7 +39,7 @@ const validationsRegisterCompany = (validar) => {
     if (validar.hasOwnProperty('password')) {
         if (validar.password === '') return { ...errors, password: 'Se requiere una contraseña' };
         if (!validar.password.match(/\d/)) return { ...errors, password: 'La contraseña debe contener al menos un número' }
-        if (validar?.password?.length < 6 || validar?.password?.length > 12) return { ...errors, password: "La contraseña debe contener entre 6 y 12 caracteres" }
+        if (validar?.password?.length < 6 || validar?.password?.length > 20) return { ...errors, password: "La contraseña debe contener entre 6 y 20 caracteres" }
         if (validar.password.length) return { ...errors, password: '' };
     }
     if (validar.hasOwnProperty('city')) {
