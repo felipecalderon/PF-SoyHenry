@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react';
 import { NavLanding } from '../NavLanding/NavLanding';
 import Rigth from './Panelder';
 import Left from './Panelizq';
+import NotFound from '../NotFound/NotFound';
 import { Button } from '@mui/material';
 import { Group, GroupAdd, Groups, PersonAddAlt1, Work } from '@mui/icons-material';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-import NotFound from '../NotFound/NotFound';
+import CommentIcon from '@mui/icons-material/Comment';
 
 // funcion para transformar fecha del backend
 export const tranformarFecha = (fechaOriginal) => {
@@ -36,6 +37,7 @@ const DashAdmin = () => {
   const [addRecluter, setAddRecluter] = useState(false)
   const [addAdmin, setAddAdmin] = useState(false)
   const [addOffers, setAddOffers] = useState(false)
+  const [addComents, setAddComents] = useState(false)
 
   const [mostrarBotones, setMostrarBotones] = useState(false);
   function handleClick() {
@@ -51,6 +53,7 @@ const DashAdmin = () => {
     setAddRecluter(false);
     setAddAdmin(false);
     setAddOffers(false);
+    setAddComents(false);
   }
 
   const handlePostulant = (e) => {
@@ -59,6 +62,7 @@ const DashAdmin = () => {
     setAddRecluter(false);
     setAddAdmin(false);
     setAddOffers(false);
+    setAddComents(false);
   };
   const handleRecluter = (e) => {
     e.preventDefault()
@@ -66,6 +70,7 @@ const DashAdmin = () => {
     setAddRecluter(true);
     setAddAdmin(false);
     setAddOffers(false);
+    setAddComents(false);
   };
   const handleAdmin = (e) => {
     e.preventDefault()
@@ -73,6 +78,7 @@ const DashAdmin = () => {
     setAddRecluter(false);
     setAddAdmin(true);
     setAddOffers(false);
+    setAddComents(false);
   };
   const handleOffers = (e) => {
     e.preventDefault()
@@ -80,6 +86,15 @@ const DashAdmin = () => {
     setAddRecluter(false);
     setAddAdmin(false);
     setAddOffers(true);
+    setAddComents(false);
+  };
+  const handleComents = (e) => {
+    e.preventDefault()
+    setAddPostulant(false);
+    setAddRecluter(false);
+    setAddAdmin(false);
+    setAddOffers(false);
+    setAddComents(true);
   };
 
   useEffect(() => {
@@ -118,6 +133,7 @@ const DashAdmin = () => {
             {mostrarBotones &&
               <div className='gap-3 flex flex-col mt-3'>
                 <Button id='all' variant="contained" onClick={handleFiltro} startIcon={<Diversity3Icon />} >Todos los Usuarios</Button>
+                <Button id='Admin' variant="contained" onClick={handleFiltro} startIcon={<SupervisorAccountIcon />} >Administradores</Button>
                 <Button id='Postulante' variant="contained" onClick={handleFiltro} startIcon={<Group />} >Postulantes</Button>
                 <Button id='Empresa' variant="contained" onClick={handleFiltro} startIcon={<Groups />} >Reclutadores</Button>
               </div>
@@ -127,10 +143,12 @@ const DashAdmin = () => {
           <Button variant="contained" onClick={handleRecluter} startIcon={<GroupAdd />} sx={{ height: '36px' }} >Agregar Reclutador </Button>
           <Button variant="contained" onClick={handleAdmin} startIcon={<SupervisorAccountIcon />} sx={{ height: '36px' }} >Agregar Admin </Button>
           <Button variant="contained" onClick={handleOffers} startIcon={<Work />} sx={{ height: '36px' }} >Ver Ofertas </Button>
+          <Button variant="contained" onClick={handleComents} startIcon={<CommentIcon />} sx={{ height: '36px' }} >Ver Comentarios </Button>
+
         </section>
         <section className="py-5 gap-3 flex flex-row flex-wrap justify-center text-center">
           <div className="w-full sm:w-1/2 flex flex-col">
-            <Rigth datos={listaUsers} addpostulant={addPostulant} addRecluter={addRecluter} addAdmin={addAdmin} addOffers={addOffers} />
+            <Rigth datos={listaUsers} addpostulant={addPostulant} addRecluter={addRecluter} addAdmin={addAdmin} addOffers={addOffers} addComents={addComents} />
           </div>
           <div className="w-11/12 sm:w-1/3 flex flex-col">
             <Left />

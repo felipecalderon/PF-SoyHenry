@@ -26,7 +26,6 @@ const {
 const {
     authUserCreate,
     authUserCreateGoogleBtn,
-    authUserGoogleBtnCB,
     authUserLoginCredentials,
     updatePremium
 } = require('./authRoute')
@@ -48,7 +47,6 @@ const {
 
 const { getTechnologies } = require('./technologiesRoute');
 const { planRoute,
-    subscriptionRoute,
     respuestasMP,
     pagoStripe,
     recepcionPago,
@@ -92,7 +90,6 @@ route.put('/jobsld/:id', putLdOffers); // Logical deletion
 route.delete('/jobdb/:id', deleteOffer); // Physical deletion
 
 // company
-//route.get('/company/:id', companiesRoute)
 route.get('/company', allCompany);
 route.post('/company', newCompany); // se deberia crear desde user
 route.get('/company/:id', companyById);//id de la api
@@ -135,35 +132,10 @@ route.get('/review/:id',allReviewById);
 route.put('/review/:id',putReviews);
 route.delete('/review/:id',deleteReviews);
 
-module.exports = route;
-
-
-
-
-//Rutas que guardaran y mostraran ofertas a la que se aplicaron de la api
-
-
 //ruta que guardara las postulaciones de la api 
 route.post("/applyapioffer",handlerSaveApplyApiOffer)
 
 //ruta que traera oferta guardada de la api
 route.get("/applyapioffer/:userId",handlerGetApplyApiOffer)
 
-
-
-// Gets
-// route.get('user/:id', getUsersByIdControllers );
-// route.get('user/:email', getUsersByIdControllers );
-// route.get('user/inact', getUsersInactControllers );
-// route.get('user/inact/:id', getUsersInactByIdControllers );
-// route.put('user/:id', putUsersControllers );
-// // Puts
-// route.put('user/ld/:id', putStateControllers );
-
-//admin
-// route.get('/admin',allAdmin )
-// route.post('/admin',createAdmin )
-// route.put('/admin/:id', putAdmin)
-// route.delete('/admin/:id', deleteadmin)
-// route.get('/admin/:id',getadminbyid)
-//
+module.exports = route;
