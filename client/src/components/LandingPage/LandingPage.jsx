@@ -104,9 +104,11 @@ function LandingPage() {
 
       <Testimonials />
 
-      <section className="py-10 w-full flex flex-col flex-wrap bg-primary-light dark:bg-secondary-dark">
-        <h2 className="pt-3 text-center mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">¡Hazte Premium para disfrutar de estos beneficios!</h2>
+      <section className="py-10 w-full flex flex-col justify-center flex-wrap bg-primary-light dark:bg-secondary-dark">
+        <h2 className="pt-3 text-center mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">¡Hazte postulante Premium y disfruta de estos beneficios!</h2>
         <p className="pt-3 text-center mb-4 text-1x  leading-none tracking-tight text-gray-900 md:text-1xl lg:text-1xl dark:text-white">*Debes estar registrado para hacerte Premium, si ya estas registrado ve a tu perfil y hazte premium</p>
+        <button onClick={() => dataUserLocalStorage?.email?dataUserLocalStorage.rol==="Postulante"?navigate("/profile"):navigate("/dashboardempresa"): setOpen(!open)} 
+        type="button" className="w-full sm:w-1/3 mx-auto my-4 text-gray-900 border border-gray-800 hover:bg-secondary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800">Comienza Ahora</button>
         <div className='flex flex-col items-center md:flex-row justify-center gap-6'>
           <div className="w-full max-w-sm p-4 bg-white border border-black rounded-lg shadow sm:p-8">
             <h5 className="mb-4 text-xl font-medium text-gray-800 dark:text-gray-400">Plan Básico</h5>
