@@ -58,7 +58,7 @@ function Footer() {
             <section className='footer-section1'>
                 <article>
                     <ul className='firts-list'>
-                        <li className='dark:text-white' >Sobre Nosotros</li>
+                        <li className='dark:text-white'  onClick={()=>navigate("/about")}>Sobre Nosotros</li>
                         <li className='dark:text-white' >
                             <button onClick={handleOpen}>
                                 Feedback
