@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import logofusionajob from '../../assets/logofusionajob.png'
-import UserPremiumButton from "../BotonPremium/UserPremiumBoton";
 import ModoNoche from "./ModoNoche";
 import UserMenu from "./UserMenu";
 import {Menu} from '@mui/icons-material'
 import { useState } from "react";
+import PremiumButton from "../BotonPremium/UserPremiumBoton";
 
 export const NavLanding = ({menu}) => {
   const navigate = useNavigate()
@@ -48,6 +48,7 @@ export const NavLanding = ({menu}) => {
         <div className="flex">
           <div className="ml-4 hidden md:flex items-center justify-end md:ml-6 gap-3">
             {/* Botón para mostrar menú en dispositivos móviles */}
+            <PremiumButton />
             <UserMenu user={user} userGoogle={userGoogle}/>
             <ModoNoche />
           </div>
@@ -63,7 +64,7 @@ export const NavLanding = ({menu}) => {
             return <Link key={item.name} to={item.link} className="block dark:text-yellow-200 hover:scale-110 transition-all font-medium px-4 py-2">{ item.name }</Link>
           })
         }
-        <UserPremiumButton/>
+        <PremiumButton />
         <UserMenu user={user} userGoogle={userGoogle}/>
         <ModoNoche />
       </div>

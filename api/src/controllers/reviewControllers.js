@@ -28,9 +28,9 @@ const createNewReviewControllers = async (body) => {
     }
 }
 
-const putReviewsControllers = async ( id , body ) => {
+const putReviewsControllers = async ( {id} , {active} ) => {
     try {
-        const response = await putReviews( id , body);
+        const response = await putReviews( id , active);
         return response;
     } catch (error) {
         return error

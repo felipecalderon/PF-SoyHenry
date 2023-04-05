@@ -78,21 +78,27 @@ const Tabla = ({ datos }) => {
                   <TableCell align="center">{dato.fecha_registro}</TableCell>
                   <TableCell align="center">{dato.activo ? 'Activo' : 'Desactivado'}</TableCell>
                   <TableCell align="center">
-                    <div className="flex flex-row gap-1">
+                    <div className="flex flex-row gap-1 justify-center">
                       <button onClick={() => { handlePremium(dato.id, dato.premium, dato.name) }} className="cursor-pointer">
                         {
-                          dato.premium
-                            ? <Icon component={StarIcon} />
-                            : <Icon component={StarBorderIcon} />
+                          dato.rol !== 'Empresa' && dato.rol !== 'Admin' ?
+                            dato.premium
+                              ? <Icon component={StarIcon} style={{color:'#FFD700 '}} />
+                              : <Icon component={StarBorderIcon} style={{color:'#FFD700'}}/>
+                            : null
                         }
                       </button>
                       <button onClick={() => { handleBan(dato.id, dato.activo, dato.name) }} className="cursor-pointer">
-                        {dato.activo
-                          ? <Icon component={PersonOffIcon} />
-                          : <Icon component={HowToRegIcon} />}
+                        {
+                          dato.rol !== 'Admin' ?
+                            dato.activo
+                              ? <Icon component={PersonOffIcon} style={{color:'#333333 '}} />
+                              : <Icon component={HowToRegIcon} style={{color:'#333333 '}} />
+                            : null
+                        }
                       </button>
                       <button onClick={() => { handleDelete(dato.id, dato.name) }} className="cursor-pointer">
-                        <Icon component={PersonRemove} />
+                        <Icon component={PersonRemove} style={{color:'#FF0000 '}} />
                       </button>
                     </div>
                   </TableCell>
