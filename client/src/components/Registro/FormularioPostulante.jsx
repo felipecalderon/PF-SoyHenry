@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { saveUser } from "../../redux/slices/userRegisterSlice";
 import validationsRegister from "./validationsRegister";
-import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
+import { Box, Button, IconButton, InputAdornment, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 
@@ -147,7 +148,7 @@ const FormularioPostulante = ({ handleOpen }) => {
                             <TextField label="Apellidos" value={form.lastnames} onChange={handleChange} error={!!errors.lastnames} helperText={errors.lastnames} variant="standard" name='lastnames' />
                         </div>
                         <div className="mr-4 my-4">
-                            <TextField label="Email" value={userData ? userData.email : form.email} onChange={handleChange} error={!!errors.email} helperText={userData ? 'No puedes modificar el correo' : errors.email ? errors.email : 'Ej. correo@gmail.com'} variant="standard" name='email' />
+                            <TextField label="Email" value={userData ? userData.email : form.email} onChange={handleChange} error={!!errors.email} helperText={userData ? 'No puedes modificar el correo' : errors.email ? errors.email : 'Ej. correo@gmail.com'} variant="standard" name='email'/>
                         </div>
                         <div className="mr-4 my-4">
                             <TextField label="Phone" value={form.phone} onChange={handleChange} error={!!errors.phone} helperText={errors.phone ? errors.phone : 'Ej. +573215894786'} variant="standard" name='phone' />
@@ -195,8 +196,7 @@ const FormularioPostulante = ({ handleOpen }) => {
                             color="warning"
                             loadingPosition="center"
                             variant="contained"
-                            type='submit'
-                        >
+                            type='submit'>
                             <span>Crear cuenta</span>
                         </LoadingButton>
                     </Box>
@@ -204,6 +204,15 @@ const FormularioPostulante = ({ handleOpen }) => {
                 <div className='mt-4 text-center'>
                     <p className='text-gray-700 dark:text-white text-sm'>Al hacer click en Crear Cuenta, aceptas las <a className="text-secondary-light dark:text-primary-dark" href='#'>Condiciones de uso</a> y las <a className="text-secondary-light dark:text-primary-dark" href='#'>Políticas de privacidad</a> de Fusionajob.</p>
                 </div>
+                    <div className="flex justify-center m-5">
+                        <Link to='/companyregister'>
+                            <Button
+                                variant="contained"
+                                color="warning">
+                                Quiero registrarme como recruiter
+                            </Button>
+                        </Link>
+                    </div>
             </form>
         </>
     )
