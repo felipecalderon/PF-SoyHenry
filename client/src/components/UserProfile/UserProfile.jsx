@@ -35,9 +35,7 @@ function UserProfile() {
     });
   }, []);
 
-  const [inConfig, SetInConfig] = useState(
-    !userData?.Postulants[0]?.description_postulant
-  );
+  const [inConfig, SetInConfig] = useState(true);
 
   const [selectedValueBarraPerfil, SetSelectedValueBarraPerfil] = useState({
     valorSeleccionado: "curriculum",
