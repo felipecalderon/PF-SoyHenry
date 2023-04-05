@@ -233,7 +233,7 @@ export const CardsOfertasDb = () => {
                <p className='mb-2 text-left'><strong>Ventajas: </strong>{offer.perks.map((p) => p).join(', ')}</p>
                <p className='mb-2 text-left'><strong>Tecnologías requeridas: </strong>{offer.technologies.map((t) => t).join(', ')}</p>
                <p className='mb-2 text-left'><strong>Experiencia: </strong>{offer.experience} Año/s</p>
-               <p className='mb-2 text-left'><strong>Salario: </strong>{offer.min_salary === 0 && offer.max_salary === 0 ? 'Sin informar'  : `$${offer.min_salary} - $${offer.max_salary}`}</p>
+               <p className='mb-2 text-left'><strong>Salario: </strong>{offer.min_salary === 0 && offer.max_salary === 0 ? 'Sin informar'  : `$${offer.min_salary} - $${offer.max_salary} USD`}</p>
                <p className='mb-2 text-left'><strong>Fecha de creación: </strong>{offer.date_post.slice(0,10)}</p>
                <p className='mb-2 text-left'><strong>Fecha de finalización: </strong>{ handleDate(offer.date_post, offer.active, offer.updatedAt, offer.expiration)}</p>
                <p className='mb-2 text-left'><strong>Postulantes: </strong>{offer.applications_count}</p>
