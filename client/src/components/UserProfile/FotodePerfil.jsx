@@ -38,7 +38,6 @@ function FotodePerfil({ photo }) {
     axios
       .post(`/upload-photo-user/${idUser}`, formData)
       .then((response) => {
-        console.log(response.data);
         alert("se modifico la foto de perfil");
         window.location.reload();
       })

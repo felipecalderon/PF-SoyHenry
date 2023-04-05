@@ -66,7 +66,6 @@ const handleImageInputChange = (event) => {
   } else {
     setNotValidImage(false);
     setImageToRender(URL.createObjectURL(selectedImage));
-    console.log(imageToRender)
     setImageTosend(selectedImage)
   }
 };
@@ -75,15 +74,12 @@ const handleSubmitImage = (event) => {
   setLoading(true);
   const formData = new FormData();
   formData.append("imagenes", imagetosend);
-  console.log(formData)
   axios
     .post(`/upload-logo-company/${idUser}`, formData)
     .then((response) => {
-      console.log(response.data);
       // actualizar localStorage
       let userLogin = JSON.parse(localStorage.getItem('userLogin',))
       userLogin = response.data
-      console.log(userLogin);
       localStorage.setItem('userLogin', JSON.stringify(userLogin))
       alert("se modifico el logo de empresa")
       window.location.reload();

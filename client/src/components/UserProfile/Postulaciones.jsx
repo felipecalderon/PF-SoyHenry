@@ -73,7 +73,6 @@ function Postulaciones() {
         const res1 = await axios.get(`/aplicates/${idUser}`);
         const res2 = await axios.get(`/applyapioffer/${idUser}`);
         SetData([...res1.data, ...res2.data]);
-        //   console.log([...res1.data, ...res2.data])
         SetAllData([...res1.data, ...res2.data]);
       } catch (err) {
         console.log(err);
