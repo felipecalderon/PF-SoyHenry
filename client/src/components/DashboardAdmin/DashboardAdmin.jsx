@@ -23,13 +23,6 @@ export const tranformarFecha = (fechaOriginal) => {
   return fechaFormateada
 }
 
-// const menuUserProfile = [
-//   {
-//     name: "Inicio",
-//     link: "/"
-//   }
-// ]
-
 const DashAdmin = () => {
   const users = JSON.parse(localStorage.getItem('userList'))
   const [listaUsers, setListaUsers] = useState([])
@@ -43,6 +36,7 @@ const DashAdmin = () => {
   function handleClick() {
     setMostrarBotones(true);
   }
+
   const handleFiltro = (e) => {
     e.preventDefault();
     const id = e.target.id;

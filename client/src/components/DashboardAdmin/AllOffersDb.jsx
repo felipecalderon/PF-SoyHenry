@@ -30,6 +30,7 @@ const AllOffersDb = () => {
   const handlePageClick = (selectedPage) => {
     localStorage.setItem('currentPage', selectedPage.selected); //  Guardado local para que se mantengan la pagina en la que estaba el usuario
     setPageNumber(selectedPage.selected);
+    window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
   };
 
   const handleBan = (id, active) => {
