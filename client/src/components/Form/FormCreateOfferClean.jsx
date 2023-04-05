@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createOffer } from "../../redux/actions/postFetchOffers";
 import axios from 'axios'
-import { Link } from "react-router-dom";
-import styles from './FormCreateOffers.module.css'
 import ModalConfirmChanges from './FormCreateOfferModal'
 import { Fragment } from "react";
 import { Button, Checkbox, FormControl, FormHelperText, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, Slider, TextField, TextareaAutosize } from "@mui/material";
@@ -158,13 +156,6 @@ export default function FormOfferClean() {
         })
     }
 
-    function handleDeleteTechnologies(event) {
-        setInputs({
-            ...inputs,
-            technologies: inputs.technologies.filter(techno => techno !== event)
-        })
-    }
-
     function handleSubmit(event) {
         event.preventDefault();
         dispatch(createOffer(inputs))
@@ -188,18 +179,19 @@ export default function FormOfferClean() {
         })
     }
 
-    const handleSalario = (event, newValue, activeThumb) => {
+    const handleSalario = (event, newValue) => {
         if (!Array.isArray(newValue)) return;
     
-        const newMin = Math.max(100, Math.round(newValue[0] / 100) * 100);
-        const newMax = Math.min(5000, Math.round(newValue[1] / 100) * 100);
-
-        setSalario([newMin, newMax]);
+        const newMin = Math.max(100, Math.round(newValue[0] / 100) * 100)
+        const newMax = Math.min(5000, Math.round(newValue[1] / 100) * 100)
+        console.log({newMin, newMax});
+        setSalario([newMin, newMax])
         setInputs({
             ...inputs,
-            min_salary: salario[0],
-            max_salary: salario[1]
+            min_salary: newMin,
+            max_salary: newMax
         })
+        console.log(inputs);
       }
 
     function precio(value) {
@@ -387,37 +379,32 @@ export default function FormOfferClean() {
                             value={salario}
                             onChange={handleSalario}
                             valueLabelDisplay="auto"
-                            getAriaValueText={precio}
                             min={100}
                             max={5000}
                             step={100}
                             disableSwap
                         />
                         </FormControl>
-                        {/* <div className='flex'>
-                            {(errors.min_salary || errors.max_salary || errors.min_salary_0 || errors.max_salary_0) && <p className={styles.p_formulario_error}>{errors.min_salary} {errors.max_salary} {errors.min_salary_0}{errors.max_salary_0}</p>}
-                            <label >Salario en dolares americanos: </label>
-                            <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.min_salary} name='min_salary' id="min_salary" placeholder="minimo" />
-                            <input className={styles.inputs_number} type='number' onChange={(event) => handleChange(event)} value={inputs.max_salary} name='max_salary' id="max_salary" placeholder="maximo" />
-                        </div> */}
                         <Button variant="contained" onClick={() => setShowModal(true)} >Previsualizar Oferta</Button>
                     </form>
                 <ModalConfirmChanges isVisible={showModal} onClose={() => setShowModal(false)}>
                 <div className="bg-white px-20 py-6 rounded-xl">
-                    <h1 className="py-3 text-xl font-bold">Antes de confirmar la oferta, verifique los datos</h1>
-                    <h1>Titulo: {inputs.title}</h1>
-                    <h1>Requisitos: {inputs.requeriments}</h1>
-                    <h1>Beneficios: {inputs.benefits}</h1>
-                    <h1>Funciones: {inputs.functions}</h1>
-                    <h1>Dias disponible: {inputs.expiration}</h1>
-                    <h1>Ventajas: {inputs.perks} </h1>
-                    <h1>Tecnologias: {inputs.technologies}</h1>
-                    <h1>Modalidad: {inputs.modality}</h1>
-                    <h1>Experiencia requerida: {inputs.experience} años</h1>
-                    <h1>Salario minimo: {!inputs.min_salary.length ? 'Sin informar' : inputs.min_salary + ' dolares'} </h1>
-                    <h1>Salario maximo: {!inputs.max_salary.length ? 'Sin informar' : inputs.max_salary + ' dolares'} </h1>
-                    <button className={styles.boton_confirmacion} type='submit' onClick={handleSubmit}>confirmar</button>
-                    <button className={styles.boton_confirmacion} type='button' onClick={() => setShowModal(false)}>volver</button>
+                    <h1 className="py-3 text-xl text-purple-900">Antes de confirmar la oferta, verifique los datos</h1>
+                    <h1>Titulo: <b>{inputs.title}</b></h1>
+                    <h1>Requisitos: <b>{inputs.requeriments}</b></h1>
+                    <h1>Beneficios: <b>{inputs.benefits}</b></h1>
+                    <h1>Funciones: <b>{inputs.functions}</b></h1>
+                    <h1>Dias disponible: <b>{inputs.expiration}</b></h1>
+                    <h1>Ventajas: <b>{inputs.perks?.join(', ')} </b></h1>
+                    <h1>Tecnologias: <b>{inputs.technologies?.join(', ')}</b></h1>
+                    <h1>Modalidad: <b>{inputs.modality}</b></h1>
+                    <h1>Experiencia requerida: <b>{inputs.experience} años</b></h1>
+                    <h1>Salario minimo: <b>{inputs.min_salary + ' dolares'} </b></h1>
+                    <h1>Salario maximo: <b>{inputs.max_salary + ' dolares'} </b></h1>
+                    <div className="flex flex-row gap-6 py-5">
+                    <button className="text-gray-900 border border-gray-800 hover:bg-primary-light focus:ring-4 focus:outline-none focus:ring-gray-300 rounded px-5 py-2.5 dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800 hover:scale-110 transition-all" type='button' onClick={() => setShowModal(false)}>Regresar</button>
+                    <button className='bg-secondary-light hover:bg-yellow-300  dark:bg-secondary-light dark:hover:bg-yellow-500  text-gray-800 dark:text-black font-bold px-5 py-2.5 rounded focus:outline-none focus:shadow-outline hover:scale-110 transition-all' type='submit' onClick={handleSubmit}>Publicar</button>
+                    </div>
                 </div>
 
                 </ModalConfirmChanges>
