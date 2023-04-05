@@ -166,6 +166,13 @@ useEffect(() => {
   const handlePostulateDb =async () => {
     const offerId = jobId.id
     const userId = dataUser.id
+    const formValues = Object.values(dataUser);
+
+    const isFormComplete = formValues.every(value => value === '' || value === null && dataUser.website===null);
+if(isFormComplete){
+  alert("para poder postularte debes tener el perfil completo")
+  return
+}
      let existeenDb= await axios.get(`/aplicates/${userId}`)
      existeenDb=existeenDb.data.find((el)=>el.offerId==offerId)
      console.log(offerId)
@@ -251,7 +258,7 @@ return
             </div>
       <div className="relative flex flex-wrap space-around">
         <Link to={'/offers'}>
-          <button type="button" class="absolute text-white  bg-secondary-light dark:bg-primary-dark hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          <button type="button" class="absolute text-white  bg-secondary-light  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             style={{
               top: -10,
               left: 5,
