@@ -53,6 +53,7 @@ const getAllOffersDbController = async ( query ) => {
         const offersDb = await getAllOffersDb( query );
         return offersDb
     } catch (error) {
+        console.log(error)
         throw error
     }
 }
@@ -86,9 +87,9 @@ const putOffertController = async ( id , body) => {
     }
 }
 //     Borrado logico (Logical deletion)
-const putOffertLDController = async ( id , body ) => {
+const putOffertLDController = async ( id , query ) => {
     try {
-        const response = await putOffertLD( id, body );
+        const response = await putOffertLD( id, query );
         return response
     } catch (error) {
         throw error

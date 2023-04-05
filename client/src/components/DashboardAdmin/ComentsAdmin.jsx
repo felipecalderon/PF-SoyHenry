@@ -2,7 +2,7 @@ import { PersonRemove } from "@mui/icons-material"
 import { Icon, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -81,7 +81,7 @@ const ComentsAdmin = ({ datos }) => {
                         }
                       </button>
                       <button onClick={() => { handleDelete(dato.id) }} className="cursor-pointer">
-                        <Icon component={PersonRemove} style={{color:'#FF0000'}} />
+                        <Icon component={DeleteForeverIcon} style={{color:'#FF0000'}} />
                       </button>
                     </div>
                   </TableCell>
