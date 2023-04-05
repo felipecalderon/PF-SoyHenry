@@ -21,10 +21,6 @@ export const menu = [
         name: "Sobre Nosotros",
         link: "/about"
     },
-    {
-        name: "Registrarme como recruiter",
-        link: "/companyregister"
-    },
 ]
 
 export const Registro = () => {
@@ -35,7 +31,7 @@ export const Registro = () => {
         <div className="w-full h-screen flex flex-col justify-between bg-primary-light dark:bg-secondary-dark">
             <NavLanding menu={menu} />
             <div className='w-full mx-auto px-4 py-8 mt-14 bg-primary-light dark:bg-secondary-dark'>
-                <h2 className='text-3xl md:text-4xl font-bold mb-8 text-center dark:text-white'>¡Crea tu cuenta y encuentra ese empleo IT deseado!</h2>
+                <h2 className='text-3xl md:text-4xl font-bold mb-8 text-center dark:text-white'>¡Crea tu cuenta de postulante y encuentra ese empleo IT deseado!</h2>
                 <div className='flex flex-col md:flex-row items-center justify-center mb-12'>
                     <img src={working1} alt='work1' className='w-full md:w-3/5 lg:w-2/5 mb-8 md:mb-0 rounded-lg' />
                     <FormularioPostulante handleOpen={handleOpen} />

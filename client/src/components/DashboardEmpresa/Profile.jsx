@@ -14,6 +14,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import LoadingButton from '@mui/lab/LoadingButton';
 
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -21,6 +22,7 @@ import Select from '@mui/material/Select';
 
   const Profile = () => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [countryData, setCountryData] = useState()
   const [selectedCountry, setSelectedCountry] = useState()
@@ -69,6 +71,7 @@ const handleImageInputChange = (event) => {
 };
 
 const handleSubmitImage = (event) => {
+  setLoading(true);
   const formData = new FormData();
   formData.append("imagenes", imagetosend);
   console.log(formData)
@@ -170,7 +173,8 @@ const handleSubmit = async (event) => {
   if(!company) return "No hay info";
   return (
     <div className='bg-primary-light border border-slate-900 dark:border-white dark:text-text-dark dark:bg-secondary-dark m-3 rounded-2xl'>
-      <Box className="flex flex-row py-6 px-3 text-left">
+      <h1 className='text-2xl font-semibold p-2'>Datos de la Empresa</h1>
+      <Box className="flex flex-row pt-2 pb-2 px-3 text-left items-center">
       <div className='flex flex-col px-6 w-2/5 items-center gap-6 '>  
         <CardMedia
           className='w-30 h-30 mx-auto object-cover border-2 border-slate-900 dark:border-white'
@@ -178,16 +182,20 @@ const handleSubmit = async (event) => {
           image={info?.logo || usuario}
           alt="Live from space album cover"
         />
-        <Button variant="outlined" onClick={() => handleClickOpen()} startIcon={<Badge />}>
-          Modificar datos de empresa
-        </Button>
-        <Link to='/offerscreate'>
-          <Button variant="contained" endIcon={<SendIcon />}>
-            Crear oferta de empleo
-          </Button>
-        </Link>
+        <div className='flex justify-center'>
+            <LoadingButton
+              onClick={handleSubmitImage}
+              disabled={notValidImage}
+              loading={loading}
+              color="warning"
+              loadingPosition="center"
+              variant="contained">
+              <span>Modificar imagen</span>
+            </LoadingButton>
+          </div>
+          <input className='flex w-52 sm:w-40' type="file" onChange={handleImageInputChange}/>
       </div>
-      <CardContent className="flex flex-col w-3/5 justify-center">
+      <CardContent className="flex flex-col w-3/5 justify-center text-left">
           <Typography component="div" variant="h4" className='text-gray-900 dark:text-white'>
             {companyname}
           </Typography>
@@ -203,16 +211,20 @@ const handleSubmit = async (event) => {
           <Typography component="div" variant="subtitle1" className='text-black-600 dark:text-white'>
             <p><strong>Teléfono: </strong></p><p target="_blank" rel="noopener noreferrer">{phone_company}</p>
           </Typography>
-          <input type="file" onChange={handleImageInputChange}/>
-          <div className='flex justify-center'>
-            <button
-            onClick={handleSubmitImage}
-            className="w-36 bg-primary-light hover:bg-secondary-light border-2 border-blue-400 text-blue-500 font-medium py-2 px-4 mt-2 rounded disabled:cursor-not-allowed"
-            disabled={notValidImage}>
-            Subir imagen
-            </button>
+          <div className='flex flex-col'>
+          <div className='pt-2'>
+            <Button variant="outlined" className='w-full' onClick={() => handleClickOpen()} startIcon={<Badge />}>
+            Modificar datos de empresa
+            </Button>
           </div>
-          {/* <Rating name="ratingCompany" value={4} readOnly /> */}
+          <div className='pt-2'>
+          <Link to='/offerscreate'>
+            <Button variant="contained" className='w-full' endIcon={<SendIcon />}>
+              Crear oferta de empleo
+            </Button>
+          </Link>
+          </div>
+          </div>
         </CardContent>
       </Box>
         <Dialog
@@ -248,16 +260,6 @@ const handleSubmit = async (event) => {
                 variant="standard" 
                 name='email_company'/>
           </div>
-          {/* <div>
-              <TextField 
-                label="Logo" 
-                value={info.logo} 
-                onChange={handleChange}
-                error={!!errors.logo} 
-                helperText={errors.logo} 
-                variant="standard" 
-                name='logo'/>
-          </div> */}
           <div>
               <TextField 
                 label="Website" 

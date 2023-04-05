@@ -42,7 +42,7 @@ export const DashboardEmpresa = () => {
         return (
             <div className="bg-primary-light dark:bg-secondary-dark pt-20 h-full w-full">
                 <NavLanding menu={menuUserProfile} />
-                <h2 className="text-center pt-6 mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">
+                <h2 className="text-center pt-6 mb-3 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl sm:text-4xl lg:text-5xl dark:text-white">
                     Bienvenido {userData.names}
                 </h2>
                 <section className="py-3 w-full mt-12 gap-10 flex flex-row flex-wrap justify-center text-center">
