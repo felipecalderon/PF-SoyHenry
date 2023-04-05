@@ -75,7 +75,7 @@ export default function PremiumButtonComponent() {
     setClosed(true);
   };
 
-  if (!userData?.premium) {
+  if ( userData.rol === 'Postulante' && !userData?.premium) {
     return (
       <>
         <PremiumButton

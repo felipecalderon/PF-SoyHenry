@@ -10,6 +10,7 @@ import { spinnerPurple } from './spinner';
 import { NavLanding } from "../NavLanding/NavLanding";
 import { useNavigate } from 'react-router-dom';
 import PremiumButtonComponent from "../BotonPremium/BotonPremium";
+import SpanFiltros from "../BotonPremium/SpanFiltros";
 
 import Footer from "../Footer/Footer";
 
@@ -180,6 +181,9 @@ const Cards = () => {
         </div>
 
         {/* Muestra los filtros */}
+        <div class="flex justify-center items-center">
+          < SpanFiltros/>
+        </div>
         <form className="flex flex-wrap justify-center">
           <select id="date" onChange={(e) => handleFilterChange('dt', e.target.value)} defaultValue={'DEFAULT'} disabled={!dataUserLocal?.premium} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-600 peer">
             <option value="DEFAULT" disabled> Por Fecha: </option>

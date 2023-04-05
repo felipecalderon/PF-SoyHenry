@@ -12,6 +12,7 @@ import Pdf from './components/UserProfile/Pdf'
 import NotFound from './components/NotFound/NotFound'
 import DashAdmin from './components/DashboardAdmin/DashboardAdmin'
 import LoginAdmin from './components/DashboardAdmin/LoginAdmin'
+import Terminosdeservicio from './components/Footer/Terminosdeservicio'
 
 export const rutas = createBrowserRouter([
     {
@@ -70,4 +71,9 @@ export const rutas = createBrowserRouter([
       path: '/dashboardadmin',
       element: <DashAdmin />
     },
+
+    {path:"/terminosdeservicio",
+    element:<Terminosdeservicio/>
+
+    }
 ])
