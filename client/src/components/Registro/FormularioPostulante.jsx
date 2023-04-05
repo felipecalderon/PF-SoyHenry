@@ -210,15 +210,6 @@ const FormularioPostulante = ({ handleOpen }) => {
                 <div className='mt-4 text-center'>
                     <p className='text-gray-700 dark:text-white text-sm'>Al hacer click en Crear Cuenta, aceptas las <a className="text-secondary-light dark:text-primary-dark cursor-pointer hover:underline" onClick={()=>navigate("/terminosdeservicio")}>Condiciones de uso</a> y las <a className="text-secondary-light dark:text-primary-dark cursor-pointer hover:underline"  onClick={()=>navigate("/terminosdeservicio")}>Políticas de privacidad</a> de Fusionajob.</p>
                 </div>
-                    <div className="flex justify-center m-5">
-                        <Link to='/companyregister'>
-                            <Button
-                                variant="contained"
-                                color="warning">
-                                Quiero registrarme como recruiter
-                            </Button>
-                        </Link>
-                    </div>
             </form>
         </>
     )
