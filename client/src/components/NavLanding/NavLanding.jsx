@@ -3,10 +3,19 @@ import logofusionajob from '../../assets/logofusionajob.png'
 import ModoNoche from "./ModoNoche";
 import UserMenu from "./UserMenu";
 import {Menu} from '@mui/icons-material'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PremiumButton from "../BotonPremium/UserPremiumBoton";
-
-export const NavLanding = ({menu}) => {
+export const NavLanding = () => {
+  const [menu, setMenu] = useState([
+    {
+      name: "Sobre Nosotros",
+      link: "/about"
+    },
+    {
+      name: "Registro",
+      link: "/registro"
+    },
+  ])
   const navigate = useNavigate()
   const user = JSON.parse(localStorage.getItem('userLogin'))
   const userGoogle = JSON.parse(localStorage.getItem('usergoogle'))
@@ -16,12 +25,22 @@ export const NavLanding = ({menu}) => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
+  
   const estaRegistrado = menu?.filter((e) => {
     if (user && e.link === '/registro') return false
     return true
   })
-  
+  useEffect(() => {
+    if(user?.rol === "Postulante"){
+      setMenu([
+        ...menu, 
+        {
+          name: "Ofertas",
+          link: "/offers"
+        }
+    ])
+    }
+  }, [])
   return (
     <nav className="z-50 bg-secondary-light dark:bg-primary-dark fixed top-0 w-full transition-all">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

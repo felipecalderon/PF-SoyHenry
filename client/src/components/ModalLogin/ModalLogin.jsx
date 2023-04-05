@@ -178,12 +178,12 @@ export const ModalLogin = ({ isOpen, setOpen }) => {
                         <div className='w-full flex flex-wrap justify-center' >
                             <Link to={'/registro'}>
                                 <button className="m-3 h-16 bg-primary-dark hover:bg-purple-900  dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                    <ContentPasteSearchIcon /> Quiero buscar empleos
+                                    <ContentPasteSearchIcon /> Soy Postulante
                                 </button>
                             </Link>
                             <Link to={'/companyregister'}>
                                 <button className=" m-3 h-16 bg-primary-dark hover:bg-purple-900  dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                    <PostAddIcon /> Quiero publicar ofertas de trabajo
+                                    <PostAddIcon /> Soy Reclutador
                                 </button>
                             </Link>
                         </div>

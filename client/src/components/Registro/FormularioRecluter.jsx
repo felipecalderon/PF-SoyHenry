@@ -164,20 +164,25 @@ export const FormularioRecluter = () => {
     const handleClick = async () => {
         // bloquea el boton
         setLoading(true);
-
-        // Crea el usuario en la base de datos
-        const registroUsuario = await axios.post('/auth/register', form)
-
-        // Guarda los datos en localStorage 
-        const verifyUsrExist = await axios.post(`/user/email`, { email: registroUsuario.data.email })
-        localStorage.setItem('userLogin', JSON.stringify(verifyUsrExist.data))
-
-
-        // Guarda los datos en Redux
-        dispatch(saveUser(registroUsuario.data))
-
-        // Mensaje y redirige si todo fue exitoso
-        handleOpen()
+        const usuarioLogueado = JSON.parse(localStorage.getItem('userLogin'));
+        if(!usuarioLogueado){            
+            // Crea el usuario en la base de datos
+            const registroUsuario = await axios.post('/auth/register', form)
+    
+            // Guarda los datos en localStorage 
+            const verifyUsrExist = await axios.post(`/user/email`, { email: registroUsuario.data.email })
+            localStorage.setItem('userLogin', JSON.stringify(verifyUsrExist.data))
+    
+    
+            // Guarda los datos en Redux
+            dispatch(saveUser(registroUsuario.data))
+    
+            // Mensaje y redirige si todo fue exitoso
+            return handleOpen()
+        }
+        await axios.post('/auth/register', form)
+        alert('Reclutador creado exitorsamente')
+        window.location.reload()
     };
 
     // validacion para habilitar el boton
@@ -331,15 +336,6 @@ export const FormularioRecluter = () => {
         <div className='mt-4 text-center'>
             <p className='text-gray-700 dark:text-white text-sm'>Al hacer click en Crear Cuenta, aceptas las <a className="text-secondary-light dark:text-primary-dark cursor-pointer hover:underline" onClick={()=>navigate("/terminosdeservicio")}>Condiciones de uso</a> y las <a className="text-secondary-light dark:text-primary-dark cursor-pointer hover:underline"  onClick={()=>navigate("/terminosdeservicio")}>Políticas de privacidad</a> de Fusionajob.</p>
         </div>
-            <div className="flex justify-center m-5">
-                <Link to='/register'>
-                    <Button
-                        variant="contained"
-                        color="warning">
-                        Quiero registrarme como postulante
-                    </Button>
-                </Link>
-            </div>
     </form>
     )
 }
