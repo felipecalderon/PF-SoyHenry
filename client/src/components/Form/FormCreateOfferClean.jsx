@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createOffer } from "../../redux/actions/postFetchOffers";
 import axios from 'axios'
 import ModalConfirmChanges from './FormCreateOfferModal'
 import { Fragment } from "react";
-import { Button, Checkbox, FormControl, FormHelperText, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, Slider, TextField, TextareaAutosize } from "@mui/material";
+import { Button, Checkbox, FormControl, FormHelperText, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, Slider, TextField } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 
 export default function FormOfferClean() {
     const user = JSON.parse(localStorage.getItem('userLogin'))
@@ -16,6 +17,8 @@ export default function FormOfferClean() {
     const [selectedTech, setSelecteTech] = useState([]);
     const [errors, setErrors] = useState({});
     const [salario, setSalario] = useState([100, 500]);
+    const [loading, setLoading] = useState(false)
+    const [isFormComplete, setIsFormComplete] = useState(false)
 
     const [inputs, setInputs] = useState({
         title: '',
@@ -107,6 +110,7 @@ export default function FormOfferClean() {
         setErrors(validate({
             [event.target.name]: event.target.value
         }));
+
     }
 
     function handleSelect(event) {
@@ -155,19 +159,19 @@ export default function FormOfferClean() {
     
         const newMin = Math.max(100, Math.round(newValue[0] / 100) * 100)
         const newMax = Math.min(5000, Math.round(newValue[1] / 100) * 100)
-        console.log({newMin, newMax});
+
         setSalario([newMin, newMax])
         setInputs({
             ...inputs,
             min_salary: newMin,
             max_salary: newMax
         })
-        console.log(inputs);
       }
 
     function precio(value) {
         return `De $${value[0]} a $${value[1]} (USD)`;
       }
+
     useEffect(() => {
         axios('/technologies')
             .then((response) => {
@@ -177,8 +181,14 @@ export default function FormOfferClean() {
             .then(res => setPerksApi(res.data.data))
     }, [])
 
+    useEffect(() => {
+        const isFormComplete = Object.values(inputs).every(
+          value => typeof value === 'string' ? value !== '' : value.length !== 0
+        );
+        setIsFormComplete(isFormComplete);
+      }, [inputs]);
     return (
-            <Fragment>
+            <Fragment>  
                     <form className="flex flex-col gap-2 w-full px-20" onSubmit={(event) => handleSubmit(event)}>
                         <TextField 
                             className="w-full"
@@ -191,7 +201,6 @@ export default function FormOfferClean() {
                             variant="standard" 
                             name='title'
                         />
-
                         <TextField 
                             className="w-full rounded-xl"
                             label="Requisitos"
@@ -227,8 +236,9 @@ export default function FormOfferClean() {
                         />
 
                         <FormControl>
-                        <InputLabel id="dias">Cantidad de dias de la oferta disponible: </InputLabel>
+                        <InputLabel id="dias">Días que durará activa la oferta de empleo: </InputLabel>
                         <Slider
+                            className="mt-10"
                             id='dias'
                             label="Días"
                             defaultValue={5}
@@ -279,6 +289,7 @@ export default function FormOfferClean() {
                             <InputLabel htmlFor="tecnologias">Tecnologias</InputLabel>
                             <Select
                                 multiple
+                                className="w-96"
                                 value={selectedTech}
                                 onChange={handleSelectTechnologies}
                                 input={<OutlinedInput label="tecnologias" />}
@@ -309,6 +320,7 @@ export default function FormOfferClean() {
                         <FormControl error={false}>
                             <InputLabel id="modality">Modalidad: </InputLabel>
                             <Select
+                            className="w-96"
                             labelId="modality"
                             value={inputs.modality}
                             label="Age"
@@ -327,6 +339,7 @@ export default function FormOfferClean() {
                         <FormControl error={false}>
                             <InputLabel id="experience">Experiencia Requerida: </InputLabel>
                             <Select
+                            className="w-96"
                             labelId="experience"
                             value={inputs.experience}
                             label="Age"
@@ -345,7 +358,7 @@ export default function FormOfferClean() {
                         <FormControl error={false}>
                         <InputLabel id="salario">Rango salarial: {precio(salario)}</InputLabel>
                         <Slider
-                            className="mb-3"
+                            className="mb-3 -mt-2"
                             id='salario'
                             value={salario}
                             onChange={handleSalario}
@@ -356,7 +369,17 @@ export default function FormOfferClean() {
                             disableSwap
                         />
                         </FormControl>
-                        <Button variant="contained" onClick={() => setShowModal(true)} >Previsualizar Oferta</Button>
+
+                        <LoadingButton
+                            className={`${isFormComplete ? "" : "opacity-50 cursor-not-allowed pointer-events-none"}`}
+                            onClick={() => setShowModal(true)}
+                            loading={loading}
+                            color="warning"
+                            loadingPosition="center"
+                            variant="contained"
+                        >
+                            <span>Previsualizar Oferta</span>
+                        </LoadingButton>
                     </form>
                 <ModalConfirmChanges isVisible={showModal} onClose={() => setShowModal(false)}>
                 <div className="bg-white px-20 py-6 rounded-xl">
@@ -373,8 +396,8 @@ export default function FormOfferClean() {
                     <h1>Salario minimo: <b>{inputs.min_salary + ' dolares'} </b></h1>
                     <h1>Salario maximo: <b>{inputs.max_salary + ' dolares'} </b></h1>
                     <div className="flex flex-row gap-6 py-5">
-                    <button className="text-gray-900 border border-gray-800 hover:bg-primary-light focus:ring-4 focus:outline-none focus:ring-gray-300 rounded px-5 py-2.5 dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800 hover:scale-110 transition-all" type='button' onClick={() => setShowModal(false)}>Regresar</button>
-                    <button className='bg-secondary-light hover:bg-yellow-300  dark:bg-secondary-light dark:hover:bg-yellow-500  text-gray-800 dark:text-black font-bold px-5 py-2.5 rounded focus:outline-none focus:shadow-outline hover:scale-110 transition-all' type='submit' onClick={handleSubmit}>Publicar</button>
+                        <button className="text-gray-900 border border-gray-800 hover:bg-primary-light focus:ring-4 focus:outline-none focus:ring-gray-300 rounded px-5 py-2.5 dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800 hover:scale-110 transition-all" type='button' onClick={() => setShowModal(false)}>Regresar</button>
+                        <button className='bg-secondary-light hover:bg-yellow-300  dark:bg-secondary-light dark:hover:bg-yellow-500  text-gray-800 dark:text-black font-bold px-5 py-2.5 rounded focus:outline-none focus:shadow-outline hover:scale-110 transition-all' type='submit' onClick={handleSubmit}>Publicar</button>
                     </div>
                 </div>
 
