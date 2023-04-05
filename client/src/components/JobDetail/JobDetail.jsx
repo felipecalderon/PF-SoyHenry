@@ -17,6 +17,7 @@ import { Box, Fab, Snackbar } from "@mui/material";
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import PremiumButtonComponent from "../BotonPremium/BotonPremium";
+import { Opacity } from "@mui/icons-material";
 
 const JobDetail = () => {
   const navigate = useNavigate()
@@ -162,9 +163,18 @@ useEffect(() => {
     }
   }, [data, jobId?.companyId]);
 
-  const handlePostulateDb = () => {
+  const handlePostulateDb =async () => {
     const offerId = jobId.id
     const userId = dataUser.id
+     let existeenDb= await axios.get(`/aplicates/${userId}`)
+     existeenDb=existeenDb.data.find((el)=>el.offerId==offerId)
+     console.log(offerId)
+     console.log(existeenDb)
+     if(existeenDb){
+ 
+      alert("ya te has postulado a esta oferta")
+      return 
+     }
     if(dataUser.premium){
       axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
       alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
@@ -193,7 +203,20 @@ useEffect(() => {
 
   const cleanHtml = { __html: empresa?.data.attributes.long_description }
 
-  const SaveApplyToBdd=()=>{
+  const SaveApplyToBdd=async()=>{
+    const offerId = jobId.id
+    const userId = dataUser.id
+  let existeenDB=await axios.get(`/applyapioffer/${userId}`);
+
+  console.log(offerId)
+   existeenDB=existeenDB.data.find((el)=>el.offerId == offerId)
+console.log(existeenDB)
+
+if(existeenDB){
+alert("ya te habias postulado aqui")
+return
+}
+
     axios.post(`/applyapioffer?userId=${dataUser.id}&&offerId=${jobId.id}&&title=${jobId.title}`)
     .then((res)=>{
       console.log("se envio la postulacion a la bdd ")
@@ -209,9 +232,26 @@ useEffect(() => {
       <div class="flex justify-center items-center">
            <PremiumButtonComponent />
         </div>
+        <div class="flex justify-center items-center "> 
+        { Number(jobId.id) && !dataUser?.premium ? (
+              <span
+                style={{
+                  display: 'block',
+                  padding: '0.5rem',
+                  backgroundColor: 'orange',
+                  color: 'white',
+                  border: '1px solid orange',
+                  borderRadius: '0.25rem',
+                  fontWeight: 'bold'
+                }}
+              >
+                Debes ser premium para aplicar a esta oferta
+              </span>
+            ) : null}
+            </div>
       <div className="relative flex flex-wrap space-around">
         <Link to={'/offers'}>
-          <button type="button" class="absolute text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          <button type="button" class="absolute text-white  bg-secondary-light dark:bg-primary-dark hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             style={{
               top: -10,
               left: 5,
@@ -300,13 +340,6 @@ useEffect(() => {
                     <span className="relative px-5 py-4 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                       Aplicar
                     </span>
-                    <Snackbar
-                    open={Snackbar}
-                    autoHideDuration={7000}
-                    onClose={handleClose}
-                    message="Debes ser premium para aplicar a esta oferta"
-                    
-                  />
                   </button>
                     : <a href={jobId.link} target="_blank" rel="noreferrer" >
                       <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800" onClick={SaveApplyToBdd}>
@@ -339,21 +372,20 @@ useEffect(() => {
 
         </div>
         {/* Datos de la empresa */}
-        <div className="relative flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800">
-          <div className="md:flex">
-            <div className="p-md:flex items-center flex flex-col">
+        <div className="relative flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800 ">
+          <div className=" md:flex items-center flex flex-col">
            < button className=" focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-br-xl rounded-bl-xl text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-0" style={{
             fontSize: 25
             }}>
                 Empresa
               </button>
-              <div className=" w-full flex justify-center items-center mb-4 mt-6 ">
-                <img className="flex justify-center items-center " src={empresa?.data.attributes.logo || empresaApi?.logo} alt="Logo company" />
+              <div className=" w-full flex justify-center items-center mb-4 mt-6 text-left">
+                <img className="flex justify-center items-center p-8" src={empresa?.data.attributes.logo || empresaApi?.logo} alt="Logo company" />
               </div>
-              <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white m-8">{empresa?.data.attributes.name || empresaApi?.companyname}</h1>
-              <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={cleanHtml}></h3>
+              <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white m-8 p-8">{empresa?.data.attributes.name || empresaApi?.companyname}</h1>
+              <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal p-8" dangerouslySetInnerHTML={cleanHtml}></h3>
               <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal"> {empresaApi?.description} </h3>
-              <section className="w-full flex justify-center items-center my-10">
+              <section className="w-full flex justify-center items-center my-10 p-8">
                 <a href={empresa?.data.attributes.web || empresaApi?.website} target="_blank" rel="noreferrer">
                   <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
                     <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
@@ -362,7 +394,6 @@ useEffect(() => {
                   </button>
                 </a>
               </section>
-            </div>
           </div>
         </div>
       </div>

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { ModalLogin } from "../ModalLogin/ModalLogin";
 import "./Footer.css"
 import FeedbackGeneralForm from '../Feedback/FeedbackGeneralForm';
+import { Navigate, useNavigate } from 'react-router-dom';
 import ContactForm from './ContacForm';
 
 function Footer() {
     const userData = JSON.parse(localStorage.getItem('userLogin'))
+    const navigate=useNavigate()
 
 
     const [open, setOpen] = useState(false);
@@ -71,9 +73,12 @@ function Footer() {
                         </li>
                     </ul>
                 </article>
+                <section>
+                <h2><b> © 2023 FusionaJob </b></h2>
+            </section>
                 <article>
                     <ul className='second-list'>
-                        <li className='dark:text-white' >Terminos de servicio</li>
+                        <li className='dark:text-white'  onClick={()=>navigate("/terminosdeservicio")}>Terminos de servicio</li>
                         <li className='dark:text-white' >
                             <button onClick={handleContactOpen}>
                                 Ayuda y soporte (PQRS)
@@ -82,9 +87,7 @@ function Footer() {
                     </ul>
                 </article>
             </section>
-            <section>
-                <h2><b> © 2023 FusionaJob </b></h2>
-            </section>
+         
             {
                 userData
                     ? <FeedbackGeneralForm open={open} handleClose={handleClose} handleContactOpen={handleContactOpen} data={userData} />

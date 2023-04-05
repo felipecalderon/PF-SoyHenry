@@ -13,7 +13,7 @@ function Postulaciones() {
   const dataUser = JSON.parse(dataUserLocal);
   const [allData, SetAllData] = useState([]);
   const [filtros, setFiltros] = useState({
-    estado: "",
+    estado: "todos",
     fecha: "",
   });
 
@@ -43,11 +43,15 @@ function Postulaciones() {
     }
   
     if (filtros.estado) {
-      if (filtros.estado === "Sin especificar") {
+      if (filtros.estado === "Postulacion Externa") {
         objetosFiltrados = objetosFiltrados.filter(
-          (el) => !el.status && filtros.estado === "Sin especificar"
+          (el) => !el.status && filtros.estado === "Postulacion Externa"
         );
-      } else {
+      }else if(filtros.estado ==="todos"){
+        return objetosFiltrados
+      }
+      
+      else {
         objetosFiltrados = objetosFiltrados.filter(
           (objeto) => objeto.status === filtros.estado
         );
@@ -88,12 +92,12 @@ function Postulaciones() {
           onChange={handleFiltroChange}
           disabled={data.length === 0}
         >
-          <option value="">Filtrar por estado</option>
+          <option value="todos">Filtrar por estado</option>
           <option value="send">Enviado</option>
           <option value="viewed">Visto</option>
           <option value="no_select">Descartado</option>
           <option value="select">Seleccionado</option>
-          <option value="Sin especificar">Sin especificar</option>
+          <option value="Postulacion Externa">Postulacion Externa</option>
         </select>
         <select
           className="bg-white rounded-xl  border mb-4 text-center flex-grow"
@@ -126,7 +130,7 @@ function Postulaciones() {
   <h2 class=" font-medium text-green-500 text-center">
       {el.status
         ? el.status[0].toUpperCase() + el.status.slice(1)
-        : "Sin especificar"}
+        : "Postulacion Externa"}
   </h2>
 </div>
               </div>
