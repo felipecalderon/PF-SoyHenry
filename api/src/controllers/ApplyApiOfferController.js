@@ -22,7 +22,7 @@ const GetApplyApiOfferController =async(userId)=>{
         }}
     )
     
-if(!results.length) throw Error("no se encontro nada en la base de datos de postulaciones a la que se aplicaron de la api")
+// if(!results.length) throw Error("no se encontro nada en la base de datos de postulaciones a la que se aplicaron de la api")
 
     return results
 }

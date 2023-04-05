@@ -166,10 +166,9 @@ useEffect(() => {
   const handlePostulateDb =async () => {
     const offerId = jobId.id
     const userId = dataUser.id
-    const formValues = Object.values(dataUser);
 
-    const isFormComplete = formValues.every(value => value === '' || value === null && dataUser.website===null);
-if(isFormComplete){
+
+if(!dataUser?.Postulants[0].description_postulant && !dataUser?.Postulants[0].curriculum_pdf){
   alert("para poder postularte debes tener el perfil completo")
   return
 }
@@ -213,24 +212,29 @@ if(isFormComplete){
   const SaveApplyToBdd=async()=>{
     const offerId = jobId.id
     const userId = dataUser.id
-  let existeenDB=await axios.get(`/applyapioffer/${userId}`);
-
-  console.log(offerId)
+    
+    try {
+   let existeenDB=await axios.get(`/applyapioffer/${userId}`);
    existeenDB=existeenDB.data.find((el)=>el.offerId == offerId)
-console.log(existeenDB)
+   if(existeenDB){
+    alert("ya te habias postulado aqui")
+    return
+    }
+    
+        axios.post(`/applyapioffer?userId=${dataUser.id}&offerId=${jobId.id}&title=${jobId.title}`)
+        .then((res)=>{
+          console.log("se envio la postulacion a la bdd ")
+        })
+        .catch((err)=>{
+          console.log(err)
+        })
 
-if(existeenDB){
-alert("ya te habias postulado aqui")
-return
-}
+ } catch (error) {
+  
+   console.log(error)
+ }
 
-    axios.post(`/applyapioffer?userId=${dataUser.id}&&offerId=${jobId.id}&&title=${jobId.title}`)
-    .then((res)=>{
-      console.log("se envio la postulacion a la bdd ")
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
+
   }
 
   return (

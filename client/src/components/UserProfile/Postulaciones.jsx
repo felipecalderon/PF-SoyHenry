@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function Postulaciones() {
   const navigate = useNavigate();
-  const idUser = JSON.parse(localStorage.getItem("userLogin")).Postulants[0]
-    .userId;
+  const idUser = JSON.parse(localStorage.getItem("userLogin")).id;
   const [data, SetData] = useState([]);
   const dataUserLocal = localStorage.getItem('userLogin')
   const dataUser = JSON.parse(dataUserLocal);
@@ -72,8 +71,8 @@ function Postulaciones() {
       try {
         const res1 = await axios.get(`/aplicates/${idUser}`);
         const res2 = await axios.get(`/applyapioffer/${idUser}`);
-        SetData([...res1.data, ...res2.data]);
-        SetAllData([...res1.data, ...res2.data]);
+        SetData([...res1?.data, ...res2?.data]);
+        SetAllData([...res1?.data, ...res2?.data]);
       } catch (err) {
         console.log(err);
         console.log("Algo salió mal dentro de Postulaciones.jsx");
