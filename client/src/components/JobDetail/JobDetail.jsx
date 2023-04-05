@@ -163,9 +163,18 @@ useEffect(() => {
     }
   }, [data, jobId?.companyId]);
 
-  const handlePostulateDb = () => {
+  const handlePostulateDb =async () => {
     const offerId = jobId.id
     const userId = dataUser.id
+     let existeenDb= await axios.get(`/aplicates/${userId}`)
+     existeenDb=existeenDb.data.find((el)=>el.offerId==offerId)
+     console.log(offerId)
+     console.log(existeenDb)
+     if(existeenDb){
+ 
+      alert("ya te has postulado a esta oferta")
+      return 
+     }
     if(dataUser.premium){
       axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
       alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
@@ -194,7 +203,20 @@ useEffect(() => {
 
   const cleanHtml = { __html: empresa?.data.attributes.long_description }
 
-  const SaveApplyToBdd=()=>{
+  const SaveApplyToBdd=async()=>{
+    const offerId = jobId.id
+    const userId = dataUser.id
+  let existeenDB=await axios.get(`/applyapioffer/${userId}`);
+
+  console.log(offerId)
+   existeenDB=existeenDB.data.find((el)=>el.offerId == offerId)
+console.log(existeenDB)
+
+if(existeenDB){
+alert("ya te habias postulado aqui")
+return
+}
+
     axios.post(`/applyapioffer?userId=${dataUser.id}&&offerId=${jobId.id}&&title=${jobId.title}`)
     .then((res)=>{
       console.log("se envio la postulacion a la bdd ")

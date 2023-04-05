@@ -38,7 +38,7 @@ function User() {
       <hr className="border border-b-gray-100  w-full " />
 
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
-        <p style={{ fontWeight: "bold" }}> Ubicación: </p>   {dataUserLocalStorage?.city},{dataUserLocalStorage?.country}
+        <p style={{ fontWeight: "bold" }}> Ubicación: </p>   {dataUserLocalStorage?.city && dataUserLocalStorage?.country ?dataUserLocalStorage?.city +","+dataUserLocalStorage?.country:null } 
       </li>
       <hr className="border border-b-gray-100  w-full " />
       <li className="mb-2 text-lg font-normal text-gray-800 lg:text-xl dark:text-white">
