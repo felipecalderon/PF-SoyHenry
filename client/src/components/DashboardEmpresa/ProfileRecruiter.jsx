@@ -168,6 +168,7 @@ const handleSubmit = async (event) => {
           keepMounted
           onClose={handleClose}
           aria-describedby="alert-dialog-slide-description">
+        <div>
         <DialogTitle>Editar información personal</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
@@ -226,11 +227,10 @@ const handleSubmit = async (event) => {
           </div>
           </info>
         </DialogContent>
+        </div>
         <DialogActions>
           <Button onClick={handleClose}>Cancelar</Button>
-          <Button 
-          // onClick={() => errorsNew.length === 0 ? setShowModal(true) : setErrors(errorsNew)}>Aceptar</Button>
-          // onClick={() => setShowModal(true)}>Aceptar</Button>
+          <Button
           onClick={() => {
             const errorsNew = validationsDatosRecruiter(info);
             setErrors(errorsNew);
