@@ -12,10 +12,6 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { NavLanding } from "../NavLanding/NavLanding";
 export const menu = [
     {
-      name: "Planes",
-      link: "#"
-    },
-    {
       name: "Registro",
       link: "/registro"
     },
