@@ -7,6 +7,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Link } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 
 const AllOffersDb = () => {
   // const { data, isLoading } = useFetch(`/jobsdb?page=1`)
@@ -16,15 +17,20 @@ const AllOffersDb = () => {
   const [totalPage, setTotalPage] = useState();
   const [pageNumber, setPageNumber] = useState(1);
 
-
+  const currentPage = parseInt(localStorage.getItem('currentPage')); // pagina actual
 
   useEffect(() => {
-    axios.get(`/jobsdb?page=${pageNumber}`)
+    axios.get(`/jobsdb?page=${pageNumber+1}`)
       .then(res => {
         setTotalPage(res.data.total_page)
         setData(res.data.data)
       })
   }, [pageNumber])
+
+  const handlePageClick = (selectedPage) => {
+    localStorage.setItem('currentPage', selectedPage.selected); //  Guardado local para que se mantengan la pagina en la que estaba el usuario
+    setPageNumber(selectedPage.selected);
+  };
 
   const handleBan = (id, active) => {
     const respuesta = window.confirm(`¿Estás seguro que quieres cambiar el estado de esta oferta?`);
@@ -107,6 +113,29 @@ const AllOffersDb = () => {
             }
           </TableBody>
         </Table>
+        <div>
+          <div className="pb-3">
+            <ReactPaginate
+              previousLabel={'Prev'}
+              nextLabel={'Next'}
+              breakLabel={'...'}
+              pageCount={totalPage}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={3}
+              onPageChange={handlePageClick}
+              forcePage={currentPage ? currentPage : 0}
+              containerClassName="flex justify-center my-4"
+              pageClassName="mx-2 rounded-full py-2 bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer"
+              pageLinkClassName="px-4 py-2 text-sm"
+              activeClassName="bg-blue-500 text-yellow-500 font-bold"
+              previousClassName="mx-2 rounded-full py-2 bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer"
+              nextClassName="mx-2 rounded-full py-2 bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-pointer"
+              previousLinkClassName="px-4 py-2 font-bold text-sm"
+              nextLinkClassName="px-4 py-2 font-bold text-sm"
+              breakClassName="mx-2"
+            />
+          </div>
+        </div>
       </TableContainer>
     </>
   )
