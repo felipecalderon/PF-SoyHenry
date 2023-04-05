@@ -22,8 +22,9 @@ import Modal from '@mui/material/Modal';
 // import FormHelperText from "@mui/material/FormHelperText";
 
 
-
 function Configuracion({inConfig,SetInConfig}) {
+  const [openModalCancelar,SetOpenModalCancelar]=useState(false)
+  const [closeModalCancelar,SetCloseModalCancelar]=useState(true)
   const dispatch = useDispatch();
   const [skills, setSkills] = useState([]);
   const [showErrors, SetShowErrors] = useState(false);
@@ -41,6 +42,7 @@ function Configuracion({inConfig,SetInConfig}) {
       },
     },
   };
+/************************************************************************************* */
 
   const [form, SetForm] = useState({
     rol: "Postulante",
@@ -81,6 +83,7 @@ function Configuracion({inConfig,SetInConfig}) {
   });
 
 
+  /************************************************************************************* */
   const [countryData, setCountryData] = useState([]);
 
   useEffect(() => {
@@ -112,7 +115,7 @@ function Configuracion({inConfig,SetInConfig}) {
   const filteredCities = selectedCountry && countryData.length > 0
     ? countryData?.find((country) => country.country === selectedCountry)?.cities
     : [];
-
+/************************************************************************************* */
   const handleSelectSkills = (event) => {
 
     const value = event.target.value;
@@ -139,7 +142,6 @@ function Configuracion({inConfig,SetInConfig}) {
     handleOpen()
     if (isErrorsEmpty) {
       const update = await axios.post("/auth/register", form)
-      console.log(update)
       window.location.reload()
       window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
     }
@@ -160,6 +162,18 @@ function Configuracion({inConfig,SetInConfig}) {
     validacionConfig(form, SetError);
 
   }, [form, skills]);
+/****************************Modal Cancelar cambios********************************************************* */
+  const handleropenModalCancelar=(event)=>{
+    event.preventDefault()
+    SetOpenModalCancelar(true);
+    SetCloseModalCancelar(false);
+  }
+
+const handlerCloseModalCancelar=()=>{
+  SetOpenModalCancelar(false);
+  SetCloseModalCancelar(true);
+}
+/************************************************************************************* */
 
   return (
     <>
@@ -232,7 +246,7 @@ function Configuracion({inConfig,SetInConfig}) {
                 error={!!error.disability}
                 helperText={error.disability}
               >
-                <MenuItem value="">¿Tienes alguna disability?</MenuItem>
+                <MenuItem value="">¿Tienes alguna discapacidad?</MenuItem>
                 <MenuItem value="No">No</MenuItem>
                 <MenuItem value="Visual">Visual</MenuItem>
                 <MenuItem value="Auditiva">Auditiva</MenuItem>
@@ -310,7 +324,7 @@ function Configuracion({inConfig,SetInConfig}) {
               value={form.description_postulant}
               label="Descripcion"
               onChange={actualizarData}
-              placeholder="Describa sus tecnology, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos."
+              placeholder="Describa sus tecnologias, experiencia y objetivos profesionales relacionados con el sector de TI. Incluya detalles sobre sus conocimientos en lenguajes de programación, tecnologías y herramientas, así como su capacidad para trabajar en equipo y resolver problemas técnicos complejos."
               multiline
               rows={5}
               variant="outlined"
@@ -484,11 +498,36 @@ function Configuracion({inConfig,SetInConfig}) {
             </button>
 
             <button
-              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded  "
-              onClick={() => {SetInConfig(!inConfig) }}
-            >
+              className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded  " onClick={handleropenModalCancelar}>
+            {/* //   
+            // > */}
               Cancelar
             </button>
+            <Modal open={openModalCancelar} onClose={handlerCloseModalCancelar} aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description">
+                <Box class="flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/2 bg-primary-light dark:bg-primary-dark border-2 shadow-24 p-4 h-1/2 rounded-2xl flex-col justify-center items-center">
+              <div className="mb-8 ">
+                <h1 className="text-3xl md:text-4xl font-bold text-center dark:text-white">
+                  ¿Estas seguro que deseas salir?
+                </h1>
+                <p className="select-none text-gray-400 text-sm text-center">se perderan todos los cambios</p>
+              </div>
+              <div className="flex justify-between w-1/2">
+                <button
+                   onClick={() => {SetInConfig(!inConfig) }}
+                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-8 rounded disabled:cursor-not-allowed" >
+                Si
+                            </button>
+                
+                            <button
+                className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-8 rounded  "
+                onClick={handlerCloseModalCancelar} 
+                >
+                No
+  </button>
+              </div>   
+            </Box>
+            </Modal>
           </div>
         </Box>
         <div>

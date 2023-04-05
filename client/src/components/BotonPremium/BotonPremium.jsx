@@ -47,22 +47,20 @@ const CloseButton = tw.button`
 `;
 
 export default function PremiumButtonComponent() {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const dataUserLocalStorage = JSON.parse(localStorage.getItem("userLogin"));
-  const email=dataUserLocalStorage.email
+  const email = dataUserLocalStorage.email
   const [isPulsing, setIsPulsing] = useState(false);
   const dispatch = useDispatch();
   const userData = JSON.parse(localStorage.getItem('userLogin'));
-  const handleClickPremium=()=>{
-   axios.post(`/stripe`,{customerEmail: email})
-   .then((res)=>{
-   const link = document.createElement('a');
-   link.href = res.data.url;
-   link.target = '_blank';
-   link.rel = 'noopener noreferrer';
-   link.click()
-  })
-   .catch((err)=>console.log(err))
+  const handleClickPremium = () => {
+    axios.post(`/stripe`, { customerEmail: email })
+      .then((res) => {
+        const link = document.createElement('a');
+        link.href = res.data.url;
+        link.click()
+      })
+      .catch((err) => console.log(err))
   }
   const [open, setOpen] = useState(false);
   const [closed, setClosed] = useState(true);
@@ -77,7 +75,7 @@ export default function PremiumButtonComponent() {
     setClosed(true);
   };
 
-  if (!userData?.premium) {
+  if ( userData.rol === 'Postulante' && !userData?.premium) {
     return (
       <>
         <PremiumButton
@@ -85,41 +83,41 @@ export default function PremiumButtonComponent() {
           className="border border-solid border-gold-500"
           onClick={handleOpen}
         >
-         Hazte usuario premium
-      </PremiumButton>
-      
-      <div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <PremiumModal>
-            {!closed && (
-              <CloseButton onClick={handleClose}>
-                <CloseIcon />
-              </CloseButton>
-            )}
-            <PremiumModalTitle>
-              ¡Disfruta los grandes beneficios del plan Premium!
-            </PremiumModalTitle>
-            <ul className="text-lg md:text-xl text-center dark:text-text-dark">
-              <li className="py-2 font-semibold">
-                Accede a más ofertas laborales disponibles en nuestra base de datos
-              </li>
-              <li className="py-2 font-semibold">
-                Usa filtros combinados para encontrar tu trabajo ideal
-              </li>
-              <li className="py-2 font-semibold">
-                Guarda tantas ofertas como quieras y aplica en el momento que
-                quieras
-              </li>
-          </ul>
-          <button className='mt-6 h-14 bg-green-600 hover:bg-green-900 dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' onClick={handleClickPremium}>Hazte Premium</button>
-        </PremiumModal>
+          Hazte usuario premium
+        </PremiumButton>
+
+        <div>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <PremiumModal>
+              {!closed && (
+                <CloseButton onClick={handleClose}>
+                  <CloseIcon />
+                </CloseButton>
+              )}
+              <PremiumModalTitle>
+                ¡Disfruta los grandes beneficios del plan Premium!
+              </PremiumModalTitle>
+              <ul className="text-lg md:text-xl text-center dark:text-text-dark">
+                <li className="py-2 font-semibold">
+                  Accede a más ofertas laborales disponibles en nuestra base de datos
+                </li>
+                <li className="py-2 font-semibold">
+                  Usa filtros combinados para encontrar tu trabajo ideal
+                </li>
+                <li className="py-2 font-semibold">
+                  Guarda tantas ofertas como quieras y aplica en el momento que
+                  quieras
+                </li>
+              </ul>
+              <button className='mt-6 h-14 bg-green-600 hover:bg-green-900 dark:bg-secondary-light dark:hover:bg-yellow-500  text-white dark:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline' onClick={handleClickPremium}>Hazte Premium</button>
+            </PremiumModal>
           </Modal>
-        </div> 
+        </div>
       </>
     );
   }

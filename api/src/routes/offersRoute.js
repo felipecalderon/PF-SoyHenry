@@ -77,7 +77,7 @@ const putOffers =async (req, res) => {
 //     Borrado logico (Logical deletion)
 const putLdOffers =async (req, res) => {
     try {
-        const offers = await putOffertLDController(req.params, req.body)
+        const offers = await putOffertLDController(req.params, req.query)
         return res.status(200).json( offers )
         
     } catch (error) {

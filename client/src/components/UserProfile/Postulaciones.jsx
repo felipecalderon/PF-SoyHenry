@@ -6,14 +6,13 @@ import { useNavigate } from "react-router-dom";
 
 function Postulaciones() {
   const navigate = useNavigate();
-  const idUser = JSON.parse(localStorage.getItem("userLogin")).Postulants[0]
-    .userId;
+  const idUser = JSON.parse(localStorage.getItem("userLogin")).id;
   const [data, SetData] = useState([]);
   const dataUserLocal = localStorage.getItem('userLogin')
   const dataUser = JSON.parse(dataUserLocal);
   const [allData, SetAllData] = useState([]);
   const [filtros, setFiltros] = useState({
-    estado: "",
+    estado: "todos",
     fecha: "",
   });
 
@@ -43,11 +42,15 @@ function Postulaciones() {
     }
   
     if (filtros.estado) {
-      if (filtros.estado === "Sin especificar") {
+      if (filtros.estado === "Postulacion Externa") {
         objetosFiltrados = objetosFiltrados.filter(
-          (el) => !el.status && filtros.estado === "Sin especificar"
+          (el) => !el.status && filtros.estado === "Postulacion Externa"
         );
-      } else {
+      }else if(filtros.estado ==="todos"){
+        return objetosFiltrados
+      }
+      
+      else {
         objetosFiltrados = objetosFiltrados.filter(
           (objeto) => objeto.status === filtros.estado
         );
@@ -68,9 +71,8 @@ function Postulaciones() {
       try {
         const res1 = await axios.get(`/aplicates/${idUser}`);
         const res2 = await axios.get(`/applyapioffer/${idUser}`);
-        SetData([...res1.data, ...res2.data]);
-        //   console.log([...res1.data, ...res2.data])
-        SetAllData([...res1.data, ...res2.data]);
+        SetData([...res1?.data, ...res2?.data]);
+        SetAllData([...res1?.data, ...res2?.data]);
       } catch (err) {
         console.log(err);
         console.log("Algo salió mal dentro de Postulaciones.jsx");
@@ -88,12 +90,12 @@ function Postulaciones() {
           onChange={handleFiltroChange}
           disabled={data.length === 0}
         >
-          <option value="">Filtrar por estado</option>
+          <option value="todos">Filtrar por estado</option>
           <option value="send">Enviado</option>
           <option value="viewed">Visto</option>
           <option value="no_select">Descartado</option>
           <option value="select">Seleccionado</option>
-          <option value="Sin especificar">Sin especificar</option>
+          <option value="Postulacion Externa">Postulacion Externa</option>
         </select>
         <select
           className="bg-white rounded-xl  border mb-4 text-center flex-grow"
@@ -126,7 +128,7 @@ function Postulaciones() {
   <h2 class=" font-medium text-green-500 text-center">
       {el.status
         ? el.status[0].toUpperCase() + el.status.slice(1)
-        : "Sin especificar"}
+        : "Postulacion Externa"}
   </h2>
 </div>
               </div>

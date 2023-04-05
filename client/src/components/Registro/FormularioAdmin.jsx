@@ -54,7 +54,6 @@ const FormularioAdmin = () => {
     
             // Crea el usuario en la base de datos
             const registroUsuario = await axios.post('/auth/register', form)
-            console.log(registroUsuario);
             return alert('Administrador creado exitosamente')
         } catch (error) {
             console.log(error);

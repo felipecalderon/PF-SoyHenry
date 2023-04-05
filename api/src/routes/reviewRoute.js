@@ -35,7 +35,7 @@ const newReview = async (req, res) => {
 
 const putReviews = async (req, res) => {
     try {
-        const data = await  putReviewsControllers (req.params, req.body)
+        const data = await  putReviewsControllers (req.params, req.query)
         res.status(200).json(data)
     } catch (error) {
         console.log(error)
@@ -46,9 +46,10 @@ const putReviews = async (req, res) => {
 
 const deleteReviews = async (req, res) => {
     try {
-        const data = await deleteReviewControllers(req.params,req.body)
+        const data = await deleteReviewControllers(req.params)
         res.status(200).json(data)
     } catch (error) {
+        console.log(error)
         res.status(404).json(error)
     }
 }

@@ -17,6 +17,7 @@ import { Box, Fab, Snackbar } from "@mui/material";
 import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import PremiumButtonComponent from "../BotonPremium/BotonPremium";
+import { Opacity } from "@mui/icons-material";
 
 const JobDetail = () => {
   const navigate = useNavigate()
@@ -74,19 +75,19 @@ const JobDetail = () => {
     }
   }, [jobId?.id])
 
-const [rol, setRol] = useState(dataUser?.rol);
+  const [rol, setRol] = useState(dataUser?.rol);
 
-useEffect(() => {
-  axios.get(`/user/${dataUser.id}`)
-  .then((res) => {
-    const userRol = res.data?.rol;
-    setRol(userRol);
-    // console.log(res.data.rol)
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-},[]);
+  useEffect(() => {
+    axios.get(`/user/${dataUser.id}`)
+      .then((res) => {
+        const userRol = res.data?.rol;
+        setRol(userRol);
+        // console.log(res.data.rol)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   //FAVORITOS AHORA ES GUARDADOS
   const [isPremium] = useState(JSON.parse(localStorage.getItem('userLogin')));
@@ -101,7 +102,7 @@ useEffect(() => {
     setOpenSnackbar(false);
   };
 
-  const handleClose = ()=>{
+  const handleClose = () => {
     setSnackbat(false)
   }
 
@@ -114,7 +115,7 @@ useEffect(() => {
     if (get !== undefined) {
       setIsFavorite(true)
       return
-      
+
     }
     return setIsFavorite(false)
   }
@@ -128,11 +129,11 @@ useEffect(() => {
 
   const handleToggleFavorite = () => {
     if (!isFavorite) {
-    if (countOffers === 5 && dataUser?.premium === false && !isFavorite ) {
-      setOpenSnackbar(true)
-      return;
-    }
-    
+      if (countOffers === 5 && dataUser?.premium === false && !isFavorite) {
+        setOpenSnackbar(true)
+        return;
+      }
+
       Number(jobId.id)
         ? axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=db`)
         : axios.put(`/rel_offers/${jobId.id}/${dataUser.id}?save=save&title=${jobId.title}&origin=api`);
@@ -162,13 +163,28 @@ useEffect(() => {
     }
   }, [data, jobId?.companyId]);
 
-  const handlePostulateDb = () => {
+  const handlePostulateDb = async () => {
     const offerId = jobId.id
     const userId = dataUser.id
-    if(dataUser.premium){
+
+
+    if (!dataUser?.Postulants[0].description_postulant && !dataUser?.Postulants[0].curriculum_pdf) {
+      alert("para poder postularte debes tener el perfil completo")
+      return
+    }
+    let existeenDb = await axios.get(`/aplicates/${userId}`)
+    existeenDb = existeenDb.data.find((el) => el.offerId == offerId)
+    console.log(offerId)
+    console.log(existeenDb)
+    if (existeenDb) {
+
+      alert("ya te has postulado a esta oferta")
+      return
+    }
+    if (dataUser.premium) {
       axios.put(`/rel_offers/${offerId}/${userId}?state=send`)
       alert(`Enhorabuena! has aplicado a la oferta "${jobId.title}" `)
-    }else{
+    } else {
       isSnackbar(true)
     }
   };
@@ -193,45 +209,78 @@ useEffect(() => {
 
   const cleanHtml = { __html: empresa?.data.attributes.long_description }
 
-  const SaveApplyToBdd=()=>{
-    axios.post(`/applyapioffer?userId=${dataUser.id}&&offerId=${jobId.id}&&title=${jobId.title}`)
-    .then((res)=>{
-      console.log("se envio la postulacion a la bdd ")
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
+  const SaveApplyToBdd = async () => {
+    const offerId = jobId.id
+    const userId = dataUser.id
+
+    try {
+      let existeenDB = await axios.get(`/applyapioffer/${userId}`);
+      existeenDB = existeenDB.data.find((el) => el.offerId == offerId)
+      if (existeenDB) {
+        alert("ya te habias postulado aqui")
+        return
+      }
+
+      axios.post(`/applyapioffer?userId=${dataUser.id}&offerId=${jobId.id}&title=${jobId.title}`)
+        .then((res) => {
+          console.log("se envio la postulacion a la bdd ")
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+
+    } catch (error) {
+
+      console.log(error)
+    }
+
+
   }
 
   return (
     <div className="bg-primary-light dark:bg-secondary-dark pt-20">
-      <NavLanding menu={menu} />
+      <NavLanding menu={dataUser?.rol === 'Postulante' ? menu : []} />
       <div class="flex justify-center items-center">
-           <PremiumButtonComponent />
-        </div>
-      <div className="relative flex flex-wrap space-around">
-        <Link to={'/offers'}>
-          <button type="button" class="absolute text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        <PremiumButtonComponent />
+      </div>
+      <div class="flex justify-center items-center ">
+        {Number(jobId.id) && !dataUser?.premium && dataUser?.rol !== 'Admin' ? (
+          <span
             style={{
-              top: -10,
-              left: 5,
+              display: 'block',
+              padding: '0.5rem',
+              backgroundColor: 'orange',
+              color: 'white',
+              border: '1px solid orange',
+              borderRadius: '0.25rem',
+              fontWeight: 'bold'
             }}
           >
-            <svg aria-hidden="true" class="w-5 h-5 rotate-180" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-            <span class="sr-only">Icon description</span>
-            volver
-          </button>
-        </Link>
+            Debes ser premium para aplicar a esta oferta
+          </span>
+        ) : null}
+      </div>
+      <div className="relative flex flex-wrap space-around">
+        <button onClick={() => navigate(-1)} type="button" class="absolute text-white  bg-secondary-light  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          style={{
+            top: -10,
+            left: 5,
+          }}
+        >
+          <svg aria-hidden="true" class="w-5 h-5 rotate-180" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          <span class="sr-only">Icon description</span>
+          volver
+        </button>
 
         {/* Detalles de la oferta */}
         <div className=" flex flex-col justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800">
           <div className=" md:flex items-center flex flex-col">
             <button className=" focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-br-xl rounded-bl-xl text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-0" style={{
-      
+
               fontSize: 25
             }}>
-              { !isNaN(jobId.id) ? <> Oferta premium <StarSharpIcon className="flex justify-center" style={{ color: 'orange' }}/></> :  'Oferta'}
-            </button> 
+              {!isNaN(jobId.id) ? <> Oferta premium <StarSharpIcon className="flex justify-center" style={{ color: 'orange' }} /></> : 'Oferta'}
+            </button>
             <div className="p-8">
               <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white mb-4">{jobId.title}</h1>
               <section className=" w-full flex ">
@@ -292,77 +341,68 @@ useEffect(() => {
                 }
               </div>
 
-            {rol === 'Postulante' &&
-            <div className="mt-8 flex justify-center">
-                {
-                  Number(jobId?.id)
-                    ? <button onClick={handlePostulateDb} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800"  disabled={!dataUser?.premium} style={{opacity: dataUser?.premium ? 1 : 0.5, cursor: dataUser?.premium ? 'pointer' : 'not-allowed'}}>
-                    <span className="relative px-5 py-4 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                      Aplicar
-                    </span>
-                    <Snackbar
-                    open={Snackbar}
-                    autoHideDuration={7000}
-                    onClose={handleClose}
-                    message="Debes ser premium para aplicar a esta oferta"
-                    
-                  />
-                  </button>
-                    : <a href={jobId.link} target="_blank" rel="noreferrer" >
-                      <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800" onClick={SaveApplyToBdd}>
-                        <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                          Aplicar en la Pagina
+              {rol === 'Postulante' &&
+                <div className="mt-8 flex justify-center">
+                  {
+                    Number(jobId?.id)
+                      ? <button onClick={handlePostulateDb} className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800" disabled={!dataUser?.premium} style={{ opacity: dataUser?.premium ? 1 : 0.5, cursor: dataUser?.premium ? 'pointer' : 'not-allowed' }}>
+                        <span className="relative px-5 py-4 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                          Aplicar
                         </span>
                       </button>
-                    </a>
+                      : <a href={jobId.link} target="_blank" rel="noreferrer" >
+                        <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800" onClick={SaveApplyToBdd}>
+                          <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                            Aplicar en la Pagina
+                          </span>
+                        </button>
+                      </a>
                   }
-                <Box>
-                  <Fab
-                    sx={{ backgroundColor: "lightblue" }}
-                    aria-label="like"
-                    onClick={handleToggleFavorite}
-                  >
-                    {isFavorite ? <TurnedInIcon /> : <TurnedInNotIcon />}
-                  </Fab>
-                  <Snackbar
-                    open={openSnackbar}
-                    autoHideDuration={7000}
-                    onClose={handleCloseSnackbar}
-                    message="Solo puedes guardar 5 ofertas de trabajo. para guardar mas ofertas y más beneficios asciende a premium"
-                    
-                  />
-                </Box>
-              </div>
-            }
-          </div>
+                  <Box>
+                    <Fab
+                      sx={{ backgroundColor: "lightblue" }}
+                      aria-label="like"
+                      onClick={handleToggleFavorite}
+                    >
+                      {isFavorite ? <TurnedInIcon /> : <TurnedInNotIcon />}
+                    </Fab>
+                    <Snackbar
+                      open={openSnackbar}
+                      autoHideDuration={7000}
+                      onClose={handleCloseSnackbar}
+                      message="Solo puedes guardar 5 ofertas de trabajo. para guardar mas ofertas y más beneficios asciende a premium"
+
+                    />
+                  </Box>
+                </div>
+              }
+            </div>
           </div>
 
         </div>
         {/* Datos de la empresa */}
-        <div className="relative flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800">
-          <div className="md:flex">
-            <div className="p-md:flex items-center flex flex-col">
-           < button className=" focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-br-xl rounded-bl-xl text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-0" style={{
-            fontSize: 25
+        <div className="relative flex justify-center max-w-md mx-auto bg-white rounded-xl shadow-md md:max-w-2xl my-8 dark:bg-gray-800 ">
+          <div className=" md:flex items-center flex flex-col">
+            < button className=" focus:outline-none text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 font-medium rounded-br-xl rounded-bl-xl text-sm px-5 py-2.5 text-center mr-2 mb-2 mt-0" style={{
+              fontSize: 25
             }}>
-                Empresa
-              </button>
-              <div className=" w-full flex justify-center items-center mb-4 mt-6 ">
-                <img className="flex justify-center items-center " src={empresa?.data.attributes.logo || empresaApi?.logo} alt="Logo company" />
-              </div>
-              <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white m-8">{empresa?.data.attributes.name || empresaApi?.companyname}</h1>
-              <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal" dangerouslySetInnerHTML={cleanHtml}></h3>
-              <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal"> {empresaApi?.description} </h3>
-              <section className="w-full flex justify-center items-center my-10">
-                <a href={empresa?.data.attributes.web || empresaApi?.website} target="_blank" rel="noreferrer">
-                  <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
-                    <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                      Visita la Web de {empresa?.data.attributes.name || empresaApi?.companyname}
-                    </span>
-                  </button>
-                </a>
-              </section>
+              Empresa
+            </button>
+            <div className=" w-full flex justify-center items-center mb-4 mt-6 text-left">
+              <img className="flex justify-center items-center p-8" src={empresa?.data.attributes.logo || empresaApi?.logo} alt="Logo company" />
             </div>
+            <h1 className="flex justify-center text-2xl font-bold text-gray-900 dark:text-white m-8 p-8">{empresa?.data.attributes.name || empresaApi?.companyname}</h1>
+            <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal p-8" dangerouslySetInnerHTML={cleanHtml}></h3>
+            <h3 className="mt-2 text-gray-800 dark:text-gray-400 text-base font-normal"> {empresaApi?.description} </h3>
+            <section className="w-full flex justify-center items-center my-10 p-8">
+              <a href={empresa?.data.attributes.web || empresaApi?.website} target="_blank" rel="noreferrer">
+                <button className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
+                  <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                    Visita la Web de {empresa?.data.attributes.name || empresaApi?.companyname}
+                  </span>
+                </button>
+              </a>
+            </section>
           </div>
         </div>
       </div>

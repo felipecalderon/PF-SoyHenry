@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchCountries } from "../../redux/slices/countriesSlices";
 import { saveUser } from "../../redux/slices/userRegisterSlice";
@@ -12,7 +12,7 @@ import Footer from "../Footer/Footer";
 
 // Mui core;
 import Box from '@mui/material/Box';
-import { IconButton, InputAdornment, TextField } from "@mui/material";
+import { IconButton, Button, InputAdornment, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -31,10 +31,6 @@ export const menu = [
         name: "Sobre Nosotros",
         link: "/about"
     },
-    {
-        name: "Registrarme como postulante",
-        link: "/registro"
-    },
 ]
 
 export const FormularioRecluter = () => {
@@ -51,7 +47,7 @@ export const FormularioRecluter = () => {
     };
 
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
+     const navigate = useNavigate();
     // const [userDbData, setUserDbData] = useState(null);
 
     const [form, setForm] = useState({
@@ -333,8 +329,17 @@ export const FormularioRecluter = () => {
             </Box>
         </div>
         <div className='mt-4 text-center'>
-            <p className='text-gray-700 dark:text-white text-sm'>Al hacer click en Crear Cuenta, aceptas las <a className="text-secondary-light dark:text-primary-dark" href='#'>Condiciones de uso</a> y las <a className="text-secondary-light dark:text-primary-dark" href='#'>Políticas de privacidad</a> de Fusionajob.</p>
+            <p className='text-gray-700 dark:text-white text-sm'>Al hacer click en Crear Cuenta, aceptas las <a className="text-secondary-light dark:text-primary-dark cursor-pointer hover:underline" onClick={()=>navigate("/terminosdeservicio")}>Condiciones de uso</a> y las <a className="text-secondary-light dark:text-primary-dark cursor-pointer hover:underline"  onClick={()=>navigate("/terminosdeservicio")}>Políticas de privacidad</a> de Fusionajob.</p>
         </div>
+            <div className="flex justify-center m-5">
+                <Link to='/register'>
+                    <Button
+                        variant="contained"
+                        color="warning">
+                        Quiero registrarme como postulante
+                    </Button>
+                </Link>
+            </div>
     </form>
     )
 }

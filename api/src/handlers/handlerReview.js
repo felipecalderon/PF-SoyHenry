@@ -7,10 +7,10 @@ const { Review, Company } = require("../models/relations.js");
 const getReview = async () => {
     try {
         const review = await Review.findAll({
-            where: {
-                active: true
-            },
-            include: { model: Company }
+            // where: {
+            //     active: true
+            // },
+            // include: { model: Company }
         });
         return review;
     } catch (error) {
@@ -34,7 +34,6 @@ const getReviewById = async (id) =>{
 //comentario para la pagina
 const createReview = async ({ usuario, comentario, puntuacion, active, companyid, photo, idUser }) => {
     const user = await Review.findByPk(idUser)
-    console.log(user)
     if (user) throw Error('El Usuario ya comento en la oferta')
     try {
         ///revisar esta parte si esta bien y la relacion !!!!!!
@@ -50,15 +49,13 @@ const createReview = async ({ usuario, comentario, puntuacion, active, companyid
     }
 }
 
-const putReviews = async ({ id }, { usuario, comentario, puntuacion, active }) => {
-
-
+const putReviews = async (id, active) => {
+    console.log(active)
     try {
         const review = await Review.findByPk(id);
-        if (review) throw Error(`la review con id: ${id} no existe`);
-
+        if (!review) throw Error(`la review con id: ${id} no existe`);
         await Review.update(
-            { usuario, comentario, puntuacion, active },
+            { active: active === 'true'? true : false },
             {
                 where: { id }
             }
@@ -70,23 +67,16 @@ const putReviews = async ({ id }, { usuario, comentario, puntuacion, active }) =
 
 };
 
-const deleteReview = async ({ id }, { active }) => {
-
+const deleteReview = async ( id ) => {
 
     try {
 
         const review = await Review.findByPk(id);
         if (!review) throw Error(`La review con id: ${id} no existe`);
 
+        await review.destroy()
 
-        await Review.update(
-            { active },
-            {
-                where: { id }
-            }
-        )
-
-        return active === true ? 'La review ha sido re-activada' : 'la compania ha sido desactivada';
+        return 'El Comentario ah sido eliminado';
     } catch (error) {
         throw error
     }

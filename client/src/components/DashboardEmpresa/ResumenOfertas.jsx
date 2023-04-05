@@ -38,7 +38,7 @@ export const ResumenOfertas = () => {
 
     return (
         <div className="w-full bg-primary-light dark:bg-secondary-dark p-5 pt-1 rounded-2xl border border-slate-900 dark:border-white dark:text-text-dark">
-            <h2 className="flex p-2 items-center justify-center text-lg font-bold">Resumen de ofertas</h2>
+            <h2 className="flex p-1 items-center justify-center text-2xl font-semibold">Resumen de ofertas</h2>
             {offers.length === 1
             ? <h3 className="flex p-2 items-center justify-center font-semibold">{offers.length} Oferta creada</h3>
             : <h3 className="flex p-2 items-center justify-center font-semibold">{offers.length} Ofertas creadas</h3>}
@@ -48,9 +48,6 @@ export const ResumenOfertas = () => {
             {ofertasCerradas === 1 
             ? <h3 className="flex p-2 items-center justify-center font-semibold">{ofertasCerradas} Oferta cerrada</h3>
             : <h3 className="flex p-2 items-center justify-center font-semibold">{ofertasCerradas} Ofertas cerradas</h3>}
-            {/* {ofertasPorCaducar === 1
-            ? <h3 className="flex p-2 items-center justify-center font-semibold">{ofertasPorCaducar.length} Oferta por cerrar</h3>
-            : <h3 className="flex p-2 items-center justify-center font-semibold">{ofertasPorCaducar.length} Ofertas por cerrar</h3>} */}
         </div>
     )
 }

@@ -3,6 +3,7 @@ import { Box, Modal, TextField } from "@mui/material";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import axios from 'axios'
+import validationsDatosContac from "./validationsDatosContac";
 
 
 const ContactForm = ({ open, handleClose, data }) => {
@@ -14,6 +15,13 @@ const ContactForm = ({ open, handleClose, data }) => {
     asunto: '',
     mensaje: '',
   });
+  const [errors, setErrors] = useState({
+    usuario: '',
+    correo: '',
+    asunto: '',
+    mensaje: '',
+  });
+
 
   const [loading, setLoading] = useState(false);
   const [existReview, setExistReview] = useState(false) // eslint-disable-line
@@ -34,6 +42,11 @@ const ContactForm = ({ open, handleClose, data }) => {
       ...form,
       [name]: value
     })
+    const validationErrors =
+      validationsDatosContac({
+        [name]: value
+      })
+    setErrors({ ...errors, ...validationErrors });
   };
 
   const handleClick = async () => {
@@ -72,7 +85,7 @@ const ContactForm = ({ open, handleClose, data }) => {
         aria-describedby="modal-modal-description"
       >
         <Box
-          className="flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-11/12 sm:w-1/2 bg-primary-light dark:bg-primary-dark border-2 shadow-30 p-4 h-auto sm:h-auto rounded-2xl flex-col justify-center items-center"
+          className="flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-11/12 sm:w-1/2 bg-primary-light dark:bg-primary-dark border-2 shadow-30 py-4 px-8 h-auto sm:h-auto rounded-2xl flex-col justify-center items-center"
           component="form"
           noValidate
           autoComplete="on"
@@ -89,29 +102,38 @@ const ContactForm = ({ open, handleClose, data }) => {
                 <p className="w-full flex justify-center mb-8 dark:text-white ">
                   (Peticiones, Quejas, Reclamos y sugerencias)
                 </p>
-                <div className="w-full flex flex-wrap justify-center">
+                <div className="w-full flex flex-col md:pr-40 mb-5">
                   <TextField sx={{
                     '& > :not(style)': { m: 1 },
                     '& .MuiInputBase-input': { color: 'darkorange' },
                     "& .MuiInput-underline:before": {
                       borderBottomColor: "darkorange",
                     },
-                    '& .MuiInputLabel-root': { color: 'darkorange' }
+                    '& .MuiInputLabel-root': { color: 'darkorange', mt: '-10px' },
+                    '& .MuiFormHelperText-root.Mui-error': {
+                      color: 'darkorange'
+                    }
                   }}
                     label="Nombre"
-                    className="custom-textfield"
+                    className="custom-textfield "
                     value={form.usuario}
                     onChange={handleChange}
                     variant="standard"
                     name={data ? '' : 'usuario'}
+                    error={!!errors.usuario} helperText={errors.usuario}
                   />
+                </div>
+                <div className="w-full flex flex-col md:pr-40 mb-5">
                   <TextField sx={{
                     '& > :not(style)': { m: 1 },
                     '& .MuiInputBase-input': { color: 'darkorange' },
                     "& .MuiInput-underline:before": {
                       borderBottomColor: "darkorange",
                     },
-                    '& .MuiInputLabel-root': { color: 'darkorange' }
+                    '& .MuiInputLabel-root': { color: 'darkorange', mt: '-10px' },
+                    '& .MuiFormHelperText-root.Mui-error': {
+                      color: 'darkorange'
+                    }
                   }}
                     label="Correo"
                     className="custom-textfield"
@@ -119,16 +141,20 @@ const ContactForm = ({ open, handleClose, data }) => {
                     onChange={handleChange}
                     variant="standard"
                     name={data ? '' : 'correo'}
+                    error={!!errors.correo} helperText={errors.correo}
                   />
                 </div>
-                <div className="w-full flex justify-center">
+                <div className="w-full flex flex-col md:pr-40 mb-5">
                   <TextField sx={{
                     '& > :not(style)': { m: 1 },
                     '& .MuiInputBase-input': { color: 'darkorange' },
                     "& .MuiInput-underline:before": {
                       borderBottomColor: "darkorange",
                     },
-                    '& .MuiInputLabel-root': { color: 'darkorange' }
+                    '& .MuiInputLabel-root': { color: 'darkorange', mt: '-10px' },
+                    '& .MuiFormHelperText-root.Mui-error': {
+                      color: 'darkorange'
+                    }
                   }}
                     label="Asunto"
                     className="custom-textfield"
@@ -136,27 +162,33 @@ const ContactForm = ({ open, handleClose, data }) => {
                     onChange={handleChange}
                     variant="standard"
                     name='asunto'
+                    error={!!errors.asunto} helperText={errors.asunto}
                   />
                 </div>
-                <div className="w-full flex justify-center">
+                <div className="w-full flex flex-col">
                   <TextField sx={{
                     '& > :not(style)': { m: 1 },
                     '& .MuiInputBase-input': { color: 'darkorange' },
                     "& .MuiInput-underline:before": {
                       borderBottomColor: "darkorange",
                     },
-                    '& .MuiInputLabel-root': { color: 'darkorange' }
+                    '& .MuiInputLabel-root': { color: 'darkorange', mt: '-10px' },
+                    '& .MuiFormHelperText-root.Mui-error': {
+                      color: 'darkorange'
+                    }
                   }}
                     label="Mensaje"
                     multiline
                     rows={6}
                     rowsMax={10}
-                    style={{ width: '100%', margin: 16 }}
+                    style={{ width: '100%' }}
                     className="custom-textfield"
                     value={form.mensaje}
                     onChange={handleChange}
                     variant="standard"
                     name='mensaje'
+                    error={!!errors.mensaje} helperText={errors.mensaje}
+
                   />
                 </div>
               </div>

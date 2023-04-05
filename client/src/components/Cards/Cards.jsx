@@ -10,6 +10,7 @@ import { spinnerPurple } from './spinner';
 import { NavLanding } from "../NavLanding/NavLanding";
 import { useNavigate } from 'react-router-dom';
 import PremiumButtonComponent from "../BotonPremium/BotonPremium";
+import SpanFiltros from "../BotonPremium/SpanFiltros";
 
 import Footer from "../Footer/Footer";
 
@@ -23,8 +24,8 @@ const Cards = () => {
   const { postJobs } = useSelector((state) => state.postSlice)
   const [filters, setFilters] = useState({});
   const [title, setTitle] = useState('a');
-  const [search, setSearch] = useState(''); 
-  
+  const [search, setSearch] = useState('');
+
 
   // Filtrado  
   const queryString = new URLSearchParams(filters).toString();
@@ -32,13 +33,14 @@ const Cards = () => {
   const urlFilters = `/jobs?title=${title}&${queryString}`;
 
   const handleFilterChange = (name, value) => {
-    if(dataUserLocal?.premium){
+    if (dataUserLocal?.premium) {
       name === 'resetFilter' ?
-      setFilters({})
-      : setFilters({
-        ...filters,
-        [name]: value,
-      });}
+        setFilters({})
+        : setFilters({
+          ...filters,
+          [name]: value,
+        });
+    }
   }
 
   const { data, isLoading } = useFetch(urlFilters)
@@ -111,7 +113,7 @@ const Cards = () => {
   const filtros = JSON.parse(filtersLocalStorage); // Convertir el objeto JSON en un objeto JavaScript
 
   if (titleSearchbar && title !== 'a')//setTitle(titleSearchbar)
-  if (filtersLocalStorage && Object.keys(filtros).length !== 0 && Object.keys(filters).length === 0) setFilters(filtros) // Si hay filtros guardados los aplica
+    if (filtersLocalStorage && Object.keys(filtros).length !== 0 && Object.keys(filters).length === 0) setFilters(filtros) // Si hay filtros guardados los aplica
   if (dateFilterSelect && dateFilter) dateFilter.value = dateFilterSelect;
   if (expFilterSelect && experienceFilter) experienceFilter.value = expFilterSelect;
   if (mtyFilterSelect && modalityFilter) modalityFilter.value = mtyFilterSelect;
@@ -146,22 +148,22 @@ const Cards = () => {
   };
 
   useEffect(() => {
-    if(!dataUserLocal && !dataUserGoogle) navigate('/')
+    if (!dataUserLocal && !dataUserGoogle) navigate('/')
   }, []) // eslint-disable-line
 
-  if (isLoading) return spinnerPurple()
+  // if (isLoading) return spinnerPurple()
   const menuOffers = [
     {
       name: "Inicio",
       link: "/"
     },
   ]
-    return (
-      <>
-      <NavLanding menu={menuOffers}/>
-      
+  return (
+    <>
+      <NavLanding menu={menuOffers} />
+
       <div className="bg-primary-light dark:bg-secondary-dark pt-20">
-        
+
         {/* Muestra la Searchbar */}
         <form onSubmit={handleSearch}>
           <div className="relative mx-10 my-4">
@@ -176,10 +178,13 @@ const Cards = () => {
           titleSearchbar ? <p className="m-5 flex justify-center items-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white" > Buscando las ofertas por: {titleSearchbar} </p> : <p></p>
         }
         <div class="flex justify-center items-center">
-           <PremiumButtonComponent />
+          <PremiumButtonComponent />
         </div>
 
         {/* Muestra los filtros */}
+        <div class="flex justify-center items-center">
+          < SpanFiltros />
+        </div>
         <form className="flex flex-wrap justify-center">
           <select id="date" onChange={(e) => handleFilterChange('dt', e.target.value)} defaultValue={'DEFAULT'} disabled={!dataUserLocal?.premium} className="mx-5 py-2.5 px-0 w-50 text-l text-yellow-500 bg-transparent border-0 border-b-2 border-purple-300 appearance-none focus:outline-none focus:ring-0 focus:border-purple-600 peer">
             <option value="DEFAULT" disabled> Por Fecha: </option>
@@ -216,17 +221,19 @@ const Cards = () => {
         {/* Muestra las cards */}
         <div className="flex flex-wrap gap-3 justify-center py-6">
           {
-            getPaginatedData().map((card) => (
-              <Card key={card.id}
-                title={card.title}
-                description={card.functions}
-                id={card.id}
-                salario_minimo={card.min_salary}
-                salario_maximo={card.max_salary}
-                modality={card.modality}
-                
+            isLoading
+              ? spinnerPurple()
+              : getPaginatedData().map((card) => (
+                <Card key={card.id}
+                  title={card.title}
+                  description={card.functions}
+                  id={card.id}
+                  salario_minimo={card.min_salary}
+                  salario_maximo={card.max_salary}
+                  modality={card.modality}
+
                 />
-                ))
+              ))
           }
         </div>
         {/* Muestra el paginado */}
@@ -254,7 +261,7 @@ const Cards = () => {
         < Footer />
       </div>
     </>
-    )
+  )
 }
 
 export default Cards

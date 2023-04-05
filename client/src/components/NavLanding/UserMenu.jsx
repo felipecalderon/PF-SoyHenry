@@ -4,7 +4,6 @@ import ProfileButton from "./ProfileButton"
 import { AccountCircle } from '@mui/icons-material'
 import Dropdown from "./DropdownUser"
 import usuario from "../../assets/user.png"
-import { Box, Modal } from "@mui/material"
 import ModalBann from "./ModalBaneo"
 
 

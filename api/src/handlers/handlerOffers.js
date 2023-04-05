@@ -62,6 +62,7 @@ const getAllOffersDb = async ({ page = 1, limit = 10 }) => {
 
         return offers;
     } catch (error) {
+        console.log(error)
         throw error
     }
 };
@@ -186,14 +187,14 @@ const putOffertLD = async ({ id }, { active }) => {
 
         // Actualiza el estado
         await Offers.update(
-            { active },
+            { active: active === "true"? true : false },
             {
                 where: { id }
             }
         )
 
         // mensaje dependiendo del valor de active
-        return active === true ? 'La oferta ha sido re-activada' : 'la oferta ha sido desactivada';
+        return active === "true" ? 'La oferta ha sido re-activada' : 'la oferta ha sido desactivada';
     } catch (error) {
         throw error
     }
