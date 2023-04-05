@@ -142,7 +142,6 @@ function Configuracion({inConfig,SetInConfig}) {
     handleOpen()
     if (isErrorsEmpty) {
       const update = await axios.post("/auth/register", form)
-      console.log(update)
       window.location.reload()
       window.scrollTo(0, 0); // Llamamos a scrollTo() para desplazarnos al inicio
     }

@@ -174,7 +174,6 @@ export default function OffersCreate() {
 
 
     function handleSelect(event) {
-        console.log(event)
         if (inputs.perks.includes(event.target.value) || event.target.value === 'Seleccione') return
         setInputs({
             ...inputs,

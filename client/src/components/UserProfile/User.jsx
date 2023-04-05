@@ -19,7 +19,6 @@ function User() {
   const dataUserLocalStorage = JSON.parse(localStorage.getItem('userLogin'))
 
   const [data, SetData] = useState(dataUser);
-  console.log(data)
 
   return (
     <ul className="w-full flex flex-col justify-between items-start px-8 py-4 h-full ">

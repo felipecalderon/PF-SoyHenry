@@ -43,7 +43,6 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
     } else {
       setNotValidImage(false);
       setImageToRender(URL.createObjectURL(selectedImage));
-      console.log(imageToRender)
       setImageTosend(selectedImage)
     }
   };
@@ -52,7 +51,6 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
     setLoading(true);
     const formData = new FormData();
     formData.append("imagenes", imagetosend);
-    console.log(formData)
     axios
       .post(`/upload-photo-user/${idUser}`, formData)
       .then((response) => {
