@@ -11,10 +11,6 @@ import { ModalLogin } from '../ModalLogin/ModalLogin'
 import Testimonials from './Testimonials'
 export const menu = [
   {
-    name: "Planes",
-    link: "#"
-  },
-  {
     name: "Sobre Nosotros",
     link: "/about"
   },
@@ -112,7 +108,7 @@ function LandingPage() {
         <h2 className="pt-3 text-center mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">¡Hazte Premium para disfrutar de estos beneficios!</h2>
         <p className="pt-3 text-center mb-4 text-1x  leading-none tracking-tight text-gray-900 md:text-1xl lg:text-1xl dark:text-white">*Debes estar registrado para hacerte Premium, si ya estas registrado ve a tu perfil y hazte premium</p>
         <div className='flex flex-col items-center md:flex-row justify-center gap-6'>
-          <div className="w-full max-w-sm p-4 bg-white border border-black rounded-lg shadow p-4 sm:p-8">
+          <div className="w-full max-w-sm p-4 bg-white border border-black rounded-lg shadow sm:p-8">
             <h5 className="mb-4 text-xl font-medium text-gray-800 dark:text-gray-400">Plan Básico</h5>
             <div className="flex items-baseline text-gray-900 dark:text-">
               <span className="text-5xl tracking-tight">Free</span>
