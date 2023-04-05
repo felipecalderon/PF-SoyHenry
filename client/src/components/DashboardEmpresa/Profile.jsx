@@ -211,11 +211,11 @@ const handleSubmit = async (event) => {
           <div className='flex flex-col'>
           <div className='pt-2'>
             <Button variant="outlined" className='w-full' onClick={() => handleClickOpen()} startIcon={<Badge />}>
-            Modificar datos de empresa
+            Editar datos empresa
             </Button>
           </div>
           <div className='pt-2'>
-            <Button variant="contained" onClick={() => setOpenForm(true)} endIcon={<SendIcon />}>
+            <Button variant="contained" className='w-full' onClick={() => setOpenForm(true)} endIcon={<SendIcon />}>
             Crear oferta de empleo
             </Button>
           </div>

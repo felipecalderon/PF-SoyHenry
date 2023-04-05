@@ -48,7 +48,6 @@ const ContactForm = ({ open, handleClose, data }) => {
       })
     setErrors({ ...errors, ...validationErrors });
   };
-  console.log(errors)
 
   const handleClick = async () => {
     // bloquea el boton

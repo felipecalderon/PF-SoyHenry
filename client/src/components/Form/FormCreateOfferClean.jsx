@@ -7,9 +7,8 @@ import { Fragment } from "react";
 import { Button, Checkbox, FormControl, FormHelperText, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, Slider, TextField, TextareaAutosize } from "@mui/material";
 
 export default function FormOfferClean() {
-    const userData = JSON.parse(localStorage.getItem('userLogin'))
+    const user = JSON.parse(localStorage.getItem('userLogin'))
     const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.userRegisterSlice)
     const [showModal, setShowModal] = useState(false);
     const [technologies, setTechnologies] = useState(null)
     const [perksApi, setPerksApi] = useState([])
@@ -110,34 +109,6 @@ export default function FormOfferClean() {
         }));
     }
 
-    function controlarValoresErrors(errors, inputs) {
-        let acumulador = ''
-        let acumulador2 = false
-        for (const key in errors) {
-            acumulador += errors[key]
-        }
-        for (const key in inputs) {
-            if (inputs[key].length === 0) acumulador2 = true
-            if (key === 'min_salary' && inputs[key].length === 0) acumulador2 = false
-            if (key === 'max_salary' && inputs[key].length === 0) acumulador2 = false
-        }
-
-        if (inputs.min_salary.length && !inputs.max_salary.length) acumulador2 = true
-        if (inputs.max_salary.length && !inputs.min_salary.length) acumulador2 = true
-        if (!inputs.expiration.length) acumulador2 = true
-        if (!inputs.technologies.length) acumulador2 = true
-        if (!inputs.perks.length) acumulador2 = true
-
-
-        if (acumulador === '' && acumulador2 === false) {
-            acumulador = false
-        } else {
-            acumulador = true
-        }
-        return acumulador
-
-    }
-
     function handleSelect(event) {
         const selectedValue = event.target.value;
         setSelectedPerks(selectedValue);
@@ -195,7 +166,7 @@ export default function FormOfferClean() {
       }
 
     function precio(value) {
-        return `$${value} (USD)`;
+        return `De $${value[0]} a $${value[1]} (USD)`;
       }
     useEffect(() => {
         axios('/technologies')
@@ -372,7 +343,7 @@ export default function FormOfferClean() {
                         </FormControl>
 
                         <FormControl error={false}>
-                        <InputLabel id="salario">Espectativa salarial: {precio(salario)}</InputLabel>
+                        <InputLabel id="salario">Rango salarial: {precio(salario)}</InputLabel>
                         <Slider
                             className="mb-3"
                             id='salario'
