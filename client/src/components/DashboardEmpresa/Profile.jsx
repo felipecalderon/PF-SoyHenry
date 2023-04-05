@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {Box, Typography, CardContent, CardMedia, Rating, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Slide} from '@mui/material/';
 import {Badge} from '@mui/icons-material/';
 import SendIcon from '@mui/icons-material/Send';
-import {Link} from 'react-router-dom'
 import axios from 'axios';
 import validationsDatosEmpresa from './validationsDatosEmpresa';
 import ModalConfirmChangesCompany from './ModalConfirmChangesCompany';
@@ -14,6 +13,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import FormOfferClean from '../Form/FormCreateOfferClean';
 
   const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -21,6 +21,7 @@ import Select from '@mui/material/Select';
 
   const Profile = () => {
   const [open, setOpen] = useState(false);
+  const [openForm, setOpenForm] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [countryData, setCountryData] = useState()
   const [selectedCountry, setSelectedCountry] = useState()
@@ -181,11 +182,9 @@ const handleSubmit = async (event) => {
         <Button variant="outlined" onClick={() => handleClickOpen()} startIcon={<Badge />}>
           Modificar datos de empresa
         </Button>
-        <Link to='/offerscreate'>
-          <Button variant="contained" endIcon={<SendIcon />}>
-            Crear oferta de empleo
-          </Button>
-        </Link>
+        <Button variant="contained" onClick={() => setOpenForm(true)} endIcon={<SendIcon />}>
+          Crear oferta de empleo
+        </Button>
       </div>
       <CardContent className="flex flex-col w-3/5 justify-center">
           <Typography component="div" variant="h4" className='text-gray-900 dark:text-white'>
@@ -215,7 +214,7 @@ const handleSubmit = async (event) => {
           {/* <Rating name="ratingCompany" value={4} readOnly /> */}
         </CardContent>
       </Box>
-        <Dialog
+      <Dialog
           open={open}
           TransitionComponent={Transition}
           keepMounted
@@ -364,6 +363,19 @@ const handleSubmit = async (event) => {
               onClick={handleSubmit}>Confirmar</button>
           </div>
         </ModalConfirmChangesCompany>
+      </Dialog>
+
+      <Dialog
+          open={openForm}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={() => setOpenForm(false)}
+          aria-describedby="alert-dialog-slide-description"
+          className='flex w-auto justify-center bg-black bg-opacity-50'>
+        <DialogTitle className='bg-secondary-light dark:text-white dark:bg-primary-dark'>Crear nueva oferta de empleo</DialogTitle>
+        <DialogContent className='flex justify-center bg-primary-light bg-opacity-50'>
+          <FormOfferClean/>
+        </DialogContent>
       </Dialog>
     </div>
     )
