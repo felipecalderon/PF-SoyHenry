@@ -26,11 +26,11 @@ export const About = () => {
                 <div className="flex flex-col justify-center">
                     <h2 className="flex justify-center font-bold text-4xl pt-3 pb-6 ">Sobre nosotros</h2>
                     <div className="flex flex-col justify-center p-10 m-6 w-auto bg-secondary-light dark:bg-primary-dark rounded-3xl  border-2 border-black dark:border-white">
-                    <p className="flex justify-center pb-4 text-lg">¡Bienvenidos a <strong>Fusionajob</strong>!</p>
+                    <p className="flex justify-center pb-4 text-lg">¡Bienvenidos a <strong className="pl-1">Fusionajob</strong> !</p>
                     <p>Somos un equipo de desarrolladores apasionados por la creación de soluciones tecnológicas innovadoras para la búsqueda y posteo de trabajos <strong>IT</strong> en línea.{<br/>}{<br/>}
                     Nos enorgullece haber creado una plataforma que permite a los empleadores y candidatos interactuar, coordinar entrevistas entre otros detalles, y que ayuda a los empleadores a encontrar al candidato adecuado. Además, nuestro sitio web simplifica el proceso de búsqueda de trabajo para los candidatos, permitiéndoles crear un perfil, subir su currículum y buscar trabajos de manera fácil y eficiente.{<br/>}{<br/>}
                     Estamos comprometidos con la excelencia en la experiencia del usuario y en brindar un servicio de alta calidad. Estamos emocionados de tener la oportunidad de ayudar a las personas a encontrar trabajo y a los empleadores a encontrar el talento adecuado.</p>
-                    <p className="flex justify-center pt-4 text-lg">¡Gracias por elegir <strong>Fusionajob</strong>!</p>
+                    <p className="flex justify-center pt-4 text-lg">¡Gracias por elegir <strong className="pl-1">Fusionajob</strong> !</p>
                     </div>
                 </div>
 
