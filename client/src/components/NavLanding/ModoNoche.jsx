@@ -1,33 +1,50 @@
 import { useEffect, useState } from "react";
-import dia from '../../assets/sun.png'
-import noche from '../../assets/moon.png'
+import Switch from '@mui/material/Switch';
+
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+
 const ModoNoche = () => {
-    const localDark = JSON.parse(localStorage.getItem('isDarkMode')) || false
+    const localDark = JSON.parse(localStorage.getItem('isDarkMode')) || false;
     const [isDarkMode, setIsDarkMode] = useState(localDark);
 
-    const handleToggle = () => {
-      const newIsDarkMode = !isDarkMode;
-      setIsDarkMode(newIsDarkMode);
-      if (!newIsDarkMode) {
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('isDarkMode', 'false');
-      } else {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('isDarkMode', 'true');
-      }
+    const handleToggle = () => { 
+        const newIsDarkMode = !isDarkMode;
+        setIsDarkMode(newIsDarkMode);
+        if (!newIsDarkMode) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('isDarkMode', 'false');
+        } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('isDarkMode', 'true');
+        }
     };
 
     useEffect(() => {
-      if(localDark) document.documentElement.classList.add('dark')
-      else document.documentElement.classList.remove('dark')
-    }, [localDark])
-    
+        if (localDark) document.documentElement.classList.add('dark')
+        else document.documentElement.classList.remove('dark')
+    }, [localDark]);
+
+
     return (
-        <div onClick={handleToggle} className="cursor-pointer py-2 px-2 w-10 h-10 bg-gray-300 rounded-lg shadow-md hover:bg-gray-400 dark:hover:bg-secondary-light">{isDarkMode 
-            ? <img className="select-none w-6" src={dia} alt='dia'/>
-            : <img className="select-none w-6" src={noche} alt='noche'/>
-            }</div>
+      <Switch
+    checked={isDarkMode}
+    onChange={handleToggle}
+    color="primary"
+    inputProps={{ 'aria-label': 'toggle dark mode' }}
+    icon={<Brightness7Icon fontSize="large" sx={{ fontSize: '30px', marginTop: '-3px'}} />}
+    checkedIcon={<Brightness4Icon fontSize="large" sx={{ fontSize: '30px', marginTop: '-3px' }} />}
+    sx={{
+      '& .MuiSwitch-thumb': {
+        width: '100px',
+        height: '100px',
+      }
+    }}
+    
+/>
+
+  
     )
 }
 
-export default ModoNoche
+export default ModoNoche;
