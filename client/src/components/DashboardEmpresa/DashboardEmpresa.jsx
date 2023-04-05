@@ -26,10 +26,6 @@ export const DashboardEmpresa = () => {
 
     const menuUserProfile = [
         {
-            name: 'Inicio',
-            link: '/'
-        },
-        {
             name: 'Sobre nosotros',
             link: '/about'
         },
