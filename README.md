@@ -1,4 +1,6 @@
 # PF-SoyHenry
+![image](https://user-images.githubusercontent.com/105896417/231275417-4d59d5da-10ab-41bf-8526-2200f7d633e2.png)
+<em> Ver <a href="https://fusionajob.vercel.app/" target="_blank">Demo</a> </em>
 
 Les presento nuestro proyecto: Fusionajobs. Este es un portal de empleos que se presenta como el nexo entre empresas y trabajadores. Nuestra idea es crear una plataforma que facilite la búsqueda de trabajo y la contratación de personal.
 
