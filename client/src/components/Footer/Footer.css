@@ -33,7 +33,7 @@ article{
 .list-redes-sociales{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-between;    
 }
 .footer-section1 article ul li:hover{
     color: #c8cab4;
@@ -50,4 +50,10 @@ footer ul li{
 hr{
     color: #c8cab4;
     border: 1.5px solid;
+}
+
+@media (max-width: 768px) {
+    footer {
+        font-size: smaller;
+    }
 }
