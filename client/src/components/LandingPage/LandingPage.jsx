@@ -33,29 +33,29 @@ function LandingPage() {
           <img src={work1} alt="img_working" className="p-10" />
         </div>
         <div className="w-full sm:w-1/2 text-center sm:text-left flex flex-col justify-center">
-          <h2 className="mb-4 text-2x pr-10 font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">Encuentra tu trabajo ideal aquí</h2>
-          <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl pr-10 dark:text-gray-400">Únete ahora a nuestra plataforma y comienza a encontrar oportunidades de trabajo que se ajusten a tu perfil y habilidades.</p>
+          <h2 className="mb-4 md:pr-10 font-extrabold leading-none tracking-tight text-gray-900 text-3xl lg:text-5xl dark:text-white">Encuentra tu trabajo ideal aquí</h2>
+          <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl md:pr-10 dark:text-gray-400">Únete ahora a nuestra plataforma y comienza a encontrar oportunidades de trabajo que se ajusten a tu perfil y habilidades.</p>
           <button onClick={() => dataUserLocalStorage?.email?dataUserLocalStorage.rol==="Postulante"?navigate("/profile"):navigate("/dashboardempresa"): setOpen(!open)} 
-          type="button" className="w-full sm:w-1/3 text-gray-900 border border-gray-800 hover:bg-secondary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800">Comienza Ahora</button>
+          type="button" className="sm:w-1/3 w-10/12 mx-auto md:mx-0 text-gray-900 border border-gray-800 hover:bg-secondary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center md:mr-2 md:mb-2 dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800">Comienza Ahora</button>
           <ModalLogin isOpen={open} setOpen={setOpen} />
 
         </div>
       </section>
 
-      <section className="py-10 w-full flex flex-row flex-wrap bg-secondary-light dark:bg-primary-dark">
+      <section className="py-1 w-full flex flex-row flex-wrap bg-secondary-light dark:bg-primary-dark">
         <div className="w-full sm:w-1/2 text-center sm:text-left flex flex-col justify-center">
-          <ul className="w-full p-6 md:p-10 text-center md:text-right text-sm font-medium text-gray-900 border-gray-200 rounded-lg dark:border-gray-600 dark:text-white">
+          <ul className="w-full p-2 md:p-10 text-center md:text-right text-sm font-medium text-gray-900 border-gray-200 rounded-lg dark:border-gray-600 dark:text-white">
             <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-              <h3 className="mb-4 text-xl md:pr-10 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Ahorra tiempo y esfuerzo</h3>
-              <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl pr-10 dark:text-gray-400">Publica o busca trabajos en minutos.</p>
+              <h3 className="my-4 text-xl md:pr-10 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Ahorra tiempo y esfuerzo</h3>
+              <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl md:pr-10 dark:text-gray-400">Publica o busca trabajos en minutos.</p>
             </li>
             <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-              <h3 className="mb-4 text-xl md:pr-10 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Amplía tu alcance</h3>
-              <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl pr-10 dark:text-gray-400">Encuentra trabajos que se ajusten a tus necesidades y habilidades.</p>
+              <h3 className="my-4 text-xl md:pr-10 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Amplía tu alcance</h3>
+              <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl md:pr-10 dark:text-gray-400">Encuentra trabajos que se ajusten a tus necesidades y habilidades.</p>
             </li>
             <li className="w-full px-4 py-2 border-gray-200 rounded-t-lg dark:border-gray-600">
-              <h3 className="mb-4 text-xl md:pr-10 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Mejora tus posibilidades</h3>
-              <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl pr-10 dark:text-gray-400">Aumenta tus opciones entre una amplia variedad de trabajos.</p>
+              <h3 className="my-4 text-xl md:pr-10 font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-3xl dark:text-white">Mejora tus posibilidades</h3>
+              <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl md:pr-10 dark:text-gray-400">Aumenta tus opciones entre una amplia variedad de trabajos.</p>
             </li>
           </ul>
         </div>
@@ -66,10 +66,10 @@ function LandingPage() {
       </section>
 
       <section className="py-10 w-full flex flex-col flex-wrap bg-primary-light dark:bg-secondary-dark">
-        <h2 className="pt-3 text-center mb-4 text-2x pr-10 font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">FusionaJob</h2>
-        <p className="text-center mb-6 text-lg font-normal text-gray-500 lg:text-xl pr-10 dark:text-gray-400">La solución completa para encontrar trabajo o candidatos</p>
-        <div className="w-full flex flex-row flex-wrap justify-evenly bg-primary-light dark:bg-secondary-dark">
-          <div className="w-1/3 bg-secondary-light border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <h2 className="w-auto pt-3 text-center mb-4 text-2x md:pr-10 font-extrabold leading-none tracking-tight text-gray-900 text-3xl lg:text-5xl dark:text-white">FusionaJob</h2>
+        <p className="w-auto text-center mb-6 text-lg font-normal text-gray-500 lg:text-xl md:pr-10 dark:text-gray-400">La solución completa para encontrar trabajo o candidatos</p>
+        <div className="w-full mt-10 flex flex-col md:flex-row gap-2 flex-wrap justify-evenly bg-primary-light dark:bg-secondary-dark">
+          <div className="md:w-1/3 w-10/12 mx-auto bg-secondary-light border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <img className="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
             <div className="h-full p-5 flex flex-col flex-wrap items-center align-middle justify-center text-center">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Empresa</h5>
@@ -78,13 +78,13 @@ function LandingPage() {
                   <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">Permite a los empleadores y candidatos interactuar y coordinar entrevistas y otros detalles.</p>
                 </li>
                 <li className="w-full px-4 py-2 border-gray-200 rounded-t-lg dark:border-gray-600">
-                  <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">Ayuda a los empleadores a encontrar al candidato adecuado.</p>
+                  <p className="my-6 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">Ayuda a los empleadores a encontrar al candidato adecuado.</p>
                 </li>
               </ul>
               <button onClick={() => navigate("/companyregister")} type="button" className="w-full sm:w-1/2 text-gray-900 border border-gray-800 hover:bg-primary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800">Registrate como Empresa</button>
             </div>
           </div>
-          <div className="w-1/3 bg-secondary-light border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <div className="md:w-1/3 w-10/12 mx-auto bg-secondary-light border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <img className="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
             <div className="h-full p-5 flex flex-col flex-wrap items-center align-middle justify-center text-center">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Candidato</h5>
@@ -93,7 +93,7 @@ function LandingPage() {
                   <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">Simplifica el proceso de búsqueda de trabajo.</p>
                 </li>
                 <li className="w-full px-4 py-2 border-gray-200 rounded-t-lg dark:border-gray-600">
-                  <p className="mb-6 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">Permitirles crear un perfil, subir su currículum y buscar trabajos de manera fácil y eficiente.</p>
+                  <p className="my-6 text-lg font-normal text-gray-800 lg:text-xl dark:text-gray-400">Permitirles crear un perfil, subir su currículum y buscar trabajos de manera fácil y eficiente.</p>
                 </li>
               </ul>
               <button onClick={() => navigate("/registro")} type="button" className="w-full sm:w-1/2 text-gray-900 border border-gray-800 hover:bg-primary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800">Registrate como Candidato</button>
@@ -104,12 +104,12 @@ function LandingPage() {
 
       <Testimonials />
 
-      <section className="py-10 w-full flex flex-col justify-center flex-wrap bg-primary-light dark:bg-secondary-dark">
+      <section className="pt-1 pb-10 w-full flex flex-col justify-center flex-wrap bg-primary-light dark:bg-secondary-dark">
         <h2 className="pt-3 text-center mb-4 text-2x font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-5xl dark:text-white">¡Hazte postulante Premium y disfruta de estos beneficios!</h2>
-        <p className="pt-3 text-center mb-4 text-1x  leading-none tracking-tight text-gray-900 md:text-1xl lg:text-1xl dark:text-white">*Debes estar registrado para hacerte Premium, si ya estas registrado ve a tu perfil y hazte premium</p>
+        <p className="pt-3 text-center mb-4 text-1x  leading-none tracking-tight text-gray-900 text-xs md:text-1xl lg:text-1xl dark:text-white">*Debes estar registrado para hacerte Premium, si ya estas registrado ve a tu perfil y hazte premium</p>
         <button onClick={() => dataUserLocalStorage?.email?dataUserLocalStorage.rol==="Postulante"?navigate("/profile"):navigate("/dashboardempresa"): setOpen(!open)} 
-        type="button" className="w-full sm:w-1/3 mx-auto my-4 text-gray-900 border border-gray-800 hover:bg-secondary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800">Comienza Ahora</button>
-        <div className='flex flex-col items-center md:flex-row justify-center gap-6'>
+        type="button" className="w-10/12 sm:w-1/3 mx-auto my-4 text-gray-900 border border-gray-800 hover:bg-secondary-light focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-base px-5 py-2.5 text-center dark:border-white dark:text-gray-100 dark:hover:text-white dark:hover:bg-primary-dark dark:focus:ring-gray-800">Comienza Ahora</button>
+        <div className='flex flex-col pt-4 items-center md:flex-row justify-center gap-6'>
           <div className="w-full max-w-sm p-4 bg-white border border-black rounded-lg shadow sm:p-8">
             <h5 className="mb-4 text-xl font-medium text-gray-800 dark:text-gray-400">Plan Básico</h5>
             <div className="flex items-baseline text-gray-900 dark:text-">
